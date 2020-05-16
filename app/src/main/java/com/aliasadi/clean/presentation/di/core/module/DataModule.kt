@@ -5,7 +5,7 @@ import com.aliasadi.clean.data.db.MovieDao
 import com.aliasadi.clean.data.repository.movie.*
 import com.aliasadi.clean.domain.repository.MovieRepository
 import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
-import com.aliasadi.clean.domain.util.DiskExecutor
+import com.aliasadi.clean.data.util.DiskExecutor
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

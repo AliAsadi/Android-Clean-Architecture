@@ -1,7 +1,7 @@
 package com.aliasadi.clean.presentation.di.core.module
 
 import android.content.Context
-import com.aliasadi.clean.domain.util.DiskExecutor
+import com.aliasadi.clean.data.util.DiskExecutor
 import dagger.Module
 import dagger.Provides
 import com.aliasadi.clean.presentation.util.DispatchersProvider

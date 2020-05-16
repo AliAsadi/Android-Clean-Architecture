@@ -2,7 +2,7 @@ package com.aliasadi.clean.data.repository.movie
 
 import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.data.db.MovieDao
-import com.aliasadi.clean.domain.util.DiskExecutor
+import com.aliasadi.clean.data.util.DiskExecutor
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.data.exception.DataNotAvailableException
 
