@@ -2,9 +2,16 @@
 
 ### A basic sample android application to understand Clean Architecture in a very simple way and is written in Kotlin. Just clone, build, run and understand.
 
+# Architecture
 <p align="center">
 <img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/architecture0.png">
 </p>
+
+# Structure
+<p align="center">
+<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/structure.png">
+</p>
+
 
 # Screenshot
 <p align="center">
