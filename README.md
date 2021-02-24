@@ -9,11 +9,11 @@
 
 # Structure
 <p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/structure.png">
+<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/structure0.png">
 </p>
 
 
-# Screenshot
+### Screenshot
 <p align="center">
 <img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen1.png" height="600" width="300">
 <img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen2.png" height="600" width="300">
