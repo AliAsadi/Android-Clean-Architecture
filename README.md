@@ -1,4 +1,4 @@
-# MovieCleanArchitecture
+# Android Clean Architecture
 
 ### A basic sample android application to understand Clean Architecture in a very simple way and is written in Kotlin. Just clone, build, run and understand.
 
