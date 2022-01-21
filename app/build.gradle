@@ -56,7 +56,7 @@ dependencies {
     kapt 'android.arch.persistence.room:compiler:1.1.1'
 
     //PowerPreference
-    implementation 'com.aliassadi:power-preference-lib:1.4.1'
+    implementation 'com.github.AliAsadi:PowerPreference:2.1.0'
 
     //Dagger
     kapt "com.google.dagger:dagger-compiler:2.23.1"
