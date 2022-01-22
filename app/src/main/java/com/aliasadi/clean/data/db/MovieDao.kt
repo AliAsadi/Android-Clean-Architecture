@@ -23,7 +23,7 @@ interface MovieDao {
      * Insert all movies.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveMovies(movies: List<Movie?>?)
+    fun saveMovies(movies: List<Movie>)
 
     /**
      * Delete all movies.
