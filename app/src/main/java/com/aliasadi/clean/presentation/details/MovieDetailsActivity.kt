@@ -1,9 +1,10 @@
 package com.aliasadi.clean.presentation.details
 
-import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.aliasadi.clean.R
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.presentation.base.BaseActivity
@@ -22,7 +23,7 @@ class MovieDetailsActivity : BaseActivity<MovieDetailsViewModel>(R.layout.activi
     override fun createViewModel(): MovieDetailsViewModel {
         val movie: Movie? = intent.getParcelableExtra(EXTRA_MOVIE)
         factory.movie = movie
-        return ViewModelProviders.of(this, factory).get(MovieDetailsViewModel::class.java)
+        return ViewModelProvider(this, factory).get()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

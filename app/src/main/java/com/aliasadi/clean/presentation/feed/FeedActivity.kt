@@ -1,9 +1,10 @@
 package com.aliasadi.clean.presentation.feed
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import com.aliasadi.clean.R
 import com.aliasadi.clean.presentation.base.BaseActivity
 import com.aliasadi.clean.presentation.details.MovieDetailsActivity
@@ -21,7 +22,7 @@ class FeedActivity : BaseActivity<FeedViewModel>(R.layout.activity_feed) {
     private var movieAdapter = MovieAdapter()
 
     override fun createViewModel(): FeedViewModel {
-        return ViewModelProviders.of(this, factory).get(FeedViewModel::class.java)
+        return ViewModelProvider(this, factory).get()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
