@@ -29,7 +29,7 @@ class FeedViewModel internal constructor(
     private fun getMovies() {
         showLoadingLiveData.postValue(Unit)
 
-        execute {
+        launchOnIO {
             when (val result = getMoviesUseCase.execute()) {
                 is Result.Success -> {
                     hideLoadingLiveData.postValue(Unit)
