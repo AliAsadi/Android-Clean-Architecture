@@ -16,7 +16,7 @@ import javax.inject.Inject
 class FeedActivity : BaseActivity<FeedViewModel>(R.layout.activity_feed) {
 
     @Inject
-    lateinit var factory: FeedViewModelFactory
+    lateinit var factory: FeedViewModel.Factory
 
     private var movieAdapter = MovieAdapter()
 

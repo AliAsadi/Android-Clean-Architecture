@@ -1,7 +1,7 @@
 package com.aliasadi.clean.presentation.di.feed
 
 import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
-import com.aliasadi.clean.presentation.feed.FeedViewModelFactory
+import com.aliasadi.clean.presentation.feed.FeedViewModel
 import dagger.Module
 import dagger.Provides
 import com.aliasadi.clean.presentation.util.DispatchersProvider
@@ -13,8 +13,8 @@ import com.aliasadi.clean.presentation.util.DispatchersProvider
 class FeedModule {
 
     @Provides
-    fun provideFeedViewModelFactory(getMoviesUseCase: GetMoviesUseCase, dispatchersProvider: DispatchersProvider): FeedViewModelFactory {
-        return FeedViewModelFactory(getMoviesUseCase, dispatchersProvider)
+    fun provideFeedViewModelFactory(getMoviesUseCase: GetMoviesUseCase, dispatchersProvider: DispatchersProvider): FeedViewModel.Factory {
+        return FeedViewModel.Factory(getMoviesUseCase, dispatchersProvider)
     }
 
 }

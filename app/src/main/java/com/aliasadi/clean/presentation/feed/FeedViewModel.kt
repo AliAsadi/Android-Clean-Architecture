@@ -2,6 +2,8 @@ package com.aliasadi.clean.presentation.feed
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
@@ -54,4 +56,12 @@ class FeedViewModel internal constructor(
     fun getShowErrorLiveData(): LiveData<String> = showErrorLiveData
     fun getNavigateToMovieDetails(): LiveData<Movie> = navigateToMovieDetails
 
+    class Factory(
+            private val getMoviesUseCase: GetMoviesUseCase,
+            private val dispatchers: DispatchersProvider
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return FeedViewModel(getMoviesUseCase, dispatchers) as T
+        }
+    }
 }
