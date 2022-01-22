@@ -1,35 +1,26 @@
 package com.aliasadi.clean.domain.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import android.os.Parcel
-import android.os.Parcelable
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
 @Entity(tableName = "movies")
 data class Movie(
-        @PrimaryKey(autoGenerate = false)
-        @SerializedName("id")
+        @PrimaryKey
         @ColumnInfo(name = "id")
         val id: Int,
 
-        @Expose
-        @SerializedName("description")
         @ColumnInfo(name = "description")
         val description: String,
 
-        @Expose
-        @SerializedName("image")
         @ColumnInfo(name = "image")
         val image: String,
 
-        @Expose
-        @SerializedName("title")
         @ColumnInfo(name = "title")
         val title: String
 ) : Parcelable {
