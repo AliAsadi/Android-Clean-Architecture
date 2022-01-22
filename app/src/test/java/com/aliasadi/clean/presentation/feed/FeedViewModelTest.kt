@@ -1,6 +1,6 @@
 package com.aliasadi.clean.presentation.feed
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
 import com.aliasadi.clean.domain.util.Result

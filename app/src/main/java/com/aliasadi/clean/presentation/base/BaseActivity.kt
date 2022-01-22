@@ -1,10 +1,10 @@
 package com.aliasadi.clean.presentation.base
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import com.aliasadi.clean.presentation.di.DaggerInjector
 
 /**

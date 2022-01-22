@@ -1,7 +1,7 @@
 package com.aliasadi.clean.data.db
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.aliasadi.clean.domain.model.Movie
 
 /**

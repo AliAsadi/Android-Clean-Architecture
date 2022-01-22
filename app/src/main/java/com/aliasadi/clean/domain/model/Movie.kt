@@ -1,8 +1,8 @@
 package com.aliasadi.clean.domain.model
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
@@ -33,11 +33,13 @@ data class Movie(
         @ColumnInfo(name = "title")
         val title: String
 ) : Parcelable {
+
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readString())
+            parcel.readString() ?: "",
+            parcel.readString() ?: "",
+            parcel.readString() ?: ""
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)

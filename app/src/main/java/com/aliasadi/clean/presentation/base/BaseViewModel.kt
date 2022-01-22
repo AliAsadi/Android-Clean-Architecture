@@ -1,6 +1,6 @@
 package com.aliasadi.clean.presentation.base
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import kotlin.coroutines.CoroutineContext

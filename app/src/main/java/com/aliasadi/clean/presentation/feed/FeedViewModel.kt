@@ -1,7 +1,7 @@
 package com.aliasadi.clean.presentation.feed
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.usecase.GetMoviesUseCase

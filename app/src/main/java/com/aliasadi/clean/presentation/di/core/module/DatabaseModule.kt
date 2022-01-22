@@ -1,6 +1,6 @@
 package com.aliasadi.clean.presentation.di.core.module
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import com.aliasadi.clean.data.db.MovieDao
 import com.aliasadi.clean.data.db.MovieDatabase

@@ -1,6 +1,6 @@
 package com.aliasadi.clean.presentation.base
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aliasadi.clean.presentation.util.rules.CoroutineTestRule
 import org.junit.Rule
 import org.mockito.Mockito

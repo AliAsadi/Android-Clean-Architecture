@@ -1,6 +1,6 @@
 package com.aliasadi.clean.presentation.details
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import org.junit.Before
