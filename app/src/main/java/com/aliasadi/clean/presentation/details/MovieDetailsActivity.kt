@@ -44,7 +44,7 @@ class MovieDetailsActivity : BaseActivity<MovieDetailsViewModel>(R.layout.activi
 
     companion object {
         private const val EXTRA_MOVIE = "EXTRA_MOVIE"
-        fun start(context: Context, movie: Movie?) {
+        fun start(context: Context, movie: Movie) {
             val starter = Intent(context, MovieDetailsActivity::class.java)
             starter.putExtra(EXTRA_MOVIE, movie)
             context.startActivity(starter)
