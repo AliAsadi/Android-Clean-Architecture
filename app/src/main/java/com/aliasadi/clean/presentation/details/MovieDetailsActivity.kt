@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MovieDetailsActivity : BaseActivity<MovieDetailsViewModel>(R.layout.activity_details) {
 
     @Inject
-    lateinit var factory: MovieDetailsViewModelFactory
+    lateinit var factory: MovieDetailsViewModel.Factory
 
     override fun createViewModel(): MovieDetailsViewModel {
         val movie: Movie? = intent.getParcelableExtra(EXTRA_MOVIE)

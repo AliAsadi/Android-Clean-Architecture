@@ -1,6 +1,6 @@
 package com.aliasadi.clean.presentation.di.details
 
-import com.aliasadi.clean.presentation.details.MovieDetailsViewModelFactory
+import com.aliasadi.clean.presentation.details.MovieDetailsViewModel
 import dagger.Module
 import dagger.Provides
 import com.aliasadi.clean.presentation.util.DispatchersProvider
@@ -12,7 +12,7 @@ import com.aliasadi.clean.presentation.util.DispatchersProvider
 class MovieDetailsModule {
 
     @Provides
-    fun provideMovieDetailsViewModelFactory(dispatchersProvider: DispatchersProvider): MovieDetailsViewModelFactory {
-        return MovieDetailsViewModelFactory(dispatchersProvider)
+    fun provideMovieDetailsViewModelFactory(dispatchersProvider: DispatchersProvider): MovieDetailsViewModel.Factory {
+        return MovieDetailsViewModel.Factory(dispatchersProvider)
     }
 }
