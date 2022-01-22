@@ -11,18 +11,10 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "movies")
 data class Movie(
-        @PrimaryKey
-        @ColumnInfo(name = "id")
-        val id: Int,
-
-        @ColumnInfo(name = "description")
-        val description: String,
-
-        @ColumnInfo(name = "image")
-        val image: String,
-
-        @ColumnInfo(name = "title")
-        val title: String
+        @PrimaryKey @ColumnInfo(name = "id") val id: Int,
+        @ColumnInfo(name = "description") val description: String,
+        @ColumnInfo(name = "image") val image: String,
+        @ColumnInfo(name = "title") val title: String
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
