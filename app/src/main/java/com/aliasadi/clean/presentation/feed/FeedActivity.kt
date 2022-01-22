@@ -38,8 +38,8 @@ class FeedActivity : BaseActivity<FeedViewModel>(R.layout.activity_feed) {
     }
 
     private fun setupViewListeners() {
-        network.setOnClickListener {
-            viewModel.loadMovies()
+        loadButton.setOnClickListener {
+            viewModel.onLoadButtonClicked()
         }
 
         movieAdapter.setMovieClickListener { movie ->

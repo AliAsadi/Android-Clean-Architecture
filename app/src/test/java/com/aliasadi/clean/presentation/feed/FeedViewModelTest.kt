@@ -44,7 +44,7 @@ class FeedViewModelTest : BaseViewModelTest() {
 
             Mockito.`when`(getMoviesUseCase.execute()).thenReturn(Result.Success(mock()))
 
-            viewModel.loadMovies()
+            viewModel.onLoadButtonClicked()
 
             val inOrder = Mockito.inOrder(showLoadingObs, hideLoadingObs, movieObs)
 
@@ -70,7 +70,7 @@ class FeedViewModelTest : BaseViewModelTest() {
 
             Mockito.`when`(getMoviesUseCase.execute()).thenReturn(Result.Error(mock()))
 
-            viewModel.loadMovies()
+            viewModel.onLoadButtonClicked()
 
             val inOrder = Mockito.inOrder(showLoadingObs, hideLoadingObs, errorObs)
 
@@ -90,7 +90,7 @@ class FeedViewModelTest : BaseViewModelTest() {
             viewModel.getShowLoadingLiveData().observeForever(showLoadingObs)
 
 
-            viewModel.loadMovies()
+            viewModel.onLoadButtonClicked()
 
             Mockito.verify(showLoadingObs).onChanged(Unit)
         }

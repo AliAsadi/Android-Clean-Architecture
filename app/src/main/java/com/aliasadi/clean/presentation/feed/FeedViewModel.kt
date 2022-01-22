@@ -13,8 +13,8 @@ import com.aliasadi.clean.presentation.util.DispatchersProvider
  */
 class FeedViewModel internal constructor(
         private val getMoviesUseCase: GetMoviesUseCase,
-        dispatchers: DispatchersProvider)
-    : BaseViewModel(dispatchers) {
+        dispatchers: DispatchersProvider
+) : BaseViewModel(dispatchers) {
 
     private val moviesLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
     private val showLoadingLiveData: MutableLiveData<Unit> = MutableLiveData()
@@ -22,8 +22,12 @@ class FeedViewModel internal constructor(
     private val showErrorLiveData: MutableLiveData<String> = MutableLiveData()
     private val navigateToMovieDetails: MutableLiveData<Movie> = MutableLiveData()
 
-    fun loadMovies() {
+    fun onLoadButtonClicked() {
         getMovies()
+    }
+
+    fun onMovieClicked(movie: Movie) {
+        navigateToMovieDetails.postValue(movie)
     }
 
     private fun getMovies() {
@@ -42,10 +46,6 @@ class FeedViewModel internal constructor(
                 }
             }
         }
-    }
-
-    fun onMovieClicked(movie: Movie) {
-        navigateToMovieDetails.postValue(movie)
     }
 
     fun getMoviesLiveData(): LiveData<List<Movie>> = moviesLiveData

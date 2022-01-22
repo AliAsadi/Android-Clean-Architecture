@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/network"
+        app:layout_constraintTop_toBottomOf="@id/loadButton"
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/item_movie" />
 
@@ -27,10 +27,10 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/network" />
+        app:layout_constraintTop_toBottomOf="@id/loadButton" />
 
     <Button
-        android:id="@+id/network"
+        android:id="@+id/loadButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
