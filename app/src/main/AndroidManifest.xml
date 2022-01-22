@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
 
-        <activity android:name=".presentation.feed.FeedActivity">
+        <activity android:name=".presentation.feed.FeedActivity"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

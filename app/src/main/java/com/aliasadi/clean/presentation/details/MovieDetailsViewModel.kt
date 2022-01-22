@@ -30,7 +30,7 @@ class MovieDetailsViewModel internal constructor(
 
         var movie: Movie? = null
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MovieDetailsViewModel(movie, dispatchers) as T
         }
     }

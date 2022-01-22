@@ -13,7 +13,7 @@ class FeedViewModelFactory(
         private val dispatchers: DispatchersProvider
 ) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return FeedViewModel(getMoviesUseCase, dispatchers) as T
     }
 
