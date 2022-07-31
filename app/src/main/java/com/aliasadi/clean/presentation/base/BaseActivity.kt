@@ -11,7 +11,7 @@ import com.aliasadi.clean.presentation.di.DaggerInjector
  * Created by Ali Asadi on 13/05/2020
  */
 abstract class BaseActivity<VM : BaseViewModel>(
-        @LayoutRes private val resId: Int
+    @LayoutRes private val resId: Int
 ) : AppCompatActivity() {
 
     protected val daggerInjector: DaggerInjector by lazy { application as DaggerInjector }

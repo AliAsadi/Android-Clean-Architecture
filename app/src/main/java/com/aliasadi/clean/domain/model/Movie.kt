@@ -11,38 +11,32 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "movies")
 data class Movie(
-        @PrimaryKey @ColumnInfo(name = "id") val id: Int,
-        @ColumnInfo(name = "description") val description: String,
-        @ColumnInfo(name = "image") val image: String,
-        @ColumnInfo(name = "title") val title: String
+    @PrimaryKey
+    val id: Int,
+    val description: String,
+    val image: String,
+    val title: String
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
-            parcel.readInt(),
-            parcel.readString() ?: "",
-            parcel.readString() ?: "",
-            parcel.readString() ?: ""
+        parcel.readInt(),
+        parcel.readString() ?: "",
+        parcel.readString() ?: "",
+        parcel.readString() ?: ""
     )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
-        parcel.writeString(description)
-        parcel.writeString(image)
-        parcel.writeString(title)
+    override fun writeToParcel(parcel: Parcel, flags: Int) = with(parcel) {
+        writeInt(id)
+        writeString(description)
+        writeString(image)
+        writeString(title)
     }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+    override fun describeContents(): Int = 0
 
     companion object CREATOR : Parcelable.Creator<Movie> {
-        override fun createFromParcel(parcel: Parcel): Movie {
-            return Movie(parcel)
-        }
-
-        override fun newArray(size: Int): Array<Movie?> {
-            return arrayOfNulls(size)
-        }
+        override fun createFromParcel(parcel: Parcel): Movie = Movie(parcel)
+        override fun newArray(size: Int): Array<Movie?> = arrayOfNulls(size)
     }
 
 }

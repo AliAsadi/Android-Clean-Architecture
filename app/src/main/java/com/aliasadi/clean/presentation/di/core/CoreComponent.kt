@@ -15,12 +15,14 @@ import javax.inject.Singleton
  * Created by Ali Asadi on 15/05/2020
  **/
 @Singleton
-@Component(modules = [
-    AppModule::class,
-    NetworkModule::class,
-    DatabaseModule::class,
-    DataModule::class
-])
+@Component(
+    modules = [
+        AppModule::class,
+        NetworkModule::class,
+        DatabaseModule::class,
+        DataModule::class
+    ]
+)
 
 interface CoreComponent {
     fun plus(movieDetailsModule: MovieDetailsModule): MovieDetailsSubComponent

@@ -6,6 +6,7 @@ import com.aliasadi.clean.data.repository.movie.*
 import com.aliasadi.clean.domain.repository.MovieRepository
 import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
 import com.aliasadi.clean.data.util.DiskExecutor
+import com.aliasadi.clean.presentation.util.DispatchersProvider
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -18,16 +19,18 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideMovieRepository(movieRemote: MovieDataSource.Remote,
-                               movieLocal: MovieDataSource.Local,
-                               movieCache: MovieDataSource.Cache): MovieRepository {
+    fun provideMovieRepository(
+        movieRemote: MovieDataSource.Remote,
+        movieLocal: MovieDataSource.Local,
+        movieCache: MovieDataSource.Cache
+    ): MovieRepository {
         return MovieRepositoryImpl(movieRemote, movieLocal, movieCache)
     }
 
     @Provides
     @Singleton
     fun provideMovieLocalDataSource(
-            executor: DiskExecutor, movieDao: MovieDao
+        executor: DiskExecutor, movieDao: MovieDao
     ): MovieDataSource.Local {
         return MovieLocalDataSource(executor, movieDao)
     }
@@ -46,7 +49,7 @@ class DataModule {
     }
 
     @Provides
-    fun provideGetMovieUseCase(movieRepository: MovieRepository): GetMoviesUseCase {
-        return GetMoviesUseCase(movieRepository)
+    fun provideGetMovieUseCase(movieRepository: MovieRepository, dispatchers: DispatchersProvider): GetMoviesUseCase {
+        return GetMoviesUseCase(movieRepository, dispatchers)
     }
 }

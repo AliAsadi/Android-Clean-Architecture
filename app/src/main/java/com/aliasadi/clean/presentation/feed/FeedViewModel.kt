@@ -14,14 +14,14 @@ import com.aliasadi.clean.presentation.util.DispatchersProvider
  * Created by Ali Asadi on 13/05/2020
  */
 class FeedViewModel internal constructor(
-        private val getMoviesUseCase: GetMoviesUseCase,
-        dispatchers: DispatchersProvider
+    private val getMoviesUseCase: GetMoviesUseCase,
+    dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    private val moviesLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
-    private val showLoadingLiveData: MutableLiveData<Unit> = MutableLiveData()
-    private val hideLoadingLiveData: MutableLiveData<Unit> = MutableLiveData()
-    private val showErrorLiveData: MutableLiveData<String> = MutableLiveData()
+    private val movies: MutableLiveData<List<Movie>> = MutableLiveData()
+    private val showLoading: MutableLiveData<Unit> = MutableLiveData()
+    private val hideLoading: MutableLiveData<Unit> = MutableLiveData()
+    private val showError: MutableLiveData<String> = MutableLiveData()
     private val navigateToMovieDetails: MutableLiveData<Movie> = MutableLiveData()
 
     fun onLoadButtonClicked() {
@@ -32,33 +32,32 @@ class FeedViewModel internal constructor(
         navigateToMovieDetails.postValue(movie)
     }
 
-    private fun getMovies() {
-        showLoadingLiveData.postValue(Unit)
+    private fun getMovies() = launchOnMainImmediate {
+        showLoading.value = Unit
 
-        launchOnIO {
-            when (val result = getMoviesUseCase.execute()) {
-                is Result.Success -> {
-                    hideLoadingLiveData.postValue(Unit)
-                    moviesLiveData.postValue(result.data)
-                }
+        when (val result = getMoviesUseCase.getMovies()) {
+            is Result.Success -> {
+                hideLoading.value = Unit
+                movies.value = (result.data)
+            }
 
-                is Result.Error -> {
-                    hideLoadingLiveData.postValue(Unit)
-                    showErrorLiveData.postValue(result.error.message)
-                }
+            is Result.Error -> {
+                hideLoading.value = Unit
+                showError.value = result.error.message
             }
         }
     }
 
-    fun getMoviesLiveData(): LiveData<List<Movie>> = moviesLiveData
-    fun getShowLoadingLiveData(): LiveData<Unit> = showLoadingLiveData
-    fun getHideLoadingLiveData(): LiveData<Unit> = hideLoadingLiveData
-    fun getShowErrorLiveData(): LiveData<String> = showErrorLiveData
+
+    fun getMoviesLiveData(): LiveData<List<Movie>> = movies
+    fun getShowLoadingLiveData(): LiveData<Unit> = showLoading
+    fun getHideLoadingLiveData(): LiveData<Unit> = hideLoading
+    fun getShowErrorLiveData(): LiveData<String> = showError
     fun getNavigateToMovieDetails(): LiveData<Movie> = navigateToMovieDetails
 
     class Factory(
-            private val getMoviesUseCase: GetMoviesUseCase,
-            private val dispatchers: DispatchersProvider
+        private val getMoviesUseCase: GetMoviesUseCase,
+        private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return FeedViewModel(getMoviesUseCase, dispatchers) as T

@@ -9,7 +9,9 @@ import java.lang.Exception
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class MovieRemoteDataSource(private val movieApi: MovieApi) : MovieDataSource.Remote {
+class MovieRemoteDataSource(
+    private val movieApi: MovieApi
+) : MovieDataSource.Remote {
 
     override suspend fun getMovies(): Result<List<Movie>> {
         return try {

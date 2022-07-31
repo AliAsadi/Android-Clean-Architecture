@@ -18,10 +18,10 @@ class NetworkModule(private val baseUrl: String) {
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-                .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(baseUrl)
-                .build()
+            .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(baseUrl)
+            .build()
     }
 
     @Singleton

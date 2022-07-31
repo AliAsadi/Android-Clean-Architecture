@@ -10,9 +10,9 @@ import com.aliasadi.clean.data.exception.DataNotAvailableException
  * Created by Ali Asadi on 13/05/2020
  */
 class MovieLocalDataSource(
-        private val executor: DiskExecutor,
-        private val movieDao: MovieDao)
-    : MovieDataSource.Local {
+    private val executor: DiskExecutor,
+    private val movieDao: MovieDao
+) : MovieDataSource.Local {
 
     override suspend fun getMovies(): Result<List<Movie>> {
         val movies = movieDao.getMovies()

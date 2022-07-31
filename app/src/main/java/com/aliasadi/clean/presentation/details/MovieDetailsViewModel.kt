@@ -12,8 +12,8 @@ import com.aliasadi.clean.presentation.util.DispatchersProvider
  * Created by Ali Asadi on 13/05/2020
  */
 class MovieDetailsViewModel internal constructor(
-        private val movie: Movie?,
-        dispatchers: DispatchersProvider
+    private val movie: Movie?,
+    dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
     private val movieLiveData = MutableLiveData<Movie>()
@@ -25,7 +25,7 @@ class MovieDetailsViewModel internal constructor(
     fun getMovieLiveData(): LiveData<Movie> = movieLiveData
 
     class Factory(
-            private val dispatchers: DispatchersProvider
+        private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
 
         var movie: Movie? = null

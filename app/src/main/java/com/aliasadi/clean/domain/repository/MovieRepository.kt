@@ -7,5 +7,5 @@ import com.aliasadi.clean.domain.model.Movie
  * Created by Ali Asadi on 13/05/2020
  */
 interface MovieRepository {
-     suspend fun getMovies(): Result<List<Movie>>
+    suspend fun getMovies(): Result<List<Movie>>
 }

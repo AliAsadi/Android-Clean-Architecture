@@ -8,13 +8,11 @@ import com.aliasadi.clean.domain.model.Movie
  **/
 object MovieMapper {
 
-    fun toDomain(movieRemote: MovieRemote): Movie {
-        return Movie(
-                id = movieRemote.id,
-                image = movieRemote.image,
-                description = movieRemote.description,
-                title = movieRemote.title
-        )
-    }
-
+    fun toDomain(movieRemote: MovieRemote): Movie = Movie(
+        id = movieRemote.id,
+        image = movieRemote.image,
+        description = movieRemote.description,
+        title = movieRemote.title
+    )
+    
 }
