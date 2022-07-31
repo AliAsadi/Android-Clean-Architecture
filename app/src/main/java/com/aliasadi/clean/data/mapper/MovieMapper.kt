@@ -1,6 +1,6 @@
 package com.aliasadi.clean.data.mapper
 
-import com.aliasadi.clean.data.model.MovieRemote
+import com.aliasadi.clean.data.model.MovieData
 import com.aliasadi.clean.domain.model.Movie
 
 /**
@@ -8,11 +8,11 @@ import com.aliasadi.clean.domain.model.Movie
  **/
 object MovieMapper {
 
-    fun toDomain(movieRemote: MovieRemote): Movie = Movie(
-        id = movieRemote.id,
-        image = movieRemote.image,
-        description = movieRemote.description,
-        title = movieRemote.title
+    fun toDomain(movieData: MovieData): Movie = Movie(
+        id = movieData.id,
+        image = movieData.image,
+        description = movieData.description,
+        title = movieData.title
     )
     
 }

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-data class MovieRemote(
+data class MovieData(
     @SerializedName("id")
     val id: Int,
 
