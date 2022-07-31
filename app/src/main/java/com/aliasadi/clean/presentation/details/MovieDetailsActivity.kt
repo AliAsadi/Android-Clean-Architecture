@@ -3,26 +3,27 @@ package com.aliasadi.clean.presentation.details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.aliasadi.clean.R
+import com.aliasadi.clean.databinding.ActivityDetailsBinding
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.presentation.base.BaseActivity
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class MovieDetailsActivity : BaseActivity<MovieDetailsViewModel>(R.layout.activity_details) {
+class MovieDetailsActivity : BaseActivity<ActivityDetailsBinding, MovieDetailsViewModel>() {
 
     @Inject
     lateinit var factory: MovieDetailsViewModel.Factory
 
+    override fun inflateViewBinding(inflater: LayoutInflater): ActivityDetailsBinding = ActivityDetailsBinding.inflate(inflater)
+
     override fun createViewModel(): MovieDetailsViewModel {
-        val movie: Movie? = intent.getParcelableExtra(EXTRA_MOVIE)
-        factory.movie = movie
+        factory.movie = intent.getParcelableExtra(EXTRA_MOVIE)
         return ViewModelProvider(this, factory).get()
     }
 
@@ -36,9 +37,9 @@ class MovieDetailsActivity : BaseActivity<MovieDetailsViewModel>(R.layout.activi
 
     private fun observeViewModel() {
         viewModel.getMovieLiveData().observe { movie ->
-            movieTitle.text = movie.title
-            description.text = movie.description
-            Glide.with(applicationContext).load(movie.image).into(image)
+            binding.movieTitle.text = movie.title
+            binding.description.text = movie.description
+            Glide.with(this).load(movie.image).into(binding.image)
         }
     }
 

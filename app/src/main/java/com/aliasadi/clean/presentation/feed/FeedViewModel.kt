@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
+import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.presentation.base.BaseViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 
@@ -29,7 +29,7 @@ class FeedViewModel internal constructor(
     }
 
     fun onMovieClicked(movie: Movie) {
-        navigateToMovieDetails.postValue(movie)
+        navigateToMovieDetails.value = movie
     }
 
     private fun getMovies() = launchOnMainImmediate {

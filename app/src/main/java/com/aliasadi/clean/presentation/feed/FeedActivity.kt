@@ -1,25 +1,27 @@
 package com.aliasadi.clean.presentation.feed
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.aliasadi.clean.R
+import com.aliasadi.clean.databinding.ActivityFeedBinding
 import com.aliasadi.clean.presentation.base.BaseActivity
 import com.aliasadi.clean.presentation.details.MovieDetailsActivity
-import kotlinx.android.synthetic.main.activity_feed.*
 import javax.inject.Inject
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class FeedActivity : BaseActivity<FeedViewModel>(R.layout.activity_feed) {
+class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
 
     @Inject
     lateinit var factory: FeedViewModel.Factory
 
-    private val movieAdapter by lazy { MovieAdapter() }
+    private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked) }
+
+    override fun inflateViewBinding(inflater: LayoutInflater): ActivityFeedBinding = ActivityFeedBinding.inflate(inflater)
 
     override fun createViewModel(): FeedViewModel = ViewModelProvider(this, factory).get()
 
@@ -33,26 +35,22 @@ class FeedActivity : BaseActivity<FeedViewModel>(R.layout.activity_feed) {
     }
 
     private fun init() {
-        recyclerView.adapter = movieAdapter
+        binding.recyclerView.adapter = movieAdapter
     }
 
     private fun setupViewListeners() {
-        loadButton.setOnClickListener {
+        binding.loadButton.setOnClickListener {
             viewModel.onLoadButtonClicked()
-        }
-
-        movieAdapter.setMovieClickListener { movie ->
-            viewModel.onMovieClicked(movie)
         }
     }
 
     private fun observeViewModel() {
         viewModel.getHideLoadingLiveData().observe {
-            progressBar.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
         }
 
         viewModel.getShowLoadingLiveData().observe {
-            progressBar.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
         }
 
         viewModel.getMoviesLiveData().observe { movies ->
