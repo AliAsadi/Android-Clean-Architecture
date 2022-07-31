@@ -35,11 +35,11 @@ class MovieDetailsActivity : BaseActivity<ActivityDetailsBinding, MovieDetailsVi
         observeViewModel()
     }
 
-    private fun observeViewModel() {
-        viewModel.getMovieLiveData().observe { movie ->
+    private fun observeViewModel() = with(viewModel) {
+        getMovieLiveData().observe { movie ->
             binding.movieTitle.text = movie.title
             binding.description.text = movie.description
-            Glide.with(this).load(movie.image).into(binding.image)
+            Glide.with(baseContext).load(movie.image).into(binding.image)
         }
     }
 
