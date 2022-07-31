@@ -8,6 +8,6 @@ import retrofit2.http.GET
  * Created by Ali Asadi on 13/05/2020
  */
 interface MovieApi {
-    @GET("movies/")
+    @GET("/movies")
     fun getMovies(): Deferred<MovieResponse>
 }
