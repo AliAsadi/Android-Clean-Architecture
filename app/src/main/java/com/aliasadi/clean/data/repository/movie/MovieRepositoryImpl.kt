@@ -1,9 +1,9 @@
 package com.aliasadi.clean.data.repository.movie
 
 import android.util.Log
-import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.repository.MovieRepository
+import com.aliasadi.clean.domain.util.Result
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -16,6 +16,24 @@ class MovieRepositoryImpl constructor(
 
     override suspend fun getMovies(): Result<List<Movie>> {
         return getMoviesFromCacheDataSource()
+    }
+
+    override suspend fun getMovie(movieId: Int): Result<Movie> {
+        return getMovieFromCache(movieId)
+    }
+
+    private fun getMovieFromCache(movieId: Int): Result<Movie> {
+        return when (val result = cache.getMovie(movieId)) {
+            is Result.Success -> result
+
+            is Result.Error -> {
+                getMovieFromLocal(movieId)
+            }
+        }
+    }
+
+    private fun getMovieFromLocal(movieId: Int): Result<Movie> {
+        return local.getMovie(movieId)
     }
 
     private suspend fun getMoviesFromCacheDataSource(): Result<List<Movie>> {

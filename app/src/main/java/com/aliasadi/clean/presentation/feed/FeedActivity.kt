@@ -58,7 +58,7 @@ class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
         }
 
         viewModel.getNavigateToMovieDetails().observe { movie ->
-            MovieDetailsActivity.start(this, movie)
+            MovieDetailsActivity.start(this, movie.id)
         }
 
         viewModel.getShowErrorLiveData().observe { error ->

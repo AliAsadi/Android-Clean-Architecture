@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.aliasadi.clean.databinding.ActivityDetailsBinding
-import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.presentation.base.BaseActivity
 import com.bumptech.glide.Glide
 import javax.inject.Inject
@@ -23,20 +22,20 @@ class MovieDetailsActivity : BaseActivity<ActivityDetailsBinding, MovieDetailsVi
     override fun inflateViewBinding(inflater: LayoutInflater): ActivityDetailsBinding = ActivityDetailsBinding.inflate(inflater)
 
     override fun createViewModel(): MovieDetailsViewModel {
-        factory.movie = intent.getParcelableExtra(EXTRA_MOVIE)
+        factory.movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
         return ViewModelProvider(this, factory).get()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         daggerInjector.createDetailsComponent().inject(this)
         super.onCreate(savedInstanceState)
-
         viewModel.loadInitialState()
         observeViewModel()
     }
 
     private fun observeViewModel() = with(viewModel) {
         getMovieLiveData().observe { movie ->
+            supportActionBar?.title = movie.title
             binding.movieTitle.text = movie.title
             binding.description.text = movie.description
             Glide.with(baseContext).load(movie.image).into(binding.image)
@@ -44,10 +43,10 @@ class MovieDetailsActivity : BaseActivity<ActivityDetailsBinding, MovieDetailsVi
     }
 
     companion object {
-        private const val EXTRA_MOVIE = "EXTRA_MOVIE"
-        fun start(context: Context, movie: Movie) {
+        private const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
+        fun start(context: Context, movieId: Int) {
             val starter = Intent(context, MovieDetailsActivity::class.java)
-            starter.putExtra(EXTRA_MOVIE, movie)
+            starter.putExtra(EXTRA_MOVIE_ID, movieId)
             context.startActivity(starter)
         }
     }

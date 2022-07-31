@@ -24,6 +24,15 @@ class MovieCacheDataSource : MovieDataSource.Cache {
         }
     }
 
+    override fun getMovie(movieId: Int): Result<Movie> {
+        val movie = cache.get(movieId)
+        return if (movie != null) {
+            Result.Success(movie)
+        } else {
+            Result.Error(DataNotAvailableException())
+        }
+    }
+
     override fun saveMovies(movies: List<Movie>) {
         cache.clear()
         for (movie in movies) {
