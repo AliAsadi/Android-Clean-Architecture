@@ -19,7 +19,7 @@ class MovieDetailsViewModel internal constructor(
     private val movieLiveData = MutableLiveData<Movie>()
 
     fun loadInitialState() {
-        if (movie != null) movieLiveData.postValue(movie)
+        if (movie != null) movieLiveData.value = movie
     }
 
     fun getMovieLiveData(): LiveData<Movie> = movieLiveData
