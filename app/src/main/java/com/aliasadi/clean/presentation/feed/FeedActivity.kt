@@ -19,11 +19,9 @@ class FeedActivity : BaseActivity<FeedViewModel>(R.layout.activity_feed) {
     @Inject
     lateinit var factory: FeedViewModel.Factory
 
-    private var movieAdapter = MovieAdapter()
+    private val movieAdapter by lazy { MovieAdapter() }
 
-    override fun createViewModel(): FeedViewModel {
-        return ViewModelProvider(this, factory).get()
-    }
+    override fun createViewModel(): FeedViewModel = ViewModelProvider(this, factory).get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         daggerInjector.createFeedComponent().inject(this)

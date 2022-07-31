@@ -16,13 +16,12 @@ abstract class BaseActivity<VM : BaseViewModel>(
 
     protected val daggerInjector: DaggerInjector by lazy { application as DaggerInjector }
 
-    protected lateinit var viewModel: VM
+    protected val viewModel: VM by lazy { createViewModel() }
 
     protected abstract fun createViewModel(): VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = createViewModel()
         setContentView(resId)
     }
 
