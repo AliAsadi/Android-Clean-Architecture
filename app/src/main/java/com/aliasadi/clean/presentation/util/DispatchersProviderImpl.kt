@@ -7,7 +7,7 @@ import kotlinx.coroutines.MainCoroutineDispatcher
 /**
  * Created by Ali Asadi on 13/05/2020
  **/
-class DispatchersProviderImpl : DispatchersProvider {
+object DispatchersProviderImpl : DispatchersProvider {
     override fun getMain(): MainCoroutineDispatcher = Dispatchers.Main
     override fun getMainImmediate(): CoroutineDispatcher = Dispatchers.Main.immediate
     override fun getIO(): CoroutineDispatcher = Dispatchers.IO

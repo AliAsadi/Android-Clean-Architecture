@@ -30,7 +30,7 @@ class AppModule constructor(context: Context) {
 
     @Provides
     fun provideDispatchersProvider(): DispatchersProvider {
-        return DispatchersProviderImpl()
+        return DispatchersProviderImpl
     }
 
 }
