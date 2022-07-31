@@ -25,9 +25,5 @@ abstract class BaseActivity<VM : BaseViewModel>(
         setContentView(resId)
     }
 
-    fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
-        observe(this@BaseActivity, Observer {
-            it?.let { observer(it) }
-        })
-    }
+    protected fun <T> LiveData<T>.observe(observer: Observer<in T>) = observe(this@BaseActivity, observer)
 }
