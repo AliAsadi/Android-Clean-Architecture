@@ -50,12 +50,12 @@ class DataModule {
     }
 
     @Provides
-    fun provideGetMovieUseCase(movieRepository: MovieRepository, dispatchers: DispatchersProvider): GetMoviesUseCase {
-        return GetMoviesUseCase(movieRepository, dispatchers)
+    fun provideGetMovieUseCase(movieRepository: MovieRepository): GetMoviesUseCase {
+        return GetMoviesUseCase(movieRepository)
     }
 
     @Provides
-    fun provideGetMovieDetailsUseCase(movieRepository: MovieRepository, dispatchers: DispatchersProvider): GetMovieDetailsUseCase {
-        return GetMovieDetailsUseCase(movieRepository, dispatchers)
+    fun provideGetMovieDetailsUseCase(movieRepository: MovieRepository): GetMovieDetailsUseCase {
+        return GetMovieDetailsUseCase(movieRepository)
     }
 }
