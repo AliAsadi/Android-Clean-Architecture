@@ -28,6 +28,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    kotlinOptions {
+        freeCompilerArgs += ["-Xjvm-default=all",]
+    }
 }
 
 dependencies {
@@ -35,13 +39,13 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //Support
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
     //GSON
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     //Extensions
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
@@ -56,8 +60,8 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.13.0'
 
     //Room
-    implementation 'androidx.room:room-runtime:2.4.1'
-    kapt 'androidx.room:room-compiler:2.4.1'
+    implementation 'androidx.room:room-runtime:2.4.3'
+    kapt 'androidx.room:room-compiler:2.4.3'
 
     //PowerPreference
     implementation 'com.github.AliAsadi:PowerPreference:2.1.0'
@@ -69,10 +73,10 @@ dependencies {
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
 
     //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0"
 
     //Mockito
     testImplementation 'org.mockito:mockito-core:2.28.2'
