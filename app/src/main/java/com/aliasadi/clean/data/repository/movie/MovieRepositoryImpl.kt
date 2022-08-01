@@ -59,11 +59,11 @@ class MovieRepositoryImpl constructor(
         return result
     }
 
-    private fun saveMovies(movies: List<Movie>) {
+    private suspend fun saveMovies(movies: List<Movie>) {
         local.saveMovies(movies)
     }
 
-    private fun refreshCache(movies: List<Movie>) {
+    private suspend fun refreshCache(movies: List<Movie>) {
         cache.saveMovies(movies)
     }
 }

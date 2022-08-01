@@ -38,15 +38,15 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideMovieCacheDataSource(): MovieDataSource.Cache {
-        return MovieCacheDataSource()
+    fun provideMovieCacheDataSource(diskExecutor: DiskExecutor): MovieDataSource.Cache {
+        return MovieCacheDataSource(diskExecutor)
     }
 
 
     @Provides
     @Singleton
-    fun provideMovieRemoveDataSource(movieApi: MovieApi): MovieDataSource.Remote {
-        return MovieRemoteDataSource(movieApi)
+    fun provideMovieRemoveDataSource(movieApi: MovieApi, dispatchers: DispatchersProvider): MovieDataSource.Remote {
+        return MovieRemoteDataSource(movieApi, dispatchers)
     }
 
     @Provides
