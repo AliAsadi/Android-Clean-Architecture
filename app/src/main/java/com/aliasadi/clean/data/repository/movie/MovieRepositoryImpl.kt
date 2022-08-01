@@ -18,14 +18,14 @@ class MovieRepositoryImpl constructor(
 
     override suspend fun getMovie(movieId: Int): Result<Movie> = getMovieFromCache(movieId)
 
-    private fun getMovieFromCache(movieId: Int): Result<Movie> {
+    private suspend fun getMovieFromCache(movieId: Int): Result<Movie> {
         return when (val result = cache.getMovie(movieId)) {
             is Result.Success -> result
             is Result.Error -> getMovieFromLocal(movieId)
         }
     }
 
-    private fun getMovieFromLocal(movieId: Int): Result<Movie> = local.getMovie(movieId)
+    private suspend fun getMovieFromLocal(movieId: Int): Result<Movie> = local.getMovie(movieId)
 
     private suspend fun getMoviesFromCache(): Result<List<Movie>> {
         Log.d("XXX", "Getting movies from cache")

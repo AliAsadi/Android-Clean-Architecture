@@ -13,7 +13,7 @@ interface MovieDataSource {
     }
 
     interface Local : Remote {
-        fun getMovie(movieId: Int): Result<Movie>
+        suspend fun getMovie(movieId: Int): Result<Movie>
         fun saveMovies(movies: List<Movie>)
     }
 

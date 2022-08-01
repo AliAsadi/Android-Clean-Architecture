@@ -23,7 +23,7 @@ class MovieLocalDataSource(
         }
     }
 
-    override fun getMovie(movieId: Int): Result<Movie> {
+    override suspend fun getMovie(movieId: Int): Result<Movie> {
         return movieDao.getMovie(movieId)?.let {
             Result.Success(it)
         } ?: Result.Error(DataNotAvailableException())

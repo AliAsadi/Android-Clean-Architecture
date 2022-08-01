@@ -24,7 +24,7 @@ class MovieCacheDataSource : MovieDataSource.Cache {
         }
     }
 
-    override fun getMovie(movieId: Int): Result<Movie> {
+    override suspend fun getMovie(movieId: Int): Result<Movie> {
         val movie = cache.get(movieId)
         return if (movie != null) {
             Result.Success(movie)
