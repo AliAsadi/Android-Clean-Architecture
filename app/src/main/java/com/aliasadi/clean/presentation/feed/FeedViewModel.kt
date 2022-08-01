@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
-import com.aliasadi.clean.domain.util.Result
+import com.aliasadi.clean.domain.util.getResult
 import com.aliasadi.clean.presentation.base.BaseViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 
@@ -24,28 +24,24 @@ class FeedViewModel internal constructor(
     private val showError: MutableLiveData<String> = MutableLiveData()
     private val navigateToMovieDetails: MutableLiveData<Movie> = MutableLiveData()
 
-    fun onLoadButtonClicked() {
+    fun onLoadButtonClicked() = launchOnMainImmediate {
         getMovies()
     }
 
-    fun onMovieClicked(movie: Movie) {
+    fun onMovieClicked(movie: Movie) = launchOnMainImmediate {
         navigateToMovieDetails.value = movie
     }
 
-    private fun getMovies() = launchOnMainImmediate {
+    private suspend fun getMovies() {
         showLoading.value = Unit
 
-        when (val result = getMoviesUseCase.getMovies()) {
-            is Result.Success -> {
-                hideLoading.value = Unit
-                movies.value = (result.data)
-            }
-
-            is Result.Error -> {
-                hideLoading.value = Unit
-                showError.value = result.error.message
-            }
-        }
+        getMoviesUseCase.getMovies().getResult({
+            hideLoading.value = Unit
+            movies.value = it.data
+        }, {
+            hideLoading.value = Unit
+            showError.value = it.error.message
+        })
     }
 
 
