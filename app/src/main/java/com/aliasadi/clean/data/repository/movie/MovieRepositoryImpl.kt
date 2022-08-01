@@ -14,61 +14,44 @@ class MovieRepositoryImpl constructor(
     private val cache: MovieDataSource.Cache
 ) : MovieRepository {
 
-    override suspend fun getMovies(): Result<List<Movie>> {
-        return getMoviesFromCacheDataSource()
-    }
+    override suspend fun getMovies(): Result<List<Movie>> = getMoviesFromCache()
 
-    override suspend fun getMovie(movieId: Int): Result<Movie> {
-        return getMovieFromCache(movieId)
-    }
+    override suspend fun getMovie(movieId: Int): Result<Movie> = getMovieFromCache(movieId)
 
     private fun getMovieFromCache(movieId: Int): Result<Movie> {
         return when (val result = cache.getMovie(movieId)) {
             is Result.Success -> result
-
-            is Result.Error -> {
-                getMovieFromLocal(movieId)
-            }
+            is Result.Error -> getMovieFromLocal(movieId)
         }
     }
 
-    private fun getMovieFromLocal(movieId: Int): Result<Movie> {
-        return local.getMovie(movieId)
-    }
+    private fun getMovieFromLocal(movieId: Int): Result<Movie> = local.getMovie(movieId)
 
-    private suspend fun getMoviesFromCacheDataSource(): Result<List<Movie>> {
+    private suspend fun getMoviesFromCache(): Result<List<Movie>> {
+        Log.d("XXX", "Getting movies from cache")
         return when (val result = cache.getMovies()) {
-            is Result.Success -> {
-                Log.d("XXX", "Getting movies from cache")
-                result
-            }
-
-            is Result.Error -> {
-                getMoviesFromLocalDataSource()
-            }
+            is Result.Success -> result
+            is Result.Error -> getMoviesFromLocal()
         }
     }
 
-    private suspend fun getMoviesFromLocalDataSource(): Result<List<Movie>> {
+    private suspend fun getMoviesFromLocal(): Result<List<Movie>> {
+        Log.d("XXX", "Getting movies from database")
         return when (val result = local.getMovies()) {
             is Result.Success -> {
-                Log.d("XXX", "Getting movies from database")
                 refreshCache(result.data)
                 result
             }
 
-            is Result.Error -> {
-                getMoviesFromRemoteDataSource()
-            }
+            is Result.Error -> getMoviesFromRemote()
         }
     }
 
-    private suspend fun getMoviesFromRemoteDataSource(): Result<List<Movie>> {
-
+    private suspend fun getMoviesFromRemote(): Result<List<Movie>> {
+        Log.d("XXX", "Getting movies from remote")
         val result = remote.getMovies()
 
         if (result is Result.Success) {
-            Log.d("XXX", "Getting movies from remote")
             saveMovies(result.data)
             refreshCache(result.data)
         }
