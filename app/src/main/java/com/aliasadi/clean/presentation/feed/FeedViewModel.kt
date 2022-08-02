@@ -9,6 +9,7 @@ import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
 import com.aliasadi.clean.domain.util.getResult
 import com.aliasadi.clean.presentation.base.BaseViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
+import com.aliasadi.clean.presentation.util.SingleLiveEvent
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -19,10 +20,10 @@ class FeedViewModel internal constructor(
 ) : BaseViewModel(dispatchers) {
 
     private val movies: MutableLiveData<List<Movie>> = MutableLiveData()
-    private val showLoading: MutableLiveData<Unit> = MutableLiveData()
-    private val hideLoading: MutableLiveData<Unit> = MutableLiveData()
-    private val showError: MutableLiveData<String> = MutableLiveData()
-    private val navigateToMovieDetails: MutableLiveData<Movie> = MutableLiveData()
+    private val showLoading: SingleLiveEvent<Unit> = SingleLiveEvent()
+    private val hideLoading: SingleLiveEvent<Unit> = SingleLiveEvent()
+    private val showError: SingleLiveEvent<String> = SingleLiveEvent()
+    private val navigateToMovieDetails: SingleLiveEvent<Movie> = SingleLiveEvent()
 
     fun onLoadButtonClicked() = launchOnMainImmediate {
         getMovies()
