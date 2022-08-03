@@ -4,7 +4,6 @@ apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 31
-    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.aliasadi.clean"
