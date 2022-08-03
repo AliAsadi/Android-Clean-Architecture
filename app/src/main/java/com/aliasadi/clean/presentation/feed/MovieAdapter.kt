@@ -1,5 +1,6 @@
 package com.aliasadi.clean.presentation.feed
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -19,23 +20,27 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
  * Created by Ali Asadi on 13/05/2020
  */
 class MovieAdapter(
-    val onMovieClick: (Movie) -> Unit
+    private val onMovieClick: (Movie) -> Unit
 ) : RecyclerView.Adapter<MovieViewHolder>() {
 
     private var items: List<Movie> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder = MovieViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder = MovieViewHolder(parent, onMovieClick)
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.bind(items[position])
 
     override fun getItemCount(): Int = items.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<Movie>) {
         this.items = items
         notifyDataSetChanged()
     }
 
-    inner class MovieViewHolder internal constructor(parent: ViewGroup) : ViewHolder(
+    class MovieViewHolder internal constructor(
+        parent: ViewGroup,
+        val onMovieClick: (Movie) -> Unit
+    ) : ViewHolder(
         ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false).root
     ) {
 
@@ -64,6 +69,5 @@ class MovieAdapter(
             .sizeMultiplier(0.2F)
             .load(url)
     }
-
 
 }
