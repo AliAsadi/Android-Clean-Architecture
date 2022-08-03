@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
-import com.aliasadi.clean.domain.util.Result
+import com.aliasadi.clean.domain.util.onSuccess
 import com.aliasadi.clean.presentation.base.BaseViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 
@@ -22,8 +22,9 @@ class MovieDetailsViewModel internal constructor(
     private val movie = MutableLiveData<Movie>()
 
     fun loadInitialState() = launchOnMainImmediate {
-        val result = getMovieDetailsUseCase.getMovie(movieId)
-        if (result is Result.Success) movie.value = result.data
+        getMovieDetailsUseCase.getMovie(movieId).onSuccess {
+            movie.value = it
+        }
     }
 
     fun getMovieLiveData(): LiveData<Movie> = movie
