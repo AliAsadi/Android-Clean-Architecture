@@ -19,16 +19,21 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
  * Created by Ali Asadi on 13/05/2020
  */
 class MovieAdapter(
-    private val onMovieClick: (Movie) -> Unit
+    private val onMovieClick: (Movie) -> Unit,
+    private val imageFixedSize: Int,
 ) : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder = MovieViewHolder(parent, onMovieClick)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
+        MovieViewHolder(parent, onMovieClick, imageFixedSize)
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.bind(getItem(position))
 
+    override fun onViewRecycled(holder: MovieViewHolder) = holder.unBind()
+
     class MovieViewHolder internal constructor(
         parent: ViewGroup,
-        val onMovieClick: (Movie) -> Unit
+        private val onMovieClick: (Movie) -> Unit,
+        private val imageFixedSize: Int
     ) : ViewHolder(
         ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false).root
     ) {
@@ -42,21 +47,28 @@ class MovieAdapter(
             root.setOnClickListener { onMovieClick(movie) }
         }
 
+        fun unBind() = with(binding) {
+            clearImage(image)
+            root.setOnClickListener(null)
+        }
+
         private fun loadImage(image: AppCompatImageView, url: String) = Glide.with(image)
             .asDrawable()
+            .override(imageFixedSize)
             .format(DecodeFormat.PREFER_RGB_565)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .thumbnail(getThumbnailRequest(image, url))
-            .sizeMultiplier(0.5F)
             .load(url)
             .into(image)
 
         private fun getThumbnailRequest(imageView: ImageView, url: String): RequestBuilder<Drawable> = Glide.with(imageView)
             .asDrawable()
+            .override(imageFixedSize)
             .format(DecodeFormat.PREFER_RGB_565)
             .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
             .sizeMultiplier(0.2F)
             .load(url)
-    }
 
+        private fun clearImage(image: AppCompatImageView) = Glide.with(image).clear(image)
+    }
 }

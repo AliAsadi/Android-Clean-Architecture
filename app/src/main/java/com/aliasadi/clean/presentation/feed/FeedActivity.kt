@@ -19,7 +19,7 @@ class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
     @Inject
     lateinit var factory: FeedViewModel.Factory
 
-    private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked) }
+    private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
 
     override fun inflateViewBinding(inflater: LayoutInflater): ActivityFeedBinding = ActivityFeedBinding.inflate(inflater)
 
@@ -69,5 +69,6 @@ class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
         }
     }
 
+    private fun getImageFixedSize(): Int = applicationContext.resources.displayMetrics.widthPixels / 3
 
 }
