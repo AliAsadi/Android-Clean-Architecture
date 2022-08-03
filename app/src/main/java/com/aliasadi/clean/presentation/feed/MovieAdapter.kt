@@ -1,12 +1,11 @@
 package com.aliasadi.clean.presentation.feed
 
-import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.aliasadi.clean.databinding.ItemMovieBinding
 import com.aliasadi.clean.domain.model.Movie
@@ -21,21 +20,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
  */
 class MovieAdapter(
     private val onMovieClick: (Movie) -> Unit
-) : RecyclerView.Adapter<MovieViewHolder>() {
-
-    private var items: List<Movie> = ArrayList()
+) : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder = MovieViewHolder(parent, onMovieClick)
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.bind(items[position])
-
-    override fun getItemCount(): Int = items.size
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setItems(items: List<Movie>) {
-        this.items = items
-        notifyDataSetChanged()
-    }
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.bind(getItem(position))
 
     class MovieViewHolder internal constructor(
         parent: ViewGroup,

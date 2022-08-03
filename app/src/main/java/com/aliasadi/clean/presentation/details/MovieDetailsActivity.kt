@@ -46,9 +46,11 @@ class MovieDetailsActivity : BaseActivity<ActivityDetailsBinding, MovieDetailsVi
         getMovieLiveData().observe { movie ->
             binding.movieTitle.text = movie.title
             binding.description.text = movie.description
-            Glide.with(baseContext).load(movie.image).into(binding.image)
+            loadImage(movie.image)
         }
     }
+
+    private fun loadImage(url: String) = Glide.with(this).load(url).into(binding.image)
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

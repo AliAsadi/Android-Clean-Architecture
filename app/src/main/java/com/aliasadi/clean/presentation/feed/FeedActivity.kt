@@ -57,7 +57,7 @@ class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
         }
 
         viewModel.getMoviesLiveData().observe { movies ->
-            movieAdapter.setItems(movies)
+            movieAdapter.submitList(movies)
         }
 
         viewModel.getNavigateToMovieDetails().observe { movie ->
