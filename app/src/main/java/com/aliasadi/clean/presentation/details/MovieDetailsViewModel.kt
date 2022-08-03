@@ -19,14 +19,14 @@ class MovieDetailsViewModel internal constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    private val movieLiveData = MutableLiveData<Movie>()
+    private val movie = MutableLiveData<Movie>()
 
     fun loadInitialState() = launchOnMainImmediate {
         val result = getMovieDetailsUseCase.getMovie(movieId)
-        if (result is Result.Success) movieLiveData.value = result.data
+        if (result is Result.Success) movie.value = result.data
     }
 
-    fun getMovieLiveData(): LiveData<Movie> = movieLiveData
+    fun getMovieLiveData(): LiveData<Movie> = movie
 
     class Factory(
         private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
