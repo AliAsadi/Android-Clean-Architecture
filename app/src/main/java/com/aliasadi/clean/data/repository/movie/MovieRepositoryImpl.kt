@@ -4,6 +4,7 @@ import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.repository.MovieRepository
 import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.domain.util.getResult
+import com.aliasadi.clean.domain.util.onSuccess
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -39,15 +40,9 @@ class MovieRepositoryImpl constructor(
         getMoviesFromRemote()
     })
 
-    private suspend fun getMoviesFromRemote(): Result<List<Movie>> {
-        val result = remote.getMovies()
-
-        if (result is Result.Success) {
-            saveMovies(result.data)
-            refreshCache(result.data)
-        }
-
-        return result
+    private suspend fun getMoviesFromRemote(): Result<List<Movie>> = remote.getMovies().onSuccess {
+        saveMovies(it)
+        refreshCache(it)
     }
 
     private suspend fun saveMovies(movies: List<Movie>) {

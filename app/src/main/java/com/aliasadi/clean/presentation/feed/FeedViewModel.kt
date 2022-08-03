@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
-import com.aliasadi.clean.domain.util.getResult
+import com.aliasadi.clean.domain.util.onError
+import com.aliasadi.clean.domain.util.onSuccess
 import com.aliasadi.clean.presentation.base.BaseViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import com.aliasadi.clean.presentation.util.SingleLiveEvent
@@ -36,13 +37,14 @@ class FeedViewModel internal constructor(
     private suspend fun getMovies() {
         showLoading.value = Unit
 
-        getMoviesUseCase.getMovies().getResult({
-            hideLoading.value = Unit
-            movies.value = it.data
-        }, {
-            hideLoading.value = Unit
-            showError.value = it.error.message
-        })
+        getMoviesUseCase.getMovies()
+            .onSuccess {
+                hideLoading.value = Unit
+                movies.value = it
+            }.onError {
+                hideLoading.value = Unit
+                showError.value = it.message
+            }
     }
 
 
