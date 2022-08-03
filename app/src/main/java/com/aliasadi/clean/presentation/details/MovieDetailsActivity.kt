@@ -29,16 +29,30 @@ class MovieDetailsActivity : BaseActivity<ActivityDetailsBinding, MovieDetailsVi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.loadInitialState()
+        setupViews()
         observeViewModel()
+    }
+
+    private fun setupViews() {
+        setupActionBar()
+    }
+
+    private fun setupActionBar() = supportActionBar?.apply {
+        setDisplayShowTitleEnabled(false)
+        setDisplayHomeAsUpEnabled(true)
     }
 
     private fun observeViewModel() = with(viewModel) {
         getMovieLiveData().observe { movie ->
-            supportActionBar?.title = movie.title
             binding.movieTitle.text = movie.title
             binding.description.text = movie.description
             Glide.with(baseContext).load(movie.image).into(binding.image)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     companion object {
