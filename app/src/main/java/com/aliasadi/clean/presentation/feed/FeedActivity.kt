@@ -39,6 +39,7 @@ class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
     private fun setupRecyclerView() = with(binding.recyclerView) {
         adapter = movieAdapter
         setHasFixedSize(true)
+        setItemViewCacheSize(0)
     }
 
     private fun setupViewListeners() {
