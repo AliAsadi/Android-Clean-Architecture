@@ -76,11 +76,11 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
 
     //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
 
     //Mockito
-    testImplementation 'org.mockito:mockito-core:2.28.2'
-    testImplementation "org.mockito:mockito-inline:2.28.2"
+    testImplementation 'org.mockito:mockito-core:3.10.0'
+    testImplementation "org.mockito:mockito-inline:3.10.0"
 
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'junit:junit:4.13.1'
