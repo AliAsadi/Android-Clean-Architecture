@@ -11,9 +11,9 @@ import com.aliasadi.clean.presentation.di.DaggerInjector
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel>() : AppCompatActivity() {
+abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatActivity() {
 
-    protected val daggerInjector: DaggerInjector by lazy { application as DaggerInjector }
+    private val daggerInjector: DaggerInjector by lazy { application as DaggerInjector }
 
     protected val viewModel: VM by lazy { createViewModel() }
 
@@ -25,6 +25,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel>() : AppCompatA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        daggerInjector.inject(this)
         setContentView(binding.root)
     }
 

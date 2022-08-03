@@ -26,9 +26,7 @@ class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
     override fun createViewModel(): FeedViewModel = ViewModelProvider(this, factory).get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        daggerInjector.createFeedComponent().inject(this)
         super.onCreate(savedInstanceState)
-
         init()
         observeViewModel()
         setupViewListeners()

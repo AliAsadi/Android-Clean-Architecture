@@ -26,8 +26,9 @@ class MovieDetailsActivity : BaseActivity<ActivityDetailsBinding, MovieDetailsVi
         return ViewModelProvider(this, factory).get()
     }
 
+//    override fun injectComponent(injector: DaggerInjector) = injector.inject(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        daggerInjector.createDetailsComponent().inject(this)
         super.onCreate(savedInstanceState)
         viewModel.loadInitialState()
         observeViewModel()
