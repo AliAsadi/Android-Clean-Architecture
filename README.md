@@ -25,6 +25,7 @@
 * [Room Persistence Library](https://developer.android.com/topic/libraries/architecture/room)
 * [Retrofit2](https://github.com/square/retrofit)
 * [Architecture Components - LiveData/ViewModel](https://developer.android.com/topic/libraries/architecture/index.html)
+* [View Binding](https://developer.android.com/topic/libraries/view-binding)
 * [Mockito](https://github.com/mockito/mockito)
 
 --------------------------------------------------------------------------------------------
