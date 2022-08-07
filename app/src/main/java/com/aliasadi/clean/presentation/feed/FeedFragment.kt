@@ -9,6 +9,8 @@ import androidx.lifecycle.get
 import com.aliasadi.clean.databinding.ActivityFeedBinding
 import com.aliasadi.clean.presentation.base.BaseFragment
 import com.aliasadi.clean.presentation.details.MovieDetailsActivity
+import com.aliasadi.clean.presentation.util.hide
+import com.aliasadi.clean.presentation.util.show
 import javax.inject.Inject
 
 /**
@@ -43,11 +45,11 @@ class FeedFragment : BaseFragment<ActivityFeedBinding, FeedViewModel>() {
 
     private fun observeViewModel() = with(viewModel) {
         getHideLoadingLiveData().observe {
-            binding.progressBar.visibility = View.GONE
+            binding.progressBar.hide()
         }
 
         getShowLoadingLiveData().observe {
-            binding.progressBar.visibility = View.VISIBLE
+            binding.progressBar.show()
         }
 
         getMoviesLiveData().observe { movies ->
