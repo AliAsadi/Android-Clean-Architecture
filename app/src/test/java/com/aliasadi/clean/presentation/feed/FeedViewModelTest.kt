@@ -42,7 +42,7 @@ class FeedViewModelTest : BaseViewModelTest() {
 
         Mockito.`when`(getMoviesUseCase.getMovies()).thenReturn(Result.Success(mock()))
 
-        viewModel.onLoadButtonClicked()
+        viewModel.loadMovies()
 
         val inOrder = Mockito.inOrder(showLoadingObs, hideLoadingObs, movieObs)
 
@@ -65,7 +65,7 @@ class FeedViewModelTest : BaseViewModelTest() {
 
         Mockito.`when`(getMoviesUseCase.getMovies()).thenReturn(Result.Error(mock()))
 
-        viewModel.onLoadButtonClicked()
+        viewModel.loadMovies()
 
         val inOrder = Mockito.inOrder(showLoadingObs, hideLoadingObs, errorObs)
 
@@ -80,7 +80,7 @@ class FeedViewModelTest : BaseViewModelTest() {
     fun loadMovies_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
         val showLoadingObs: Observer<Unit> = mock()
         viewModel.getShowLoadingLiveData().observeForever(showLoadingObs)
-        viewModel.onLoadButtonClicked()
+        viewModel.loadMovies()
         Mockito.verify(showLoadingObs).onChanged(Unit)
     }
 

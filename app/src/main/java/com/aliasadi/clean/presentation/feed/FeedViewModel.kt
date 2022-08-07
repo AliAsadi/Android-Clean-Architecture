@@ -26,7 +26,7 @@ class FeedViewModel internal constructor(
     private val showError: SingleLiveEvent<String> = SingleLiveEvent()
     private val navigateToMovieDetails: SingleLiveEvent<Movie> = SingleLiveEvent()
 
-    fun onLoadButtonClicked() = launchOnMainImmediate {
+    fun loadMovies() = launchOnMainImmediate {
         getMovies()
     }
 

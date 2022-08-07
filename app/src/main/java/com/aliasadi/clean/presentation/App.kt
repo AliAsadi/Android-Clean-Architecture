@@ -14,7 +14,10 @@ import com.aliasadi.clean.presentation.di.details.MovieDetailsModule
 import com.aliasadi.clean.presentation.di.details.MovieDetailsSubComponent
 import com.aliasadi.clean.presentation.di.feed.FeedModule
 import com.aliasadi.clean.presentation.di.feed.FeedSubComponent
-import com.aliasadi.clean.presentation.feed.FeedActivity
+import com.aliasadi.clean.presentation.di.main.MainModule
+import com.aliasadi.clean.presentation.di.main.MainSubComponent
+import com.aliasadi.clean.presentation.feed.FeedFragment
+import com.aliasadi.clean.presentation.main.MainActivity
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -33,17 +36,14 @@ class App : Application(), DaggerInjector {
             .build()
     }
 
-    private fun createMoviesDetailsComponent(): MovieDetailsSubComponent {
-        return coreComponent.plus(MovieDetailsModule())
-    }
-
-    private fun createFeedComponent(): FeedSubComponent {
-        return coreComponent.plus(FeedModule())
-    }
+    private fun createMoviesDetailsComponent(): MovieDetailsSubComponent = coreComponent.plus(MovieDetailsModule())
+    private fun createFeedComponent(): FeedSubComponent = coreComponent.plus(FeedModule())
+    private fun createMainComponent(): MainSubComponent = coreComponent.plus(MainModule())
 
     override fun <T> inject(view: T) {
         when (view) {
-            is FeedActivity -> createFeedComponent().inject(view)
+            is MainActivity -> createMainComponent().inject(view)
+            is FeedFragment -> createFeedComponent().inject(view)
             is MovieDetailsActivity -> createMoviesDetailsComponent().inject(view)
         }
     }

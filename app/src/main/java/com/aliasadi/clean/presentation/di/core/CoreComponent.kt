@@ -8,6 +8,8 @@ import com.aliasadi.clean.presentation.di.details.MovieDetailsModule
 import com.aliasadi.clean.presentation.di.details.MovieDetailsSubComponent
 import com.aliasadi.clean.presentation.di.feed.FeedModule
 import com.aliasadi.clean.presentation.di.feed.FeedSubComponent
+import com.aliasadi.clean.presentation.di.main.MainModule
+import com.aliasadi.clean.presentation.di.main.MainSubComponent
 import dagger.Component
 import javax.inject.Singleton
 
@@ -27,4 +29,5 @@ import javax.inject.Singleton
 interface CoreComponent {
     fun plus(movieDetailsModule: MovieDetailsModule): MovieDetailsSubComponent
     fun plus(feedModule: FeedModule): FeedSubComponent
+    fun plus(mainModule: MainModule): MainSubComponent
 }

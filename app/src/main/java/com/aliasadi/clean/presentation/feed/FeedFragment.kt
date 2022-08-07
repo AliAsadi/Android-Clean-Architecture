@@ -7,14 +7,14 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.aliasadi.clean.databinding.ActivityFeedBinding
-import com.aliasadi.clean.presentation.base.BaseActivity
+import com.aliasadi.clean.presentation.base.BaseFragment
 import com.aliasadi.clean.presentation.details.MovieDetailsActivity
 import javax.inject.Inject
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
+class FeedFragment : BaseFragment<ActivityFeedBinding, FeedViewModel>() {
 
     @Inject
     lateinit var factory: FeedViewModel.Factory
@@ -25,14 +25,13 @@ class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
 
     override fun createViewModel(): FeedViewModel = ViewModelProvider(this, factory).get()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        init()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupViews()
         observeViewModel()
-        setupViewListeners()
+        viewModel.loadMovies()
     }
 
-    private fun init() {
+    private fun setupViews() {
         setupRecyclerView()
     }
 
@@ -42,34 +41,28 @@ class FeedActivity : BaseActivity<ActivityFeedBinding, FeedViewModel>() {
         setItemViewCacheSize(0)
     }
 
-    private fun setupViewListeners() {
-        binding.loadButton.setOnClickListener {
-            viewModel.onLoadButtonClicked()
-        }
-    }
-
-    private fun observeViewModel() {
-        viewModel.getHideLoadingLiveData().observe {
+    private fun observeViewModel() = with(viewModel) {
+        getHideLoadingLiveData().observe {
             binding.progressBar.visibility = View.GONE
         }
 
-        viewModel.getShowLoadingLiveData().observe {
+        getShowLoadingLiveData().observe {
             binding.progressBar.visibility = View.VISIBLE
         }
 
-        viewModel.getMoviesLiveData().observe { movies ->
+        getMoviesLiveData().observe { movies ->
             movieAdapter.submitList(movies)
         }
 
-        viewModel.getNavigateToMovieDetails().observe { movie ->
-            MovieDetailsActivity.start(this, movie.id)
+        getNavigateToMovieDetails().observe { movie ->
+            MovieDetailsActivity.start(requireContext(), movie.id)
         }
 
-        viewModel.getShowErrorLiveData().observe { error ->
-            Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+        getShowErrorLiveData().observe { error ->
+            Toast.makeText(requireActivity(), error, Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun getImageFixedSize(): Int = applicationContext.resources.displayMetrics.widthPixels / 3
+    private fun getImageFixedSize(): Int = requireContext().applicationContext.resources.displayMetrics.widthPixels / 3
 
 }

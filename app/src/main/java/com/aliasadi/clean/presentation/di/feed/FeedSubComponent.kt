@@ -1,6 +1,6 @@
 package com.aliasadi.clean.presentation.di.feed
 
-import com.aliasadi.clean.presentation.feed.FeedActivity
+import com.aliasadi.clean.presentation.feed.FeedFragment
 import dagger.Subcomponent
 
 /**
@@ -8,5 +8,5 @@ import dagger.Subcomponent
  **/
 @Subcomponent(modules = [FeedModule::class])
 interface FeedSubComponent {
-    fun inject(feedActivity: FeedActivity)
+    fun inject(feedFragment: FeedFragment)
 }
