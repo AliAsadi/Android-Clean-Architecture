@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.aliasadi.clean.databinding.ActivityFeedBinding
+import com.aliasadi.clean.databinding.FragmentFeedBinding
 import com.aliasadi.clean.presentation.base.BaseFragment
 import com.aliasadi.clean.presentation.details.MovieDetailsActivity
 import com.aliasadi.clean.presentation.util.hide
@@ -16,14 +16,14 @@ import javax.inject.Inject
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class FeedFragment : BaseFragment<ActivityFeedBinding, FeedViewModel>() {
+class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
 
     @Inject
     lateinit var factory: FeedViewModel.Factory
 
     private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
 
-    override fun inflateViewBinding(inflater: LayoutInflater): ActivityFeedBinding = ActivityFeedBinding.inflate(inflater)
+    override fun inflateViewBinding(inflater: LayoutInflater): FragmentFeedBinding = FragmentFeedBinding.inflate(inflater)
 
     override fun createViewModel(): FeedViewModel = ViewModelProvider(this, factory).get()
 
