@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
-import com.aliasadi.clean.databinding.ActivityDetailsBinding
+import com.aliasadi.clean.databinding.ActivityMovieDetailsBinding
 import com.aliasadi.clean.presentation.base.BaseActivity
 import com.bumptech.glide.Glide
 import javax.inject.Inject
@@ -14,12 +14,12 @@ import javax.inject.Inject
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class MovieDetailsActivity : BaseActivity<ActivityDetailsBinding, MovieDetailsViewModel>() {
+class MovieDetailsActivity : BaseActivity<ActivityMovieDetailsBinding, MovieDetailsViewModel>() {
 
     @Inject
     lateinit var factory: MovieDetailsViewModel.Factory
 
-    override fun inflateViewBinding(inflater: LayoutInflater): ActivityDetailsBinding = ActivityDetailsBinding.inflate(inflater)
+    override fun inflateViewBinding(inflater: LayoutInflater): ActivityMovieDetailsBinding = ActivityMovieDetailsBinding.inflate(inflater)
 
     override fun createViewModel(): MovieDetailsViewModel {
         factory.movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0)
