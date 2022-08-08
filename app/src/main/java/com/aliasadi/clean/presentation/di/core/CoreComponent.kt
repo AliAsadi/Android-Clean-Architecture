@@ -6,6 +6,8 @@ import com.aliasadi.clean.presentation.di.core.module.DatabaseModule
 import com.aliasadi.clean.presentation.di.core.module.NetworkModule
 import com.aliasadi.clean.presentation.di.details.MovieDetailsModule
 import com.aliasadi.clean.presentation.di.details.MovieDetailsSubComponent
+import com.aliasadi.clean.presentation.di.favorites.FavoritesModule
+import com.aliasadi.clean.presentation.di.favorites.FavoritesSubComponent
 import com.aliasadi.clean.presentation.di.feed.FeedModule
 import com.aliasadi.clean.presentation.di.feed.FeedSubComponent
 import com.aliasadi.clean.presentation.di.main.MainModule
@@ -30,4 +32,5 @@ interface CoreComponent {
     fun plus(movieDetailsModule: MovieDetailsModule): MovieDetailsSubComponent
     fun plus(feedModule: FeedModule): FeedSubComponent
     fun plus(mainModule: MainModule): MainSubComponent
+    fun plus(favoritesModule: FavoritesModule): FavoritesSubComponent
 }

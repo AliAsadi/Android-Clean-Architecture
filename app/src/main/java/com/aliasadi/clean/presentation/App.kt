@@ -11,10 +11,13 @@ import com.aliasadi.clean.presentation.di.core.module.DatabaseModule
 import com.aliasadi.clean.presentation.di.core.module.NetworkModule
 import com.aliasadi.clean.presentation.di.details.MovieDetailsModule
 import com.aliasadi.clean.presentation.di.details.MovieDetailsSubComponent
+import com.aliasadi.clean.presentation.di.favorites.FavoritesModule
+import com.aliasadi.clean.presentation.di.favorites.FavoritesSubComponent
 import com.aliasadi.clean.presentation.di.feed.FeedModule
 import com.aliasadi.clean.presentation.di.feed.FeedSubComponent
 import com.aliasadi.clean.presentation.di.main.MainModule
 import com.aliasadi.clean.presentation.di.main.MainSubComponent
+import com.aliasadi.clean.presentation.favorites.FavoritesFragment
 import com.aliasadi.clean.presentation.feed.FeedFragment
 import com.aliasadi.clean.presentation.main.MainActivity
 import com.aliasadi.clean.presentation.moviedetails.MovieDetailsActivity
@@ -38,13 +41,15 @@ class App : Application(), DaggerInjector {
 
     private fun createMoviesDetailsComponent(): MovieDetailsSubComponent = coreComponent.plus(MovieDetailsModule())
     private fun createFeedComponent(): FeedSubComponent = coreComponent.plus(FeedModule())
+    private fun createFavoritesComponent(): FavoritesSubComponent = coreComponent.plus(FavoritesModule())
     private fun createMainComponent(): MainSubComponent = coreComponent.plus(MainModule())
 
     override fun <T> inject(view: T) {
         when (view) {
             is MainActivity -> createMainComponent().inject(view)
-            is FeedFragment -> createFeedComponent().inject(view)
             is MovieDetailsActivity -> createMoviesDetailsComponent().inject(view)
+            is FeedFragment -> createFeedComponent().inject(view)
+            is FavoritesFragment -> createFavoritesComponent().inject(view)
         }
     }
 }

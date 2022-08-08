@@ -3,11 +3,13 @@ package com.aliasadi.clean.presentation.main
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.ActivityMainBinding
 import com.aliasadi.clean.presentation.base.BaseActivity
+import com.aliasadi.clean.presentation.favorites.FavoritesFragment
 import com.aliasadi.clean.presentation.feed.FeedFragment
 import com.aliasadi.clean.presentation.main.MainViewModel.UiState.NavigateToFavoriteScreen
 import com.aliasadi.clean.presentation.main.MainViewModel.UiState.NavigateToFeedScreen
@@ -48,12 +50,12 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         }
     }
 
-    private fun navigateToFavorite() {
+    private fun navigateToFavorite() = navigateToFragment(FavoritesFragment())
 
-    }
+    private fun navigateToFeed() = navigateToFragment(FeedFragment())
 
-    private fun navigateToFeed() = supportFragmentManager.beginTransaction()
-        .replace(binding.container.id, FeedFragment())
+    private fun navigateToFragment(fragment: Fragment) = supportFragmentManager.beginTransaction()
+        .replace(binding.container.id, fragment)
         .commitNow()
 
     override fun onDestroy() {
