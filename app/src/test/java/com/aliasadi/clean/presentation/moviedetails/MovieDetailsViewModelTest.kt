@@ -1,4 +1,4 @@
-package com.aliasadi.clean.presentation.details
+package com.aliasadi.clean.presentation.moviedetails
 
 import androidx.lifecycle.Observer
 import com.aliasadi.clean.domain.model.Movie

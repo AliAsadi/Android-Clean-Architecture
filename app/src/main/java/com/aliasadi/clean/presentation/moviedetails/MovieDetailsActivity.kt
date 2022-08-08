@@ -1,4 +1,4 @@
-package com.aliasadi.clean.presentation.details
+package com.aliasadi.clean.presentation.moviedetails
 
 import android.content.Context
 import android.content.Intent

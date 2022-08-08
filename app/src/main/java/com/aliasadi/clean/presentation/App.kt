@@ -2,7 +2,6 @@ package com.aliasadi.clean.presentation
 
 import android.app.Application
 import com.aliasadi.clean.BuildConfig
-import com.aliasadi.clean.presentation.details.MovieDetailsActivity
 import com.aliasadi.clean.presentation.di.DaggerInjector
 import com.aliasadi.clean.presentation.di.core.CoreComponent
 import com.aliasadi.clean.presentation.di.core.DaggerCoreComponent
@@ -18,6 +17,7 @@ import com.aliasadi.clean.presentation.di.main.MainModule
 import com.aliasadi.clean.presentation.di.main.MainSubComponent
 import com.aliasadi.clean.presentation.feed.FeedFragment
 import com.aliasadi.clean.presentation.main.MainActivity
+import com.aliasadi.clean.presentation.moviedetails.MovieDetailsActivity
 
 /**
  * Created by Ali Asadi on 13/05/2020

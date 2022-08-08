@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.aliasadi.clean.databinding.FragmentFeedBinding
 import com.aliasadi.clean.presentation.base.BaseFragment
-import com.aliasadi.clean.presentation.details.MovieDetailsActivity
+import com.aliasadi.clean.presentation.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.presentation.util.hide
 import com.aliasadi.clean.presentation.util.show
 import javax.inject.Inject

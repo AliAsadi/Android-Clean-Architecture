@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".presentation.details.MovieDetailsActivity" />
+        <activity android:name=".presentation.moviedetails.MovieDetailsActivity" />
 
     </application>
 

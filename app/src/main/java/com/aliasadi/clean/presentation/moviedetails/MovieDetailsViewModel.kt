@@ -1,4 +1,4 @@
-package com.aliasadi.clean.presentation.details
+package com.aliasadi.clean.presentation.moviedetails
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,7 +1,7 @@
 package com.aliasadi.clean.presentation.di.details
 
 import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
-import com.aliasadi.clean.presentation.details.MovieDetailsViewModel
+import com.aliasadi.clean.presentation.moviedetails.MovieDetailsViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import dagger.Module
 import dagger.Provides
