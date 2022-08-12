@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/feed"
-        android:icon="@drawable/ic_feed"
+        android:icon="@drawable/ic_feed_border_48"
         android:title="Feed" />
 
 
     <item
         android:id="@+id/favorites"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_favorite_border_white_48"
         android:title="My Favorites" />
 
 </menu>
