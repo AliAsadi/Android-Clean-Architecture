@@ -3,6 +3,7 @@ package com.aliasadi.clean.presentation.di.details
 import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
 import com.aliasadi.clean.presentation.moviedetails.MovieDetailsViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
+import com.aliasadi.clean.presentation.util.ResourceProvider
 import dagger.Module
 import dagger.Provides
 
@@ -15,8 +16,9 @@ class MovieDetailsModule {
     @Provides
     fun provideMovieDetailsViewModelFactory(
         getMovieDetailsUseCase: GetMovieDetailsUseCase,
-        dispatchersProvider: DispatchersProvider
+        dispatchersProvider: DispatchersProvider,
+        resourceProvider: ResourceProvider
     ): MovieDetailsViewModel.Factory {
-        return MovieDetailsViewModel.Factory(getMovieDetailsUseCase, dispatchersProvider)
+        return MovieDetailsViewModel.Factory(getMovieDetailsUseCase, resourceProvider, dispatchersProvider)
     }
 }

@@ -2,10 +2,11 @@ package com.aliasadi.clean.presentation.di.core.module
 
 import android.content.Context
 import com.aliasadi.clean.data.util.DiskExecutor
-import dagger.Module
-import dagger.Provides
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import com.aliasadi.clean.presentation.util.DispatchersProviderImpl
+import com.aliasadi.clean.presentation.util.ResourceProvider
+import dagger.Module
+import dagger.Provides
 import javax.inject.Singleton
 
 /**
@@ -33,4 +34,8 @@ class AppModule constructor(context: Context) {
         return DispatchersProviderImpl
     }
 
+    @Provides
+    fun provideResourceProvider(context: Context): ResourceProvider {
+        return ResourceProvider(context)
+    }
 }
