@@ -28,7 +28,7 @@ class MovieDetailsActivity : BaseActivity<ActivityMovieDetailsBinding, MovieDeta
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.loadInitialState()
+        viewModel.onInitialState()
         setupViews()
         observeViewModel()
     }

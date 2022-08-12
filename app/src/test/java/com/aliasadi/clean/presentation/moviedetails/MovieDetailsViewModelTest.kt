@@ -33,7 +33,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun loadInitialState_movieAvailable_showMovieDetails() = coroutineRule.runBlockingTest {
+    fun onInitialState_movieAvailable_showMovieDetails() = coroutineRule.runBlockingTest {
 
         val movieObs: Observer<Movie> = mock()
 
@@ -41,20 +41,20 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
 
         viewModel.getMovieLiveData().observeForever(movieObs)
 
-        viewModel.loadInitialState()
+        viewModel.onInitialState()
 
         Mockito.verify(movieObs).onChanged(any())
     }
 
     @Test
-    fun loadInitialState_movieNotAvailable_doNothing() = coroutineRule.runBlockingTest {
+    fun onInitialState_movieNotAvailable_doNothing() = coroutineRule.runBlockingTest {
         val movieObs: Observer<Movie> = mock()
 
         `when`(getMovieDetailsUseCase.getMovie(movieId)).thenReturn(Result.Error(mock()))
 
         viewModel.getMovieLiveData().observeForever(movieObs)
 
-        viewModel.loadInitialState()
+        viewModel.onInitialState()
 
         Mockito.verifyNoMoreInteractions(movieObs)
     }

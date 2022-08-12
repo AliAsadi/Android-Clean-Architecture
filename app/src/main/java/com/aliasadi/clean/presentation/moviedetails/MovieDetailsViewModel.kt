@@ -21,7 +21,7 @@ class MovieDetailsViewModel internal constructor(
 
     private val movie = MutableLiveData<Movie>()
 
-    fun loadInitialState() = launchOnMainImmediate {
+    fun onInitialState() = launchOnMainImmediate {
         getMovieDetailsUseCase.getMovie(movieId).onSuccess {
             movie.value = it
         }
