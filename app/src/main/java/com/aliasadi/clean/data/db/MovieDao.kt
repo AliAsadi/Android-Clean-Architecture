@@ -12,22 +12,28 @@ import com.aliasadi.clean.domain.entities.Movie
 @Dao
 interface MovieDao {
     /**
-     * Select all movies from the movies table.
+     * Get all movies from the movies table.
      *
      * @return all movies.
      */
     @Query("SELECT * FROM movies")
     fun getMovies(): List<Movie>
 
-    @Query("SELECT * FROM movies")
-    fun getFavoriteMovies(): List<Movie>
 
+    /**
+     * Get all favorite movies from the movies table.
+     */
+    @Query("SELECT * FROM movies WHERE isFavorite = 1")
+    fun getFavoriteMovies(): List<Movie>
 
     /**
      * Get movie by id.
      * **/
     @Query("SELECT * FROM movies WHERE id = :movieId")
-    fun getMovie(movieId: Int) : Movie?
+    fun getMovie(movieId: Int): Movie?
+
+    @Query("UPDATE movies SET isFavorite = :isFavorite WHERE id = :movieId")
+    fun updateFavoriteStatus(movieId: Int, isFavorite: Boolean)
 
     /**
      * Insert all movies.

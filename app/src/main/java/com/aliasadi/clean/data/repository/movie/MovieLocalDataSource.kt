@@ -44,17 +44,11 @@ class MovieLocalDataSource(
         }
     }
 
-    override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = withContext(executor.asCoroutineDispatcher()) {
-        return@withContext movieDao.getMovie(movieId)?.let {
-            Result.Success(it.isFavorite)
-        } ?: Result.Error(DataNotAvailableException())
+    override suspend fun addMovieToFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
+        movieDao.updateFavoriteStatus(movieId, true)
     }
 
-    override suspend fun addMovieToFavorite(movieId: Int): Result<Boolean> = withContext(executor.asCoroutineDispatcher()) {
-        return@withContext Result.Error(DataNotAvailableException())
-    }
-
-    override suspend fun removeMovieFromFavorite(movieId: Int): Result<Boolean> = withContext(executor.asCoroutineDispatcher()) {
-        return@withContext Result.Error(DataNotAvailableException())
+    override suspend fun removeMovieFromFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
+        movieDao.updateFavoriteStatus(movieId, false)
     }
 }

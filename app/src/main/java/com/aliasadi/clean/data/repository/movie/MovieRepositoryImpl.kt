@@ -19,18 +19,16 @@ class MovieRepositoryImpl constructor(
 
     override suspend fun getMovie(movieId: Int): Result<Movie> = getMovieFromCache(movieId)
 
-    override suspend fun getFavoriteMovies(): Result<List<Movie>> = getFavoriteMoviesFromCache()
-
-    override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = checkFavoriteStatusCache(movieId)
+    override suspend fun getFavoriteMovies(): Result<List<Movie>> = getFavoriteMoviesFromLocal()
 
     override suspend fun addMovieToFavorite(movieId: Int) {
-        cache.addMovieToFavorite(movieId)
         local.addMovieToFavorite(movieId)
+        cache.addMovieToFavorite(movieId)
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Int) {
-        cache.removeMovieFromFavorite(movieId)
         local.removeMovieFromFavorite(movieId)
+        cache.removeMovieFromFavorite(movieId)
     }
 
     private suspend fun getMovieFromCache(movieId: Int): Result<Movie> = cache.getMovie(movieId).getResult({
@@ -67,19 +65,5 @@ class MovieRepositoryImpl constructor(
         cache.saveMovies(movies)
     }
 
-    private suspend fun getFavoriteMoviesFromCache(): Result<List<Movie>> = cache.getFavoriteMovies().getResult({
-        it
-    }, {
-        getFavoriteMoviesFromLocal()
-    })
-
     private suspend fun getFavoriteMoviesFromLocal(): Result<List<Movie>> = local.getFavoriteMovies()
-
-    private suspend fun checkFavoriteStatusCache(movieId: Int) = cache.checkFavoriteStatus(movieId).getResult({
-        it
-    }, {
-        checkFavoriteStatusLocal(movieId)
-    })
-
-    private suspend fun checkFavoriteStatusLocal(movieId: Int) = local.checkFavoriteStatus(movieId)
 }

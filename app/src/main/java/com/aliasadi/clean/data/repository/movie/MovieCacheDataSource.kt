@@ -44,47 +44,11 @@ class MovieCacheDataSource(
         for (movie in movies) inMemoryCache.put(movie.id, movie)
     }
 
-    override suspend fun getFavoriteMovies(): Result<List<Movie>> = withContext(diskExecutor.asCoroutineDispatcher()) {
-        return@withContext if (inMemoryCache.size() > 0) {
-            val favoriteMovies = arrayListOf<Movie>()
-            for (i in 0 until inMemoryCache.size()) {
-                val key = inMemoryCache.keyAt(i)
-                if (inMemoryCache[key].isFavorite) {
-                    favoriteMovies.add(inMemoryCache[key])
-                }
-            }
-            Result.Success(favoriteMovies)
-        } else {
-            Result.Error(DataNotAvailableException())
-        }
+    override suspend fun addMovieToFavorite(movieId: Int) = withContext(diskExecutor.asCoroutineDispatcher()) {
+        inMemoryCache.get(movieId)?.isFavorite = true
     }
 
-    override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = withContext(diskExecutor.asCoroutineDispatcher()) {
-        val movie = inMemoryCache.get(movieId)
-        return@withContext if (movie != null) {
-            Result.Success(movie.isFavorite)
-        } else {
-            Result.Error(DataNotAvailableException())
-        }
-    }
-
-    override suspend fun addMovieToFavorite(movieId: Int): Result<Boolean> = withContext(diskExecutor.asCoroutineDispatcher()) {
-        val movie = inMemoryCache.get(movieId)
-        return@withContext if (movie != null) {
-            movie.isFavorite = true
-            Result.Success(true)
-        } else {
-            Result.Error(DataNotAvailableException())
-        }
-    }
-
-    override suspend fun removeMovieFromFavorite(movieId: Int): Result<Boolean> = withContext(diskExecutor.asCoroutineDispatcher()) {
-        val movie = inMemoryCache.get(movieId)
-        return@withContext if (movie != null) {
-            movie.isFavorite = false
-            Result.Success(true)
-        } else {
-            Result.Error(DataNotAvailableException())
-        }
+    override suspend fun removeMovieFromFavorite(movieId: Int) = withContext(diskExecutor.asCoroutineDispatcher()) {
+        inMemoryCache.get(movieId)?.isFavorite = false
     }
 }

@@ -16,10 +16,14 @@ interface MovieDataSource {
         suspend fun getMovie(movieId: Int): Result<Movie>
         suspend fun saveMovies(movies: List<Movie>)
         suspend fun getFavoriteMovies(): Result<List<Movie>>
-        suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>
-        suspend fun addMovieToFavorite(movieId: Int): Result<Boolean>
-        suspend fun removeMovieFromFavorite(movieId: Int): Result<Boolean>
+        suspend fun addMovieToFavorite(movieId: Int)
+        suspend fun removeMovieFromFavorite(movieId: Int)
     }
 
-    interface Cache : Local
+    interface Cache : Remote {
+        suspend fun getMovie(movieId: Int): Result<Movie>
+        suspend fun saveMovies(movies: List<Movie>)
+        suspend fun addMovieToFavorite(movieId: Int)
+        suspend fun removeMovieFromFavorite(movieId: Int)
+    }
 }
