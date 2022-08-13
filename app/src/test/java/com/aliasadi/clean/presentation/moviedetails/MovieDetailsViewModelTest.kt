@@ -5,6 +5,8 @@ import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
 import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
+import com.aliasadi.clean.presentation.moviedetails.MovieDetailsViewModel.MovieDetailsUiState
+import com.aliasadi.clean.presentation.util.ResourceProvider
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import org.junit.Before
 import org.junit.Test
@@ -20,26 +22,31 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class MovieDetailsViewModelTest : BaseViewModelTest() {
 
-    var movieId: Int = 1413
+    private var movieId: Int = 1413
+
+    private val movie = Movie(movieId, "", "", "")
 
     @Mock
     lateinit var getMovieDetailsUseCase: GetMovieDetailsUseCase
+
+    @Mock
+    lateinit var resourceProvider: ResourceProvider
 
     private lateinit var viewModel: MovieDetailsViewModel
 
     @Before
     fun setUp() {
-        viewModel = MovieDetailsViewModel(movieId, getMovieDetailsUseCase, coroutineRule.testDispatcherProvider)
+        viewModel = MovieDetailsViewModel(movieId, getMovieDetailsUseCase, resourceProvider, coroutineRule.testDispatcherProvider)
     }
 
     @Test
     fun onInitialState_movieAvailable_showMovieDetails() = coroutineRule.runBlockingTest {
 
-        val movieObs: Observer<Movie> = mock()
+        val movieObs: Observer<MovieDetailsUiState> = mock()
 
-        `when`(getMovieDetailsUseCase.getMovie(movieId)).thenReturn(Result.Success(mock()))
+        `when`(getMovieDetailsUseCase.getMovie(movieId)).thenReturn(Result.Success(movie))
 
-        viewModel.getMovieLiveData().observeForever(movieObs)
+        viewModel.getMovieDetailsUiStateLiveData().observeForever(movieObs)
 
         viewModel.onInitialState()
 
@@ -48,11 +55,11 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
 
     @Test
     fun onInitialState_movieNotAvailable_doNothing() = coroutineRule.runBlockingTest {
-        val movieObs: Observer<Movie> = mock()
+        val movieObs: Observer<MovieDetailsUiState> = mock()
 
         `when`(getMovieDetailsUseCase.getMovie(movieId)).thenReturn(Result.Error(mock()))
 
-        viewModel.getMovieLiveData().observeForever(movieObs)
+        viewModel.getMovieDetailsUiStateLiveData().observeForever(movieObs)
 
         viewModel.onInitialState()
 

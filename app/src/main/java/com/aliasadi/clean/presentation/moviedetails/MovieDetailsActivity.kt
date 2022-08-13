@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.aliasadi.clean.databinding.ActivityMovieDetailsBinding
-import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.presentation.base.BaseActivity
 import com.bumptech.glide.Glide
 import javax.inject.Inject
@@ -52,14 +51,14 @@ class MovieDetailsActivity : BaseActivity<ActivityMovieDetailsBinding, MovieDeta
     }
 
     private fun observeViewModel() = with(viewModel) {
-        getMovieLiveData().observe { movie -> updateMovieDetails(movie) }
+        getMovieDetailsUiStateLiveData().observe { updateMovieDetails(it) }
         getFavoriteStateLiveData().observe { updateFavoriteDrawable(it.drawable) }
     }
 
-    private fun updateMovieDetails(movie: Movie) {
-        binding.movieTitle.text = movie.title
-        binding.description.text = movie.description
-        loadImage(movie.image)
+    private fun updateMovieDetails(movieState: MovieDetailsViewModel.MovieDetailsUiState) {
+        binding.movieTitle.text = movieState.title
+        binding.description.text = movieState.description
+        loadImage(movieState.imageUrl)
     }
 
     private fun updateFavoriteDrawable(drawable: Drawable?) = with(binding.favorite) {

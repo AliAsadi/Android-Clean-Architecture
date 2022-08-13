@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.R
 import com.aliasadi.clean.domain.model.Movie
 import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
+import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.domain.util.onSuccess
 import com.aliasadi.clean.presentation.base.BaseViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
@@ -25,14 +26,26 @@ class MovieDetailsViewModel internal constructor(
 
     data class FavoriteState(val drawable: Drawable?)
 
-    private val movie = MutableLiveData<Movie>()
-    private val favoriteState = MutableLiveData<FavoriteState>()
+    data class MovieDetailsUiState(
+        val title: String,
+        val description: String,
+        val imageUrl: String,
+    )
+
+    private val movieDetailsUiState: MutableLiveData<MovieDetailsUiState> = MutableLiveData()
+    private val favoriteState: MutableLiveData<FavoriteState> = MutableLiveData()
 
     fun onInitialState() = launchOnMainImmediate {
-        getMovieDetailsUseCase.getMovie(movieId).onSuccess {
-            movie.value = it
+        getMovieById(movieId).onSuccess {
+            movieDetailsUiState.value = MovieDetailsUiState(
+                title = it.title,
+                description = it.description,
+                imageUrl = it.image,
+            )
         }
     }
+
+    private suspend fun getMovieById(movieId: Int): Result<Movie> = getMovieDetailsUseCase.getMovie(movieId)
 
     val isFavorite = true
     fun onFavoriteClicked() {
@@ -41,7 +54,7 @@ class MovieDetailsViewModel internal constructor(
         favoriteState.value = FavoriteState(drawable)
     }
 
-    fun getMovieLiveData(): LiveData<Movie> = movie
+    fun getMovieDetailsUiStateLiveData(): LiveData<MovieDetailsUiState> = movieDetailsUiState
     fun getFavoriteStateLiveData(): LiveData<FavoriteState> = favoriteState
 
     class Factory(
