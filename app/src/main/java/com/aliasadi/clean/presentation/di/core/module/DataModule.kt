@@ -5,8 +5,7 @@ import com.aliasadi.clean.data.db.MovieDao
 import com.aliasadi.clean.data.repository.movie.*
 import com.aliasadi.clean.data.util.DiskExecutor
 import com.aliasadi.clean.domain.repository.MovieRepository
-import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
-import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
+import com.aliasadi.clean.domain.usecase.*
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import dagger.Module
 import dagger.Provides
@@ -57,5 +56,25 @@ class DataModule {
     @Provides
     fun provideGetMovieDetailsUseCase(movieRepository: MovieRepository): GetMovieDetailsUseCase {
         return GetMovieDetailsUseCase(movieRepository)
+    }
+
+    @Provides
+    fun provideGetFavoriteMoviesUseCase(movieRepository: MovieRepository): GetFavoriteMoviesUseCase {
+        return GetFavoriteMoviesUseCase(movieRepository)
+    }
+
+    @Provides
+    fun provideCheckFavoriteStatusUseCase(movieRepository: MovieRepository): CheckFavoriteStatusUseCase {
+        return CheckFavoriteStatusUseCase(movieRepository)
+    }
+
+    @Provides
+    fun provideAddMovieToFavoriteUseCase(movieRepository: MovieRepository): AddMovieToFavoriteUseCase {
+        return AddMovieToFavoriteUseCase(movieRepository)
+    }
+
+    @Provides
+    fun provideRemoveMovieFromFavoriteUseCase(movieRepository: MovieRepository): RemoveMovieFromFavoriteUseCase {
+        return RemoveMovieFromFavoriteUseCase(movieRepository)
     }
 }

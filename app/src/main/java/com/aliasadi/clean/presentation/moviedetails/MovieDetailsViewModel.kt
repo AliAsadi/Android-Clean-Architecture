@@ -6,8 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.R
-import com.aliasadi.clean.domain.model.Movie
+import com.aliasadi.clean.domain.entities.Movie
+import com.aliasadi.clean.domain.usecase.AddMovieToFavoriteUseCase
+import com.aliasadi.clean.domain.usecase.CheckFavoriteStatusUseCase
 import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
+import com.aliasadi.clean.domain.usecase.RemoveMovieFromFavoriteUseCase
 import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.domain.util.onSuccess
 import com.aliasadi.clean.presentation.base.BaseViewModel
@@ -20,6 +23,9 @@ import com.aliasadi.clean.presentation.util.ResourceProvider
 class MovieDetailsViewModel internal constructor(
     private val movieId: Int,
     private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
+    private val checkFavoriteStatusUseCase: CheckFavoriteStatusUseCase,
+    private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
+    private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase,
     private val resourceProvider: ResourceProvider,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
@@ -29,7 +35,7 @@ class MovieDetailsViewModel internal constructor(
     data class MovieDetailsUiState(
         val title: String,
         val description: String,
-        val imageUrl: String,
+        val imageUrl: String
     )
 
     private val movieDetailsUiState: MutableLiveData<MovieDetailsUiState> = MutableLiveData()
@@ -42,16 +48,25 @@ class MovieDetailsViewModel internal constructor(
                 description = it.description,
                 imageUrl = it.image,
             )
+
+            favoriteState.value = FavoriteState(getFavoriteDrawable(it.isFavorite))
         }
     }
 
+    private fun getFavoriteDrawable(favorite: Boolean): Drawable? = if (favorite) {
+        resourceProvider.getDrawable(R.drawable.ic_favorite_fill_white_48)
+    } else {
+        resourceProvider.getDrawable(R.drawable.ic_favorite_border_white_48)
+    }
+
+
     private suspend fun getMovieById(movieId: Int): Result<Movie> = getMovieDetailsUseCase.getMovie(movieId)
 
-    val isFavorite = true
-    fun onFavoriteClicked() {
-        val drawable =
-            if (isFavorite) resourceProvider.getDrawable(R.drawable.ic_favorite_fill_white_48) else resourceProvider.getDrawable(R.drawable.ic_favorite_border_white_48)
-        favoriteState.value = FavoriteState(drawable)
+    fun onFavoriteClicked() = launchOnMainImmediate {
+        checkFavoriteStatusUseCase.check(movieId).onSuccess {
+            if (it) removeMovieFromFavoriteUseCase.remove(movieId) else addMovieToFavoriteUseCase.add(movieId)
+            favoriteState.value = FavoriteState(getFavoriteDrawable(!it))
+        }
     }
 
     fun getMovieDetailsUiStateLiveData(): LiveData<MovieDetailsUiState> = movieDetailsUiState
@@ -59,6 +74,9 @@ class MovieDetailsViewModel internal constructor(
 
     class Factory(
         private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
+        private val checkFavoriteStatusUseCase: CheckFavoriteStatusUseCase,
+        private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
+        private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase,
         private val resourceProvider: ResourceProvider,
         private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
@@ -69,6 +87,9 @@ class MovieDetailsViewModel internal constructor(
             return MovieDetailsViewModel(
                 movieId = movieId,
                 getMovieDetailsUseCase = getMovieDetailsUseCase,
+                checkFavoriteStatusUseCase = checkFavoriteStatusUseCase,
+                addMovieToFavoriteUseCase = addMovieToFavoriteUseCase,
+                removeMovieFromFavoriteUseCase = removeMovieFromFavoriteUseCase,
                 resourceProvider = resourceProvider,
                 dispatchers = dispatchers
             ) as T

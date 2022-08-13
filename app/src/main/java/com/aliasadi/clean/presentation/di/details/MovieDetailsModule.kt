@@ -1,6 +1,9 @@
 package com.aliasadi.clean.presentation.di.details
 
+import com.aliasadi.clean.domain.usecase.AddMovieToFavoriteUseCase
+import com.aliasadi.clean.domain.usecase.CheckFavoriteStatusUseCase
 import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
+import com.aliasadi.clean.domain.usecase.RemoveMovieFromFavoriteUseCase
 import com.aliasadi.clean.presentation.moviedetails.MovieDetailsViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import com.aliasadi.clean.presentation.util.ResourceProvider
@@ -16,9 +19,19 @@ class MovieDetailsModule {
     @Provides
     fun provideMovieDetailsViewModelFactory(
         getMovieDetailsUseCase: GetMovieDetailsUseCase,
+        checkFavoriteStatusUseCase: CheckFavoriteStatusUseCase,
+        addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
+        removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase,
         dispatchersProvider: DispatchersProvider,
         resourceProvider: ResourceProvider
     ): MovieDetailsViewModel.Factory {
-        return MovieDetailsViewModel.Factory(getMovieDetailsUseCase, resourceProvider, dispatchersProvider)
+        return MovieDetailsViewModel.Factory(
+            getMovieDetailsUseCase = getMovieDetailsUseCase,
+            addMovieToFavoriteUseCase = addMovieToFavoriteUseCase,
+            checkFavoriteStatusUseCase = checkFavoriteStatusUseCase,
+            removeMovieFromFavoriteUseCase = removeMovieFromFavoriteUseCase,
+            resourceProvider = resourceProvider,
+            dispatchers = dispatchersProvider
+        )
     }
 }

@@ -1,7 +1,7 @@
 package com.aliasadi.clean.data.mapper
 
-import com.aliasadi.clean.data.model.MovieData
-import com.aliasadi.clean.domain.model.Movie
+import com.aliasadi.clean.data.entities.MovieData
+import com.aliasadi.clean.domain.entities.Movie
 
 /**
  * Created by Ali Asadi on 13/05/2020

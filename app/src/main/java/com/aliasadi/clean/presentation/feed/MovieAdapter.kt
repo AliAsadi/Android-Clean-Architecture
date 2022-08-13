@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.aliasadi.clean.databinding.ItemMovieBinding
-import com.aliasadi.clean.domain.model.Movie
+import com.aliasadi.clean.domain.entities.Movie
 import com.aliasadi.clean.presentation.feed.MovieAdapter.MovieViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder

@@ -1,4 +1,4 @@
-package com.aliasadi.clean.data.model
+package com.aliasadi.clean.data.entities
 
 import com.google.gson.annotations.SerializedName
 

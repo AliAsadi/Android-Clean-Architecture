@@ -1,14 +1,13 @@
 package com.aliasadi.clean.domain.usecase
 
-import com.aliasadi.clean.domain.entities.Movie
 import com.aliasadi.clean.domain.repository.MovieRepository
 import com.aliasadi.clean.domain.util.Result
 
 /**
- * Created by Ali Asadi on 13/05/2020
- **/
-open class GetMoviesUseCase(
+ * @author by Ali Asadi on 13/08/2022
+ */
+class CheckFavoriteStatusUseCase(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun getMovies(): Result<List<Movie>> = movieRepository.getMovies()
+    suspend fun check(movieId: Int): Result<Boolean> = movieRepository.checkFavoriteStatus(movieId)
 }

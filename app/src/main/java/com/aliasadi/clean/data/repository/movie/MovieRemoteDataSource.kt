@@ -2,7 +2,7 @@ package com.aliasadi.clean.data.repository.movie
 
 import com.aliasadi.clean.data.api.MovieApi
 import com.aliasadi.clean.data.mapper.MovieMapper
-import com.aliasadi.clean.domain.model.Movie
+import com.aliasadi.clean.domain.entities.Movie
 import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import kotlinx.coroutines.withContext

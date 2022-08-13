@@ -1,4 +1,4 @@
-package com.aliasadi.clean.domain.model
+package com.aliasadi.clean.domain.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -12,4 +12,6 @@ data class Movie(
     val description: String,
     val image: String,
     val title: String
-)
+) {
+    var isFavorite: Boolean = false
+}

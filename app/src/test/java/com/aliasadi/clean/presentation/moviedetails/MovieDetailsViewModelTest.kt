@@ -1,8 +1,11 @@
 package com.aliasadi.clean.presentation.moviedetails
 
 import androidx.lifecycle.Observer
-import com.aliasadi.clean.domain.model.Movie
+import com.aliasadi.clean.domain.entities.Movie
+import com.aliasadi.clean.domain.usecase.AddMovieToFavoriteUseCase
+import com.aliasadi.clean.domain.usecase.CheckFavoriteStatusUseCase
 import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
+import com.aliasadi.clean.domain.usecase.RemoveMovieFromFavoriteUseCase
 import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.moviedetails.MovieDetailsViewModel.MovieDetailsUiState
@@ -30,13 +33,30 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     lateinit var getMovieDetailsUseCase: GetMovieDetailsUseCase
 
     @Mock
+    lateinit var checkFavoriteStatusUseCase: CheckFavoriteStatusUseCase
+
+    @Mock
+    lateinit var addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase
+
+    @Mock
+    lateinit var removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase
+
+    @Mock
     lateinit var resourceProvider: ResourceProvider
 
     private lateinit var viewModel: MovieDetailsViewModel
 
     @Before
     fun setUp() {
-        viewModel = MovieDetailsViewModel(movieId, getMovieDetailsUseCase, resourceProvider, coroutineRule.testDispatcherProvider)
+        viewModel = MovieDetailsViewModel(
+            movieId = movieId,
+            getMovieDetailsUseCase = getMovieDetailsUseCase,
+            checkFavoriteStatusUseCase = checkFavoriteStatusUseCase,
+            removeMovieFromFavoriteUseCase = removeMovieFromFavoriteUseCase,
+            addMovieToFavoriteUseCase = addMovieToFavoriteUseCase,
+            resourceProvider = resourceProvider,
+            dispatchers = coroutineRule.testDispatcherProvider
+        )
     }
 
     @Test

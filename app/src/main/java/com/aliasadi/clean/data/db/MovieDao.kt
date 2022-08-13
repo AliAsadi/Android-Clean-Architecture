@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.aliasadi.clean.domain.model.Movie
+import com.aliasadi.clean.domain.entities.Movie
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -18,6 +18,10 @@ interface MovieDao {
      */
     @Query("SELECT * FROM movies")
     fun getMovies(): List<Movie>
+
+    @Query("SELECT * FROM movies")
+    fun getFavoriteMovies(): List<Movie>
+
 
     /**
      * Get movie by id.

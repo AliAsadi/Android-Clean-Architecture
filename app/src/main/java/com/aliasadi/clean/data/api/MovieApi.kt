@@ -1,6 +1,6 @@
 package com.aliasadi.clean.data.api
 
-import com.aliasadi.clean.data.model.MovieResponse
+import com.aliasadi.clean.data.entities.MovieResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
