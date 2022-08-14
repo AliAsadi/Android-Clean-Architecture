@@ -26,15 +26,15 @@ class FeedViewModel internal constructor(
     private val showError: SingleLiveEvent<String> = SingleLiveEvent()
     private val navigateToMovieDetails: SingleLiveEvent<Movie> = SingleLiveEvent()
 
-    fun loadMovies() = launchOnMainImmediate {
-        getMovies()
+    fun onInitialState() = launchOnMainImmediate {
+        loadMovies()
     }
 
     fun onMovieClicked(movie: Movie) = launchOnMainImmediate {
         navigateToMovieDetails.value = movie
     }
 
-    private suspend fun getMovies() {
+    private suspend fun loadMovies() {
         showLoading.value = Unit
 
         getMoviesUseCase.getMovies()

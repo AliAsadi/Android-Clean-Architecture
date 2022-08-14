@@ -30,7 +30,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViews()
         observeViewModel()
-        viewModel.loadMovies()
+        viewModel.onInitialState()
     }
 
     private fun setupViews() {
