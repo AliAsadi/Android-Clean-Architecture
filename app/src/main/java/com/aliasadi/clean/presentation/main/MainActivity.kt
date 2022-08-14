@@ -33,8 +33,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) navigateToFeed()
+        setupViews()
         setupObservers()
         setupListeners()
+    }
+
+    private fun setupViews() {
+        supportActionBar?.setTitle(R.string.clean_architecture)
     }
 
     private fun setupListeners() {
