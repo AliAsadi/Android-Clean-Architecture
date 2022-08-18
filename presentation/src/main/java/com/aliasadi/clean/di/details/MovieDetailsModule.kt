@@ -25,10 +25,10 @@ class MovieDetailsModule {
         resourceProvider: ResourceProvider
     ): MovieDetailsViewModel.Factory {
         return MovieDetailsViewModel.Factory(
-            getMovieDetailsUseCase = getMovieDetails,
-            addMovieToFavoriteUseCase = addMovieToFavorite,
-            checkFavoriteStatusUseCase = checkFavoriteStatus,
-            removeMovieFromFavoriteUseCase = removeMovieFromFavorite,
+            getMovieDetails = getMovieDetails,
+            addMovieToFavorite = addMovieToFavorite,
+            checkFavoriteStatus = checkFavoriteStatus,
+            removeMovieFromFavorite = removeMovieFromFavorite,
             resourceProvider = resourceProvider,
             dispatchers = dispatchersProvider
         )
