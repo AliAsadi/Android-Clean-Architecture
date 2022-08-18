@@ -7,7 +7,7 @@ import com.aliasadi.domain.util.Result
 /**
  * Created by Ali Asadi on 13/05/2020
  **/
-open class GetMoviesUseCase(
+open class GetMovies(
     private val movieRepository: MovieRepository
 ) {
     suspend fun getMovies(): Result<List<Movie>> = movieRepository.getMovies()

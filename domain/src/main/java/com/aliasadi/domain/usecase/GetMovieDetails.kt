@@ -5,10 +5,10 @@ import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
 
 /**
- * @author by Ali Asadi on 13/08/2022
- */
-class GetFavoriteMoviesUseCase(
+ * Created by Ali Asadi on 13/05/2020
+ **/
+class GetMovieDetails(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun getFavoriteMovies(): Result<List<Movie>> = movieRepository.getFavoriteMovies()
+    suspend fun getMovie(movieId: Int): Result<Movie> = movieRepository.getMovie(movieId)
 }

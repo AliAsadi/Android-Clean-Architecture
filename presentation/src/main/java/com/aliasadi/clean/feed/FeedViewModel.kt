@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.base.BaseViewModel
 import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.domain.entities.Movie
-import com.aliasadi.domain.usecase.GetMoviesUseCase
+import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
 
@@ -15,7 +15,7 @@ import com.aliasadi.domain.util.onSuccess
  * Created by Ali Asadi on 13/05/2020
  */
 class FeedViewModel internal constructor(
-    private val getMoviesUseCase: GetMoviesUseCase,
+    private val getMovies: GetMovies,
     dispatchers: com.aliasadi.data.util.DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -36,7 +36,7 @@ class FeedViewModel internal constructor(
     private suspend fun loadMovies() {
         showLoading.value = Unit
 
-        getMoviesUseCase.getMovies()
+        getMovies.getMovies()
             .onSuccess {
                 hideLoading.value = Unit
                 movies.value = it
@@ -54,11 +54,11 @@ class FeedViewModel internal constructor(
     fun getNavigateToMovieDetails(): LiveData<Movie> = navigateToMovieDetails
 
     class Factory(
-        private val getMoviesUseCase: GetMoviesUseCase,
+        private val getMovies: GetMovies,
         private val dispatchers: com.aliasadi.data.util.DispatchersProvider
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedViewModel(getMoviesUseCase, dispatchers) as T
+            return FeedViewModel(getMovies, dispatchers) as T
         }
     }
 }

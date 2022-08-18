@@ -8,14 +8,14 @@ import com.aliasadi.clean.base.BaseViewModel
 import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.Movie
-import com.aliasadi.domain.usecase.GetFavoriteMoviesUseCase
+import com.aliasadi.domain.usecase.GetFavoriteMovies
 import com.aliasadi.domain.util.onSuccess
 
 /**
  * @author by Ali Asadi on 03/08/2022
  */
 class FavoritesViewModel internal constructor(
-    private val getFavoriteMoviesUseCase: GetFavoriteMoviesUseCase,
+    private val getFavoriteMovies: GetFavoriteMovies,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -32,7 +32,7 @@ class FavoritesViewModel internal constructor(
         }
     }
 
-    private suspend fun getFavoriteMovies() = getFavoriteMoviesUseCase.getFavoriteMovies()
+    private suspend fun getFavoriteMovies() = getFavoriteMovies.getFavoriteMovies()
 
     fun onMovieClicked(movie: Movie) = launchOnMainImmediate {
         navigateToMovieDetails.value = movie
@@ -42,11 +42,11 @@ class FavoritesViewModel internal constructor(
     fun getNavigateToMovieDetails(): LiveData<Movie> = navigateToMovieDetails
 
     class Factory(
-        private val getFavoriteMoviesUseCase: GetFavoriteMoviesUseCase,
+        private val getFavoriteMovies: GetFavoriteMovies,
         private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FavoritesViewModel(getFavoriteMoviesUseCase, dispatchers) as T
+            return FavoritesViewModel(getFavoriteMovies, dispatchers) as T
         }
     }
 }

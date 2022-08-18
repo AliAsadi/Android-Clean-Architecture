@@ -7,10 +7,10 @@ import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.domain.entities.Movie
-import com.aliasadi.domain.usecase.AddMovieToFavoriteUseCase
-import com.aliasadi.domain.usecase.CheckFavoriteStatusUseCase
-import com.aliasadi.domain.usecase.GetMovieDetailsUseCase
-import com.aliasadi.domain.usecase.RemoveMovieFromFavoriteUseCase
+import com.aliasadi.domain.usecase.AddMovieToFavorite
+import com.aliasadi.domain.usecase.CheckFavoriteStatus
+import com.aliasadi.domain.usecase.GetMovieDetails
+import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
 import org.junit.Before
 import org.junit.Test
@@ -31,16 +31,16 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     private val movie = Movie(movieId, "", "", "")
 
     @Mock
-    lateinit var getMovieDetailsUseCase: GetMovieDetailsUseCase
+    lateinit var getMovieDetails: GetMovieDetails
 
     @Mock
-    lateinit var checkFavoriteStatusUseCase: CheckFavoriteStatusUseCase
+    lateinit var checkFavoriteStatus: CheckFavoriteStatus
 
     @Mock
-    lateinit var addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase
+    lateinit var addMovieToFavorite: AddMovieToFavorite
 
     @Mock
-    lateinit var removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase
+    lateinit var removeMovieFromFavorite: RemoveMovieFromFavorite
 
     @Mock
     lateinit var resourceProvider: ResourceProvider
@@ -51,10 +51,10 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     fun setUp() {
         viewModel = MovieDetailsViewModel(
             movieId = movieId,
-            getMovieDetailsUseCase = getMovieDetailsUseCase,
-            checkFavoriteStatusUseCase = checkFavoriteStatusUseCase,
-            removeMovieFromFavoriteUseCase = removeMovieFromFavoriteUseCase,
-            addMovieToFavoriteUseCase = addMovieToFavoriteUseCase,
+            getMovieDetailsUseCase = getMovieDetails,
+            checkFavoriteStatusUseCase = checkFavoriteStatus,
+            removeMovieFromFavoriteUseCase = removeMovieFromFavorite,
+            addMovieToFavoriteUseCase = addMovieToFavorite,
             resourceProvider = resourceProvider,
             dispatchers = coroutineRule.testDispatcherProvider
         )
@@ -65,7 +65,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
 
         val movieObs: Observer<MovieDetailsUiState> = mock()
 
-        `when`(getMovieDetailsUseCase.getMovie(movieId)).thenReturn(Result.Success(movie))
+        `when`(getMovieDetails.getMovie(movieId)).thenReturn(Result.Success(movie))
 
         viewModel.getMovieDetailsUiStateLiveData().observeForever(movieObs)
 
@@ -78,7 +78,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     fun onInitialState_movieNotAvailable_doNothing() = coroutineRule.runBlockingTest {
         val movieObs: Observer<MovieDetailsUiState> = mock()
 
-        `when`(getMovieDetailsUseCase.getMovie(movieId)).thenReturn(Result.Error(mock()))
+        `when`(getMovieDetails.getMovie(movieId)).thenReturn(Result.Error(mock()))
 
         viewModel.getMovieDetailsUiStateLiveData().observeForever(movieObs)
 

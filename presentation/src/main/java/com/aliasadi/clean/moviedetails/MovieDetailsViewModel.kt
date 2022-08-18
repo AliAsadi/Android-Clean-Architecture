@@ -9,10 +9,10 @@ import com.aliasadi.clean.R
 import com.aliasadi.clean.base.BaseViewModel
 import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.domain.entities.Movie
-import com.aliasadi.domain.usecase.AddMovieToFavoriteUseCase
-import com.aliasadi.domain.usecase.CheckFavoriteStatusUseCase
-import com.aliasadi.domain.usecase.GetMovieDetailsUseCase
-import com.aliasadi.domain.usecase.RemoveMovieFromFavoriteUseCase
+import com.aliasadi.domain.usecase.AddMovieToFavorite
+import com.aliasadi.domain.usecase.CheckFavoriteStatus
+import com.aliasadi.domain.usecase.GetMovieDetails
+import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.onSuccess
 
@@ -21,10 +21,10 @@ import com.aliasadi.domain.util.onSuccess
  */
 class MovieDetailsViewModel internal constructor(
     private val movieId: Int,
-    private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
-    private val checkFavoriteStatusUseCase: CheckFavoriteStatusUseCase,
-    private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
-    private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase,
+    private val getMovieDetails: GetMovieDetails,
+    private val checkFavoriteStatus: CheckFavoriteStatus,
+    private val addMovieToFavorite: AddMovieToFavorite,
+    private val removeMovieFromFavorite: RemoveMovieFromFavorite,
     private val resourceProvider: ResourceProvider,
     dispatchers: com.aliasadi.data.util.DispatchersProvider
 ) : BaseViewModel(dispatchers) {
@@ -59,11 +59,11 @@ class MovieDetailsViewModel internal constructor(
     }
 
 
-    private suspend fun getMovieById(movieId: Int): Result<Movie> = getMovieDetailsUseCase.getMovie(movieId)
+    private suspend fun getMovieById(movieId: Int): Result<Movie> = getMovieDetails.getMovie(movieId)
 
     fun onFavoriteClicked() = launchOnMainImmediate {
-        checkFavoriteStatusUseCase.check(movieId).onSuccess {
-            if (it) removeMovieFromFavoriteUseCase.remove(movieId) else addMovieToFavoriteUseCase.add(movieId)
+        checkFavoriteStatus.check(movieId).onSuccess {
+            if (it) removeMovieFromFavorite.remove(movieId) else addMovieToFavorite.add(movieId)
             favoriteState.value = FavoriteState(getFavoriteDrawable(!it))
         }
     }
@@ -72,10 +72,10 @@ class MovieDetailsViewModel internal constructor(
     fun getFavoriteStateLiveData(): LiveData<FavoriteState> = favoriteState
 
     class Factory(
-        private val getMovieDetailsUseCase: GetMovieDetailsUseCase,
-        private val checkFavoriteStatusUseCase: CheckFavoriteStatusUseCase,
-        private val addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
-        private val removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase,
+        private val getMovieDetails: GetMovieDetails,
+        private val checkFavoriteStatus: CheckFavoriteStatus,
+        private val addMovieToFavorite: AddMovieToFavorite,
+        private val removeMovieFromFavorite: RemoveMovieFromFavorite,
         private val resourceProvider: ResourceProvider,
         private val dispatchers: com.aliasadi.data.util.DispatchersProvider
     ) : ViewModelProvider.Factory {
@@ -85,10 +85,10 @@ class MovieDetailsViewModel internal constructor(
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MovieDetailsViewModel(
                 movieId = movieId,
-                getMovieDetailsUseCase = getMovieDetailsUseCase,
-                checkFavoriteStatusUseCase = checkFavoriteStatusUseCase,
-                addMovieToFavoriteUseCase = addMovieToFavoriteUseCase,
-                removeMovieFromFavoriteUseCase = removeMovieFromFavoriteUseCase,
+                getMovieDetails = getMovieDetails,
+                checkFavoriteStatus = checkFavoriteStatus,
+                addMovieToFavorite = addMovieToFavorite,
+                removeMovieFromFavorite = removeMovieFromFavorite,
                 resourceProvider = resourceProvider,
                 dispatchers = dispatchers
             ) as T

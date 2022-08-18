@@ -49,32 +49,32 @@ class DataModule {
     }
 
     @Provides
-    fun provideGetMovieUseCase(movieRepository: MovieRepository): GetMoviesUseCase {
-        return GetMoviesUseCase(movieRepository)
+    fun provideGetMovieUseCase(movieRepository: MovieRepository): GetMovies {
+        return GetMovies(movieRepository)
     }
 
     @Provides
-    fun provideGetMovieDetailsUseCase(movieRepository: MovieRepository): GetMovieDetailsUseCase {
-        return GetMovieDetailsUseCase(movieRepository)
+    fun provideGetMovieDetailsUseCase(movieRepository: MovieRepository): GetMovieDetails {
+        return GetMovieDetails(movieRepository)
     }
 
     @Provides
-    fun provideGetFavoriteMoviesUseCase(movieRepository: MovieRepository): GetFavoriteMoviesUseCase {
-        return GetFavoriteMoviesUseCase(movieRepository)
+    fun provideGetFavoriteMoviesUseCase(movieRepository: MovieRepository): GetFavoriteMovies {
+        return GetFavoriteMovies(movieRepository)
     }
 
     @Provides
-    fun provideCheckFavoriteStatusUseCase(movieRepository: MovieRepository): CheckFavoriteStatusUseCase {
-        return CheckFavoriteStatusUseCase(movieRepository)
+    fun provideCheckFavoriteStatusUseCase(movieRepository: MovieRepository): CheckFavoriteStatus {
+        return CheckFavoriteStatus(movieRepository)
     }
 
     @Provides
-    fun provideAddMovieToFavoriteUseCase(movieRepository: MovieRepository): AddMovieToFavoriteUseCase {
-        return AddMovieToFavoriteUseCase(movieRepository)
+    fun provideAddMovieToFavoriteUseCase(movieRepository: MovieRepository): AddMovieToFavorite {
+        return AddMovieToFavorite(movieRepository)
     }
 
     @Provides
-    fun provideRemoveMovieFromFavoriteUseCase(movieRepository: MovieRepository): RemoveMovieFromFavoriteUseCase {
-        return RemoveMovieFromFavoriteUseCase(movieRepository)
+    fun provideRemoveMovieFromFavoriteUseCase(movieRepository: MovieRepository): RemoveMovieFromFavorite {
+        return RemoveMovieFromFavorite(movieRepository)
     }
 }

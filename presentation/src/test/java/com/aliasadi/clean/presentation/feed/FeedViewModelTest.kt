@@ -5,7 +5,7 @@ import com.aliasadi.clean.feed.FeedViewModel
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.domain.entities.Movie
-import com.aliasadi.domain.usecase.GetMoviesUseCase
+import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.Result
 import org.junit.Before
 import org.junit.Test
@@ -22,13 +22,13 @@ import org.mockito.junit.MockitoJUnitRunner
 class FeedViewModelTest : BaseViewModelTest() {
 
     @Mock
-    lateinit var getMoviesUseCase: GetMoviesUseCase
+    lateinit var getMovies: GetMovies
 
     private lateinit var viewModel: FeedViewModel
 
     @Before
     fun setUp() {
-        viewModel = FeedViewModel(getMoviesUseCase, coroutineRule.testDispatcherProvider)
+        viewModel = FeedViewModel(getMovies, coroutineRule.testDispatcherProvider)
     }
 
     @Test
@@ -41,7 +41,7 @@ class FeedViewModelTest : BaseViewModelTest() {
         viewModel.getShowLoadingLiveData().observeForever(showLoadingObs)
         viewModel.getHideLoadingLiveData().observeForever(hideLoadingObs)
 
-        Mockito.`when`(getMoviesUseCase.getMovies()).thenReturn(Result.Success(mock()))
+        Mockito.`when`(getMovies.getMovies()).thenReturn(Result.Success(mock()))
 
         viewModel.onInitialState()
 
@@ -64,7 +64,7 @@ class FeedViewModelTest : BaseViewModelTest() {
         viewModel.getShowLoadingLiveData().observeForever(showLoadingObs)
         viewModel.getHideLoadingLiveData().observeForever(hideLoadingObs)
 
-        Mockito.`when`(getMoviesUseCase.getMovies()).thenReturn(Result.Error(mock()))
+        Mockito.`when`(getMovies.getMovies()).thenReturn(Result.Error(mock()))
 
         viewModel.onInitialState()
 

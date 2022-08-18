@@ -1,5 +1,6 @@
-package com.aliasadi.data.entities
+package com.aliasadi.data.api.dto
 
+import com.aliasadi.data.entities.MovieData
 import com.google.gson.annotations.SerializedName
 
 /**

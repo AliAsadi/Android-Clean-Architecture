@@ -5,8 +5,8 @@ import com.aliasadi.domain.repository.MovieRepository
 /**
  * @author by Ali Asadi on 13/08/2022
  */
-class AddMovieToFavoriteUseCase(
+class RemoveMovieFromFavorite(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun add(movieId: Int) = movieRepository.addMovieToFavorite(movieId)
+    suspend fun remove(movieId: Int) = movieRepository.removeMovieFromFavorite(movieId)
 }
