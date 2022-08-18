@@ -11,8 +11,8 @@ import com.aliasadi.clean.base.BaseActivity
 import com.aliasadi.clean.databinding.ActivityMainBinding
 import com.aliasadi.clean.favorites.FavoritesFragment
 import com.aliasadi.clean.feed.FeedFragment
-import com.aliasadi.clean.main.MainViewModel.UiState.NavigateToFavoriteScreen
-import com.aliasadi.clean.main.MainViewModel.UiState.NavigateToFeedScreen
+import com.aliasadi.clean.main.MainViewModel.NavigationState.Favorite
+import com.aliasadi.clean.main.MainViewModel.NavigationState.Feed
 import com.google.android.material.navigation.NavigationBarView
 import javax.inject.Inject
 
@@ -49,8 +49,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     private fun setupObservers() = with(viewModel) {
         getUiStateLiveData().observe {
             when (it) {
-                is NavigateToFeedScreen -> navigateToFeed()
-                is NavigateToFavoriteScreen -> navigateToFavorite()
+                is Feed -> navigateToFeed()
+                is Favorite -> navigateToFavorite()
             }
         }
     }

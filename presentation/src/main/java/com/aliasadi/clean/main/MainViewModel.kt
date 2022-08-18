@@ -1,37 +1,38 @@
 package com.aliasadi.clean.main
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.base.BaseViewModel
+import com.aliasadi.clean.util.SingleLiveEvent
+import com.aliasadi.data.util.DispatchersProvider
 
 /**
  * @author by Ali Asadi on 07/08/2022
  */
 class MainViewModel(
-    dispatchers: com.aliasadi.data.util.DispatchersProvider
+    dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    private val uiState: MutableLiveData<UiState> = MutableLiveData()
+    private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
 
-    sealed class UiState {
-        object NavigateToFeedScreen : UiState()
-        object NavigateToFavoriteScreen : UiState()
+    sealed class NavigationState {
+        object Feed : NavigationState()
+        object Favorite : NavigationState()
     }
 
     fun onFeedNavigationItemSelected() {
-        uiState.value = UiState.NavigateToFeedScreen
+        navigationState.value = NavigationState.Feed
     }
 
     fun onFavoriteNavigationItemSelected() {
-        uiState.value = UiState.NavigateToFavoriteScreen
+        navigationState.value = NavigationState.Favorite
     }
 
-    fun getUiStateLiveData(): LiveData<UiState> = uiState
+    fun getUiStateLiveData(): LiveData<NavigationState> = navigationState
 
     class Factory(
-        private val dispatchers: com.aliasadi.data.util.DispatchersProvider
+        private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MainViewModel(dispatchers) as T

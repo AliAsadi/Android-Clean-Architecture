@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.base.BaseViewModel
 import com.aliasadi.clean.util.SingleLiveEvent
+import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.onError
@@ -16,7 +17,7 @@ import com.aliasadi.domain.util.onSuccess
  */
 class FeedViewModel internal constructor(
     private val getMovies: GetMovies,
-    dispatchers: com.aliasadi.data.util.DispatchersProvider
+    dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
     private val movies: MutableLiveData<List<Movie>> = MutableLiveData()
@@ -55,7 +56,7 @@ class FeedViewModel internal constructor(
 
     class Factory(
         private val getMovies: GetMovies,
-        private val dispatchers: com.aliasadi.data.util.DispatchersProvider
+        private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return FeedViewModel(getMovies, dispatchers) as T

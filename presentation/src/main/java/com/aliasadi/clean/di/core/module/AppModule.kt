@@ -2,6 +2,9 @@ package com.aliasadi.clean.di.core.module
 
 import android.content.Context
 import com.aliasadi.clean.util.ResourceProvider
+import com.aliasadi.data.util.DiskExecutor
+import com.aliasadi.data.util.DispatchersProvider
+import com.aliasadi.data.util.DispatchersProviderImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -22,13 +25,13 @@ class AppModule constructor(context: Context) {
     }
 
     @Provides
-    fun provideDiskExecutor(): com.aliasadi.data.util.DiskExecutor {
-        return com.aliasadi.data.util.DiskExecutor()
+    fun provideDiskExecutor(): DiskExecutor {
+        return DiskExecutor()
     }
 
     @Provides
-    fun provideDispatchersProvider(): com.aliasadi.data.util.DispatchersProvider {
-        return com.aliasadi.data.util.DispatchersProviderImpl
+    fun provideDispatchersProvider(): DispatchersProvider {
+        return DispatchersProviderImpl
     }
 
     @Provides

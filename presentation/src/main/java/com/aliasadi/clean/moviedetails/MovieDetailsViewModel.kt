@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.R
 import com.aliasadi.clean.base.BaseViewModel
 import com.aliasadi.clean.util.ResourceProvider
+import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
@@ -26,7 +27,7 @@ class MovieDetailsViewModel internal constructor(
     private val addMovieToFavorite: AddMovieToFavorite,
     private val removeMovieFromFavorite: RemoveMovieFromFavorite,
     private val resourceProvider: ResourceProvider,
-    dispatchers: com.aliasadi.data.util.DispatchersProvider
+    dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
     data class FavoriteState(val drawable: Drawable?)
@@ -77,7 +78,7 @@ class MovieDetailsViewModel internal constructor(
         private val addMovieToFavorite: AddMovieToFavorite,
         private val removeMovieFromFavorite: RemoveMovieFromFavorite,
         private val resourceProvider: ResourceProvider,
-        private val dispatchers: com.aliasadi.data.util.DispatchersProvider
+        private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
 
         var movieId: Int = 0
