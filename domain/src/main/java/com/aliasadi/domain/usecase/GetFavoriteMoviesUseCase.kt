@@ -1,8 +1,8 @@
-package com.aliasadi.clean.domain.usecase
+package com.aliasadi.domain.usecase
 
-import com.aliasadi.clean.domain.entities.Movie
-import com.aliasadi.clean.domain.repository.MovieRepository
-import com.aliasadi.clean.domain.util.Result
+import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.repository.MovieRepository
+import com.aliasadi.domain.util.Result
 
 /**
  * @author by Ali Asadi on 13/08/2022

@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.aliasadi.clean.domain.entities.Movie
-import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
-import com.aliasadi.clean.domain.util.onError
-import com.aliasadi.clean.domain.util.onSuccess
 import com.aliasadi.clean.presentation.base.BaseViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import com.aliasadi.clean.presentation.util.SingleLiveEvent
+import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.usecase.GetMoviesUseCase
+import com.aliasadi.domain.util.onError
+import com.aliasadi.domain.util.onSuccess
 
 /**
  * Created by Ali Asadi on 13/05/2020

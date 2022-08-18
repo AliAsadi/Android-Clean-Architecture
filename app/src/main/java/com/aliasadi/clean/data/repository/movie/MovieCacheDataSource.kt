@@ -3,8 +3,8 @@ package com.aliasadi.clean.data.repository.movie
 import android.util.SparseArray
 import com.aliasadi.clean.data.exception.DataNotAvailableException
 import com.aliasadi.clean.data.util.DiskExecutor
-import com.aliasadi.clean.domain.entities.Movie
-import com.aliasadi.clean.domain.util.Result
+import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.withContext
 

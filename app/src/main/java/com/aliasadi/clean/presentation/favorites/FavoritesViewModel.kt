@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.aliasadi.clean.domain.entities.Movie
-import com.aliasadi.clean.domain.usecase.GetFavoriteMoviesUseCase
-import com.aliasadi.clean.domain.util.onSuccess
 import com.aliasadi.clean.presentation.base.BaseViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import com.aliasadi.clean.presentation.util.SingleLiveEvent
+import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.usecase.GetFavoriteMoviesUseCase
+import com.aliasadi.domain.util.onSuccess
 
 /**
  * @author by Ali Asadi on 03/08/2022

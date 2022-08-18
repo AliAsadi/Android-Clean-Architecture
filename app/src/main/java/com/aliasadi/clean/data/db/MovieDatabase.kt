@@ -2,7 +2,7 @@ package com.aliasadi.clean.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.aliasadi.clean.domain.entities.Movie
+import com.aliasadi.domain.entities.Movie
 
 /**
  * Created by Ali Asadi on 13/05/2020

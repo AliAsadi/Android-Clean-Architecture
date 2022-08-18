@@ -1,7 +1,16 @@
 apply plugin: 'kotlin'
 
 dependencies {
+    //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
+
+    implementation 'androidx.room:room-common:2.4.3'
+
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:3.10.0'
+    testImplementation "org.mockito:mockito-inline:3.10.0"
+
+    //Junit
     testImplementation 'junit:junit:4.13.2'
 }
 

@@ -1,10 +1,10 @@
 package com.aliasadi.clean.data.repository.movie
 
-import com.aliasadi.clean.domain.entities.Movie
-import com.aliasadi.clean.domain.repository.MovieRepository
-import com.aliasadi.clean.domain.util.Result
-import com.aliasadi.clean.domain.util.getResult
-import com.aliasadi.clean.domain.util.onSuccess
+import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.repository.MovieRepository
+import com.aliasadi.domain.util.Result
+import com.aliasadi.domain.util.getResult
+import com.aliasadi.domain.util.onSuccess
 
 /**
  * Created by Ali Asadi on 13/05/2020

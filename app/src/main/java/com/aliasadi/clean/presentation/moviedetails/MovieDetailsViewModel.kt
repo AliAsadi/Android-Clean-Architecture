@@ -6,16 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.R
-import com.aliasadi.clean.domain.entities.Movie
-import com.aliasadi.clean.domain.usecase.AddMovieToFavoriteUseCase
-import com.aliasadi.clean.domain.usecase.CheckFavoriteStatusUseCase
-import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
-import com.aliasadi.clean.domain.usecase.RemoveMovieFromFavoriteUseCase
-import com.aliasadi.clean.domain.util.Result
-import com.aliasadi.clean.domain.util.onSuccess
 import com.aliasadi.clean.presentation.base.BaseViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
 import com.aliasadi.clean.presentation.util.ResourceProvider
+import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.usecase.AddMovieToFavoriteUseCase
+import com.aliasadi.domain.usecase.CheckFavoriteStatusUseCase
+import com.aliasadi.domain.usecase.GetMovieDetailsUseCase
+import com.aliasadi.domain.usecase.RemoveMovieFromFavoriteUseCase
+import com.aliasadi.domain.util.Result
+import com.aliasadi.domain.util.onSuccess
 
 /**
  * Created by Ali Asadi on 13/05/2020

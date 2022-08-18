@@ -1,8 +1,8 @@
 package com.aliasadi.clean.presentation.di.favorites
 
-import com.aliasadi.clean.domain.usecase.GetFavoriteMoviesUseCase
 import com.aliasadi.clean.presentation.favorites.FavoritesViewModel
 import com.aliasadi.clean.presentation.util.DispatchersProvider
+import com.aliasadi.domain.usecase.GetFavoriteMoviesUseCase
 import dagger.Module
 import dagger.Provides
 

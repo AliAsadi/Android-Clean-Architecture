@@ -1,7 +1,7 @@
 package com.aliasadi.clean.presentation.feed
 
 import androidx.recyclerview.widget.DiffUtil
-import com.aliasadi.clean.domain.entities.Movie
+import com.aliasadi.domain.entities.Movie
 
 /**
  * @author by Ali Asadi on 03/08/2022

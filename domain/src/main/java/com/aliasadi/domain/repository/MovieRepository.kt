@@ -1,7 +1,7 @@
-package com.aliasadi.clean.domain.repository
+package com.aliasadi.domain.repository
 
-import com.aliasadi.clean.domain.entities.Movie
-import com.aliasadi.clean.domain.util.Result
+import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.util.Result
 
 /**
  * Created by Ali Asadi on 13/05/2020

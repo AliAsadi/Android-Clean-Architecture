@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.aliasadi.clean.domain.entities.Movie
+import com.aliasadi.domain.entities.Movie
 
 /**
  * Created by Ali Asadi on 13/05/2020

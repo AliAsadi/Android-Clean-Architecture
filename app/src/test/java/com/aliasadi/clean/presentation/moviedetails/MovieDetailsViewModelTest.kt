@@ -1,16 +1,16 @@
 package com.aliasadi.clean.presentation.moviedetails
 
 import androidx.lifecycle.Observer
-import com.aliasadi.clean.domain.entities.Movie
-import com.aliasadi.clean.domain.usecase.AddMovieToFavoriteUseCase
-import com.aliasadi.clean.domain.usecase.CheckFavoriteStatusUseCase
-import com.aliasadi.clean.domain.usecase.GetMovieDetailsUseCase
-import com.aliasadi.clean.domain.usecase.RemoveMovieFromFavoriteUseCase
-import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.moviedetails.MovieDetailsViewModel.MovieDetailsUiState
 import com.aliasadi.clean.presentation.util.ResourceProvider
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
+import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.usecase.AddMovieToFavoriteUseCase
+import com.aliasadi.domain.usecase.CheckFavoriteStatusUseCase
+import com.aliasadi.domain.usecase.GetMovieDetailsUseCase
+import com.aliasadi.domain.usecase.RemoveMovieFromFavoriteUseCase
+import com.aliasadi.domain.util.Result
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

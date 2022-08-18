@@ -1,4 +1,4 @@
-package com.aliasadi.clean.domain.util
+package com.aliasadi.domain.util
 
 /**
  * Created by Ali Asadi on 13/05/2020

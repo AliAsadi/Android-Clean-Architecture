@@ -1,10 +1,10 @@
 package com.aliasadi.clean.presentation.di.feed
 
-import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
 import com.aliasadi.clean.presentation.feed.FeedViewModel
+import com.aliasadi.clean.presentation.util.DispatchersProvider
+import com.aliasadi.domain.usecase.GetMoviesUseCase
 import dagger.Module
 import dagger.Provides
-import com.aliasadi.clean.presentation.util.DispatchersProvider
 
 /**
  * Created by Ali Asadi on 15/05/2020

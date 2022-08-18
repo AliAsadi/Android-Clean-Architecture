@@ -1,11 +1,11 @@
 package com.aliasadi.clean.presentation.feed
 
 import androidx.lifecycle.Observer
-import com.aliasadi.clean.domain.entities.Movie
-import com.aliasadi.clean.domain.usecase.GetMoviesUseCase
-import com.aliasadi.clean.domain.util.Result
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
+import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.usecase.GetMoviesUseCase
+import com.aliasadi.domain.util.Result
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
