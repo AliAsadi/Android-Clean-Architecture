@@ -1,6 +1,7 @@
 package com.aliasadi.clean.presentation.feed
 
 import androidx.lifecycle.Observer
+import com.aliasadi.clean.feed.FeedViewModel
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.domain.entities.Movie
