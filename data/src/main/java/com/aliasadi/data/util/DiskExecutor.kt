@@ -1,4 +1,4 @@
-package com.aliasadi.clean.data.util
+package com.aliasadi.data.util
 
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors

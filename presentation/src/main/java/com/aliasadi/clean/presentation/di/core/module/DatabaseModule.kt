@@ -2,8 +2,8 @@ package com.aliasadi.clean.presentation.di.core.module
 
 import android.content.Context
 import androidx.room.Room
-import com.aliasadi.clean.data.db.MovieDao
-import com.aliasadi.clean.data.db.MovieDatabase
+import com.aliasadi.data.db.MovieDao
+import com.aliasadi.data.db.MovieDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

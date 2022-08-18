@@ -37,7 +37,7 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(":domain")
+    implementation project(":data")
 
     //Support
     implementation 'androidx.appcompat:appcompat:1.4.2'

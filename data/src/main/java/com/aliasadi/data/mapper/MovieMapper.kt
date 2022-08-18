@@ -1,6 +1,6 @@
-package com.aliasadi.clean.data.mapper
+package com.aliasadi.data.mapper
 
-import com.aliasadi.clean.data.entities.MovieData
+import com.aliasadi.data.entities.MovieData
 import com.aliasadi.domain.entities.Movie
 
 /**

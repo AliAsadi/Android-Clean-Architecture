@@ -1,6 +1,5 @@
 package com.aliasadi.clean.presentation.di.core.module
 
-import com.aliasadi.clean.data.api.MovieApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -26,7 +25,7 @@ class NetworkModule(private val baseUrl: String) {
 
     @Singleton
     @Provides
-    fun provideMovieApi(retrofit: Retrofit): MovieApi {
-        return retrofit.create(MovieApi::class.java)
+    fun provideMovieApi(retrofit: Retrofit): com.aliasadi.data.api.MovieApi {
+        return retrofit.create(com.aliasadi.data.api.MovieApi::class.java)
     }
 }

@@ -1,7 +1,6 @@
 package com.aliasadi.clean.presentation.di.favorites
 
 import com.aliasadi.clean.presentation.favorites.FavoritesViewModel
-import com.aliasadi.clean.presentation.util.DispatchersProvider
 import com.aliasadi.domain.usecase.GetFavoriteMoviesUseCase
 import dagger.Module
 import dagger.Provides
@@ -14,7 +13,7 @@ class FavoritesModule {
 
     @Provides
     fun provideFavoritesViewModelFactory(
-        dispatchersProvider: DispatchersProvider,
+        dispatchersProvider: com.aliasadi.data.util.DispatchersProvider,
         getFavoriteMoviesUseCase: GetFavoriteMoviesUseCase
     ): FavoritesViewModel.Factory {
         return FavoritesViewModel.Factory(getFavoriteMoviesUseCase, dispatchersProvider)

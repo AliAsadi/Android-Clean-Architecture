@@ -1,7 +1,6 @@
 package com.aliasadi.clean.presentation.di.details
 
 import com.aliasadi.clean.presentation.moviedetails.MovieDetailsViewModel
-import com.aliasadi.clean.presentation.util.DispatchersProvider
 import com.aliasadi.clean.presentation.util.ResourceProvider
 import com.aliasadi.domain.usecase.AddMovieToFavoriteUseCase
 import com.aliasadi.domain.usecase.CheckFavoriteStatusUseCase
@@ -22,7 +21,7 @@ class MovieDetailsModule {
         checkFavoriteStatusUseCase: CheckFavoriteStatusUseCase,
         addMovieToFavoriteUseCase: AddMovieToFavoriteUseCase,
         removeMovieFromFavoriteUseCase: RemoveMovieFromFavoriteUseCase,
-        dispatchersProvider: DispatchersProvider,
+        dispatchersProvider: com.aliasadi.data.util.DispatchersProvider,
         resourceProvider: ResourceProvider
     ): MovieDetailsViewModel.Factory {
         return MovieDetailsViewModel.Factory(

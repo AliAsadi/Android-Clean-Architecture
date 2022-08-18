@@ -1,6 +1,5 @@
 package com.aliasadi.clean.presentation.util.rules
 
-import com.aliasadi.clean.presentation.util.DispatchersProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,7 +26,7 @@ class CoroutineTestRule : TestWatcher() {
         testDispatcher.cleanupTestCoroutines()
     }
 
-    val testDispatcherProvider = object : DispatchersProvider {
+    val testDispatcherProvider = object : com.aliasadi.data.util.DispatchersProvider {
         override fun getIO(): CoroutineDispatcher = testDispatcher
         override fun getMain(): CoroutineDispatcher = testDispatcher
         override fun getMainImmediate(): CoroutineDispatcher = testDispatcher

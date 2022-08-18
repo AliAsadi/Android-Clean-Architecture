@@ -1,7 +1,6 @@
 package com.aliasadi.clean.presentation.di.main
 
 import com.aliasadi.clean.presentation.main.MainViewModel
-import com.aliasadi.clean.presentation.util.DispatchersProvider
 import dagger.Module
 import dagger.Provides
 
@@ -12,7 +11,7 @@ import dagger.Provides
 class MainModule {
 
     @Provides
-    fun provideMainViewModelFactory(dispatchersProvider: DispatchersProvider): MainViewModel.Factory {
+    fun provideMainViewModelFactory(dispatchersProvider: com.aliasadi.data.util.DispatchersProvider): MainViewModel.Factory {
         return MainViewModel.Factory(dispatchersProvider)
     }
 

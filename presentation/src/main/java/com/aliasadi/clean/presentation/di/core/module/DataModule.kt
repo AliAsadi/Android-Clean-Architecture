@@ -1,10 +1,10 @@
 package com.aliasadi.clean.presentation.di.core.module
 
-import com.aliasadi.clean.data.api.MovieApi
-import com.aliasadi.clean.data.db.MovieDao
-import com.aliasadi.clean.data.repository.movie.*
-import com.aliasadi.clean.data.util.DiskExecutor
-import com.aliasadi.clean.presentation.util.DispatchersProvider
+import com.aliasadi.data.api.MovieApi
+import com.aliasadi.data.db.MovieDao
+import com.aliasadi.data.repository.movie.*
+import com.aliasadi.data.util.DiskExecutor
+import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.usecase.*
 import dagger.Module

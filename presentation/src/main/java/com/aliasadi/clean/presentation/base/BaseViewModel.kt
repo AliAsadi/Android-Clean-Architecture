@@ -4,7 +4,6 @@ import android.os.Handler
 import android.os.MessageQueue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aliasadi.clean.presentation.util.DispatchersProvider
 import kotlinx.coroutines.*
 import kotlinx.coroutines.android.HandlerDispatcher
 
@@ -12,7 +11,7 @@ import kotlinx.coroutines.android.HandlerDispatcher
  * Created by Ali Asadi on 13/05/2020
  */
 abstract class BaseViewModel(
-    dispatchers: DispatchersProvider
+    dispatchers: com.aliasadi.data.util.DispatchersProvider
 ) : ViewModel() {
 
     private val io = dispatchers.getIO()

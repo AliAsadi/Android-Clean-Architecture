@@ -1,4 +1,4 @@
-package com.aliasadi.clean.data.db
+package com.aliasadi.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

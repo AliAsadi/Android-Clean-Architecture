@@ -1,4 +1,4 @@
-package com.aliasadi.clean.data.repository.movie
+package com.aliasadi.data.repository.movie
 
 import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.repository.MovieRepository

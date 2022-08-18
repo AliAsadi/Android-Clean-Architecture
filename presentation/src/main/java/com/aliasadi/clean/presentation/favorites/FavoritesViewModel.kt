@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.presentation.base.BaseViewModel
-import com.aliasadi.clean.presentation.util.DispatchersProvider
 import com.aliasadi.clean.presentation.util.SingleLiveEvent
+import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.usecase.GetFavoriteMoviesUseCase
 import com.aliasadi.domain.util.onSuccess
