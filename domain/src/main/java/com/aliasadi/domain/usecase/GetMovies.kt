@@ -10,5 +10,5 @@ import com.aliasadi.domain.util.Result
 open class GetMovies(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun getMovies(): Result<List<Movie>> = movieRepository.getMovies()
+    suspend fun execute(): Result<List<Movie>> = movieRepository.getMovies()
 }

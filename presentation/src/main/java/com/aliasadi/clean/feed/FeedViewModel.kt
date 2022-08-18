@@ -36,7 +36,7 @@ class FeedViewModel internal constructor(
     private suspend fun loadMovies() {
         showLoading.value = Unit
 
-        getMovies.getMovies()
+        getMovies.execute()
             .onSuccess {
                 hideLoading.value = Unit
                 movies.value = it

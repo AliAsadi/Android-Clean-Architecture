@@ -41,7 +41,7 @@ class FeedViewModelTest : BaseViewModelTest() {
         viewModel.getShowLoadingLiveData().observeForever(showLoadingObs)
         viewModel.getHideLoadingLiveData().observeForever(hideLoadingObs)
 
-        Mockito.`when`(getMovies.getMovies()).thenReturn(Result.Success(mock()))
+        Mockito.`when`(getMovies.execute()).thenReturn(Result.Success(mock()))
 
         viewModel.onInitialState()
 
@@ -64,7 +64,7 @@ class FeedViewModelTest : BaseViewModelTest() {
         viewModel.getShowLoadingLiveData().observeForever(showLoadingObs)
         viewModel.getHideLoadingLiveData().observeForever(hideLoadingObs)
 
-        Mockito.`when`(getMovies.getMovies()).thenReturn(Result.Error(mock()))
+        Mockito.`when`(getMovies.execute()).thenReturn(Result.Error(mock()))
 
         viewModel.onInitialState()
 
