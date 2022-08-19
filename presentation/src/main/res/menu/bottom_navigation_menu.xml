@@ -3,12 +3,10 @@
     <item
         android:id="@+id/feedFragment"
         android:icon="@drawable/ic_feed_border_48"
-        android:title="Feed" />
-
+        android:title="@string/feed" />
 
     <item
         android:id="@+id/favoritesFragment"
         android:icon="@drawable/ic_favorite_border_white_48"
-        android:title="My Favorites" />
-
+        android:title="@string/my_favorites" />
 </menu>
