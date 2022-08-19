@@ -20,39 +20,44 @@ class FeedViewModel internal constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    private val movies: MutableLiveData<List<Movie>> = MutableLiveData()
-    private val showLoading: SingleLiveEvent<Unit> = SingleLiveEvent()
-    private val hideLoading: SingleLiveEvent<Unit> = SingleLiveEvent()
-    private val showError: SingleLiveEvent<String> = SingleLiveEvent()
-    private val navigateToMovieDetails: SingleLiveEvent<Movie> = SingleLiveEvent()
+    sealed class NavigationState {
+        data class MovieDetails(val movie: Movie) : NavigationState()
+    }
+
+    sealed class UiState {
+        data class FeedUiState(val movies: List<Movie>) : UiState()
+        data class Error(val message: String?) : UiState()
+        object Loading : UiState()
+        object NotLoading : UiState()
+    }
+
+    private val uiState: MutableLiveData<UiState> = MutableLiveData()
+    private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
 
     fun onInitialState() = launchOnMainImmediate {
         loadMovies()
     }
 
     fun onMovieClicked(movie: Movie) = launchOnMainImmediate {
-        navigateToMovieDetails.value = movie
+        navigationState.value = NavigationState.MovieDetails(movie)
     }
 
     private suspend fun loadMovies() {
-        showLoading.value = Unit
+        uiState.value = UiState.Loading
 
         getMovies.execute()
             .onSuccess {
-                hideLoading.value = Unit
-                movies.value = it
+                uiState.value = UiState.NotLoading
+                uiState.value = UiState.FeedUiState(it)
             }.onError {
-                hideLoading.value = Unit
-                showError.value = it.message
+                uiState.value = UiState.NotLoading
+                uiState.value = UiState.Error(it.message)
             }
     }
 
 
-    fun getMoviesLiveData(): LiveData<List<Movie>> = movies
-    fun getShowLoadingLiveData(): LiveData<Unit> = showLoading
-    fun getHideLoadingLiveData(): LiveData<Unit> = hideLoading
-    fun getShowErrorLiveData(): LiveData<String> = showError
-    fun getNavigateToMovieDetails(): LiveData<Movie> = navigateToMovieDetails
+    fun getNavigationState(): LiveData<NavigationState> = navigationState
+    fun getUiState(): LiveData<UiState> = uiState
 
     class Factory(
         private val getMovies: GetMovies,

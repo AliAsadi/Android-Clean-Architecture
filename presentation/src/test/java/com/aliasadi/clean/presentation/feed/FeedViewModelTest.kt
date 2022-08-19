@@ -2,6 +2,10 @@ package com.aliasadi.clean.presentation.feed
 
 import androidx.lifecycle.Observer
 import com.aliasadi.clean.feed.FeedViewModel
+import com.aliasadi.clean.feed.FeedViewModel.NavigationState
+import com.aliasadi.clean.feed.FeedViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.feed.FeedViewModel.UiState
+import com.aliasadi.clean.feed.FeedViewModel.UiState.*
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.domain.entities.Movie
@@ -10,8 +14,9 @@ import com.aliasadi.domain.util.Result
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentCaptor
 import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -33,69 +38,63 @@ class FeedViewModelTest : BaseViewModelTest() {
 
     @Test
     fun onInitialState_loadMovies_onSuccess_hideLoadingAndShowMovies() = coroutineRule.runBlockingTest {
-        val movieObs: Observer<List<Movie>> = mock()
-        val showLoadingObs: Observer<Unit> = mock()
-        val hideLoadingObs: Observer<Unit> = mock()
+        val uiStateObs: Observer<UiState> = mock()
 
-        viewModel.getMoviesLiveData().observeForever(movieObs)
-        viewModel.getShowLoadingLiveData().observeForever(showLoadingObs)
-        viewModel.getHideLoadingLiveData().observeForever(hideLoadingObs)
+        viewModel.getUiState().observeForever(uiStateObs)
 
-        Mockito.`when`(getMovies.execute()).thenReturn(Result.Success(mock()))
+        `when`(getMovies.execute()).thenReturn(Result.Success(mock()))
 
         viewModel.onInitialState()
 
-        val inOrder = Mockito.inOrder(showLoadingObs, hideLoadingObs, movieObs)
+        val argumentCapture = ArgumentCaptor.forClass(UiState::class.java)
+        verify(uiStateObs, times(3)).onChanged(argumentCapture.capture())
 
-        inOrder.verify(showLoadingObs).onChanged(Unit)
-        inOrder.verify(hideLoadingObs).onChanged(Unit)
-        inOrder.verify(movieObs).onChanged(any())
+        assert(argumentCapture.allValues[0] is Loading)
+        assert(argumentCapture.allValues[1] is NotLoading)
+        assert(argumentCapture.allValues[2] is FeedUiState)
     }
 
     @Test
     fun onInitialState_loadMovies_onFailure_hideLoadingAndShowErrorMessage() = coroutineRule.runBlockingTest {
-        val movieObs: Observer<List<Movie>> = mock()
-        val errorObs: Observer<String> = mock()
-        val showLoadingObs: Observer<Unit> = mock()
-        val hideLoadingObs: Observer<Unit> = mock()
+        val uiStateObs: Observer<UiState> = mock()
 
-        viewModel.getMoviesLiveData().observeForever(movieObs)
-        viewModel.getShowErrorLiveData().observeForever(errorObs)
-        viewModel.getShowLoadingLiveData().observeForever(showLoadingObs)
-        viewModel.getHideLoadingLiveData().observeForever(hideLoadingObs)
+        viewModel.getUiState().observeForever(uiStateObs)
 
-        Mockito.`when`(getMovies.execute()).thenReturn(Result.Error(mock()))
+
+        `when`(getMovies.execute()).thenReturn(Result.Error(mock()))
 
         viewModel.onInitialState()
 
-        val inOrder = Mockito.inOrder(showLoadingObs, hideLoadingObs, errorObs)
+        val argumentCapture = ArgumentCaptor.forClass(UiState::class.java)
+        verify(uiStateObs, times(3)).onChanged(argumentCapture.capture())
 
-        inOrder.verify(showLoadingObs).onChanged(Unit)
-        inOrder.verify(hideLoadingObs).onChanged(Unit)
-        inOrder.verify(errorObs).onChanged(any())
-        Mockito.verifyNoMoreInteractions(movieObs)
+        assert(argumentCapture.allValues[0] is Loading)
+        assert(argumentCapture.allValues[1] is NotLoading)
+        assert(argumentCapture.allValues[2] is Error)
     }
 
 
     @Test
     fun onInitialState_loadMovies_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
-        val showLoadingObs: Observer<Unit> = mock()
-        viewModel.getShowLoadingLiveData().observeForever(showLoadingObs)
+        val uiStateObs: Observer<UiState> = mock()
+        viewModel.getUiState().observeForever(uiStateObs)
+
         viewModel.onInitialState()
-        Mockito.verify(showLoadingObs).onChanged(Unit)
+
+        verify(uiStateObs).onChanged(isA(Loading.javaClass))
     }
 
 
     @Test
     fun onMovieClicked_navigateToMovieDetails() {
-        val navigateObs: Observer<Movie> = mock()
+        val navigateObs: Observer<NavigationState> = mock()
         val movie: Movie = mock()
 
-        viewModel.getNavigateToMovieDetails().observeForever(navigateObs)
+        viewModel.getNavigationState().observeForever(navigateObs)
 
         viewModel.onMovieClicked(movie)
 
-        Mockito.verify(navigateObs).onChanged(any())
+        verify(navigateObs).onChanged(isA(MovieDetails::class.java))
     }
 
 }

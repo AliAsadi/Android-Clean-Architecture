@@ -47,7 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun setupObservers() = with(viewModel) {
-        getUiStateLiveData().observe {
+        getNavigationState().observe {
             when (it) {
                 is Feed -> navigateToFeed()
                 is Favorite -> navigateToFavorite()

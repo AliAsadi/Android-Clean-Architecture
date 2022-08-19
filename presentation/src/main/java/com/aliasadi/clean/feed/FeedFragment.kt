@@ -8,6 +8,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentFeedBinding
+import com.aliasadi.clean.feed.FeedViewModel.Factory
+import com.aliasadi.clean.feed.FeedViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.feed.FeedViewModel.UiState
+import com.aliasadi.clean.feed.FeedViewModel.UiState.*
+import com.aliasadi.clean.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
 import javax.inject.Inject
@@ -18,7 +23,7 @@ import javax.inject.Inject
 class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
 
     @Inject
-    lateinit var factory: FeedViewModel.Factory
+    lateinit var factory: Factory
 
     private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
 
@@ -43,24 +48,20 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
     }
 
     private fun observeViewModel() = with(viewModel) {
-        getHideLoadingLiveData().observe {
-            binding.progressBar.hide()
+
+        getUiState().observe {
+            when (it) {
+                is FeedUiState -> movieAdapter.submitList(it.movies)
+                is Loading -> binding.progressBar.show()
+                is NotLoading -> binding.progressBar.hide()
+                is UiState.Error -> Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG).show()
+            }
         }
 
-        getShowLoadingLiveData().observe {
-            binding.progressBar.show()
-        }
-
-        getMoviesLiveData().observe { movies ->
-            movieAdapter.submitList(movies)
-        }
-
-        getNavigateToMovieDetails().observe { movie ->
-            com.aliasadi.clean.moviedetails.MovieDetailsActivity.start(requireContext(), movie.id)
-        }
-
-        getShowErrorLiveData().observe { error ->
-            Toast.makeText(requireActivity(), error, Toast.LENGTH_LONG).show()
+        getNavigationState().observe {
+            when (it) {
+                is MovieDetails -> MovieDetailsActivity.start(requireContext(), it.movie.id)
+            }
         }
     }
 

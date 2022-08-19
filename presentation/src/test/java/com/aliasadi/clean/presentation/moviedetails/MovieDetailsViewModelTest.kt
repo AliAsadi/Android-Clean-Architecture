@@ -51,10 +51,10 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     fun setUp() {
         viewModel = MovieDetailsViewModel(
             movieId = movieId,
-            getMovieDetailsUseCase = getMovieDetails,
-            checkFavoriteStatusUseCase = checkFavoriteStatus,
-            removeMovieFromFavoriteUseCase = removeMovieFromFavorite,
-            addMovieToFavoriteUseCase = addMovieToFavorite,
+            getMovieDetails = getMovieDetails,
+            checkFavoriteStatus = checkFavoriteStatus,
+            removeMovieFromFavorite = removeMovieFromFavorite,
+            addMovieToFavorite = addMovieToFavorite,
             resourceProvider = resourceProvider,
             dispatchers = coroutineRule.testDispatcherProvider
         )

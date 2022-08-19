@@ -30,9 +30,6 @@ dependencies {
 
     api project(":domain")
 
-    //Kotlin Extensions
-    implementation 'androidx.core:core-ktx:1.8.0'
-
     //Room
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'androidx.room:room-ktx:2.4.3'

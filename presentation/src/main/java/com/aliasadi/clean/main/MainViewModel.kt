@@ -29,7 +29,7 @@ class MainViewModel(
         navigationState.value = NavigationState.Favorite
     }
 
-    fun getUiStateLiveData(): LiveData<NavigationState> = navigationState
+    fun getNavigationState(): LiveData<NavigationState> = navigationState
 
     class Factory(
         private val dispatchers: DispatchersProvider
