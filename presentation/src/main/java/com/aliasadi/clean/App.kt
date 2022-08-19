@@ -20,6 +20,7 @@ import com.aliasadi.clean.favorites.FavoritesFragment
 import com.aliasadi.clean.feed.FeedFragment
 import com.aliasadi.clean.main.MainActivity
 import com.aliasadi.clean.moviedetails.MovieDetailsActivity
+import com.aliasadi.data.BuildConfig
 
 /**
  * Created by Ali Asadi on 13/05/2020

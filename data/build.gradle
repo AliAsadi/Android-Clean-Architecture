@@ -9,6 +9,7 @@ android {
         minSdk 19
         targetSdk 31
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "BASE_URL", "\"https://demo7812962.mockable.io/\""
     }
 
     buildTypes {
