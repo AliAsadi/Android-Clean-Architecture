@@ -10,7 +10,6 @@ import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentFeedBinding
 import com.aliasadi.clean.feed.FeedViewModel.Factory
 import com.aliasadi.clean.feed.FeedViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.feed.FeedViewModel.UiState
 import com.aliasadi.clean.feed.FeedViewModel.UiState.*
 import com.aliasadi.clean.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.util.hide
@@ -54,7 +53,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
                 is FeedUiState -> movieAdapter.submitList(it.movies)
                 is Loading -> binding.progressBar.show()
                 is NotLoading -> binding.progressBar.hide()
-                is UiState.Error -> Toast.makeText(requireActivity(), it.message, Toast.LENGTH_LONG).show()
+                is Error -> Toast.makeText(requireActivity().applicationContext, it.message, Toast.LENGTH_LONG).show()
             }
         }
 
