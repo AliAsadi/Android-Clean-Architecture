@@ -33,9 +33,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     private fun setupViews() {
         supportActionBar?.setTitle(R.string.clean_architecture)
+        setupNavigationView()
+    }
 
-        when (binding.navigationView) {
-            is NavigationBarView -> (binding.navigationView as NavigationBarView).setupWithNavController(navController)
-        }
+    private fun setupNavigationView() = with(binding.navigationView) {
+        if (this is NavigationBarView) setupWithNavController(navController)
     }
 }
