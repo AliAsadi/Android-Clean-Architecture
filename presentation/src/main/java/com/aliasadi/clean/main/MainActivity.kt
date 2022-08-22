@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.aliasadi.clean.R
 import com.aliasadi.clean.base.BaseActivity
 import com.aliasadi.clean.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationBarView
 import javax.inject.Inject
 
 /**
@@ -32,6 +33,9 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     private fun setupViews() {
         supportActionBar?.setTitle(R.string.clean_architecture)
-        binding.bottomNavigation.setupWithNavController(navController)
+
+        when (binding.navigationView) {
+            is NavigationBarView -> (binding.navigationView as NavigationBarView).setupWithNavController(navController)
+        }
     }
 }
