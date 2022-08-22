@@ -3,6 +3,8 @@ package com.aliasadi.clean.di.core.module
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.db.MovieDao
 import com.aliasadi.data.repository.movie.*
+import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
+import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesLocalDataSource
 import com.aliasadi.data.util.DiskExecutor
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.repository.MovieRepository
@@ -22,9 +24,10 @@ class DataModule {
     fun provideMovieRepository(
         movieRemote: MovieDataSource.Remote,
         movieLocal: MovieDataSource.Local,
-        movieCache: MovieDataSource.Cache
+        movieCache: MovieDataSource.Cache,
+        favoriteLocal: FavoriteMoviesDataSource.Local,
     ): MovieRepository {
-        return MovieRepositoryImpl(movieRemote, movieLocal, movieCache)
+        return MovieRepositoryImpl(movieRemote, movieLocal, movieCache, favoriteLocal)
     }
 
     @Provides
@@ -33,6 +36,14 @@ class DataModule {
         executor: DiskExecutor, movieDao: MovieDao
     ): MovieDataSource.Local {
         return MovieLocalDataSource(executor, movieDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteMovieLocalDataSource(
+        executor: DiskExecutor, movieDao: MovieDao
+    ): FavoriteMoviesDataSource.Local {
+        return FavoriteMoviesLocalDataSource(executor, movieDao)
     }
 
     @Provides

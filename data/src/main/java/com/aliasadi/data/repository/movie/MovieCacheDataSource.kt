@@ -43,12 +43,4 @@ class MovieCacheDataSource(
         inMemoryCache.clear()
         for (movie in movies) inMemoryCache.put(movie.id, movie)
     }
-
-    override suspend fun addMovieToFavorite(movieId: Int) = withContext(diskExecutor.asCoroutineDispatcher()) {
-        inMemoryCache.get(movieId)?.isFavorite = true
-    }
-
-    override suspend fun removeMovieFromFavorite(movieId: Int) = withContext(diskExecutor.asCoroutineDispatcher()) {
-        inMemoryCache.get(movieId)?.isFavorite = false
-    }
 }

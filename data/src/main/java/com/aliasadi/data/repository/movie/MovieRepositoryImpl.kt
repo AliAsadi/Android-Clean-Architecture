@@ -1,5 +1,6 @@
 package com.aliasadi.data.repository.movie
 
+import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
@@ -12,7 +13,8 @@ import com.aliasadi.domain.util.onSuccess
 class MovieRepositoryImpl constructor(
     private val remote: MovieDataSource.Remote,
     private val local: MovieDataSource.Local,
-    private val cache: MovieDataSource.Cache
+    private val cache: MovieDataSource.Cache,
+    private val localFavorite: FavoriteMoviesDataSource.Local
 ) : MovieRepository {
 
     override suspend fun getMovies(): Result<List<Movie>> = getMoviesFromCache()
@@ -22,13 +24,11 @@ class MovieRepositoryImpl constructor(
     override suspend fun getFavoriteMovies(): Result<List<Movie>> = getFavoriteMoviesFromLocal()
 
     override suspend fun addMovieToFavorite(movieId: Int) {
-        local.addMovieToFavorite(movieId)
-        cache.addMovieToFavorite(movieId)
+        localFavorite.addMovieToFavorite(movieId)
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Int) {
-        local.removeMovieFromFavorite(movieId)
-        cache.removeMovieFromFavorite(movieId)
+        localFavorite.removeMovieFromFavorite(movieId)
     }
 
     private suspend fun getMovieFromCache(movieId: Int): Result<Movie> = cache.getMovie(movieId).getResult({
@@ -65,5 +65,5 @@ class MovieRepositoryImpl constructor(
         cache.saveMovies(movies)
     }
 
-    private suspend fun getFavoriteMoviesFromLocal(): Result<List<Movie>> = local.getFavoriteMovies()
+    private suspend fun getFavoriteMoviesFromLocal(): Result<List<Movie>> = localFavorite.getFavoriteMovies()
 }

@@ -15,15 +15,7 @@ interface MovieDataSource {
     interface Local : Remote {
         suspend fun getMovie(movieId: Int): Result<Movie>
         suspend fun saveMovies(movies: List<Movie>)
-        suspend fun getFavoriteMovies(): Result<List<Movie>>
-        suspend fun addMovieToFavorite(movieId: Int)
-        suspend fun removeMovieFromFavorite(movieId: Int)
     }
 
-    interface Cache : Remote {
-        suspend fun getMovie(movieId: Int): Result<Movie>
-        suspend fun saveMovies(movies: List<Movie>)
-        suspend fun addMovieToFavorite(movieId: Int)
-        suspend fun removeMovieFromFavorite(movieId: Int)
-    }
+    interface Cache : Local
 }

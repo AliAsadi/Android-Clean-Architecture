@@ -2,12 +2,12 @@ package com.aliasadi.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.aliasadi.domain.entities.Movie
+import com.aliasadi.data.entities.MovieDbData
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-@Database(entities = [Movie::class], version = 1, exportSchema = false)
+@Database(entities = [MovieDbData::class], version = 1, exportSchema = false)
 abstract class MovieDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
 }
