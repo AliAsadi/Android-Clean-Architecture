@@ -23,6 +23,10 @@ class MovieRepositoryImpl constructor(
 
     override suspend fun getFavoriteMovies(): Result<List<Movie>> = getFavoriteMoviesFromLocal()
 
+    override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> {
+        return localFavorite.checkFavoriteStatus(movieId)
+    }
+
     override suspend fun addMovieToFavorite(movieId: Int) {
         localFavorite.addMovieToFavorite(movieId)
     }
@@ -65,5 +69,11 @@ class MovieRepositoryImpl constructor(
         cache.saveMovies(movies)
     }
 
-    private suspend fun getFavoriteMoviesFromLocal(): Result<List<Movie>> = localFavorite.getFavoriteMovies()
+    private suspend fun getFavoriteMoviesFromLocal(): Result<List<Movie>> {
+        return localFavorite.getFavoriteMovieIds().getResult({
+            local.getFavoriteMovies(it.data.map { it.movieId })
+        }, {
+            Result.Error(it.error)
+        })
+    }
 }

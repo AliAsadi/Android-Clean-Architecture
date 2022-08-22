@@ -1,10 +1,9 @@
 package com.aliasadi.data.repository.movie.favorite
 
-import com.aliasadi.data.db.MovieDao
+import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
+import com.aliasadi.data.entities.FavoriteMovieDbData
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.data.mapper.MovieMapper
 import com.aliasadi.data.util.DiskExecutor
-import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -14,24 +13,28 @@ import kotlinx.coroutines.withContext
  */
 class FavoriteMoviesLocalDataSource(
     private val executor: DiskExecutor,
-    private val movieDao: MovieDao,
+    private val favoriteMovieDao: FavoriteMovieDao,
 ) : FavoriteMoviesDataSource.Local {
 
-    override suspend fun getFavoriteMovies(): Result<List<Movie>> = withContext(executor.asCoroutineDispatcher()) {
-        val movies = movieDao.getFavoriteMovies()
-        return@withContext if (movies.isNotEmpty()) {
-            Result.Success(movies.map { MovieMapper.toDomain(it) })
+    override suspend fun getFavoriteMovieIds(): Result<List<FavoriteMovieDbData>> = withContext(executor.asCoroutineDispatcher()) {
+        val movieIds = favoriteMovieDao.getAll()
+        return@withContext if (movieIds.isNotEmpty()) {
+            Result.Success(movieIds)
         } else {
             Result.Error(DataNotAvailableException())
         }
     }
 
     override suspend fun addMovieToFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
-        movieDao.updateFavoriteStatus(movieId, true)
+        favoriteMovieDao.add(FavoriteMovieDbData(movieId))
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
-        movieDao.updateFavoriteStatus(movieId, false)
+        favoriteMovieDao.remove(FavoriteMovieDbData(movieId))
+    }
+
+    override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = withContext(executor.asCoroutineDispatcher()) {
+        return@withContext Result.Success(favoriteMovieDao.get(movieId) != null)
     }
 
 }

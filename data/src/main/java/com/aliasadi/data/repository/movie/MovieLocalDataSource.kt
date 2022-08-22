@@ -1,6 +1,6 @@
 package com.aliasadi.data.repository.movie
 
-import com.aliasadi.data.db.MovieDao
+import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.mapper.MovieMapper
 import com.aliasadi.data.util.DiskExecutor
@@ -34,5 +34,9 @@ class MovieLocalDataSource(
 
     override suspend fun saveMovies(movies: List<Movie>) = withContext(executor.asCoroutineDispatcher()) {
         movieDao.saveMovies(movies.map { MovieMapper.toDbData(it) })
+    }
+
+    override suspend fun getFavoriteMovies(movieIds: List<Int>): Result<List<Movie>> = withContext(executor.asCoroutineDispatcher()) {
+        return@withContext Result.Success(movieDao.getFavoriteMovies(movieIds).map { MovieMapper.toDomain(it) })
     }
 }

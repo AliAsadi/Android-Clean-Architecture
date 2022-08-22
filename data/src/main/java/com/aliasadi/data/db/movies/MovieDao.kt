@@ -1,4 +1,4 @@
-package com.aliasadi.data.db
+package com.aliasadi.data.db.movies
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -22,17 +22,14 @@ interface MovieDao {
     /**
      * Get all favorite movies from the movies table.
      */
-    @Query("SELECT * FROM movies WHERE isFavorite = 1")
-    fun getFavoriteMovies(): List<MovieDbData>
+    @Query("SELECT * FROM movies WHERE id IN (:movieIds)")
+    fun getFavoriteMovies(movieIds: List<Int>): List<MovieDbData>
 
     /**
      * Get movie by id.
      * **/
     @Query("SELECT * FROM movies WHERE id = :movieId")
     fun getMovie(movieId: Int): MovieDbData?
-
-    @Query("UPDATE movies SET isFavorite = :isFavorite WHERE id = :movieId")
-    fun updateFavoriteStatus(movieId: Int, isFavorite: Boolean)
 
     /**
      * Insert all movies.

@@ -1,7 +1,8 @@
 package com.aliasadi.clean.di.core.module
 
 import com.aliasadi.data.api.MovieApi
-import com.aliasadi.data.db.MovieDao
+import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
+import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.repository.movie.*
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesLocalDataSource
@@ -41,9 +42,10 @@ class DataModule {
     @Provides
     @Singleton
     fun provideFavoriteMovieLocalDataSource(
-        executor: DiskExecutor, movieDao: MovieDao
+        executor: DiskExecutor,
+        favoriteMovieDao: FavoriteMovieDao
     ): FavoriteMoviesDataSource.Local {
-        return FavoriteMoviesLocalDataSource(executor, movieDao)
+        return FavoriteMoviesLocalDataSource(executor, favoriteMovieDao)
     }
 
     @Provides

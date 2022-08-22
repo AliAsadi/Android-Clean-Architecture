@@ -43,4 +43,14 @@ class MovieCacheDataSource(
         inMemoryCache.clear()
         for (movie in movies) inMemoryCache.put(movie.id, movie)
     }
+
+    override suspend fun getFavoriteMovies(movieIds: List<Int>): Result<List<Movie>> = withContext(diskExecutor.asCoroutineDispatcher()) {
+        return@withContext if (inMemoryCache.size() > 0) {
+            val movies = arrayListOf<Movie>()
+            movieIds.forEach { id -> movies.add(inMemoryCache.get(id)) }
+            Result.Success(movies)
+        } else {
+            Result.Error(DataNotAvailableException())
+        }
+    }
 }

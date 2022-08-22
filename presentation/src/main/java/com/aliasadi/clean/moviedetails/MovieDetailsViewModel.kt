@@ -49,7 +49,16 @@ class MovieDetailsViewModel internal constructor(
                 imageUrl = it.image,
             )
 
-            favoriteState.value = FavoriteState(getFavoriteDrawable(it.isFavorite))
+            checkFavoriteStatus(movieId).onSuccess { isFavorite ->
+                favoriteState.value = FavoriteState(getFavoriteDrawable(isFavorite))
+            }
+        }
+    }
+
+    fun onFavoriteClicked() = launchOnMainImmediate {
+        checkFavoriteStatus(movieId).onSuccess {
+            if (it) removeMovieFromFavorite.remove(movieId) else addMovieToFavorite.add(movieId)
+            favoriteState.value = FavoriteState(getFavoriteDrawable(!it))
         }
     }
 
@@ -59,15 +68,9 @@ class MovieDetailsViewModel internal constructor(
         resourceProvider.getDrawable(R.drawable.ic_favorite_border_white_48)
     }
 
-
     private suspend fun getMovieById(movieId: Int): Result<Movie> = getMovieDetails.getMovie(movieId)
 
-    fun onFavoriteClicked() = launchOnMainImmediate {
-        checkFavoriteStatus.check(movieId).onSuccess {
-            if (it) removeMovieFromFavorite.remove(movieId) else addMovieToFavorite.add(movieId)
-            favoriteState.value = FavoriteState(getFavoriteDrawable(!it))
-        }
-    }
+    private suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = checkFavoriteStatus.check(movieId)
 
     fun getMovieDetailsUiStateLiveData(): LiveData<MovieDetailsUiState> = movieDetailsUiState
     fun getFavoriteStateLiveData(): LiveData<FavoriteState> = favoriteState

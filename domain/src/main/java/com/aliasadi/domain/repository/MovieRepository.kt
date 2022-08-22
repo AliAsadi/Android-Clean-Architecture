@@ -10,6 +10,7 @@ interface MovieRepository {
     suspend fun getMovies(): Result<List<Movie>>
     suspend fun getMovie(movieId: Int): Result<Movie>
     suspend fun getFavoriteMovies(): Result<List<Movie>>
+    suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>
     suspend fun addMovieToFavorite(movieId: Int)
     suspend fun removeMovieFromFavorite(movieId: Int)
 }
