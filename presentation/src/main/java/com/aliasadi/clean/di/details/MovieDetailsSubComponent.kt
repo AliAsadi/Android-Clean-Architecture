@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.details
 
-import com.aliasadi.clean.moviedetails.MovieDetailsActivity
+import com.aliasadi.clean.moviedetails.MovieDetailsFragment
 import dagger.Subcomponent
 
 /**
@@ -8,5 +8,5 @@ import dagger.Subcomponent
  **/
 @Subcomponent(modules = [MovieDetailsModule::class])
 interface MovieDetailsSubComponent {
-    fun inject(movieDetailsActivity: MovieDetailsActivity)
+    fun inject(movieDetailsFragment: MovieDetailsFragment)
 }

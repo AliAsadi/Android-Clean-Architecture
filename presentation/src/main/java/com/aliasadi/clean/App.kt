@@ -19,7 +19,7 @@ import com.aliasadi.clean.di.main.MainSubComponent
 import com.aliasadi.clean.favorites.FavoritesFragment
 import com.aliasadi.clean.feed.FeedFragment
 import com.aliasadi.clean.main.MainActivity
-import com.aliasadi.clean.moviedetails.MovieDetailsActivity
+import com.aliasadi.clean.moviedetails.MovieDetailsFragment
 import com.aliasadi.data.BuildConfig
 
 /**
@@ -47,7 +47,7 @@ class App : Application(), DaggerInjector {
     override fun <T> inject(view: T) {
         when (view) {
             is MainActivity -> createMainComponent().inject(view)
-            is MovieDetailsActivity -> createMoviesDetailsComponent().inject(view)
+            is MovieDetailsFragment -> createMoviesDetailsComponent().inject(view)
             is FeedFragment -> createFeedComponent().inject(view)
             is FavoritesFragment -> createFavoritesComponent().inject(view)
         }
