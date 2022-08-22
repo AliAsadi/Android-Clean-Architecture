@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.aliasadi.clean.base.BaseFragment
@@ -12,6 +13,7 @@ import com.aliasadi.clean.feed.FeedViewModel.Factory
 import com.aliasadi.clean.feed.FeedViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.feed.FeedViewModel.UiState.*
 import com.aliasadi.clean.moviedetails.MovieDetailsActivity
+import com.aliasadi.clean.moviedetails.MovieDetailsFragment
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
 import javax.inject.Inject
@@ -34,6 +36,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
         setupViews()
         observeViewModel()
         viewModel.onInitialState()
+
     }
 
     private fun setupViews() {
@@ -59,10 +62,25 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
 
         getNavigationState().observe {
             when (it) {
-                is MovieDetails -> MovieDetailsActivity.start(requireContext(), it.movie.id)
+                is MovieDetails -> showOrNavigateToMovieDetails(it.movie.id)
             }
         }
     }
+
+    private fun showOrNavigateToMovieDetails(movieId: Int) = if (binding.root.isSlideable) {
+        MovieDetailsActivity.start(requireContext(), movieId)
+    } else {
+        showToMovieDetails(movieId)
+    }
+
+    private fun showToMovieDetails(movieId: Int) = childFragmentManager.beginTransaction()
+        .replace(
+            binding.container.id,
+            MovieDetailsFragment().apply {
+                arguments = bundleOf(MovieDetailsFragment.EXTRA_MOVIE_ID to movieId)
+            }
+        ).commitNow()
+
 
     private fun getImageFixedSize(): Int = requireContext().applicationContext.resources.displayMetrics.widthPixels / 3
 

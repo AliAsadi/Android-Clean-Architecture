@@ -58,6 +58,6 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, MovieDeta
 
 
     companion object {
-        private const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
+        const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
     }
 }
