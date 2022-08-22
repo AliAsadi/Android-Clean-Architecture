@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.aliasadi.clean.base.BaseFragment
@@ -73,13 +72,10 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
         showToMovieDetails(movieId)
     }
 
-    private fun showToMovieDetails(movieId: Int) = childFragmentManager.beginTransaction()
-        .replace(
-            binding.container.id,
-            MovieDetailsFragment().apply {
-                arguments = bundleOf(MovieDetailsFragment.EXTRA_MOVIE_ID to movieId)
-            }
-        ).commitNow()
+    private fun showToMovieDetails(movieId: Int) = childFragmentManager.beginTransaction().replace(
+        binding.container.id,
+        MovieDetailsFragment.createInstance(movieId)
+    ).commitNow()
 
 
     private fun getImageFixedSize(): Int = requireContext().applicationContext.resources.displayMetrics.widthPixels / 3

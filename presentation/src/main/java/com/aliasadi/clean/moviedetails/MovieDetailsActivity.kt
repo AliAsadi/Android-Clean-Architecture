@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
 import com.aliasadi.clean.R
 
 /**
@@ -16,9 +15,11 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setupViews()
         setContentView(R.layout.activity_movie_details)
-        supportFragmentManager.beginTransaction().replace(R.id.container, MovieDetailsFragment().apply {
-            arguments = bundleOf(EXTRA_MOVIE_ID to intent.getIntExtra(EXTRA_MOVIE_ID, 0))
-        }).commitNow()
+
+        supportFragmentManager.beginTransaction().replace(
+            R.id.container,
+            MovieDetailsFragment.createInstance(intent.getIntExtra(EXTRA_MOVIE_ID, 0))
+        ).commitNow()
     }
 
     private fun setupViews() {

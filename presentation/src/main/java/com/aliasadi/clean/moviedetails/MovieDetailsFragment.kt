@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.aliasadi.clean.base.BaseFragment
@@ -58,6 +59,10 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, MovieDeta
 
 
     companion object {
-        const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
+        private const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
+
+        fun createInstance(movieId: Int) = MovieDetailsFragment().apply {
+            arguments = bundleOf(EXTRA_MOVIE_ID to movieId)
+        }
     }
 }
