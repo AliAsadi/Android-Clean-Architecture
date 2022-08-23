@@ -19,27 +19,40 @@ class FavoritesViewModel internal constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    private val movies: MutableLiveData<List<Movie>> = MutableLiveData()
-    private val navigateToMovieDetails: SingleLiveEvent<Movie> = SingleLiveEvent()
+    data class FavoriteUiState(
+        val isLoading: Boolean = false,
+        val movies: List<Movie>? = null
+    )
+
+    sealed class NavigationState {
+        data class MovieDetails(val movieId: Int) : NavigationState()
+    }
+
+    private val favoriteUiState: MutableLiveData<FavoriteUiState> = MutableLiveData()
+    private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
+
+    init {
+        favoriteUiState.value = FavoriteUiState(isLoading = true)
+    }
 
     fun onResume() = launchOnMainImmediate {
         loadMovies()
     }
 
-    private suspend fun loadMovies()  {
+    private suspend fun loadMovies() {
         getFavoriteMovies().onSuccess {
-            movies.value = it
+            favoriteUiState.value = favoriteUiState.value?.copy(isLoading = false, movies = it)
         }
     }
 
     private suspend fun getFavoriteMovies() = getFavoriteMovies.getFavoriteMovies()
 
     fun onMovieClicked(movie: Movie) = launchOnMainImmediate {
-        navigateToMovieDetails.value = movie
+        navigationState.value = NavigationState.MovieDetails(movie.id)
     }
 
-    fun getMoviesLiveData(): LiveData<List<Movie>> = movies
-    fun getNavigateToMovieDetails(): LiveData<Movie> = navigateToMovieDetails
+    fun getFavoriteUiState(): LiveData<FavoriteUiState> = favoriteUiState
+    fun getNavigateState(): LiveData<NavigationState> = navigationState
 
     class Factory(
         private val getFavoriteMovies: GetFavoriteMovies,

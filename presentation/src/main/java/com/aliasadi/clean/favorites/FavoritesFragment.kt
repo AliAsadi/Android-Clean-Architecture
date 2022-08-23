@@ -8,7 +8,11 @@ import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentFavoritesBinding
+import com.aliasadi.clean.favorites.FavoritesViewModel.*
+import com.aliasadi.clean.favorites.FavoritesViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.feed.MovieAdapter
+import com.aliasadi.clean.util.hide
+import com.aliasadi.clean.util.show
 import javax.inject.Inject
 
 /**
@@ -17,7 +21,7 @@ import javax.inject.Inject
 class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewModel>() {
 
     @Inject
-    lateinit var factory: FavoritesViewModel.Factory
+    lateinit var factory: Factory
 
     private val movieAdapter by lazy {
         MovieAdapter(viewModel::onMovieClicked, getImageFixedSize())
@@ -48,8 +52,21 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewMo
     }
 
     private fun setupObservers() = with(viewModel) {
-        getMoviesLiveData().observe { movieAdapter.submitList(it) }
-        getNavigateToMovieDetails().observe { navigateToMovieDetails(it.id) }
+        getFavoriteUiState().observe { handleFavoriteUiState(it) }
+        getNavigateState().observe { handleNavigationState(it) }
+    }
+
+    private fun handleFavoriteUiState(favoriteUiState: FavoriteUiState) = with(favoriteUiState) {
+        if (isLoading) {
+            binding.progressBar.show()
+        } else {
+            binding.progressBar.hide()
+            movieAdapter.submitList(movies)
+        }
+    }
+
+    private fun handleNavigationState(navigationState: NavigationState) = when (navigationState) {
+        is MovieDetails -> navigateToMovieDetails(navigationState.movieId)
     }
 
     private fun navigateToMovieDetails(movieId: Int) = findNavController().navigate(
