@@ -14,7 +14,7 @@
         android:label="MovieDetailsFragment">
 
         <argument
-            android:name="EXTRA_MOVIE_ID"
+            android:name="movieId"
             android:defaultValue="0"
             app:argType="integer" />
 

@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.navArgs
+import com.aliasadi.clean.MovieDetailsGraphDirections
 import com.aliasadi.clean.R
 
 /**
@@ -11,15 +14,17 @@ import com.aliasadi.clean.R
  */
 class MovieDetailsActivity : AppCompatActivity() {
 
+    private val args: MovieDetailsActivityArgs by navArgs()
+
+    private val navController by lazy {
+        (supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment).navController
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViews()
         setContentView(R.layout.activity_movie_details)
-
-        supportFragmentManager.beginTransaction().replace(
-            R.id.container,
-            MovieDetailsFragment.createInstance(intent.getIntExtra(EXTRA_MOVIE_ID, 0))
-        ).commitNow()
+        navController.navigate(MovieDetailsGraphDirections.toMovieDetails(args.movieId))
     }
 
     private fun setupViews() {

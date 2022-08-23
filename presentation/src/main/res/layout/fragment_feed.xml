@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    //Child 1-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="280dp"
         android:layout_height="match_parent"
@@ -36,7 +35,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--    //Child 2-->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container"
         android:name="androidx.navigation.fragment.NavHostFragment"

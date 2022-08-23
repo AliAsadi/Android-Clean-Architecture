@@ -8,13 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
+import com.aliasadi.clean.MovieDetailsGraphDirections
 import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentFeedBinding
 import com.aliasadi.clean.feed.FeedViewModel.Factory
 import com.aliasadi.clean.feed.FeedViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.feed.FeedViewModel.UiState.*
-import com.aliasadi.clean.moviedetails.MovieDetailsActivity
-import com.aliasadi.clean.moviedetails.MovieDetailsFragmentDirections
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
 import javax.inject.Inject
@@ -71,13 +70,14 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
     }
 
     private fun showOrNavigateToMovieDetails(movieId: Int) = if (binding.root.isSlideable) {
-        MovieDetailsActivity.start(requireContext(), movieId)
+//        MovieDetailsActivity.start(requireContext(), movieId)
+        findNavController().navigate(FeedFragmentDirections.toMovieDetailsActivity(movieId))
     } else {
         showMovieDetails(movieId)
     }
 
     private fun showMovieDetails(movieId: Int) = detailsNavController.navigate(
-        MovieDetailsFragmentDirections.toMovieDetails(movieId)
+        MovieDetailsGraphDirections.toMovieDetails(movieId)
     )
 
     private fun getImageFixedSize(): Int = requireContext().applicationContext.resources.displayMetrics.widthPixels / 3

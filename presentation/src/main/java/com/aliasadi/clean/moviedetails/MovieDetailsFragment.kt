@@ -4,9 +4,9 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.navigation.fragment.navArgs
 import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentMovieDetailsBinding
 import com.bumptech.glide.Glide
@@ -20,11 +20,13 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, MovieDeta
     @Inject
     lateinit var factory: MovieDetailsViewModel.Factory
 
+    private val args: MovieDetailsFragmentArgs by navArgs()
+
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentMovieDetailsBinding =
         FragmentMovieDetailsBinding.inflate(inflater)
 
     override fun createViewModel(): MovieDetailsViewModel {
-        factory.movieId = requireArguments().getInt(EXTRA_MOVIE_ID, 0)
+        factory.movieId = args.movieId
         return ViewModelProvider(this, factory).get()
     }
 
@@ -59,10 +61,8 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, MovieDeta
 
 
     companion object {
-        private const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
-
         fun createInstance(movieId: Int) = MovieDetailsFragment().apply {
-            arguments = bundleOf(EXTRA_MOVIE_ID to movieId)
+            arguments = MovieDetailsFragmentArgs(movieId).toBundle()
         }
     }
 }
