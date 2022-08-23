@@ -38,7 +38,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
         setupViews()
         observeViewModel()
         viewModel.onInitialState()
-
     }
 
     private fun setupViews() {
@@ -70,11 +69,14 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
     }
 
     private fun showOrNavigateToMovieDetails(movieId: Int) = if (binding.root.isSlideable) {
-//        MovieDetailsActivity.start(requireContext(), movieId)
-        findNavController().navigate(FeedFragmentDirections.toMovieDetailsActivity(movieId))
+        navigateToMovieDetails(movieId)
     } else {
         showMovieDetails(movieId)
     }
+
+    private fun navigateToMovieDetails(movieId: Int) = findNavController().navigate(
+        FeedFragmentDirections.toMovieDetailsActivity(movieId)
+    )
 
     private fun showMovieDetails(movieId: Int) = detailsNavController.navigate(
         MovieDetailsGraphDirections.toMovieDetails(movieId)

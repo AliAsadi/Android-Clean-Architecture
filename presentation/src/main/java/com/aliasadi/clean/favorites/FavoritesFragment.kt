@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.navigation.fragment.findNavController
 import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentFavoritesBinding
 import com.aliasadi.clean.feed.MovieAdapter
-import com.aliasadi.clean.moviedetails.MovieDetailsActivity
 import javax.inject.Inject
 
 /**
@@ -49,8 +49,12 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewMo
 
     private fun setupObservers() = with(viewModel) {
         getMoviesLiveData().observe { movieAdapter.submitList(it) }
-        getNavigateToMovieDetails().observe { MovieDetailsActivity.start(requireContext(), it.id) }
+        getNavigateToMovieDetails().observe { navigateToMovieDetails(it.id) }
     }
+
+    private fun navigateToMovieDetails(movieId: Int) = findNavController().navigate(
+        FavoritesFragmentDirections.toMovieDetailsActivity(movieId)
+    )
 
     private fun getImageFixedSize(): Int = requireContext().applicationContext.resources.displayMetrics.widthPixels / 3
 

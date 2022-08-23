@@ -1,7 +1,5 @@
 package com.aliasadi.clean.moviedetails
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -16,7 +14,7 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     private val args: MovieDetailsActivityArgs by navArgs()
 
-    private val navController by lazy {
+    private val detailsNavController by lazy {
         (supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment).navController
     }
 
@@ -24,7 +22,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setupViews()
         setContentView(R.layout.activity_movie_details)
-        navController.navigate(MovieDetailsGraphDirections.toMovieDetails(args.movieId))
+        detailsNavController.navigate(MovieDetailsGraphDirections.toMovieDetails(args.movieId))
     }
 
     private fun setupViews() {
@@ -39,14 +37,5 @@ class MovieDetailsActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
-    }
-
-    companion object {
-        private const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
-        fun start(context: Context, movieId: Int) {
-            val starter = Intent(context, MovieDetailsActivity::class.java)
-            starter.putExtra(EXTRA_MOVIE_ID, movieId)
-            context.startActivity(starter)
-        }
     }
 }

@@ -9,22 +9,29 @@
         android:id="@+id/feedFragment"
         android:name="com.aliasadi.clean.feed.FeedFragment"
         android:label="FeedFragment"
-        tools:layout="@layout/fragment_feed" >
+        tools:layout="@layout/fragment_feed">
+
         <action
             android:id="@+id/to_movieDetailsActivity"
             app:destination="@id/movieDetailsActivity" />
+
     </fragment>
 
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.aliasadi.clean.favorites.FavoritesFragment"
         android:label="FavoritesFragment"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/to_movieDetailsActivity"
+            app:destination="@id/movieDetailsActivity" />
+    </fragment>
 
     <activity
         android:id="@+id/movieDetailsActivity"
         android:name="com.aliasadi.clean.moviedetails.MovieDetailsActivity"
-        android:label="MovieDetailsActivity">
+        android:label="MovieDetailsActivity"
+        tools:layout="@layout/activity_movie_details">
 
         <argument
             android:name="movieId"
