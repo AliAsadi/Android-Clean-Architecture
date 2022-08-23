@@ -4,15 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.navigation.fragment.findNavController
 import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentFeedBinding
 import com.aliasadi.clean.feed.FeedViewModel.Factory
 import com.aliasadi.clean.feed.FeedViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.feed.FeedViewModel.UiState.*
 import com.aliasadi.clean.moviedetails.MovieDetailsActivity
-import com.aliasadi.clean.moviedetails.MovieDetailsFragment
+import com.aliasadi.clean.moviedetails.MovieDetailsFragmentDirections
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
 import javax.inject.Inject
@@ -26,6 +28,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
     lateinit var factory: Factory
 
     private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
+
+    private val detailsNavController by lazy { binding.container.getFragment<Fragment>().findNavController() }
 
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentFeedBinding = FragmentFeedBinding.inflate(inflater)
 
@@ -69,14 +73,12 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
     private fun showOrNavigateToMovieDetails(movieId: Int) = if (binding.root.isSlideable) {
         MovieDetailsActivity.start(requireContext(), movieId)
     } else {
-        showToMovieDetails(movieId)
+        showMovieDetails(movieId)
     }
 
-    private fun showToMovieDetails(movieId: Int) = childFragmentManager.beginTransaction().replace(
-        binding.container.id,
-        MovieDetailsFragment.createInstance(movieId)
-    ).commitNow()
-
+    private fun showMovieDetails(movieId: Int) = detailsNavController.navigate(
+        MovieDetailsFragmentDirections.toMovieDetails(movieId)
+    )
 
     private fun getImageFixedSize(): Int = requireContext().applicationContext.resources.displayMetrics.widthPixels / 3
 
