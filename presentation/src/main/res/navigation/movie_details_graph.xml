@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/movie_details_graph"
-    app:startDestination="@id/movieDetailsFragment">
+    app:startDestination="@id/movieDetailsPlaceholderFragment">
 
     <action
         android:id="@+id/to_movieDetails"
@@ -19,5 +19,9 @@
             app:argType="integer" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailsPlaceholderFragment"
+        android:name="com.aliasadi.clean.moviedetails.MovieDetailsPlaceholderFragment" />
 
 </navigation>
