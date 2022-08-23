@@ -33,7 +33,7 @@
         app:layout_constraintStart_toEndOf="@+id/image"
         app:layout_constraintTop_toTopOf="@+id/image"
         app:layout_constraintVertical_bias="0.0"
-        tools:text="title" />
+        tools:text="Avatar" />
 
     <TextView
         android:id="@+id/desc"
@@ -48,6 +48,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        tools:text="some text" />
+        tools:text="Avatar (also marketed as James Cameron's Avatar) is a 2009 American[7][8] epic science fiction film directed, written, produced, and co-edited by James Cameron." />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

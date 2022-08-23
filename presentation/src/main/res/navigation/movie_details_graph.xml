@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movie_details_graph"
     app:startDestination="@id/movieDetailsPlaceholderFragment">
 
@@ -11,7 +12,8 @@
     <fragment
         android:id="@+id/movieDetailsFragment"
         android:name="com.aliasadi.clean.moviedetails.MovieDetailsFragment"
-        android:label="MovieDetailsFragment">
+        android:label="MovieDetailsFragment"
+        tools:layout="@layout/fragment_movie_details">
 
         <argument
             android:name="movieId"
@@ -22,6 +24,7 @@
 
     <fragment
         android:id="@+id/movieDetailsPlaceholderFragment"
-        android:name="com.aliasadi.clean.moviedetails.MovieDetailsPlaceholderFragment" />
+        android:name="com.aliasadi.clean.moviedetails.MovieDetailsPlaceholderFragment"
+        tools:layout="@layout/fragment_movie_details_placeholder" />
 
 </navigation>
