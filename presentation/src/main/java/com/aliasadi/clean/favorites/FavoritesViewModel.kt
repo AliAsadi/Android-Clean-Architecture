@@ -9,6 +9,7 @@ import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.usecase.GetFavoriteMovies
+import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
 
 /**
@@ -40,9 +41,12 @@ class FavoritesViewModel internal constructor(
     }
 
     private suspend fun loadMovies() {
-        getFavoriteMovies().onSuccess {
-            favoriteUiState.value = favoriteUiState.value?.copy(isLoading = false, movies = it)
-        }
+        getFavoriteMovies()
+            .onSuccess {
+                favoriteUiState.value = favoriteUiState.value?.copy(isLoading = false, movies = it)
+            }.onError {
+                favoriteUiState.value = favoriteUiState.value?.copy(isLoading = false)
+            }
     }
 
     private suspend fun getFavoriteMovies() = getFavoriteMovies.getFavoriteMovies()
