@@ -15,8 +15,12 @@
 
 ### Screenshot
 <p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen1.png" height="600" width="300">
-<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen2.png" height="600" width="300">
+<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen1.png" height="587" width="300">
+<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen2.png" height="587" width="300">
+</p>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen3.png" height="320" width="600">
 </p>
 
 #### Used libraries:
