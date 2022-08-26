@@ -8,7 +8,9 @@ import com.aliasadi.clean.base.BaseViewModel
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.util.SingleLiveEvent
+import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.util.DispatchersProvider
+import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.GetFavoriteMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
@@ -23,6 +25,7 @@ class FavoritesViewModel internal constructor(
 
     data class FavoriteUiState(
         val isLoading: Boolean = false,
+        val noDataAvailable: Boolean = false,
         val movies: List<MovieListItem>? = null
     )
 
@@ -44,15 +47,29 @@ class FavoritesViewModel internal constructor(
     private suspend fun loadMovies() {
         getFavoriteMovies()
             .onSuccess {
-                favoriteUiState.value = favoriteUiState.value?.copy(
-                    isLoading = false,
-                    movies = it.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) }
-                )
+                showData(it)
             }.onError {
-                favoriteUiState.value = favoriteUiState.value?.copy(
-                    isLoading = false
-                )
+                when (it) {
+                    is DataNotAvailableException -> showNoData()
+                    else -> favoriteUiState.value = favoriteUiState.value?.copy(isLoading = false)
+                }
             }
+    }
+
+    private fun showData(list: List<MovieEntity>) {
+        favoriteUiState.value = favoriteUiState.value?.copy(
+            isLoading = false,
+            noDataAvailable = false,
+            movies = list.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) }
+        )
+    }
+
+    private fun showNoData() {
+        favoriteUiState.value = favoriteUiState.value?.copy(
+            isLoading = false,
+            noDataAvailable = true,
+            movies = listOf()
+        )
     }
 
     private suspend fun getFavoriteMovies() = getFavoriteMovies.getFavoriteMovies()

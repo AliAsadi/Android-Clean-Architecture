@@ -60,6 +60,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewMo
         if (isLoading) {
             binding.progressBar.show()
         } else {
+            if (noDataAvailable) binding.noDataView.show() else binding.noDataView.hide()
             binding.progressBar.hide()
             movieAdapter.submitList(movies)
         }
