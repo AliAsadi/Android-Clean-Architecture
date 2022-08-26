@@ -39,8 +39,8 @@ class FeedViewModel internal constructor(
         loadMovies()
     }
 
-    fun onMovieClicked(movie: MovieListItem.Movie) = launchOnMainImmediate {
-        navigationState.value = NavigationState.MovieDetails(movie.id)
+    fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
+        navigationState.value = NavigationState.MovieDetails(movieId)
     }
 
     private suspend fun loadMovies() {
@@ -63,11 +63,10 @@ class FeedViewModel internal constructor(
         private val getMovies: GetMovies,
         private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
+
+        @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedViewModel(
-                getMovies = getMovies,
-                dispatchers = dispatchers
-            ) as T
+            return FeedViewModel(getMovies, dispatchers) as T
         }
     }
 }

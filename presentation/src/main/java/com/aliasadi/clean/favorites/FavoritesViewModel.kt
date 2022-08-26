@@ -72,8 +72,8 @@ class FavoritesViewModel internal constructor(
 
     private suspend fun getFavoriteMovies() = getFavoriteMovies.getFavoriteMovies()
 
-    fun onMovieClicked(movie: MovieListItem.Movie) = launchOnMainImmediate {
-        navigationState.value = NavigationState.MovieDetails(movie.id)
+    fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
+        navigationState.value = NavigationState.MovieDetails(movieId)
     }
 
     fun getFavoriteUiState(): LiveData<FavoriteUiState> = favoriteUiState
@@ -83,6 +83,8 @@ class FavoritesViewModel internal constructor(
         private val getFavoriteMovies: GetFavoriteMovies,
         private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
+
+        @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return FavoritesViewModel(getFavoriteMovies, dispatchers) as T
         }

@@ -19,7 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
  * Created by Ali Asadi on 13/05/2020
  */
 class MovieAdapter(
-    private val onMovieClick: (MovieListItem.Movie) -> Unit,
+    private val onMovieClick: (movieId: Int) -> Unit,
     private val imageFixedSize: Int,
 ) : ListAdapter<MovieListItem, MovieViewHolder>(MovieDiffCallback) {
 
@@ -36,7 +36,7 @@ class MovieAdapter(
 
     class MovieViewHolder internal constructor(
         parent: ViewGroup,
-        private val onMovieClick: (MovieListItem.Movie) -> Unit,
+        private val onMovieClick: (movieId: Int) -> Unit,
         private val imageFixedSize: Int
     ) : ViewHolder(
         ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false).root
@@ -44,11 +44,11 @@ class MovieAdapter(
 
         private val binding = ItemMovieBinding.bind(itemView)
 
-        fun bind(movieEntity: MovieListItem.Movie) = with(binding) {
-            loadImage(image, movieEntity.imageUrl)
-            title.text = movieEntity.title
-            desc.text = movieEntity.description
-            root.setOnClickListener { onMovieClick(movieEntity) }
+        fun bind(movie: MovieListItem.Movie) = with(binding) {
+            loadImage(image, movie.imageUrl)
+            title.text = movie.title
+            desc.text = movie.description
+            root.setOnClickListener { onMovieClick(movie.id) }
         }
 
         fun unBind() = with(binding) {

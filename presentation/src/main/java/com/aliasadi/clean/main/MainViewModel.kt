@@ -15,6 +15,8 @@ class MainViewModel(
     class Factory(
         private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
+
+        @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MainViewModel(dispatchers) as T
         }
