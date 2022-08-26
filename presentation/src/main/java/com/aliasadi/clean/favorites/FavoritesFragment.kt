@@ -3,6 +3,7 @@ package com.aliasadi.clean.favorites
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
@@ -59,6 +60,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewMo
     private fun handleFavoriteUiState(favoriteUiState: FavoriteUiState) = with(favoriteUiState) {
         if (isLoading) {
             binding.progressBar.show()
+            if (binding.noDataView.isVisible) binding.noDataView.hide()
         } else {
             if (noDataAvailable) binding.noDataView.show() else binding.noDataView.hide()
             binding.progressBar.hide()

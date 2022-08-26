@@ -26,7 +26,7 @@ class FavoritesViewModel internal constructor(
     data class FavoriteUiState(
         val isLoading: Boolean = false,
         val noDataAvailable: Boolean = false,
-        val movies: List<MovieListItem>? = null
+        val movies: List<MovieListItem> = emptyList()
     )
 
     sealed class NavigationState {
@@ -36,15 +36,13 @@ class FavoritesViewModel internal constructor(
     private val favoriteUiState: MutableLiveData<FavoriteUiState> = MutableLiveData()
     private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
 
-    init {
-        favoriteUiState.value = FavoriteUiState(isLoading = true)
-    }
-
     fun onResume() = launchOnMainImmediate {
         loadMovies()
     }
 
     private suspend fun loadMovies() {
+        favoriteUiState.value = FavoriteUiState(isLoading = true)
+
         getFavoriteMovies()
             .onSuccess {
                 showData(it)
@@ -68,7 +66,7 @@ class FavoritesViewModel internal constructor(
         favoriteUiState.value = favoriteUiState.value?.copy(
             isLoading = false,
             noDataAvailable = true,
-            movies = listOf()
+            movies = emptyList()
         )
     }
 
