@@ -1,6 +1,7 @@
 package com.aliasadi.clean.presentation.feed
 
 import androidx.lifecycle.Observer
+import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.feed.FeedViewModel
 import com.aliasadi.clean.feed.FeedViewModel.NavigationState
 import com.aliasadi.clean.feed.FeedViewModel.NavigationState.MovieDetails
@@ -8,7 +9,6 @@ import com.aliasadi.clean.feed.FeedViewModel.UiState
 import com.aliasadi.clean.feed.FeedViewModel.UiState.*
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
-import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.Result
 import org.junit.Before
@@ -33,7 +33,11 @@ class FeedViewModelTest : BaseViewModelTest() {
 
     @Before
     fun setUp() {
-        viewModel = FeedViewModel(getMovies, coroutineRule.testDispatcherProvider)
+        viewModel = FeedViewModel(
+            getMovies = getMovies,
+            movieEntityMapper = mock(),
+            dispatchers = coroutineRule.testDispatcherProvider
+        )
     }
 
     @Test
@@ -42,7 +46,7 @@ class FeedViewModelTest : BaseViewModelTest() {
 
         viewModel.getUiState().observeForever(uiStateObs)
 
-        `when`(getMovies.execute()).thenReturn(Result.Success(mock()))
+        `when`(getMovies.execute()).thenReturn(Result.Success(listOf()))
 
         viewModel.onInitialState()
 
@@ -88,7 +92,7 @@ class FeedViewModelTest : BaseViewModelTest() {
     @Test
     fun onMovieClicked_navigateToMovieDetails() {
         val navigateObs: Observer<NavigationState> = mock()
-        val movie: Movie = mock()
+        val movie: MovieListItem.Movie = mock()
 
         viewModel.getNavigationState().observeForever(navigateObs)
 

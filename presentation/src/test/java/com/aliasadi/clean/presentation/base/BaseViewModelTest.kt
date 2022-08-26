@@ -20,7 +20,7 @@ open class BaseViewModelTest {
      * Returns Mockito.any() as nullable type to avoid java.lang.IllegalStateException when
      * null is returned.
      */
-    fun <T> any(): T = Mockito.any<T>()
+    fun <T> any(): T = Mockito.any()
 
     /**
      * Gives you the ability to mock observes programmatically

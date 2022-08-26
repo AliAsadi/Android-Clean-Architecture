@@ -1,6 +1,6 @@
 package com.aliasadi.data.repository.movie
 
-import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 
 /**
@@ -9,13 +9,13 @@ import com.aliasadi.domain.util.Result
 interface MovieDataSource {
 
     interface Remote {
-        suspend fun getMovies(): Result<List<Movie>>
+        suspend fun getMovies(): Result<List<MovieEntity>>
     }
 
     interface Local : Remote {
-        suspend fun getMovie(movieId: Int): Result<Movie>
-        suspend fun saveMovies(movies: List<Movie>)
-        suspend fun getFavoriteMovies(movieIds: List<Int>): Result<List<Movie>>
+        suspend fun getMovie(movieId: Int): Result<MovieEntity>
+        suspend fun saveMovies(movieEntities: List<MovieEntity>)
+        suspend fun getFavoriteMovies(movieIds: List<Int>): Result<List<MovieEntity>>
     }
 
     interface Cache : Local

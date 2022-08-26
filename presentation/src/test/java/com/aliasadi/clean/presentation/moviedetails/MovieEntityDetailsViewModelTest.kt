@@ -6,7 +6,7 @@ import com.aliasadi.clean.moviedetails.MovieDetailsViewModel.MovieDetailsUiState
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.util.ResourceProvider
-import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
 import com.aliasadi.domain.usecase.GetMovieDetails
@@ -24,11 +24,11 @@ import org.mockito.junit.MockitoJUnitRunner
  * Created by Ali Asadi on 16/05/2020
  **/
 @RunWith(MockitoJUnitRunner::class)
-class MovieDetailsViewModelTest : BaseViewModelTest() {
+class MovieEntityDetailsViewModelTest : BaseViewModelTest() {
 
     private var movieId: Int = 1413
 
-    private val movie = Movie(movieId, "", "", "")
+    private val movie = MovieEntity(movieId, "", "", "")
 
     @Mock
     lateinit var getMovieDetails: GetMovieDetails

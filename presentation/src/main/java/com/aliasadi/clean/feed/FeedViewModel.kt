@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.base.BaseViewModel
+import com.aliasadi.clean.entities.MovieListItem
+import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.util.DispatchersProvider
-import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
@@ -17,15 +18,16 @@ import com.aliasadi.domain.util.onSuccess
  */
 class FeedViewModel internal constructor(
     private val getMovies: GetMovies,
+    private val movieEntityMapper: MovieEntityMapper = MovieEntityMapper,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
     sealed class NavigationState {
-        data class MovieDetails(val movie: Movie) : NavigationState()
+        data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
     sealed class UiState {
-        data class FeedUiState(val movies: List<Movie>) : UiState()
+        data class FeedUiState(val movies: List<MovieListItem>) : UiState()
         data class Error(val message: String?) : UiState()
         object Loading : UiState()
         object NotLoading : UiState()
@@ -38,17 +40,16 @@ class FeedViewModel internal constructor(
         loadMovies()
     }
 
-    fun onMovieClicked(movie: Movie) = launchOnMainImmediate {
-        navigationState.value = NavigationState.MovieDetails(movie)
+    fun onMovieClicked(movie: MovieListItem.Movie) = launchOnMainImmediate {
+        navigationState.value = NavigationState.MovieDetails(movie.id)
     }
 
     private suspend fun loadMovies() {
         uiState.value = UiState.Loading
-
         getMovies.execute()
             .onSuccess {
                 uiState.value = UiState.NotLoading
-                uiState.value = UiState.FeedUiState(it)
+                uiState.value = UiState.FeedUiState(it.map { movieEntity -> movieEntityMapper.toPresentation(movieEntity) })
             }.onError {
                 uiState.value = UiState.NotLoading
                 uiState.value = UiState.Error(it.message)
@@ -64,7 +65,10 @@ class FeedViewModel internal constructor(
         private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedViewModel(getMovies, dispatchers) as T
+            return FeedViewModel(
+                getMovies = getMovies,
+                dispatchers = dispatchers
+            ) as T
         }
     }
 }

@@ -1,9 +1,9 @@
 package com.aliasadi.data.repository.movie
 
 import com.aliasadi.data.api.MovieApi
-import com.aliasadi.data.mapper.MovieMapper
+import com.aliasadi.data.mapper.MovieDataMapper
 import com.aliasadi.data.util.DispatchersProvider
-import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.withContext
 
@@ -15,11 +15,11 @@ class MovieRemoteDataSource(
     private val dispatchers: DispatchersProvider
 ) : MovieDataSource.Remote {
 
-    override suspend fun getMovies(): Result<List<Movie>> = withContext(dispatchers.getIO()) {
+    override suspend fun getMovies(): Result<List<MovieEntity>> = withContext(dispatchers.getIO()) {
         return@withContext try {
             val result = movieApi.getMovies().await()
             Result.Success(result.movies.map {
-                MovieMapper.toDomain(it)
+                MovieDataMapper.toDomain(it)
             })
         } catch (e: Exception) {
             Result.Error(e)

@@ -9,7 +9,7 @@ import com.aliasadi.clean.R
 import com.aliasadi.clean.base.BaseViewModel
 import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.data.util.DispatchersProvider
-import com.aliasadi.domain.entities.Movie
+import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
 import com.aliasadi.domain.usecase.GetMovieDetails
@@ -68,7 +68,7 @@ class MovieDetailsViewModel internal constructor(
         resourceProvider.getDrawable(R.drawable.ic_favorite_border_white_48)
     }
 
-    private suspend fun getMovieById(movieId: Int): Result<Movie> = getMovieDetails.getMovie(movieId)
+    private suspend fun getMovieById(movieId: Int): Result<MovieEntity> = getMovieDetails.getMovie(movieId)
 
     private suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = checkFavoriteStatus.check(movieId)
 

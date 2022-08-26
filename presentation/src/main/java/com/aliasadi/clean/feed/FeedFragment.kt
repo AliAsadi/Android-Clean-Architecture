@@ -63,7 +63,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
 
         getNavigationState().observe {
             when (it) {
-                is MovieDetails -> showOrNavigateToMovieDetails(it.movie.id)
+                is MovieDetails -> showOrNavigateToMovieDetails(it.movieId)
             }
         }
     }

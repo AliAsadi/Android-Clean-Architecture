@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.base.BaseViewModel
+import com.aliasadi.clean.entities.MovieListItem
+import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.util.DispatchersProvider
-import com.aliasadi.domain.entities.Movie
 import com.aliasadi.domain.usecase.GetFavoriteMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
@@ -22,7 +23,7 @@ class FavoritesViewModel internal constructor(
 
     data class FavoriteUiState(
         val isLoading: Boolean = false,
-        val movies: List<Movie>? = null
+        val movies: List<MovieListItem>? = null
     )
 
     sealed class NavigationState {
@@ -43,15 +44,20 @@ class FavoritesViewModel internal constructor(
     private suspend fun loadMovies() {
         getFavoriteMovies()
             .onSuccess {
-                favoriteUiState.value = favoriteUiState.value?.copy(isLoading = false, movies = it)
+                favoriteUiState.value = favoriteUiState.value?.copy(
+                    isLoading = false,
+                    movies = it.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) }
+                )
             }.onError {
-                favoriteUiState.value = favoriteUiState.value?.copy(isLoading = false)
+                favoriteUiState.value = favoriteUiState.value?.copy(
+                    isLoading = false
+                )
             }
     }
 
     private suspend fun getFavoriteMovies() = getFavoriteMovies.getFavoriteMovies()
 
-    fun onMovieClicked(movie: Movie) = launchOnMainImmediate {
+    fun onMovieClicked(movie: MovieListItem.Movie) = launchOnMainImmediate {
         navigationState.value = NavigationState.MovieDetails(movie.id)
     }
 

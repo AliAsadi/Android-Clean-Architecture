@@ -8,8 +8,8 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.aliasadi.clean.databinding.ItemMovieBinding
+import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.feed.MovieAdapter.MovieViewHolder
-import com.aliasadi.domain.entities.Movie
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DecodeFormat
@@ -19,20 +19,24 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
  * Created by Ali Asadi on 13/05/2020
  */
 class MovieAdapter(
-    private val onMovieClick: (Movie) -> Unit,
+    private val onMovieClick: (MovieListItem.Movie) -> Unit,
     private val imageFixedSize: Int,
-) : ListAdapter<Movie, MovieViewHolder>(MovieDiffCallback) {
+) : ListAdapter<MovieListItem, MovieViewHolder>(MovieDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
         MovieViewHolder(parent, onMovieClick, imageFixedSize)
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        when (val item = getItem(position)) {
+            is MovieListItem.Movie -> holder.bind(item)
+        }
+    }
 
     override fun onViewRecycled(holder: MovieViewHolder) = holder.unBind()
 
     class MovieViewHolder internal constructor(
         parent: ViewGroup,
-        private val onMovieClick: (Movie) -> Unit,
+        private val onMovieClick: (MovieListItem.Movie) -> Unit,
         private val imageFixedSize: Int
     ) : ViewHolder(
         ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false).root
@@ -40,11 +44,11 @@ class MovieAdapter(
 
         private val binding = ItemMovieBinding.bind(itemView)
 
-        fun bind(movie: Movie) = with(binding) {
-            loadImage(image, movie.image)
-            title.text = movie.title
-            desc.text = movie.description
-            root.setOnClickListener { onMovieClick(movie) }
+        fun bind(movieEntity: MovieListItem.Movie) = with(binding) {
+            loadImage(image, movieEntity.imageUrl)
+            title.text = movieEntity.title
+            desc.text = movieEntity.description
+            root.setOnClickListener { onMovieClick(movieEntity) }
         }
 
         fun unBind() = with(binding) {

@@ -1,12 +1,19 @@
 package com.aliasadi.clean.feed
 
 import androidx.recyclerview.widget.DiffUtil
-import com.aliasadi.domain.entities.Movie
+import com.aliasadi.clean.entities.MovieListItem
 
 /**
  * @author by Ali Asadi on 03/08/2022
  */
-object MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
-    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem == newItem
+object MovieDiffCallback : DiffUtil.ItemCallback<MovieListItem>() {
+
+    override fun areItemsTheSame(oldItem: MovieListItem, newItem: MovieListItem): Boolean =
+        if (oldItem is MovieListItem.Movie && newItem is MovieListItem.Movie) {
+            oldItem.id == newItem.id
+        } else {
+            oldItem == newItem
+        }
+
+    override fun areContentsTheSame(oldItem: MovieListItem, newItem: MovieListItem): Boolean = oldItem == newItem
 }
