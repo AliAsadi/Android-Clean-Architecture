@@ -35,7 +35,6 @@ class FeedViewModelTest : BaseViewModelTest() {
     fun setUp() {
         viewModel = FeedViewModel(
             getMovies = getMovies,
-            movieEntityMapper = mock(),
             dispatchers = coroutineRule.testDispatcherProvider
         )
     }

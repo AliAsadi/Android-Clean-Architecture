@@ -18,7 +18,6 @@ import com.aliasadi.domain.util.onSuccess
  */
 class FeedViewModel internal constructor(
     private val getMovies: GetMovies,
-    private val movieEntityMapper: MovieEntityMapper = MovieEntityMapper,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -49,7 +48,7 @@ class FeedViewModel internal constructor(
         getMovies.execute()
             .onSuccess {
                 uiState.value = UiState.NotLoading
-                uiState.value = UiState.FeedUiState(it.map { movieEntity -> movieEntityMapper.toPresentation(movieEntity) })
+                uiState.value = UiState.FeedUiState(it.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) })
             }.onError {
                 uiState.value = UiState.NotLoading
                 uiState.value = UiState.Error(it.message)
