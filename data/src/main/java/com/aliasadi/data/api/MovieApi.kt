@@ -1,6 +1,6 @@
 package com.aliasadi.data.api
 
-import com.aliasadi.data.api.dto.MovieResponse
+import com.aliasadi.data.entities.MovieData
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
@@ -9,5 +9,5 @@ import retrofit2.http.GET
  */
 interface MovieApi {
     @GET("/movies")
-    fun getMovies(): Deferred<MovieResponse>
+    fun getMovies(): Deferred<List<MovieData>>
 }
