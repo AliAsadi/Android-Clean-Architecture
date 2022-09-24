@@ -19,6 +19,8 @@ class MovieRepositoryImpl constructor(
 
     override suspend fun getMovies(): Result<List<MovieEntity>> = getMoviesFromCache()
 
+    override suspend fun search(query: String): Result<List<MovieEntity>> = remote.search(query)
+
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> = getMovieFromCache(movieId)
 
     override suspend fun getFavoriteMovies(): Result<List<MovieEntity>> = getFavoriteMoviesFromLocal()

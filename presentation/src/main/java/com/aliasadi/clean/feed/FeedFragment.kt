@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -37,17 +38,29 @@ class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViews()
         observeViewModel()
-        viewModel.onInitialState()
+        if (savedInstanceState == null) viewModel.onInitialState()
     }
 
     private fun setupViews() {
         setupRecyclerView()
+        setupSearchView()
     }
 
     private fun setupRecyclerView() = with(binding.recyclerView) {
         adapter = movieAdapter
         setHasFixedSize(true)
         setItemViewCacheSize(0)
+    }
+
+    private fun setupSearchView() = with(binding.searchView) {
+        setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean = false
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                viewModel.onSearch(newText)
+                return false
+            }
+        })
     }
 
     private fun observeViewModel() = with(viewModel) {

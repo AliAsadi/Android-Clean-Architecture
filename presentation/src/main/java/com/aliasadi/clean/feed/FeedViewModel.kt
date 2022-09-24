@@ -10,14 +10,18 @@ import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.GetMovies
+import com.aliasadi.domain.usecase.SearchMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
 class FeedViewModel internal constructor(
     private val getMovies: GetMovies,
+    private val searchMovies: SearchMovies,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -35,6 +39,8 @@ class FeedViewModel internal constructor(
     private val uiState: MutableLiveData<UiState> = MutableLiveData()
     private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
 
+    var searchJob: Job? = null
+
     fun onInitialState() = launchOnMainImmediate {
         loadMovies()
     }
@@ -43,7 +49,25 @@ class FeedViewModel internal constructor(
         navigationState.value = NavigationState.MovieDetails(movieId)
     }
 
-    private suspend fun loadMovies() {
+    fun onSearch(query: String) {
+        searchJob?.cancel()
+        searchJob = launchOnIO {
+            delay(500)
+            if (query.isEmpty()) {
+                loadMovies()
+            } else {
+                searchMovies(query)
+            }
+        }
+    }
+
+    private fun searchMovies(query: String) = launchOnMainImmediate {
+        searchMovies.search(query).onSuccess {
+            uiState.value = UiState.FeedUiState(it.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) })
+        }
+    }
+
+    private suspend fun loadMovies() = launchOnMainImmediate {
         uiState.value = UiState.Loading
         getMovies.execute()
             .onSuccess {
@@ -61,12 +85,13 @@ class FeedViewModel internal constructor(
 
     class Factory(
         private val getMovies: GetMovies,
+        private val searchMovies: SearchMovies,
         private val dispatchers: DispatchersProvider
     ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedViewModel(getMovies, dispatchers) as T
+            return FeedViewModel(getMovies, searchMovies, dispatchers) as T
         }
     }
 }

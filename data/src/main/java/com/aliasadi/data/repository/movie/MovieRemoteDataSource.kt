@@ -17,7 +17,18 @@ class MovieRemoteDataSource(
 
     override suspend fun getMovies(): Result<List<MovieEntity>> = withContext(dispatchers.getIO()) {
         return@withContext try {
-            val result = movieApi.getMovies().await()
+            val result = movieApi.getMovies()
+            Result.Success(result.map {
+                MovieDataMapper.toDomain(it)
+            })
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun search(query: String): Result<List<MovieEntity>> = withContext(dispatchers.getIO()) {
+        return@withContext try {
+            val result = movieApi.search(query)
             Result.Success(result.map {
                 MovieDataMapper.toDomain(it)
             })

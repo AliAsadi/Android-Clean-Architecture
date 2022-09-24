@@ -18,7 +18,7 @@ class NetworkModule(private val baseUrl: String) {
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(baseUrl)
             .build()
@@ -26,7 +26,7 @@ class NetworkModule(private val baseUrl: String) {
 
     @Singleton
     @Provides
-    fun provideMovieApi(retrofit: Retrofit): com.aliasadi.data.api.MovieApi {
+    fun provideMovieApi(retrofit: Retrofit): MovieApi {
         return retrofit.create(MovieApi::class.java)
     }
 }

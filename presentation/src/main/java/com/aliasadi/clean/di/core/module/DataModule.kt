@@ -67,6 +67,11 @@ class DataModule {
     }
 
     @Provides
+    fun provideSearchMoviesUseCase(movieRepository: MovieRepository): SearchMovies {
+        return SearchMovies(movieRepository)
+    }
+
+    @Provides
     fun provideGetMovieDetailsUseCase(movieRepository: MovieRepository): GetMovieDetails {
         return GetMovieDetails(movieRepository)
     }
