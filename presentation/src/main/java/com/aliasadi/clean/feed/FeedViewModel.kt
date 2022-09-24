@@ -64,6 +64,8 @@ class FeedViewModel internal constructor(
     private fun searchMovies(query: String) = launchOnMainImmediate {
         searchMovies.search(query).onSuccess {
             uiState.value = UiState.FeedUiState(it.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) })
+        }.onError {
+            uiState.value = UiState.Error(it.message)
         }
     }
 
