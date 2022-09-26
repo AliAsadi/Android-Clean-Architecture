@@ -15,9 +15,9 @@
 
 ### Screenshot
 <p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen1.png" height="587" width="300">
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen2.png" height="587" width="300">
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen4.png" height="587" width="300">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen1.png" height="500" width="250">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen2.png" height="500" width="250">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen4.png" height="500" width="250">
 </p>
 
 <p align="center">
