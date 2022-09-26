@@ -7,6 +7,8 @@ import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.aliasadi.clean.R
 import com.aliasadi.clean.base.BaseActivity
@@ -35,8 +37,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     private fun setupViews() {
-        supportActionBar?.setTitle(R.string.clean_architecture)
+        setupActionBar()
         setupNavigationView()
+    }
+
+    private fun setupActionBar() = NavigationUI.setupActionBarWithNavController(
+        this,
+        navController,
+        AppBarConfiguration(setOf(R.id.feedFragment, R.id.favoritesFragment))
+    )
+
+    private fun setupNavigationView() = with(binding.navigationView) {
+        if (this is NavigationBarView) setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -49,9 +61,5 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             R.id.action_search -> SearchActivity.start(this)
         }
         return true
-    }
-
-    private fun setupNavigationView() = with(binding.navigationView) {
-        if (this is NavigationBarView) setupWithNavController(navController)
     }
 }

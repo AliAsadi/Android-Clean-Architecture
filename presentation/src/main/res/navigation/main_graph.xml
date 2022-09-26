@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/feedFragment"
         android:name="com.aliasadi.clean.feed.FeedFragment"
-        android:label="FeedFragment"
+        android:label="Feed"
         tools:layout="@layout/fragment_feed">
 
         <action
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.aliasadi.clean.favorites.FavoritesFragment"
-        android:label="FavoritesFragment"
+        android:label="Favorites"
         tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/to_movieDetailsActivity"
