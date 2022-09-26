@@ -21,7 +21,6 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 /**
  * @author by Ali Asadi on 25/09/2022
  */
