@@ -12,6 +12,8 @@ import com.aliasadi.clean.di.feed.FeedModule
 import com.aliasadi.clean.di.feed.FeedSubComponent
 import com.aliasadi.clean.di.main.MainModule
 import com.aliasadi.clean.di.main.MainSubComponent
+import com.aliasadi.clean.di.search.SearchModule
+import com.aliasadi.clean.di.search.SearchSubComponent
 import dagger.Component
 import javax.inject.Singleton
 
@@ -33,4 +35,5 @@ interface CoreComponent {
     fun plus(feedModule: FeedModule): FeedSubComponent
     fun plus(mainModule: MainModule): MainSubComponent
     fun plus(favoritesModule: FavoritesModule): FavoritesSubComponent
+    fun plus(searchModule: SearchModule): SearchSubComponent
 }

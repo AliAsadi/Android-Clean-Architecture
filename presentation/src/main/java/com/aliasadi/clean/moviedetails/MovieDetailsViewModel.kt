@@ -86,6 +86,7 @@ class MovieDetailsViewModel internal constructor(
 
         var movieId: Int = 0
 
+        @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MovieDetailsViewModel(
                 movieId = movieId,

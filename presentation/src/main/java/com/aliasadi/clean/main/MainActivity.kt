@@ -2,6 +2,8 @@ package com.aliasadi.clean.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.NavHostFragment
@@ -9,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.aliasadi.clean.R
 import com.aliasadi.clean.base.BaseActivity
 import com.aliasadi.clean.databinding.ActivityMainBinding
+import com.aliasadi.clean.search.SearchActivity
 import com.google.android.material.navigation.NavigationBarView
 import javax.inject.Inject
 
@@ -34,6 +37,18 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     private fun setupViews() {
         supportActionBar?.setTitle(R.string.clean_architecture)
         setupNavigationView()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_search -> SearchActivity.start(this)
+        }
+        return true
     }
 
     private fun setupNavigationView() = with(binding.navigationView) {

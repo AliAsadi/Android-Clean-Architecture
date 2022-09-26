@@ -16,10 +16,13 @@ import com.aliasadi.clean.di.feed.FeedModule
 import com.aliasadi.clean.di.feed.FeedSubComponent
 import com.aliasadi.clean.di.main.MainModule
 import com.aliasadi.clean.di.main.MainSubComponent
+import com.aliasadi.clean.di.search.SearchModule
+import com.aliasadi.clean.di.search.SearchSubComponent
 import com.aliasadi.clean.favorites.FavoritesFragment
 import com.aliasadi.clean.feed.FeedFragment
 import com.aliasadi.clean.main.MainActivity
 import com.aliasadi.clean.moviedetails.MovieDetailsFragment
+import com.aliasadi.clean.search.SearchActivity
 import com.aliasadi.data.BuildConfig
 
 /**
@@ -43,6 +46,7 @@ class App : Application(), DaggerInjector {
     private fun createFeedComponent(): FeedSubComponent = coreComponent.plus(FeedModule())
     private fun createFavoritesComponent(): FavoritesSubComponent = coreComponent.plus(FavoritesModule())
     private fun createMainComponent(): MainSubComponent = coreComponent.plus(MainModule())
+    private fun createSearchComponent(): SearchSubComponent = coreComponent.plus(SearchModule())
 
     override fun <T> inject(view: T) {
         when (view) {
@@ -50,6 +54,7 @@ class App : Application(), DaggerInjector {
             is MovieDetailsFragment -> createMoviesDetailsComponent().inject(view)
             is FeedFragment -> createFeedComponent().inject(view)
             is FavoritesFragment -> createFavoritesComponent().inject(view)
+            is SearchActivity -> createSearchComponent().inject(view)
         }
     }
 }

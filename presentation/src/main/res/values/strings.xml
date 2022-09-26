@@ -4,4 +4,5 @@
     <string name="feed">Feed</string>
     <string name="favorites">Favorites</string>
     <string name="movie_details_placeholder_text">Click on a movie\n to view its details.</string>
+    <string name="search">Search</string>
 </resources>

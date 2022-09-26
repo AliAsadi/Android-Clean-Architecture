@@ -1,5 +1,7 @@
 package com.aliasadi.clean.moviedetails
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -37,5 +39,13 @@ class MovieDetailsActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    companion object {
+        fun start(context: Context, movieId: Int) {
+            val starter = Intent(context, MovieDetailsActivity::class.java)
+            starter.putExtra("movieId", movieId)
+            context.startActivity(starter)
+        }
     }
 }

@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
 
-        <activity android:name=".main.MainActivity"
+        <activity
+            android:name=".main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +26,8 @@
         </activity>
 
         <activity android:name=".moviedetails.MovieDetailsActivity" />
+
+        <activity android:name=".search.SearchActivity" />
 
     </application>
 
