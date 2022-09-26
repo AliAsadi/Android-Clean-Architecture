@@ -5,17 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.lifecycle.lifecycleScope
 import com.aliasadi.clean.R
 import com.aliasadi.clean.base.BaseActivity
 import com.aliasadi.clean.databinding.ActivitySearchBinding
 import com.aliasadi.clean.feed.MovieAdapter
 import com.aliasadi.clean.moviedetails.MovieDetailsActivity
-import com.aliasadi.clean.search.SearchViewModel.*
+import com.aliasadi.clean.search.SearchViewModel.Factory
+import com.aliasadi.clean.search.SearchViewModel.NavigationState
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -39,16 +42,18 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
         setupObservers()
     }
 
-    private fun setupObservers() = with(viewModel) {
-        getUiState().observe {
-            when (it) {
-                is UiState.SearchUiState -> {
-                    binding.progressBar.isVisible = it.showLoading
-                    binding.noMoviesFoundView.isVisible = it.showNoMoviesFound
-                    movieAdapter.submitList(it.movies)
-                }
+    private fun setupViews() {
+        setupActionBar()
+        setupRecyclerView()
+    }
 
-                is UiState.Error -> Toast.makeText(applicationContext, it.message, Toast.LENGTH_LONG).show()
+    private fun setupObservers() = with(viewModel) {
+        lifecycleScope.launch {
+            getSearchUiState().collect {
+                binding.progressBar.isVisible = it.showLoading
+                binding.noMoviesFoundView.isVisible = it.showNoMoviesFound
+                movieAdapter.submitList(it.movies)
+                if (it.errorMessage != null) Snackbar.make(binding.root, it.errorMessage, Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -57,11 +62,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
                 is NavigationState.MovieDetails -> MovieDetailsActivity.start(this@SearchActivity, it.movieId)
             }
         }
-    }
-
-    private fun setupViews() {
-        setupActionBar()
-        setupRecyclerView()
     }
 
     private fun setupActionBar() {
