@@ -4,23 +4,24 @@
 
 # Architecture
 <p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/architecture0.png">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/architecture0.png">
 </p>
 
 # Structure
 <p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/structure0.png">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/structure0.png">
 </p>
 
 
 ### Screenshot
 <p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen1.png" height="587" width="300">
-<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen2.png" height="587" width="300">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen1.png" height="500" width="250">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen2.png" height="500" width="250">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen4.png" height="500" width="250">
 </p>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/MovieCleanArchitecture/master/screenshot/screen3.png" height="320" width="600">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen3.png" height="320" width="600">
 </p>
 
 #### Used libraries:
