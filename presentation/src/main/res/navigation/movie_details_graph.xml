@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/movieDetailsFragment"
-        android:name="com.aliasadi.clean.moviedetails.MovieDetailsFragment"
+        android:name="com.aliasadi.clean.ui.moviedetails.MovieDetailsFragment"
         android:label="MovieDetailsFragment"
         tools:layout="@layout/fragment_movie_details">
 
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/movieDetailsPlaceholderFragment"
-        android:name="com.aliasadi.clean.moviedetails.MovieDetailsPlaceholderFragment"
+        android:name="com.aliasadi.clean.ui.moviedetails.MovieDetailsPlaceholderFragment"
         tools:layout="@layout/fragment_movie_details_placeholder" />
 
 </navigation>

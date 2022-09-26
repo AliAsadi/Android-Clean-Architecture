@@ -17,7 +17,7 @@
         tools:ignore="AllowBackup">
 
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.aliasadi.clean.ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +25,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".moviedetails.MovieDetailsActivity" />
+        <activity android:name="com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity" />
 
-        <activity android:name=".search.SearchActivity" />
+        <activity android:name="com.aliasadi.clean.ui.search.SearchActivity" />
 
     </application>
 

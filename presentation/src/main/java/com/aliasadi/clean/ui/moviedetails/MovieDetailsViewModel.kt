@@ -1,4 +1,4 @@
-package com.aliasadi.clean.moviedetails
+package com.aliasadi.clean.ui.moviedetails
 
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.LiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.R
-import com.aliasadi.clean.base.BaseViewModel
+import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity

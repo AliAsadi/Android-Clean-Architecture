@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.details
 
-import com.aliasadi.clean.moviedetails.MovieDetailsFragment
+import com.aliasadi.clean.ui.moviedetails.MovieDetailsFragment
 import dagger.Subcomponent
 
 /**

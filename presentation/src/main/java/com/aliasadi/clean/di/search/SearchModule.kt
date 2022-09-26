@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.search
 
-import com.aliasadi.clean.search.SearchViewModel
+import com.aliasadi.clean.ui.search.SearchViewModel
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.SearchMovies
 import dagger.Module

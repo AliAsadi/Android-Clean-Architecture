@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.main
 
-import com.aliasadi.clean.main.MainViewModel
+import com.aliasadi.clean.ui.main.MainViewModel
 import com.aliasadi.data.util.DispatchersProvider
 import dagger.Module
 import dagger.Provides

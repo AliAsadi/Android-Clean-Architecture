@@ -1,8 +1,8 @@
-package com.aliasadi.clean.main
+package com.aliasadi.clean.ui.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.aliasadi.clean.base.BaseViewModel
+import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.data.util.DispatchersProvider
 
 /**

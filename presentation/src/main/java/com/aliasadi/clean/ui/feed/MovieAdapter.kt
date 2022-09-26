@@ -1,4 +1,4 @@
-package com.aliasadi.clean.feed
+package com.aliasadi.clean.ui.feed
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.aliasadi.clean.databinding.ItemMovieBinding
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.feed.MovieAdapter.MovieViewHolder
+import com.aliasadi.clean.ui.feed.MovieAdapter.MovieViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.DecodeFormat

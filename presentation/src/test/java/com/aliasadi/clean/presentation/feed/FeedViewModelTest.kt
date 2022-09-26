@@ -2,13 +2,13 @@ package com.aliasadi.clean.presentation.feed
 
 import androidx.lifecycle.Observer
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.feed.FeedViewModel
-import com.aliasadi.clean.feed.FeedViewModel.NavigationState
-import com.aliasadi.clean.feed.FeedViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.feed.FeedViewModel.UiState
-import com.aliasadi.clean.feed.FeedViewModel.UiState.*
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
+import com.aliasadi.clean.ui.feed.FeedViewModel
+import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState
+import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.ui.feed.FeedViewModel.UiState
+import com.aliasadi.clean.ui.feed.FeedViewModel.UiState.*
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.Result
 import org.junit.Before

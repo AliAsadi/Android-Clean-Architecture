@@ -1,4 +1,4 @@
-package com.aliasadi.clean.search
+package com.aliasadi.clean.ui.search
 
 import android.content.Context
 import android.content.Intent
@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import com.aliasadi.clean.R
-import com.aliasadi.clean.base.BaseActivity
 import com.aliasadi.clean.databinding.ActivitySearchBinding
-import com.aliasadi.clean.feed.MovieAdapter
-import com.aliasadi.clean.moviedetails.MovieDetailsActivity
-import com.aliasadi.clean.search.SearchViewModel.Factory
-import com.aliasadi.clean.search.SearchViewModel.NavigationState
+import com.aliasadi.clean.ui.base.BaseActivity
+import com.aliasadi.clean.ui.feed.MovieAdapter
+import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
+import com.aliasadi.clean.ui.search.SearchViewModel.Factory
+import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.aliasadi.clean.moviedetails
+package com.aliasadi.clean.ui.moviedetails
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.navArgs
-import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentMovieDetailsBinding
+import com.aliasadi.clean.ui.base.BaseFragment
 import com.bumptech.glide.Glide
 import javax.inject.Inject
 

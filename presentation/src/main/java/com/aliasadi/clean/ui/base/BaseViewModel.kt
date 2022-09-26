@@ -1,4 +1,4 @@
-package com.aliasadi.clean.base
+package com.aliasadi.clean.ui.base
 
 import android.os.Handler
 import android.os.MessageQueue

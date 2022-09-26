@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.feed
 
-import com.aliasadi.clean.feed.FeedViewModel
+import com.aliasadi.clean.ui.feed.FeedViewModel
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.GetMovies
 import dagger.Module

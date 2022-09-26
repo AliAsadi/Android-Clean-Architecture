@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.favorites
 
-import com.aliasadi.clean.favorites.FavoritesFragment
+import com.aliasadi.clean.ui.favorites.FavoritesFragment
 import dagger.Subcomponent
 
 /**

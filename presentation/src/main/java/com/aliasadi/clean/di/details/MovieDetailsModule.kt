@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.details
 
-import com.aliasadi.clean.moviedetails.MovieDetailsViewModel
+import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.AddMovieToFavorite

@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.favorites
 
-import com.aliasadi.clean.favorites.FavoritesViewModel
+import com.aliasadi.clean.ui.favorites.FavoritesViewModel
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.GetFavoriteMovies
 import dagger.Module

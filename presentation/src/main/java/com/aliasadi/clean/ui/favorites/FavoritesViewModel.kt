@@ -1,12 +1,12 @@
-package com.aliasadi.clean.favorites
+package com.aliasadi.clean.ui.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.aliasadi.clean.base.BaseViewModel
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
+import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.util.DispatchersProvider

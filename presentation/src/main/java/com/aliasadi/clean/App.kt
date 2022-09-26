@@ -18,11 +18,11 @@ import com.aliasadi.clean.di.main.MainModule
 import com.aliasadi.clean.di.main.MainSubComponent
 import com.aliasadi.clean.di.search.SearchModule
 import com.aliasadi.clean.di.search.SearchSubComponent
-import com.aliasadi.clean.favorites.FavoritesFragment
-import com.aliasadi.clean.feed.FeedFragment
-import com.aliasadi.clean.main.MainActivity
-import com.aliasadi.clean.moviedetails.MovieDetailsFragment
-import com.aliasadi.clean.search.SearchActivity
+import com.aliasadi.clean.ui.favorites.FavoritesFragment
+import com.aliasadi.clean.ui.feed.FeedFragment
+import com.aliasadi.clean.ui.main.MainActivity
+import com.aliasadi.clean.ui.moviedetails.MovieDetailsFragment
+import com.aliasadi.clean.ui.search.SearchActivity
 import com.aliasadi.data.BuildConfig
 
 /**

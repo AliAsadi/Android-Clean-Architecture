@@ -1,10 +1,10 @@
 package com.aliasadi.clean.presentation.moviedetails
 
 import androidx.lifecycle.Observer
-import com.aliasadi.clean.moviedetails.MovieDetailsViewModel
-import com.aliasadi.clean.moviedetails.MovieDetailsViewModel.MovieDetailsUiState
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
+import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
+import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel.MovieDetailsUiState
 import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite

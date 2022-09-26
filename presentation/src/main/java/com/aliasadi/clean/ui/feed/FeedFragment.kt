@@ -1,4 +1,4 @@
-package com.aliasadi.clean.feed
+package com.aliasadi.clean.ui.feed
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import com.aliasadi.clean.MovieDetailsGraphDirections
-import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentFeedBinding
-import com.aliasadi.clean.feed.FeedViewModel.Factory
-import com.aliasadi.clean.feed.FeedViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.feed.FeedViewModel.UiState.*
+import com.aliasadi.clean.ui.base.BaseFragment
+import com.aliasadi.clean.ui.feed.FeedViewModel.Factory
+import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.ui.feed.FeedViewModel.UiState.*
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
 import javax.inject.Inject

@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.feed
 
-import com.aliasadi.clean.feed.FeedFragment
+import com.aliasadi.clean.ui.feed.FeedFragment
 import dagger.Subcomponent
 
 /**

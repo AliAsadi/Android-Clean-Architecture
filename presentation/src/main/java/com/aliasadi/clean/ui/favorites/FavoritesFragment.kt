@@ -1,4 +1,4 @@
-package com.aliasadi.clean.favorites
+package com.aliasadi.clean.ui.favorites
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
-import com.aliasadi.clean.base.BaseFragment
 import com.aliasadi.clean.databinding.FragmentFavoritesBinding
-import com.aliasadi.clean.favorites.FavoritesViewModel.*
-import com.aliasadi.clean.favorites.FavoritesViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.feed.MovieAdapter
+import com.aliasadi.clean.ui.base.BaseFragment
+import com.aliasadi.clean.ui.favorites.FavoritesViewModel.*
+import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.ui.feed.MovieAdapter
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
 import javax.inject.Inject

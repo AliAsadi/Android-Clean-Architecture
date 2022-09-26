@@ -1,4 +1,4 @@
-package com.aliasadi.clean.feed
+package com.aliasadi.clean.ui.feed
 
 import androidx.recyclerview.widget.DiffUtil
 import com.aliasadi.clean.entities.MovieListItem

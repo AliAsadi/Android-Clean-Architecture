@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.search
 
-import com.aliasadi.clean.search.SearchActivity
+import com.aliasadi.clean.ui.search.SearchActivity
 import dagger.Subcomponent
 
 /**

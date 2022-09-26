@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="com.aliasadi.clean.feed.FeedFragment"
+        android:name="com.aliasadi.clean.ui.feed.FeedFragment"
         android:label="Feed"
         tools:layout="@layout/fragment_feed">
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.aliasadi.clean.favorites.FavoritesFragment"
+        android:name="com.aliasadi.clean.ui.favorites.FavoritesFragment"
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites">
         <action
@@ -29,7 +29,7 @@
 
     <activity
         android:id="@+id/movieDetailsActivity"
-        android:name="com.aliasadi.clean.moviedetails.MovieDetailsActivity"
+        android:name="com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity"
         android:label="MovieDetailsActivity"
         tools:layout="@layout/activity_movie_details">
 

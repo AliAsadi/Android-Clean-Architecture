@@ -1,4 +1,4 @@
-package com.aliasadi.clean.main
+package com.aliasadi.clean.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +11,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.aliasadi.clean.R
-import com.aliasadi.clean.base.BaseActivity
 import com.aliasadi.clean.databinding.ActivityMainBinding
-import com.aliasadi.clean.search.SearchActivity
+import com.aliasadi.clean.ui.base.BaseActivity
+import com.aliasadi.clean.ui.search.SearchActivity
 import com.google.android.material.navigation.NavigationBarView
 import javax.inject.Inject
 

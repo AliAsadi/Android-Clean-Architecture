@@ -1,6 +1,6 @@
 package com.aliasadi.clean.di.main
 
-import com.aliasadi.clean.main.MainActivity
+import com.aliasadi.clean.ui.main.MainActivity
 import dagger.Subcomponent
 
 /**
