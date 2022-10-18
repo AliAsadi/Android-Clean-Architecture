@@ -18,7 +18,7 @@
 | Orientation  | Feed                                                          | Movie Details                                                          | Search                                                          |
 |-------|--------------------------------------------------------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------|
 | Portrait | <img src="screenshot/screen1.png" width="250"> | <img src="screenshot/screen2.png" width="250"> | <img src="screenshot/screen4.png" width="250"> |
-| Landscape | <img src="screenshot/screen3.png" width="350"> |
+| Landscape | <img src="screenshot/screen3.png" width="250"> |
 
 
 #### Used libraries:
