@@ -14,15 +14,12 @@
 
 
 ### Screenshot
-<p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen1.png" height="500" width="250">
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen2.png" height="500" width="250">
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen4.png" height="500" width="250">
-</p>
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/screen3.png" height="320" width="600">
-</p>
+| Orientation  | Feed                                                          | Movie Details                                                          | Search                                                          |
+|-------|--------------------------------------------------------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| Portrait | <img src="screenshot/screen1.png" width="250"> | <img src="screenshot/screen2.png" width="250"> | <img src="screenshot/screen4.png" width="250"> |
+| Landscape | <img src="screenshot/screen3.png" width="350"> |
+
 
 #### Used libraries:
 * [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)
