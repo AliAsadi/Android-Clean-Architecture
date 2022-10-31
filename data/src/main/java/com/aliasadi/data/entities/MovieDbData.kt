@@ -12,6 +12,4 @@ data class MovieDbData(
     val description: String,
     val image: String,
     val title: String
-) {
-    var isFavorite: Boolean = false
-}
+)
