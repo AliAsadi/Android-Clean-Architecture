@@ -1,7 +1,6 @@
 package com.aliasadi.clean.presentation.feed
 
 import androidx.lifecycle.Observer
-import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.ui.feed.FeedViewModel
@@ -91,11 +90,11 @@ class FeedViewModelTest : BaseViewModelTest() {
     @Test
     fun onMovieClicked_navigateToMovieDetails() {
         val navigateObs: Observer<NavigationState> = mock()
-        val movie: MovieListItem.Movie = mock()
+        val movieId = 1
 
         viewModel.getNavigationState().observeForever(navigateObs)
 
-        viewModel.onMovieClicked(movie)
+        viewModel.onMovieClicked(movieId)
 
         verify(navigateObs).onChanged(isA(MovieDetails::class.java))
     }
