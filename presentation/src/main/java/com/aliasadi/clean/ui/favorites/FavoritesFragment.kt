@@ -4,33 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aliasadi.clean.databinding.FragmentFavoritesBinding
 import com.aliasadi.clean.ui.base.BaseFragment
-import com.aliasadi.clean.ui.favorites.FavoritesViewModel.*
+import com.aliasadi.clean.ui.favorites.FavoritesViewModel.FavoriteUiState
+import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.feed.MovieAdapter
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @author by Ali Asadi on 03/08/2022
  */
-class FavoritesFragment : BaseFragment<FragmentFavoritesBinding, FavoritesViewModel>() {
 
-    @Inject
-    lateinit var factory: Factory
+@AndroidEntryPoint
+class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
+
+    private val viewModel: FavoritesViewModel by viewModels()
 
     private val movieAdapter by lazy {
         MovieAdapter(viewModel::onMovieClicked, getImageFixedSize())
     }
 
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentFavoritesBinding = FragmentFavoritesBinding.inflate(inflater)
-
-    override fun createViewModel(): FavoritesViewModel = ViewModelProvider(this, factory).get()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViews()

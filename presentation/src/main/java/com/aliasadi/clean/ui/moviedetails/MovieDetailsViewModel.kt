@@ -16,12 +16,13 @@ import com.aliasadi.domain.usecase.GetMovieDetails
 import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.onSuccess
+import javax.inject.Inject
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
 class MovieDetailsViewModel internal constructor(
-    private val movieId: Int,
+    private var movieId: Int,
     private val getMovieDetails: GetMovieDetails,
     private val checkFavoriteStatus: CheckFavoriteStatus,
     private val addMovieToFavorite: AddMovieToFavorite,
@@ -75,7 +76,7 @@ class MovieDetailsViewModel internal constructor(
     fun getMovieDetailsUiStateLiveData(): LiveData<MovieDetailsUiState> = movieDetailsUiState
     fun getFavoriteStateLiveData(): LiveData<FavoriteState> = favoriteState
 
-    class Factory(
+    class Factory @Inject constructor(
         private val getMovieDetails: GetMovieDetails,
         private val checkFavoriteStatus: CheckFavoriteStatus,
         private val addMovieToFavorite: AddMovieToFavorite,

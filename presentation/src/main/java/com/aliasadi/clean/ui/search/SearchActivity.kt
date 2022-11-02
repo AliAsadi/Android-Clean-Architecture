@@ -5,33 +5,30 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
+import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.ActivitySearchBinding
 import com.aliasadi.clean.ui.base.BaseActivity
 import com.aliasadi.clean.ui.feed.MovieAdapter
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
-import com.aliasadi.clean.ui.search.SearchViewModel.Factory
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * @author by Ali Asadi on 25/09/2022
  */
-class SearchActivity : BaseActivity<ActivitySearchBinding, SearchViewModel>() {
 
-    @Inject
-    lateinit var factory: Factory
+@AndroidEntryPoint
+class SearchActivity : BaseActivity<ActivitySearchBinding>() {
+
+    private val viewModel: SearchViewModel by viewModels()
 
     private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
-
-    override fun createViewModel(): SearchViewModel = ViewModelProvider(this, factory).get()
 
     override fun inflateViewBinding(inflater: LayoutInflater): ActivitySearchBinding = ActivitySearchBinding.inflate(inflater)
 

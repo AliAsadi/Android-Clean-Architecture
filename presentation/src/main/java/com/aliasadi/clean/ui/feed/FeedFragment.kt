@@ -5,34 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.aliasadi.clean.MovieDetailsGraphDirections
 import com.aliasadi.clean.databinding.FragmentFeedBinding
 import com.aliasadi.clean.ui.base.BaseFragment
-import com.aliasadi.clean.ui.feed.FeedViewModel.Factory
 import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.feed.FeedViewModel.UiState.*
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class FeedFragment : BaseFragment<FragmentFeedBinding, FeedViewModel>() {
 
-    @Inject
-    lateinit var factory: Factory
+@AndroidEntryPoint
+class FeedFragment : BaseFragment<FragmentFeedBinding>() {
+
+    private val viewModel: FeedViewModel by viewModels()
 
     private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
 
     private val detailsNavController by lazy { binding.container.getFragment<Fragment>().findNavController() }
 
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentFeedBinding = FragmentFeedBinding.inflate(inflater)
-
-    override fun createViewModel(): FeedViewModel = ViewModelProvider(this, factory).get()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViews()

@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -15,19 +13,16 @@ import com.aliasadi.clean.databinding.ActivityMainBinding
 import com.aliasadi.clean.ui.base.BaseActivity
 import com.aliasadi.clean.ui.search.SearchActivity
 import com.google.android.material.navigation.NavigationBarView
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @author by Ali Asadi on 07/08/2022
  */
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
-    @Inject
-    lateinit var factory: MainViewModel.Factory
+@AndroidEntryPoint
+class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private val navController by lazy { binding.container.getFragment<NavHostFragment>().navController }
-
-    override fun createViewModel(): MainViewModel = ViewModelProvider(this, factory).get()
 
     override fun inflateViewBinding(inflater: LayoutInflater): ActivityMainBinding = ActivityMainBinding.inflate(inflater)
 

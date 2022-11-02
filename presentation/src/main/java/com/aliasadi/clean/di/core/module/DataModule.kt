@@ -12,12 +12,15 @@ import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.usecase.*
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
  * Created by Ali Asadi on 15/05/2020
  **/
 @Module
+@InstallIn(SingletonComponent::class)
 class DataModule {
 
     @Provides
