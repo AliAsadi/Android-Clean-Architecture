@@ -8,10 +8,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 import com.aliasadi.clean.MovieDetailsGraphDirections
 import com.aliasadi.clean.R
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
+
+@AndroidEntryPoint
 class MovieDetailsActivity : AppCompatActivity() {
 
     private val args: MovieDetailsActivityArgs by navArgs()

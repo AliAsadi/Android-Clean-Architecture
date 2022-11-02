@@ -14,11 +14,14 @@ import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.GetFavoriteMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * @author by Ali Asadi on 03/08/2022
  */
-class FavoritesViewModel internal constructor(
+@HiltViewModel
+class FavoritesViewModel @Inject internal constructor(
     private val getFavoriteMovies: GetFavoriteMovies,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {

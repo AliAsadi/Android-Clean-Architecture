@@ -1,9 +1,12 @@
 package com.aliasadi.clean.di.core.module
 
+import com.aliasadi.data.BuildConfig
 import com.aliasadi.data.api.MovieApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -12,7 +15,8 @@ import javax.inject.Singleton
  * Created by Ali Asadi on 15/05/2020
  **/
 @Module
-class NetworkModule(private val baseUrl: String) {
+@InstallIn(SingletonComponent::class)
+class NetworkModule {
 
     @Singleton
     @Provides
@@ -20,7 +24,7 @@ class NetworkModule(private val baseUrl: String) {
         return Retrofit.Builder()
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(baseUrl)
+            .baseUrl(BuildConfig.BASE_URL)
             .build()
     }
 

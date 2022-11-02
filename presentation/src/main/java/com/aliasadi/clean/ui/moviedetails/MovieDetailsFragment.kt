@@ -4,31 +4,32 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.aliasadi.clean.databinding.FragmentMovieDetailsBinding
 import com.aliasadi.clean.ui.base.BaseFragment
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 /**
  * @author by Ali Asadi on 13/05/2020
  */
-class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding, MovieDetailsViewModel>() {
+
+@AndroidEntryPoint
+class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
+
+    private val args: MovieDetailsFragmentArgs by navArgs()
 
     @Inject
     lateinit var factory: MovieDetailsViewModel.Factory
 
-    private val args: MovieDetailsFragmentArgs by navArgs()
+    private val viewModel: MovieDetailsViewModel by viewModels {
+        factory.apply { movieId = args.movieId }
+    }
 
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentMovieDetailsBinding =
         FragmentMovieDetailsBinding.inflate(inflater)
-
-    override fun createViewModel(): MovieDetailsViewModel {
-        factory.movieId = args.movieId
-        return ViewModelProvider(this, factory).get()
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.onInitialState()

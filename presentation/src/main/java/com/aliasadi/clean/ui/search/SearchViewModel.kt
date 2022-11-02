@@ -11,16 +11,19 @@ import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.SearchMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
 /**
  * @author by Ali Asadi on 25/09/2022
  */
-class SearchViewModel(
+@HiltViewModel
+class SearchViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
     private val searchMovies: SearchMovies,
 ) : BaseViewModel(dispatchers) {

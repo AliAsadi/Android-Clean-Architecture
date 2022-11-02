@@ -7,22 +7,17 @@ import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.data.util.DispatchersProviderImpl
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 
 /**
  * Created by Ali Asadi on 15/05/2020
  **/
 
 @Module
-class AppModule constructor(context: Context) {
-
-    private val appContext = context.applicationContext
-
-    @Singleton
-    @Provides
-    fun provideAppContext(): Context {
-        return appContext
-    }
+@InstallIn(SingletonComponent::class)
+class AppModule {
 
     @Provides
     fun provideDiskExecutor(): DiskExecutor {
@@ -35,7 +30,7 @@ class AppModule constructor(context: Context) {
     }
 
     @Provides
-    fun provideResourceProvider(context: Context): ResourceProvider {
+    fun provideResourceProvider(@ApplicationContext context: Context): ResourceProvider {
         return ResourceProvider(context)
     }
 }

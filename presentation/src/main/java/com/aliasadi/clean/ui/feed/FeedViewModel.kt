@@ -12,11 +12,14 @@ import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class FeedViewModel internal constructor(
+@HiltViewModel
+class FeedViewModel @Inject internal constructor(
     private val getMovies: GetMovies,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
