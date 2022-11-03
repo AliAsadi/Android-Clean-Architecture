@@ -1,5 +1,7 @@
 # Android Clean Architecture
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3e9bbcba7b3945f4b9ba0887b8639a00)](https://app.codacy.com/gh/AliAsadi/Android-Clean-Architecture?utm_source=github.com&utm_medium=referral&utm_content=AliAsadi/Android-Clean-Architecture&utm_campaign=Badge_Grade_Settings)
+
 ### A basic sample android application to understand Clean Architecture in a very simple way and is written in Kotlin. Just clone, build, run and understand.
 
 # Architecture
