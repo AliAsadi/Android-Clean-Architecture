@@ -9,6 +9,7 @@ import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.util.DispatchersProvider
+import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
@@ -52,11 +53,29 @@ class FeedViewModel @Inject internal constructor(
         getMovies.execute()
             .onSuccess {
                 uiState.value = UiState.NotLoading
-                uiState.value = UiState.FeedUiState(it.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) })
+                uiState.value = UiState.FeedUiState(insertSeparators(it))
             }.onError {
                 uiState.value = UiState.NotLoading
                 uiState.value = UiState.Error(it.message)
             }
+    }
+
+    private fun insertSeparators(movies: List<MovieEntity>): List<MovieListItem> {
+        var separator = "NONE"
+
+        val listWithSeparators: ArrayList<MovieListItem> = arrayListOf()
+
+        val sortedList = movies.sortedBy { it.category }
+
+        sortedList.forEach { movie ->
+            if (separator != movie.category) {
+                listWithSeparators.add(MovieListItem.Separator(movie.category))
+                separator = movie.category
+            }
+            listWithSeparators.add(MovieEntityMapper.toPresentation(movie))
+        }
+
+        return listWithSeparators
     }
 
 

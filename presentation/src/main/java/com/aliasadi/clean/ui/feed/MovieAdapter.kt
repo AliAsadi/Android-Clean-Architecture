@@ -1,19 +1,12 @@
 package com.aliasadi.clean.ui.feed
 
-import android.graphics.drawable.Drawable
-import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.aliasadi.clean.databinding.ItemMovieBinding
+import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.ui.feed.MovieAdapter.MovieViewHolder
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestBuilder
-import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.aliasadi.clean.ui.feed.viewholder.MovieViewHolder
+import com.aliasadi.clean.ui.feed.viewholder.SeparatorViewHolder
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -21,58 +14,30 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 class MovieAdapter(
     private val onMovieClick: (movieId: Int) -> Unit,
     private val imageFixedSize: Int,
-) : ListAdapter<MovieListItem, MovieViewHolder>(MovieDiffCallback) {
+) : ListAdapter<MovieListItem, ViewHolder>(MovieDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
-        MovieViewHolder(parent, onMovieClick, imageFixedSize)
+    override fun getItemViewType(position: Int): Int = when (getItem(position)) {
+        is MovieListItem.Movie -> R.layout.item_movie
+        is MovieListItem.Separator -> R.layout.item_separator
+    }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        when (val item = getItem(position)) {
-            is MovieListItem.Movie -> holder.bind(item)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = when (viewType) {
+        R.layout.item_movie -> MovieViewHolder(parent, onMovieClick, imageFixedSize)
+        R.layout.item_separator -> SeparatorViewHolder(parent)
+        else -> throw RuntimeException("Illegal view type")
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        when (holder) {
+            is MovieViewHolder -> holder.bind(item as MovieListItem.Movie)
+            is SeparatorViewHolder -> holder.bind(item as MovieListItem.Separator)
         }
     }
 
-    override fun onViewRecycled(holder: MovieViewHolder) = holder.unBind()
-
-    class MovieViewHolder internal constructor(
-        parent: ViewGroup,
-        private val onMovieClick: (movieId: Int) -> Unit,
-        private val imageFixedSize: Int
-    ) : ViewHolder(
-        ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false).root
-    ) {
-
-        private val binding = ItemMovieBinding.bind(itemView)
-
-        fun bind(movie: MovieListItem.Movie) = with(binding) {
-            loadImage(image, movie.imageUrl)
-            title.text = movie.title
-            desc.text = movie.description
-            root.setOnClickListener { onMovieClick(movie.id) }
+    override fun onViewRecycled(holder: ViewHolder) {
+        when (holder) {
+            is MovieViewHolder -> holder.unBind()
         }
-
-        fun unBind() = with(binding) {
-            clearImage(image)
-            root.setOnClickListener(null)
-        }
-
-        private fun loadImage(image: AppCompatImageView, url: String) = Glide.with(image)
-            .asDrawable()
-            .override(imageFixedSize)
-            .format(DecodeFormat.PREFER_RGB_565)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .thumbnail(getThumbnailRequest(image, url))
-            .load(url)
-            .into(image)
-
-        private fun getThumbnailRequest(imageView: ImageView, url: String): RequestBuilder<Drawable> = Glide.with(imageView)
-            .asDrawable()
-            .override(imageFixedSize)
-            .format(DecodeFormat.PREFER_RGB_565)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .sizeMultiplier(0.2F)
-            .load(url)
-
-        private fun clearImage(image: AppCompatImageView) = Glide.with(image).clear(image)
     }
 }

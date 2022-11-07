@@ -9,10 +9,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.ActivitySearchBinding
 import com.aliasadi.clean.ui.base.BaseActivity
 import com.aliasadi.clean.ui.feed.MovieAdapter
+import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
 import com.google.android.material.snackbar.Snackbar
@@ -65,10 +68,20 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupRecyclerView() = with(binding.recyclerView) {
+    private fun setupRecyclerView(config: MovieAdapterSpanSize.Config = MovieAdapterSpanSize.Config(3)) = with(binding.recyclerView) {
         adapter = movieAdapter
+        layoutManager = createMovieGridLayoutManager(config)
         setHasFixedSize(true)
         setItemViewCacheSize(0)
+    }
+
+    private fun createMovieGridLayoutManager(config: MovieAdapterSpanSize.Config): GridLayoutManager = GridLayoutManager(
+        baseContext,
+        config.gridSpanSize,
+        RecyclerView.VERTICAL,
+        false
+    ).apply {
+        spanSizeLookup = MovieAdapterSpanSize.Lookup(config, movieAdapter)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

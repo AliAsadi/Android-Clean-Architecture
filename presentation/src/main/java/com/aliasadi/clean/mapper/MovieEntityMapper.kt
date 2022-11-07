@@ -10,8 +10,6 @@ object MovieEntityMapper {
 
     fun toPresentation(movieEntity: MovieEntity) = MovieListItem.Movie(
         id = movieEntity.id,
-        title = movieEntity.title,
-        description = movieEntity.description,
         imageUrl = movieEntity.image
     )
 

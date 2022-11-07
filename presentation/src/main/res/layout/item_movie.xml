@@ -9,12 +9,13 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image"
-        android:layout_width="100dp"
-        android:layout_height="140dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_margin="3dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1.5"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/bg_movie_cover" />
@@ -29,6 +30,7 @@
         android:layout_toEndOf="@+id/image"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -40,6 +42,7 @@
     <TextView
         android:id="@+id/desc"
         android:layout_width="0dp"
+
         android:layout_height="0dp"
         android:layout_below="@+id/title"
         android:layout_marginStart="8dp"
@@ -47,6 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_toEndOf="@+id/image"
         android:textColor="@color/gray"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image"

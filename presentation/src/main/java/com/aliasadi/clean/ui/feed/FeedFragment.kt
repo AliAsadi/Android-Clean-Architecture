@@ -7,6 +7,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.MovieDetailsGraphDirections
 import com.aliasadi.clean.databinding.FragmentFeedBinding
 import com.aliasadi.clean.ui.base.BaseFragment
@@ -41,10 +43,20 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
         setupRecyclerView()
     }
 
-    private fun setupRecyclerView() = with(binding.recyclerView) {
+    private fun setupRecyclerView(config: MovieAdapterSpanSize.Config = MovieAdapterSpanSize.Config(3)) = with(binding.recyclerView) {
         adapter = movieAdapter
+        layoutManager = createMovieGridLayoutManager(config)
         setHasFixedSize(true)
         setItemViewCacheSize(0)
+    }
+
+    private fun createMovieGridLayoutManager(config: MovieAdapterSpanSize.Config): GridLayoutManager = GridLayoutManager(
+        requireActivity(),
+        config.gridSpanSize,
+        RecyclerView.VERTICAL,
+        false
+    ).apply {
+        spanSizeLookup = MovieAdapterSpanSize.Lookup(config, movieAdapter)
     }
 
     private fun observeViewModel() = with(viewModel) {
