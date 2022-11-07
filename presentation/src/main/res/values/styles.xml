@@ -6,14 +6,20 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/color_text_primary</item>
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="floatingActionButtonStyle">@style/Widget.Design.Float</item>
+        <item name="bottomNavigationStyle">@style/Widget.Design.BottomNavigation</item>
     </style>
 
-    <!-- Base application theme. -->
-    <style name="FloatTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/white</item>
-        <item name="colorAccent">@color/white</item>
+    <style name="Widget.Design.Float" parent="Widget.Design.FloatingActionButton">
+        <item name="android:backgroundTint">@color/dark_gray</item>
+    </style>
+
+    <style name="Widget.Design.BottomNavigation" parent="Widget.Design.BottomNavigationView">
+        <item name="android:background">@color/color_background</item>
+        <item name="itemIconTint">@color/bottom_navigation_color</item>
+        <item name="itemTextColor">@color/bottom_navigation_color</item>
     </style>
 
 </resources>

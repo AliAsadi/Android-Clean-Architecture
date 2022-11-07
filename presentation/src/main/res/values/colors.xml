@@ -3,8 +3,12 @@
     <color name="colorPrimary">#1A1A1A</color>
     <color name="colorPrimaryDark">@color/colorPrimary</color>
     <color name="colorAccent">@color/white</color>
+
+    <color name="color_background">@color/colorPrimary</color>
+    <color name="color_text_primary">@color/white</color>
+    <color name="color_text_secondary">@color/gray</color>
+
     <color name="white">#FFFFFF</color>
     <color name="gray">#B4B3B3</color>
     <color name="dark_gray">#787878</color>
-    <color name="red">#F25123</color>
 </resources>
