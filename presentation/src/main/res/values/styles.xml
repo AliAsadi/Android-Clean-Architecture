@@ -1,7 +1,19 @@
 <resources>
 
+    <style name="LightTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#989494</item>
+        <!-- <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>-->
+        <item name="colorAccent">#000000</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:colorBackground">#FFFFFF</item>
+        <item name="floatingActionButtonStyle">@style/Widget.Design.Float</item>
+        <item name="bottomNavigationStyle">@style/Widget.Design.BottomNavigation</item>
+    </style>
+
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -10,6 +22,9 @@
         <item name="android:colorBackground">@color/color_background</item>
         <item name="floatingActionButtonStyle">@style/Widget.Design.Float</item>
         <item name="bottomNavigationStyle">@style/Widget.Design.BottomNavigation</item>
+        <item name="android:textColorPrimary">#D9BB19</item>
+        <!--        <item name="homeAsUpIndicator">@drawable/abc_ic_ab_back_material</item>-->
+
     </style>
 
     <style name="Widget.Design.Float" parent="Widget.Design.FloatingActionButton">
@@ -17,9 +32,10 @@
     </style>
 
     <style name="Widget.Design.BottomNavigation" parent="Widget.Design.BottomNavigationView">
-        <item name="android:background">@color/color_background</item>
+        <item name="android:background">?android:colorBackground</item>
         <item name="itemIconTint">@color/bottom_navigation_color</item>
         <item name="itemTextColor">@color/bottom_navigation_color</item>
     </style>
+
 
 </resources>

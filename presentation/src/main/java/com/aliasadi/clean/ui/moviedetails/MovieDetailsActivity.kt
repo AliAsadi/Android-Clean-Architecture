@@ -3,11 +3,13 @@ package com.aliasadi.clean.ui.moviedetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
 import com.aliasadi.clean.MovieDetailsGraphDirections
 import com.aliasadi.clean.R
+import com.aliasadi.clean.databinding.ActivityMovieDetailsBinding
+import com.aliasadi.clean.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -15,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
  */
 
 @AndroidEntryPoint
-class MovieDetailsActivity : AppCompatActivity() {
+class MovieDetailsActivity : BaseActivity<ActivityMovieDetailsBinding>() {
 
     private val args: MovieDetailsActivityArgs by navArgs()
 
@@ -23,15 +25,13 @@ class MovieDetailsActivity : AppCompatActivity() {
         (supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment).navController
     }
 
+    override fun inflateViewBinding(inflater: LayoutInflater): ActivityMovieDetailsBinding =
+        ActivityMovieDetailsBinding.inflate(layoutInflater)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupViews()
-        setContentView(R.layout.activity_movie_details)
-        detailsNavController.navigate(MovieDetailsGraphDirections.toMovieDetails(args.movieId))
-    }
-
-    private fun setupViews() {
         setupActionBar()
+        detailsNavController.navigate(MovieDetailsGraphDirections.toMovieDetails(args.movieId))
     }
 
     private fun setupActionBar() = supportActionBar?.apply {
