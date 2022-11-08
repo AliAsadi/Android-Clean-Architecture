@@ -36,7 +36,7 @@
         android:layout_marginEnd="24dp"
         android:text="@string/no_favorite_movies_at_the_moment"
         android:textAlignment="center"
-        android:textColor="@color/color_text_secondary"
+        android:textColor="?attr/colorSecondary"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

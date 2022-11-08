@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/movie_details_placeholder_text"
-        android:textColor="@color/color_text_secondary"
+        android:textColor="?attr/colorSecondary"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

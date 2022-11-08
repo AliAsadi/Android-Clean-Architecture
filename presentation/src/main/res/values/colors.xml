@@ -6,7 +6,6 @@
 
     <color name="color_background">@color/colorPrimary</color>
     <color name="color_text_primary">@color/white</color>
-    <color name="color_text_secondary">@color/gray</color>
 
     <color name="white">#FFFFFF</color>
     <color name="gray">#B4B3B3</color>
