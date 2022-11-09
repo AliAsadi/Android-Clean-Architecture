@@ -17,10 +17,17 @@
 
 ### Screenshot
 
-| Orientation  | Feed                                                          | Movie Details                                                          | Search                                                          |
-|-------|--------------------------------------------------------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| Portrait | <img src="screenshot/screen1.png" width="250"> | <img src="screenshot/screen2.png" width="250"> | <img src="screenshot/screen4.png" width="250"> |
-| Landscape | <img src="screenshot/screen3.png" width="250"> |
+| Mode  | Feed | Favorites | Movie Details | Search |
+|-------|------|-----------|--------------|----------|
+| Light | <img src="screenshot/light-screen1.png" width="250"> | <img src="screenshot/light-screen2.png" width="250"> | <img src="screenshot/light-screen3.png" width="250"> | <img src="screenshot/light-screen4.png" width="250"> |
+| Dark | <img src="screenshot/dark-screen1.png" width="250"> | <img src="screenshot/dark-screen2.png" width="250"> | <img src="screenshot/dark-screen3.png" width="250"> | <img src="screenshot/dark-screen4.png" width="250"> |
+
+
+
+
+* Landscape
+
+<img src="screenshot/screen3.png" width="350"> |
 
 
 #### Used libraries:
