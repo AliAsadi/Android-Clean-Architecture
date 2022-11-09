@@ -44,7 +44,8 @@ The bottom layers dictate policies and rules, and the upper layers dictate imple
 <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/structure0.png">
 </p>
 
-#### Used libraries:
+
+# Used Libraries
 * [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)
 * [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
 * [Retrofit2](https://github.com/square/retrofit)
