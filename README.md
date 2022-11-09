@@ -17,7 +17,7 @@ This repository was created with the intention of stepping outside of my comfort
 | Landscape | <img src="screenshot/screen3.png"> |
 
 
-# Architecture
+# Clean Architecture
 
 The core principles of the clean approach can be summarized as followed:
 
