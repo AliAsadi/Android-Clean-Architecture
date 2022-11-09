@@ -1,13 +1,43 @@
-# Android Clean Architecture
+# Android Clean Architecture [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3e9bbcba7b3945f4b9ba0887b8639a00)](https://app.codacy.com/gh/AliAsadi/Android-Clean-Architecture?utm_source=github.com&utm_medium=referral&utm_content=AliAsadi/Android-Clean-Architecture&utm_campaign=Badge_Grade_Settings)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3e9bbcba7b3945f4b9ba0887b8639a00)](https://app.codacy.com/gh/AliAsadi/Android-Clean-Architecture?utm_source=github.com&utm_medium=referral&utm_content=AliAsadi/Android-Clean-Architecture&utm_campaign=Badge_Grade_Settings)
+A sample Android application that uses the clean architecture approach and is written in Kotlin💯.
 
-### A basic sample android application to understand Clean Architecture in a very simple way and is written in Kotlin. Just clone, build, run and understand.
+### The Motivation behind the app
+This repository was created with the intention of stepping outside of my comfort zone as much as possible, tackling topics outside of my area of expertise, and using it to implement new challenges and ideas.
 
-# Architecture
+
+| Mode  | Feed | Favorites | Movie Details | Search |
+|-------|------|-----------|--------------|----------|
+| Dark | <img src="screenshot/dark-screen1.png" width="250"> | <img src="screenshot/dark-screen2.png" width="250"> | <img src="screenshot/dark-screen3.png" width="250"> | <img src="screenshot/dark-screen4.png" width="250"> |
+| Light | <img src="screenshot/light-screen1.png" width="250"> | <img src="screenshot/light-screen2.png" width="250"> | <img src="screenshot/light-screen3.png" width="250"> | <img src="screenshot/light-screen4.png" width="250"> |
+
+
+| Orientation  | Feed | 
+|-------|------|
+| Landscape | <img src="screenshot/screen3.png"> |
+
+
+# Clean Architecture
+
+The core principles of the clean approach can be summarized as followed:
+
+#### 1. The application code is separated into layers.
+
+These layers define the separation of concerns inside the code base.
+
+#### 2. The layers follow a strict dependency rule.
+
+Each layer can only interact with the layers below it.
+
+#### 3. As we move toward the bottom layer — the code becomes generic.
+
+The bottom layers dictate policies and rules, and the upper layers dictate implementation details such as the database, networking manager, and UI.
+
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/architecture0.png">
 </p>
+
 
 # Structure
 <p align="center">
@@ -15,22 +45,13 @@
 </p>
 
 
-### Screenshot
-
-| Orientation  | Feed                                                          | Movie Details                                                          | Search                                                          |
-|-------|--------------------------------------------------------------------------|------------------------------------------------------------------------------|---------------------------------------------------------------------------|
-| Portrait | <img src="screenshot/screen1.png" width="250"> | <img src="screenshot/screen2.png" width="250"> | <img src="screenshot/screen4.png" width="250"> |
-| Landscape | <img src="screenshot/screen3.png" width="250"> |
-
-
-#### Used libraries:
+# Used Libraries
 * [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)
 * [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-* [Room Persistence Library](https://developer.android.com/topic/libraries/architecture/room)
 * [Retrofit2](https://github.com/square/retrofit)
-* [Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
 * [View Binding](https://developer.android.com/topic/libraries/view-binding)
 * [Mockito](https://github.com/mockito/mockito)
+* [Android Architecture Components (ViewModels, LiveData, Room, etc.)](https://developer.android.com/topic/libraries/architecture/index.html)
 
 --------------------------------------------------------------------------------------------
 
