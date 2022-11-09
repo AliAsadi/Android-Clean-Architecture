@@ -18,11 +18,25 @@ This repository was created with the intention of stepping outside of my comfort
 
 
 # Architecture
+
+The core principles of the clean approach can be summarized as followed:
+
+#### 1. The application code is separated into layers.
+
+These layers define the separation of concerns inside the code base.
+
+#### 2. The layers follow a strict dependency rule.
+
+Each layer can only interact with the layers below it.
+
+#### 3. As we move toward the bottom layer — the code becomes generic.
+
+The bottom layers dictate policies and rules, and the upper layers dictate implementation details such as the database, networking manager, and UI.
+
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/architecture0.png">
 </p>
-
-
 
 
 # Structure
