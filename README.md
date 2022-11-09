@@ -26,11 +26,10 @@
 #### Used libraries:
 * [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)
 * [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-* [Room Persistence Library](https://developer.android.com/topic/libraries/architecture/room)
 * [Retrofit2](https://github.com/square/retrofit)
-* [Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
 * [View Binding](https://developer.android.com/topic/libraries/view-binding)
 * [Mockito](https://github.com/mockito/mockito)
+* [Android Architecture Components (ViewModels, LiveData, Room, etc.)](https://developer.android.com/topic/libraries/architecture/index.html)
 
 --------------------------------------------------------------------------------------------
 
