@@ -1,21 +1,10 @@
-# Android Clean Architecture
+# Android Clean Architecture [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3e9bbcba7b3945f4b9ba0887b8639a00)](https://app.codacy.com/gh/AliAsadi/Android-Clean-Architecture?utm_source=github.com&utm_medium=referral&utm_content=AliAsadi/Android-Clean-Architecture&utm_campaign=Badge_Grade_Settings)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3e9bbcba7b3945f4b9ba0887b8639a00)](https://app.codacy.com/gh/AliAsadi/Android-Clean-Architecture?utm_source=github.com&utm_medium=referral&utm_content=AliAsadi/Android-Clean-Architecture&utm_campaign=Badge_Grade_Settings)
+A sample Android application that uses the clean architecture approach and is written in Kotlin💯.
 
-### A basic sample android application to understand Clean Architecture in a very simple way and is written in Kotlin. Just clone, build, run and understand.
+### The Motivation behind the app
+This repository was created with the intention of stepping outside of my comfort zone as much as possible, tackling topics outside of my area of expertise, and using it to implement new challenges and ideas.
 
-# Architecture
-<p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/architecture0.png">
-</p>
-
-# Structure
-<p align="center">
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/structure0.png">
-</p>
-
-
-### Screenshot
 
 | Mode  | Feed | Favorites | Movie Details | Search |
 |-------|------|-----------|--------------|----------|
@@ -23,13 +12,23 @@
 | Light | <img src="screenshot/light-screen1.png" width="250"> | <img src="screenshot/light-screen2.png" width="250"> | <img src="screenshot/light-screen3.png" width="250"> | <img src="screenshot/light-screen4.png" width="250"> |
 
 
+| Orientation  | Feed | 
+|-------|------|
+| Landscape | <img src="screenshot/screen3.png"> |
+
+
+# Architecture
+<p align="center">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/architecture0.png">
+</p>
 
 
 
-* Landscape
 
-<img src="screenshot/screen3.png" width="350"> |
-
+# Structure
+<p align="center">
+<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/structure0.png">
+</p>
 
 #### Used libraries:
 * [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)
