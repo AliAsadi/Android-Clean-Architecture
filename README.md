@@ -14,7 +14,7 @@ This repository was created with the intention of stepping outside of my comfort
 
 | Orientation  | Feed | 
 |-------|------|
-| Landscape | <img src="screenshot/screen3.png"> |
+| Landscape | <img src="screenshot/l-screen.png"> |
 
 
 # Clean Architecture
