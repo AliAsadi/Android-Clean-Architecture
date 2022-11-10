@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.FragmentMovieDetailsBinding
 import com.aliasadi.clean.ui.base.BaseFragment
 import com.bumptech.glide.Glide
@@ -58,7 +59,8 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         setImageDrawable(drawable)
     }
 
-    private fun loadImage(url: String) = Glide.with(this).load(url).into(binding.image)
+    private fun loadImage(url: String) =
+        Glide.with(this).load(url).placeholder(R.color.light_gray).error(R.drawable.bg_image).into(binding.image)
 
 
     companion object {

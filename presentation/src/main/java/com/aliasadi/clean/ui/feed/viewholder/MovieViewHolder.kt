@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.ItemMovieBinding
 import com.aliasadi.clean.entities.MovieListItem
 import com.bumptech.glide.Glide
@@ -43,6 +44,8 @@ class MovieViewHolder(
         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
         .thumbnail(getThumbnailRequest(image, url))
         .load(url)
+        .placeholder(R.color.light_gray)
+        .error(R.drawable.bg_image)
         .into(image)
 
     private fun getThumbnailRequest(imageView: ImageView, url: String): RequestBuilder<Drawable> = Glide.with(imageView)
