@@ -38,6 +38,18 @@ The bottom layers dictate policies and rules, and the upper layers dictate imple
 <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/architecture0.png">
 </p>
 
+# Architecture Layers
+
+The application consists of three layers:
+
+The domain layer, the data layer, and the presentation layer.
+
+Looking at project’s high-level structure, you’ll see that each layer is represented by a module in the project.
+
+![image](https://user-images.githubusercontent.com/20803775/201078111-39ba8e8d-b116-4312-bee0-df2d3258be71.png)
+
+I like it because it helps me avoid accidentals “leaks” between the layers.
+
 
 # Structure
 <p align="center">
