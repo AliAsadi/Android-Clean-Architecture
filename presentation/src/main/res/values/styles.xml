@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="LightTheme" parent="Theme.MaterialComponents.Light">
+    <style name="LightTheme" parent="Theme.Material3.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#FFFFFF</item>
         <item name="colorPrimaryDark">#989494</item>
@@ -13,8 +13,7 @@
         <item name="navigationRailStyle">@style/Widget.Design.NavigationRail</item>
     </style>
 
-    <!-- Base application theme. -->
-    <style name="DarkTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="DarkTheme" parent="Theme.Material3.Dark">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -27,17 +26,18 @@
         <item name="navigationRailStyle">@style/Widget.Design.NavigationRail</item>
     </style>
 
-    <style name="Widget.Design.Float" parent="Widget.Design.FloatingActionButton">
+    <style name="Widget.Design.Float" parent="Widget.Material3.FloatingActionButton.Primary">
         <item name="android:backgroundTint">@color/dark_gray</item>
+        <item name="tint">@color/white</item>
     </style>
 
-    <style name="Widget.Design.BottomNavigation" parent="Widget.Design.BottomNavigationView">
+    <style name="Widget.Design.BottomNavigation" parent="Widget.Material3.BottomNavigationView">
         <item name="android:background">?android:colorBackground</item>
         <item name="itemIconTint">@color/bottom_navigation_color</item>
         <item name="itemTextColor">@color/bottom_navigation_color</item>
     </style>
 
-    <style name="Widget.Design.NavigationRail" parent="Widget.MaterialComponents.NavigationRailView">
+    <style name="Widget.Design.NavigationRail" parent="Widget.Material3.NavigationRailView">
         <item name="android:background">?android:colorBackground</item>
         <item name="itemIconTint">@color/bottom_navigation_color</item>
         <item name="itemTextColor">@color/bottom_navigation_color</item>
