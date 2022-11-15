@@ -1,6 +1,6 @@
 # Android Clean Architecture [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3e9bbcba7b3945f4b9ba0887b8639a00)](https://app.codacy.com/gh/AliAsadi/Android-Clean-Architecture?utm_source=github.com&utm_medium=referral&utm_content=AliAsadi/Android-Clean-Architecture&utm_campaign=Badge_Grade_Settings)
 
-A sample Android application that uses the clean architecture approach and is written in Kotlin💯.
+A demo movie android app that demonstrates Clean Architecture and is written in Kotlin.💯🎞 
 
 ### The Motivation behind the app
 This repository was created with the intention of stepping outside of my comfort zone as much as possible, tackling topics outside of my area of expertise, and using it to implement new challenges and ideas.
