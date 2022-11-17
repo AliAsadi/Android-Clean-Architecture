@@ -1,9 +1,6 @@
 package com.aliasadi.clean.ui.favorites
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
@@ -24,7 +21,7 @@ import javax.inject.Inject
 class FavoritesViewModel @Inject internal constructor(
     private val getFavoriteMovies: GetFavoriteMovies,
     dispatchers: DispatchersProvider
-) : BaseViewModel(dispatchers) {
+) : BaseViewModel(dispatchers), DefaultLifecycleObserver {
 
     data class FavoriteUiState(
         val isLoading: Boolean = false,
@@ -39,7 +36,11 @@ class FavoritesViewModel @Inject internal constructor(
     private val favoriteUiState: MutableLiveData<FavoriteUiState> = MutableLiveData()
     private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
 
-    fun onResume() = launchOnMainImmediate {
+    override fun onResume(owner: LifecycleOwner) {
+        onResumeInternal()
+    }
+
+    private fun onResumeInternal() = launchOnMainImmediate {
         loadMovies()
     }
 

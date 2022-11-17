@@ -8,7 +8,9 @@ import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.R
@@ -48,11 +50,13 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     private fun setupObservers() = with(viewModel) {
         lifecycleScope.launch {
-            getSearchUiState().collect {
-                binding.progressBar.isVisible = it.showLoading
-                binding.noMoviesFoundView.isVisible = it.showNoMoviesFound
-                movieAdapter.submitList(it.movies)
-                if (it.errorMessage != null) Snackbar.make(binding.root, it.errorMessage, Snackbar.LENGTH_SHORT).show()
+            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                getSearchUiState().collect {
+                    binding.progressBar.isVisible = it.showLoading
+                    binding.noMoviesFoundView.isVisible = it.showNoMoviesFound
+                    movieAdapter.submitList(it.movies)
+                    if (it.errorMessage != null) Snackbar.make(binding.root, it.errorMessage, Snackbar.LENGTH_SHORT).show()
+                }
             }
         }
 

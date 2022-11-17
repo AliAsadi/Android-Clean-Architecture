@@ -39,8 +39,11 @@ class FeedViewModel @Inject internal constructor(
     private val uiState: MutableLiveData<UiState> = MutableLiveData()
     private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
 
+    init {
+        onInitialState()
+    }
 
-    fun onInitialState() = launchOnMainImmediate {
+    private fun onInitialState() = launchOnMainImmediate {
         loadMovies()
     }
 
