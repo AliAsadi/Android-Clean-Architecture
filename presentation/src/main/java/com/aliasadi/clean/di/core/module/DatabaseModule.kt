@@ -23,13 +23,13 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideMovieDatabase(@ApplicationContext context: Context): MovieDatabase {
-        return Room.databaseBuilder(context, MovieDatabase::class.java, "movie.db").build()
+        return Room.databaseBuilder(context, MovieDatabase::class.java, MOVIE_DB_NAME).build()
     }
 
     @Provides
     @Singleton
     fun provideFavoriteMovieDatabase(@ApplicationContext context: Context): FavoriteMovieDatabase {
-        return Room.databaseBuilder(context, FavoriteMovieDatabase::class.java, "favorite_movie.db").build()
+        return Room.databaseBuilder(context, FavoriteMovieDatabase::class.java, FAVOURITE_DB_NAME).build()
     }
 
     @Provides
@@ -40,5 +40,10 @@ class DatabaseModule {
     @Provides
     fun provideFavoriteMovieDao(favoriteMovieDatabase: FavoriteMovieDatabase): FavoriteMovieDao {
         return favoriteMovieDatabase.favoriteMovieDao()
+    }
+
+    companion object {
+        val FAVOURITE_DB_NAME = "favorite_movie.db"
+        val MOVIE_DB_NAME = "movie.db"
     }
 }
