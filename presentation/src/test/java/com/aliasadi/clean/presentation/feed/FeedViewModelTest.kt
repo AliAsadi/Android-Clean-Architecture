@@ -4,10 +4,8 @@ import androidx.lifecycle.Observer
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.ui.feed.FeedViewModel
-import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState
-import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.feed.FeedViewModel.UiState
-import com.aliasadi.clean.ui.feed.FeedViewModel.UiState.*
+import com.aliasadi.clean.ui.states.AllStatesUtil
+import com.aliasadi.clean.ui.states.NavigationState
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.Result
 import org.junit.Before
@@ -40,7 +38,7 @@ class FeedViewModelTest : BaseViewModelTest() {
 
     @Test
     fun onInitialState_loadMovies_onSuccess_hideLoadingAndShowMovies() = coroutineRule.runBlockingTest {
-        val uiStateObs: Observer<UiState> = mock()
+        val uiStateObs: Observer<AllStatesUtil> = mock()
 
         viewModel.getUiState().observeForever(uiStateObs)
 
@@ -48,17 +46,17 @@ class FeedViewModelTest : BaseViewModelTest() {
 
         viewModel.onInitialState()
 
-        val argumentCapture = ArgumentCaptor.forClass(UiState::class.java)
+        val argumentCapture = ArgumentCaptor.forClass(AllStatesUtil::class.java)
         verify(uiStateObs, times(3)).onChanged(argumentCapture.capture())
 
-        assert(argumentCapture.allValues[0] is Loading)
-        assert(argumentCapture.allValues[1] is NotLoading)
-        assert(argumentCapture.allValues[2] is FeedUiState)
+        assert(argumentCapture.allValues[0] is AllStatesUtil.Loading)
+        assert(argumentCapture.allValues[1] is AllStatesUtil.NotLoading)
+        assert(argumentCapture.allValues[2] is AllStatesUtil.FeedUiState)
     }
 
     @Test
     fun onInitialState_loadMovies_onFailure_hideLoadingAndShowErrorMessage() = coroutineRule.runBlockingTest {
-        val uiStateObs: Observer<UiState> = mock()
+        val uiStateObs: Observer<AllStatesUtil> = mock()
 
         viewModel.getUiState().observeForever(uiStateObs)
 
@@ -67,23 +65,23 @@ class FeedViewModelTest : BaseViewModelTest() {
 
         viewModel.onInitialState()
 
-        val argumentCapture = ArgumentCaptor.forClass(UiState::class.java)
-        verify(uiStateObs, times(3)).onChanged(argumentCapture.capture())
+        val argumentCapture = ArgumentCaptor.forClass(AllStatesUtil::class.java)
+        verify(uiStateObs, times(3)).onChanged(argumentCapture.capture() as AllStatesUtil.UiState?)
 
-        assert(argumentCapture.allValues[0] is Loading)
-        assert(argumentCapture.allValues[1] is NotLoading)
+        assert(argumentCapture.allValues[0] is AllStatesUtil.Loading)
+        assert(argumentCapture.allValues[1] is AllStatesUtil.NotLoading)
         assert(argumentCapture.allValues[2] is Error)
     }
 
 
     @Test
     fun onInitialState_loadMovies_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
-        val uiStateObs: Observer<UiState> = mock()
+        val uiStateObs: Observer<AllStatesUtil> = mock()
         viewModel.getUiState().observeForever(uiStateObs)
 
         viewModel.onInitialState()
 
-        verify(uiStateObs).onChanged(isA(Loading.javaClass))
+        verify(uiStateObs).onChanged(isA(AllStatesUtil.Loading.javaClass))
     }
 
 
@@ -96,7 +94,7 @@ class FeedViewModelTest : BaseViewModelTest() {
 
         viewModel.onMovieClicked(movieId)
 
-        verify(navigateObs).onChanged(isA(MovieDetails::class.java))
+        verify(navigateObs).onChanged(isA(NavigationState.MovieDetails::class.java))
     }
 
 }
