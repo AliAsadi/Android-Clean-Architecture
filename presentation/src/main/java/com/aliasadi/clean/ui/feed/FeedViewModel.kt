@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
+import com.aliasadi.clean.ui.states.AllStatesUtil
+import com.aliasadi.clean.ui.states.NavigationState
 import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.util.DispatchersProvider
-import com.aliasadi.domain.entities.MovieEntity
+import com.aliasadi.domain.models.MovieModel
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
@@ -25,18 +27,9 @@ class FeedViewModel @Inject internal constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    sealed class NavigationState {
-        data class MovieDetails(val movieId: Int) : NavigationState()
-    }
 
-    sealed class UiState {
-        data class FeedUiState(val movies: List<MovieListItem>) : UiState()
-        data class Error(val message: String?) : UiState()
-        object Loading : UiState()
-        object NotLoading : UiState()
-    }
 
-    private val uiState: MutableLiveData<UiState> = MutableLiveData()
+    private val uiState: MutableLiveData<AllStatesUtil> = MutableLiveData()
     private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
 
 
@@ -49,18 +42,18 @@ class FeedViewModel @Inject internal constructor(
     }
 
     private suspend fun loadMovies() = launchOnMainImmediate {
-        uiState.value = UiState.Loading
+        uiState.value = AllStatesUtil.Loading
         getMovies.execute()
             .onSuccess {
-                uiState.value = UiState.NotLoading
-                uiState.value = UiState.FeedUiState(insertSeparators(it))
+                uiState.value = AllStatesUtil.NotLoading
+                uiState.value = AllStatesUtil.FeedUiState(insertSeparators(it))
             }.onError {
-                uiState.value = UiState.NotLoading
-                uiState.value = UiState.Error(it.message)
+                uiState.value = AllStatesUtil.NotLoading
+                uiState.value = AllStatesUtil.Error(it.message)
             }
     }
 
-    private fun insertSeparators(movies: List<MovieEntity>): List<MovieListItem> {
+    private fun insertSeparators(movies: List<MovieModel>): List<MovieListItem> {
         var separator = "NONE"
 
         val listWithSeparators: ArrayList<MovieListItem> = arrayListOf()
@@ -80,7 +73,7 @@ class FeedViewModel @Inject internal constructor(
 
 
     fun getNavigationState(): LiveData<NavigationState> = navigationState
-    fun getUiState(): LiveData<UiState> = uiState
+    fun getUiState(): LiveData<AllStatesUtil> = uiState
 
     class Factory(
         private val getMovies: GetMovies,

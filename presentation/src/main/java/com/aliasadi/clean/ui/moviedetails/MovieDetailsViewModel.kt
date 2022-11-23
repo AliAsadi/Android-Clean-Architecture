@@ -7,9 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.R
 import com.aliasadi.clean.ui.base.BaseViewModel
+import com.aliasadi.clean.ui.states.AllStatesUtil
 import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.data.util.DispatchersProvider
-import com.aliasadi.domain.entities.MovieEntity
+import com.aliasadi.domain.models.MovieModel
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
 import com.aliasadi.domain.usecase.GetMovieDetails
@@ -33,18 +34,13 @@ class MovieDetailsViewModel internal constructor(
 
     data class FavoriteState(val drawable: Drawable?)
 
-    data class MovieDetailsUiState(
-        val title: String,
-        val description: String,
-        val imageUrl: String
-    )
 
-    private val movieDetailsUiState: MutableLiveData<MovieDetailsUiState> = MutableLiveData()
+    private val movieDetailsUiState: MutableLiveData<AllStatesUtil.MovieDetailsUiState> = MutableLiveData()
     private val favoriteState: MutableLiveData<FavoriteState> = MutableLiveData()
 
     fun onInitialState() = launchOnMainImmediate {
         getMovieById(movieId).onSuccess {
-            movieDetailsUiState.value = MovieDetailsUiState(
+            movieDetailsUiState.value = AllStatesUtil.MovieDetailsUiState(
                 title = it.title,
                 description = it.description,
                 imageUrl = it.image,
@@ -69,11 +65,11 @@ class MovieDetailsViewModel internal constructor(
         resourceProvider.getDrawable(R.drawable.ic_favorite_border_white_48)
     }
 
-    private suspend fun getMovieById(movieId: Int): Result<MovieEntity> = getMovieDetails.getMovie(movieId)
+    private suspend fun getMovieById(movieId: Int): Result<MovieModel> = getMovieDetails.getMovie(movieId)
 
     private suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = checkFavoriteStatus.check(movieId)
 
-    fun getMovieDetailsUiStateLiveData(): LiveData<MovieDetailsUiState> = movieDetailsUiState
+    fun getMovieDetailsUiStateLiveData(): LiveData<AllStatesUtil.MovieDetailsUiState> = movieDetailsUiState
     fun getFavoriteStateLiveData(): LiveData<FavoriteState> = favoriteState
 
     class Factory @Inject constructor(
