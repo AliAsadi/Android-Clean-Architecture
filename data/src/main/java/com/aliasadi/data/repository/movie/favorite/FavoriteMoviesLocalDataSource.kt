@@ -1,7 +1,7 @@
 package com.aliasadi.data.repository.movie.favorite
 
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
-import com.aliasadi.data.entities.FavoriteMovieDbData
+import com.aliasadi.data.model.FavoriteMovieDataEntity
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.util.DiskExecutor
 import com.aliasadi.domain.util.Result
@@ -16,7 +16,7 @@ class FavoriteMoviesLocalDataSource(
     private val favoriteMovieDao: FavoriteMovieDao,
 ) : FavoriteMoviesDataSource.Local {
 
-    override suspend fun getFavoriteMovieIds(): Result<List<FavoriteMovieDbData>> = withContext(executor.asCoroutineDispatcher()) {
+    override suspend fun getFavoriteMovieIds(): Result<List<FavoriteMovieDataEntity>> = withContext(executor.asCoroutineDispatcher()) {
         val movieIds = favoriteMovieDao.getAll()
         return@withContext if (movieIds.isNotEmpty()) {
             Result.Success(movieIds)
@@ -26,11 +26,11 @@ class FavoriteMoviesLocalDataSource(
     }
 
     override suspend fun addMovieToFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
-        favoriteMovieDao.add(FavoriteMovieDbData(movieId))
+        favoriteMovieDao.add(FavoriteMovieDataEntity(movieId))
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
-        favoriteMovieDao.remove(FavoriteMovieDbData(movieId))
+        favoriteMovieDao.remove(FavoriteMovieDataEntity(movieId))
     }
 
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = withContext(executor.asCoroutineDispatcher()) {

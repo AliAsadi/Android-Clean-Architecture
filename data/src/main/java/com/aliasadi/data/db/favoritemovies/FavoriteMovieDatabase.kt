@@ -2,13 +2,13 @@ package com.aliasadi.data.db.favoritemovies
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.aliasadi.data.entities.FavoriteMovieDbData
+import com.aliasadi.data.model.FavoriteMovieDataEntity
 
 /**
  * @author by Ali Asadi on 22/08/2022
  */
 @Database(
-    entities = [FavoriteMovieDbData::class],
+    entities = [FavoriteMovieDataEntity::class],
     version = 1,
     exportSchema = false
 )

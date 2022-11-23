@@ -1,6 +1,6 @@
 package com.aliasadi.data.repository.movie.favorite
 
-import com.aliasadi.data.entities.FavoriteMovieDbData
+import com.aliasadi.data.model.FavoriteMovieDataEntity
 import com.aliasadi.domain.util.Result
 
 /**
@@ -9,7 +9,7 @@ import com.aliasadi.domain.util.Result
 interface FavoriteMoviesDataSource {
 
     interface Local {
-        suspend fun getFavoriteMovieIds(): Result<List<FavoriteMovieDbData>>
+        suspend fun getFavoriteMovieIds(): Result<List<FavoriteMovieDataEntity>>
         suspend fun addMovieToFavorite(movieId: Int)
         suspend fun removeMovieFromFavorite(movieId: Int)
         suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>

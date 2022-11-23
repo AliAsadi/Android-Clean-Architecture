@@ -1,4 +1,4 @@
-package com.aliasadi.data.entities
+package com.aliasadi.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
  * @author by Ali Asadi on 22/08/2022
  */
 @Entity(tableName = "favorite_movies")
-data class FavoriteMovieDbData(
+data class FavoriteMovieDataEntity(
     @PrimaryKey val movieId: Int
 )
