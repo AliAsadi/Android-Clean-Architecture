@@ -45,9 +45,11 @@ class MovieDetailsActivity : BaseActivity<ActivityMovieDetailsBinding>() {
     }
 
     companion object {
+        val Id = "movieId"
+
         fun start(context: Context, movieId: Int) {
             val starter = Intent(context, MovieDetailsActivity::class.java)
-            starter.putExtra("movieId", movieId)
+            starter.putExtra(Id, movieId)
             context.startActivity(starter)
         }
     }

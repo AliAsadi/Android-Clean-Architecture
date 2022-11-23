@@ -17,7 +17,7 @@ import com.aliasadi.clean.ui.base.BaseActivity
 import com.aliasadi.clean.ui.feed.MovieAdapter
 import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
-import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
+import com.aliasadi.clean.ui.states.NavigationState
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

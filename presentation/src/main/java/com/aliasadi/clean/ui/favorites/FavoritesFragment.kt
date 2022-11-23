@@ -10,11 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.databinding.FragmentFavoritesBinding
 import com.aliasadi.clean.ui.base.BaseFragment
-import com.aliasadi.clean.ui.favorites.FavoritesViewModel.FavoriteUiState
-import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState
-import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.feed.MovieAdapter
 import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
+import com.aliasadi.clean.ui.states.AllStatesUtil
+import com.aliasadi.clean.ui.states.NavigationState
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -69,8 +68,8 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         getNavigateState().observe { handleNavigationState(it) }
     }
 
-    private fun handleFavoriteUiState(favoriteUiState: FavoriteUiState) = with(favoriteUiState) {
-        if (isLoading) {
+    private fun handleFavoriteUiState(favoriteUiState: AllStatesUtil.UiState) = with(favoriteUiState) {
+        if (showLoading) {
             binding.progressBar.show()
             if (binding.noDataView.isVisible) binding.noDataView.hide()
         } else {
@@ -81,7 +80,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     }
 
     private fun handleNavigationState(navigationState: NavigationState) = when (navigationState) {
-        is MovieDetails -> navigateToMovieDetails(navigationState.movieId)
+        is NavigationState.MovieDetails -> navigateToMovieDetails(navigationState.movieId)
     }
 
     private fun navigateToMovieDetails(movieId: Int) = findNavController().navigate(

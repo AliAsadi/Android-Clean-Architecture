@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.MovieDetailsGraphDirections
 import com.aliasadi.clean.databinding.FragmentFeedBinding
 import com.aliasadi.clean.ui.base.BaseFragment
-import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.feed.FeedViewModel.UiState.*
+import com.aliasadi.clean.ui.states.AllStatesUtil
+import com.aliasadi.clean.ui.states.NavigationState
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,16 +63,16 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
         getUiState().observe {
             when (it) {
-                is FeedUiState -> movieAdapter.submitList(it.movies)
-                is Loading -> binding.progressBar.show()
-                is NotLoading -> binding.progressBar.hide()
+                is AllStatesUtil.FeedUiState -> movieAdapter.submitList(it.movies)
+                is AllStatesUtil.Loading -> binding.progressBar.show()
+                is AllStatesUtil.NotLoading -> binding.progressBar.hide()
                 is Error -> Toast.makeText(requireActivity().applicationContext, it.message, Toast.LENGTH_LONG).show()
             }
         }
 
         getNavigationState().observe {
             when (it) {
-                is MovieDetails -> showOrNavigateToMovieDetails(it.movieId)
+                is NavigationState.MovieDetails -> showOrNavigateToMovieDetails(it.movieId)
             }
         }
     }

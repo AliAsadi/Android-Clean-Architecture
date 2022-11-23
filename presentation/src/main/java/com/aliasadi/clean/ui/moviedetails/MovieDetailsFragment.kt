@@ -9,6 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.FragmentMovieDetailsBinding
 import com.aliasadi.clean.ui.base.BaseFragment
+import com.aliasadi.clean.ui.states.AllStatesUtil
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -49,7 +50,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         getFavoriteStateLiveData().observe { updateFavoriteDrawable(it.drawable) }
     }
 
-    private fun updateMovieDetails(movieState: MovieDetailsViewModel.MovieDetailsUiState) {
+    private fun updateMovieDetails(movieState: AllStatesUtil.MovieDetailsUiState) {
         binding.movieTitle.text = movieState.title
         binding.description.text = movieState.description
         loadImage(movieState.imageUrl)
