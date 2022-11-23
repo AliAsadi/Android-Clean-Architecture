@@ -2,13 +2,13 @@ package com.aliasadi.data.db.movies
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.aliasadi.data.entities.MovieDbData
+import com.aliasadi.data.model.MovieDataEntity
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
 @Database(
-    entities = [MovieDbData::class],
+    entities = [MovieDataEntity::class],
     version = 1,
     exportSchema = false
 )

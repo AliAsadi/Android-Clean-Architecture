@@ -1,11 +1,11 @@
-package com.aliasadi.data.entities
+package com.aliasadi.data.model
 
 import com.google.gson.annotations.SerializedName
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-data class MovieData(
+data class MovieDataDto(
     @SerializedName("id") val id: Int,
     @SerializedName("description") val description: String,
     @SerializedName("image") val image: String,
