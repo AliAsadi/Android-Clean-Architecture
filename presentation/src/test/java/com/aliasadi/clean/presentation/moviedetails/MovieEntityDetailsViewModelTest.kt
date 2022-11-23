@@ -4,9 +4,9 @@ import androidx.lifecycle.Observer
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
-import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel.MovieDetailsUiState
+import com.aliasadi.clean.ui.states.AllStatesUtil
 import com.aliasadi.clean.util.ResourceProvider
-import com.aliasadi.domain.entities.MovieEntity
+import com.aliasadi.domain.models.MovieModel
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
 import com.aliasadi.domain.usecase.GetMovieDetails
@@ -28,7 +28,7 @@ class MovieEntityDetailsViewModelTest : BaseViewModelTest() {
 
     private var movieId: Int = 1413
 
-    private val movie = MovieEntity(movieId, "", "", "")
+    private val movie = MovieModel(movieId, "", "", "", category = "")
 
     @Mock
     lateinit var getMovieDetails: GetMovieDetails
@@ -63,7 +63,7 @@ class MovieEntityDetailsViewModelTest : BaseViewModelTest() {
     @Test
     fun onInitialState_movieAvailable_showMovieDetails() = coroutineRule.runBlockingTest {
 
-        val movieObs: Observer<MovieDetailsUiState> = mock()
+        val movieObs: Observer<AllStatesUtil.MovieDetailsUiState> = mock()
 
         `when`(getMovieDetails.getMovie(movieId)).thenReturn(Result.Success(movie))
 
@@ -76,7 +76,7 @@ class MovieEntityDetailsViewModelTest : BaseViewModelTest() {
 
     @Test
     fun onInitialState_movieNotAvailable_doNothing() = coroutineRule.runBlockingTest {
-        val movieObs: Observer<MovieDetailsUiState> = mock()
+        val movieObs: Observer<AllStatesUtil.MovieDetailsUiState> = mock()
 
         `when`(getMovieDetails.getMovie(movieId)).thenReturn(Result.Error(mock()))
 
