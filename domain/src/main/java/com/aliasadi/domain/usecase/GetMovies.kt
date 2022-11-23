@@ -1,6 +1,6 @@
 package com.aliasadi.domain.usecase
 
-import com.aliasadi.domain.entities.MovieEntity
+import com.aliasadi.domain.models.MovieModel
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
 
@@ -10,5 +10,5 @@ import com.aliasadi.domain.util.Result
 open class GetMovies(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun execute(): Result<List<MovieEntity>> = movieRepository.getMovies()
+    suspend fun execute(): Result<List<MovieModel>> = movieRepository.getMovies()
 }
