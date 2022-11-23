@@ -34,7 +34,6 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
         FragmentMovieDetailsBinding.inflate(inflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.onInitialState()
         setupListeners()
         observeViewModel()
     }

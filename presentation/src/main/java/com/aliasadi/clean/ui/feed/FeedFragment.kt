@@ -36,7 +36,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViews()
         observeViewModel()
-        if (savedInstanceState == null) viewModel.onInitialState()
     }
 
     private fun setupViews() {

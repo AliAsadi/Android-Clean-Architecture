@@ -38,7 +38,11 @@ class MovieDetailsViewModel internal constructor(
     private val movieDetailsUiState: MutableLiveData<AllStatesUtil.MovieDetailsUiState> = MutableLiveData()
     private val favoriteState: MutableLiveData<FavoriteState> = MutableLiveData()
 
-    fun onInitialState() = launchOnMainImmediate {
+    init {
+        onInitialState()
+    }
+
+    private fun onInitialState() = launchOnMainImmediate {
         getMovieById(movieId).onSuccess {
             movieDetailsUiState.value = AllStatesUtil.MovieDetailsUiState(
                 title = it.title,
