@@ -28,7 +28,7 @@ class MovieEntityDetailsViewModelTest : BaseViewModelTest() {
 
     private var movieId: Int = 1413
 
-    private val movie = MovieEntity(movieId, "", "", "")
+    private val movie = MovieEntity(movieId, "", "", "", category = "")
 
     @Mock
     lateinit var getMovieDetails: GetMovieDetails
