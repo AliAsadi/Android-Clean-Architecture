@@ -56,14 +56,18 @@ I like it because it helps me avoid accidentals “leaks” between the layers.
 <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/structure0.png">
 </p>
 
-
-# Used Libraries
-* [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html)
-* [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-* [Retrofit2](https://github.com/square/retrofit)
-* [View Binding](https://developer.android.com/topic/libraries/view-binding)
-* [Mockito](https://github.com/mockito/mockito)
-* [Android Architecture Components (ViewModels, LiveData, Room, etc.)](https://developer.android.com/topic/libraries/architecture/index.html)
+## Built With 🛠
+- [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
+- [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - For asynchronous and more..
+- [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/) - A cold asynchronous data stream that sequentially emits values and completes normally or with an exception.
+- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture) - Collection of libraries that help you design robust, testable, and maintainable apps.
+  - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata) - Data objects that notify views when the underlying database changes.
+  - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) - Stores UI-related data that isn't destroyed on UI changes.
+  - [ViewBinding](https://developer.android.com/topic/libraries/view-binding) - Generates a binding class for each XML layout file present in that module and allows you to more easily write code that interacts with views.
+- [Dependency Injection](https://developer.android.com/training/dependency-injection)
+  - [Hilt](https://dagger.dev/hilt) - Easier way to incorporate Dagger DI into Android application.
+- [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
+- [Mockito](https://github.com/mockito/mockito) - For Mocking and Unit Testing
 
 --------------------------------------------------------------------------------------------
 
