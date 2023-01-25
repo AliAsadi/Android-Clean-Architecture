@@ -5,7 +5,7 @@ A demo movie android app that demonstrates Clean Architecture and is written in 
 ### The Motivation behind the app
 This repository was created with the intention of stepping outside of my comfort zone as much as possible, tackling topics outside of my area of expertise, and using it to implement new challenges and ideas.
 
-### NOTE
+### ⚠️NOTE
 If you are here trying to learn a new architecture and asking yourself what is the best architecture, I will share my thoughts on the topic. 
 
 It's important to note that there is no such thing as **"the perfect architecture."** 
@@ -14,6 +14,7 @@ Architecture by its nature is **dynamic** and **ever-evolving**, there are alway
 
 ![image](https://user-images.githubusercontent.com/20803775/214686254-9405504c-05d2-417e-9cf5-669a1a57e8a6.png)
 
+# Screenshots
 | Mode  | Feed | Favorites | Movie Details | Search |
 |-------|------|-----------|--------------|----------|
 | Dark | <img src="screenshot/dark-screen1.png" width="250"> | <img src="screenshot/dark-screen2.png" width="250"> | <img src="screenshot/dark-screen3.png" width="250"> | <img src="screenshot/dark-screen4.png" width="250"> |
