@@ -2,12 +2,9 @@ package com.aliasadi.clean.ui.favorites
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
@@ -15,6 +12,7 @@ import com.aliasadi.domain.usecase.GetFavoriteMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /**
@@ -27,7 +25,7 @@ class FavoritesViewModel @Inject constructor(
 ) : BaseViewModel(dispatchers), DefaultLifecycleObserver {
 
     data class FavoriteUiState(
-        val isLoading: Boolean = false,
+        val isLoading: Boolean = true,
         val noDataAvailable: Boolean = false,
         val movies: List<MovieListItem> = emptyList()
     )
@@ -36,8 +34,11 @@ class FavoritesViewModel @Inject constructor(
         data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
-    private val favoriteUiState: MutableLiveData<FavoriteUiState> = MutableLiveData()
-    private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
+    private val _uiState: MutableStateFlow<FavoriteUiState> = MutableStateFlow(FavoriteUiState())
+    val uiState = _uiState.asStateFlow()
+
+    private val _navigationState: MutableSharedFlow<NavigationState> = MutableSharedFlow()
+    val navigationState = _navigationState.asSharedFlow()
 
     override fun onResume(owner: LifecycleOwner) {
         onResumeInternal()
@@ -48,21 +49,19 @@ class FavoritesViewModel @Inject constructor(
     }
 
     private suspend fun loadMovies() {
-        favoriteUiState.value = FavoriteUiState(isLoading = true)
-
         getFavoriteMovies()
             .onSuccess {
                 showData(it)
             }.onError {
                 when (it) {
                     is DataNotAvailableException -> showNoData()
-                    else -> favoriteUiState.value = favoriteUiState.value?.copy(isLoading = false)
+                    else -> _uiState.update { uiState -> uiState.copy(isLoading = false) }
                 }
             }
     }
 
     private fun showData(list: List<MovieEntity>) {
-        favoriteUiState.value = favoriteUiState.value?.copy(
+        _uiState.value = FavoriteUiState(
             isLoading = false,
             noDataAvailable = false,
             movies = list.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) }
@@ -70,7 +69,7 @@ class FavoritesViewModel @Inject constructor(
     }
 
     private fun showNoData() {
-        favoriteUiState.value = favoriteUiState.value?.copy(
+        _uiState.value = FavoriteUiState(
             isLoading = false,
             noDataAvailable = true,
             movies = emptyList()
@@ -80,9 +79,6 @@ class FavoritesViewModel @Inject constructor(
     private suspend fun getFavoriteMovies() = getFavoriteMovies.getFavoriteMovies()
 
     fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
-        navigationState.value = NavigationState.MovieDetails(movieId)
+        _navigationState.emit(NavigationState.MovieDetails(movieId))
     }
-
-    fun getFavoriteUiState(): LiveData<FavoriteUiState> = favoriteUiState
-    fun getNavigateState(): LiveData<NavigationState> = navigationState
 }

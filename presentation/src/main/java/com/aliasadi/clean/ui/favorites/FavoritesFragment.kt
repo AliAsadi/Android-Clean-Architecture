@@ -16,8 +16,10 @@ import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieD
 import com.aliasadi.clean.ui.feed.MovieAdapter
 import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
 import com.aliasadi.clean.util.hide
+import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import com.aliasadi.clean.util.show
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 /**
  * @author by Ali Asadi on 03/08/2022
@@ -65,8 +67,10 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     }
 
     private fun setupObservers() = with(viewModel) {
-        getFavoriteUiState().observe { handleFavoriteUiState(it) }
-        getNavigateState().observe { handleNavigationState(it) }
+        launchAndRepeatWithViewLifecycle {
+            launch { uiState.collect { handleFavoriteUiState(it) } }
+            launch { navigationState.collect { handleNavigationState(it) } }
+        }
     }
 
     private fun handleFavoriteUiState(favoriteUiState: FavoriteUiState) = with(favoriteUiState) {
