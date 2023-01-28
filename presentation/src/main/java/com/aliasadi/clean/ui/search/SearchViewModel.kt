@@ -1,7 +1,6 @@
 package com.aliasadi.clean.ui.search
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.SavedStateHandle
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
@@ -21,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
+    private val state: SavedStateHandle,
     private val searchMovies: SearchMovies,
 ) : BaseViewModel(dispatchers) {
 
@@ -56,6 +56,8 @@ class SearchViewModel @Inject constructor(
                 searchMovies(query)
             }
         }
+
+        saveSearchQuery(query)
     }
 
     fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
@@ -74,13 +76,13 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    class Factory(
-        private val dispatchers: DispatchersProvider,
-        private val searchMovies: SearchMovies,
-    ) : ViewModelProvider.Factory {
-
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T = SearchViewModel(dispatchers, searchMovies) as T
+    private fun saveSearchQuery(query: String) {
+        state[SEARCH_QUERY] = query
     }
 
+    fun getSearchQuery(): CharSequence? = state.get<String>(SEARCH_QUERY)
+
+    companion object {
+        const val SEARCH_QUERY = "last_search"
+    }
 }

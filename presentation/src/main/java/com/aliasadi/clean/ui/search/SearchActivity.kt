@@ -95,6 +95,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         isIconified = false
         onActionViewExpanded()
         maxWidth = Integer.MAX_VALUE
+        setQuery(viewModel.getSearchQuery(), false)
 
         setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean = false
