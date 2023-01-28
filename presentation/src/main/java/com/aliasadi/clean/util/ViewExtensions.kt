@@ -2,6 +2,7 @@ package com.aliasadi.clean.util
 
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -39,7 +40,22 @@ inline fun AppCompatActivity.launchAndRepeatWithViewLifecycle(
     crossinline block: suspend CoroutineScope.() -> Unit
 ) {
     lifecycleScope.launch {
-        repeatOnLifecycle(lifecycleState) {
+        lifecycle.repeatOnLifecycle(lifecycleState) {
+            block()
+        }
+    }
+}
+
+/**
+ * Launches a new coroutine and repeats [block] every time the View's viewLifecycleOwner
+ * is in and out of [lifecycleState].
+ */
+inline fun Fragment.launchAndRepeatWithViewLifecycle(
+    lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
+    crossinline block: suspend CoroutineScope.() -> Unit
+) {
+    viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycle.repeatOnLifecycle(lifecycleState) {
             block()
         }
     }

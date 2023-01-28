@@ -1,19 +1,17 @@
 package com.aliasadi.clean.ui.feed
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.clean.util.SingleLiveEvent
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /**
@@ -29,15 +27,17 @@ class FeedViewModel @Inject internal constructor(
         data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
-    sealed class UiState {
-        data class FeedUiState(val movies: List<MovieListItem>) : UiState()
-        data class Error(val message: String?) : UiState()
-        object Loading : UiState()
-        object NotLoading : UiState()
-    }
+    data class FeedUiState(
+        val movies: List<MovieListItem> = emptyList(),
+        val showLoading: Boolean = true,
+        val errorMessage: String? = null
+    )
 
-    private val uiState: MutableLiveData<UiState> = MutableLiveData()
-    private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
+    private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(FeedUiState())
+    val uiState = _uiState.asStateFlow()
+
+    private val _navigationState: MutableSharedFlow<NavigationState> = MutableSharedFlow()
+    val navigationState = _navigationState.asSharedFlow()
 
     init {
         onInitialState()
@@ -48,18 +48,21 @@ class FeedViewModel @Inject internal constructor(
     }
 
     fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
-        navigationState.value = NavigationState.MovieDetails(movieId)
+        _navigationState.emit(NavigationState.MovieDetails(movieId))
     }
 
     private suspend fun loadMovies() = launchOnMainImmediate {
-        uiState.value = UiState.Loading
         getMovies.execute()
-            .onSuccess {
-                uiState.value = UiState.NotLoading
-                uiState.value = UiState.FeedUiState(insertSeparators(it))
-            }.onError {
-                uiState.value = UiState.NotLoading
-                uiState.value = UiState.Error(it.message)
+            .onSuccess { movies ->
+                _uiState.update {
+                    it.copy(
+                        movies = insertSeparators(movies),
+                        showLoading = false,
+                        errorMessage = null
+                    )
+                }
+            }.onError { error ->
+                _uiState.update { it.copy(showLoading = false, errorMessage = error.message) }
             }
     }
 
@@ -80,10 +83,6 @@ class FeedViewModel @Inject internal constructor(
 
         return listWithSeparators
     }
-
-
-    fun getNavigationState(): LiveData<NavigationState> = navigationState
-    fun getUiState(): LiveData<UiState> = uiState
 
     class Factory(
         private val getMovies: GetMovies,

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,10 +14,9 @@ import com.aliasadi.clean.MovieDetailsGraphDirections
 import com.aliasadi.clean.databinding.FragmentFeedBinding
 import com.aliasadi.clean.ui.base.BaseFragment
 import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.feed.FeedViewModel.UiState.*
-import com.aliasadi.clean.util.hide
-import com.aliasadi.clean.util.show
+import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -59,21 +59,20 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private fun observeViewModel() = with(viewModel) {
-
-        getUiState().observe {
-            when (it) {
-                is FeedUiState -> movieAdapter.submitList(it.movies)
-                is Loading -> binding.progressBar.show()
-                is NotLoading -> binding.progressBar.hide()
-                is Error -> Toast.makeText(requireActivity().applicationContext, it.message, Toast.LENGTH_LONG).show()
-            }
+        launchAndRepeatWithViewLifecycle {
+            launch { uiState.collect { handleFeedUiState(it) } }
+            launch { navigationState.collect { handleNavigationState(it) } }
         }
+    }
 
-        getNavigationState().observe {
-            when (it) {
-                is MovieDetails -> showOrNavigateToMovieDetails(it.movieId)
-            }
-        }
+    private fun handleFeedUiState(it: FeedViewModel.FeedUiState) {
+        movieAdapter.submitList(it.movies)
+        binding.progressBar.isVisible = it.showLoading
+        if (it.errorMessage != null) Toast.makeText(requireActivity().applicationContext, it.errorMessage, Toast.LENGTH_LONG).show()
+    }
+
+    private fun handleNavigationState(state: FeedViewModel.NavigationState) = when (state) {
+        is MovieDetails -> showOrNavigateToMovieDetails(state.movieId)
     }
 
     private fun showOrNavigateToMovieDetails(movieId: Int) = if (binding.root.isSlideable) {
