@@ -20,6 +20,7 @@ import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 /**
  * @author by Ali Asadi on 25/09/2022
@@ -47,13 +48,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     private fun setupObservers() = with(viewModel) {
         launchAndRepeatWithViewLifecycle {
-            getSearchUiState().collect { handleSearchState(it) }
-        }
-
-        getNavigationState().observe {
-            when (it) {
-                is NavigationState.MovieDetails -> MovieDetailsActivity.start(this@SearchActivity, it.movieId)
-            }
+            launch { getSearchUiState().collect { handleSearchState(it) } }
+            launch { getNavigationState().collect { handleNavigationState(it) } }
         }
     }
 
@@ -62,6 +58,10 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         binding.noMoviesFoundView.isVisible = state.showNoMoviesFound
         movieAdapter.submitList(state.movies)
         if (state.errorMessage != null) Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun handleNavigationState(state: NavigationState) = when (state) {
+        is NavigationState.MovieDetails -> MovieDetailsActivity.start(this, state.movieId)
     }
 
     private fun setupActionBar() {

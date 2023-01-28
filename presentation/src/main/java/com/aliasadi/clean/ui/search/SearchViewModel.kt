@@ -1,12 +1,11 @@
 package com.aliasadi.clean.ui.search
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.clean.util.SingleLiveEvent
+import com.aliasadi.clean.util.singleSharedFlow
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.SearchMovies
 import com.aliasadi.domain.util.onError
@@ -14,9 +13,7 @@ import com.aliasadi.domain.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 /**
@@ -40,7 +37,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private val uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
-    private val navigationState: SingleLiveEvent<NavigationState> = SingleLiveEvent()
+    private val navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
 
     private var searchJob: Job? = null
 
@@ -59,8 +56,8 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
-        navigationState.value = NavigationState.MovieDetails(movieId)
+    fun onMovieClicked(movieId: Int) {
+        navigationState.tryEmit(NavigationState.MovieDetails(movieId))
     }
 
     private fun searchMovies(query: String) = launchOnMainImmediate {
@@ -75,7 +72,7 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun getNavigationState(): LiveData<NavigationState> = navigationState
+    fun getNavigationState(): SharedFlow<NavigationState> = navigationState
     fun getSearchUiState(): StateFlow<SearchUiState> = uiState
 
     class Factory(
@@ -84,8 +81,7 @@ class SearchViewModel @Inject constructor(
     ) : ViewModelProvider.Factory {
 
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T =
-            SearchViewModel(dispatchers, searchMovies) as T
+        override fun <T : ViewModel> create(modelClass: Class<T>): T = SearchViewModel(dispatchers, searchMovies) as T
     }
 
 }
