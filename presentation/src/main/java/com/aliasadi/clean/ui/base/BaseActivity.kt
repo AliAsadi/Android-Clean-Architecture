@@ -8,9 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
 import com.aliasadi.clean.R
-import com.aliasadi.clean.di.core.module.AppModule
+import com.aliasadi.clean.di.core.AppSettingsSharedPreference
 import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -18,7 +17,7 @@ import javax.inject.Named
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     @Inject
-    @Named(AppModule.PREFERENCE_APP_SETTINGS)
+    @AppSettingsSharedPreference
     lateinit var appSettings: SharedPreferences
 
     protected val binding: VB by lazy { inflateViewBinding(layoutInflater) }
