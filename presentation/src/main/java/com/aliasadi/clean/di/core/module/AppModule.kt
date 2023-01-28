@@ -39,10 +39,6 @@ class AppModule {
     @Provides
     @AppSettingsSharedPreference
     fun provideAppSettingsSharedPreference(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(PREFERENCE_APP_SETTINGS, Context.MODE_PRIVATE)
-    }
-
-    companion object {
-        private const val PREFERENCE_APP_SETTINGS = "AppSettings"
+        return context.getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
     }
 }
