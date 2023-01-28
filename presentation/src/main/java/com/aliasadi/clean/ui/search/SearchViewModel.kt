@@ -19,9 +19,9 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    dispatchers: DispatchersProvider,
-    private val savedStateHandle: SavedStateHandle,
     private val searchMovies: SearchMovies,
+    private val savedStateHandle: SavedStateHandle,
+    dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
     data class SearchUiState(
