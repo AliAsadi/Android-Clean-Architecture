@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     dispatchers: DispatchersProvider,
-    private val state: SavedStateHandle,
+    private val savedStateHandle: SavedStateHandle,
     private val searchMovies: SearchMovies,
 ) : BaseViewModel(dispatchers) {
 
@@ -77,10 +77,10 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun saveSearchQuery(query: String) {
-        state[SEARCH_QUERY] = query
+        savedStateHandle[SEARCH_QUERY] = query
     }
 
-    fun getSearchQuery(): CharSequence? = state.get<String>(SEARCH_QUERY)
+    fun getSearchQuery(): CharSequence? = savedStateHandle.get<String>(SEARCH_QUERY)
 
     companion object {
         const val SEARCH_QUERY = "last_search"
