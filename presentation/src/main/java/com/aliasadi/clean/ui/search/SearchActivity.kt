@@ -8,9 +8,6 @@ import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.R
@@ -20,9 +17,9 @@ import com.aliasadi.clean.ui.feed.MovieAdapter
 import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
+import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 /**
  * @author by Ali Asadi on 25/09/2022
@@ -49,15 +46,8 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     }
 
     private fun setupObservers() = with(viewModel) {
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                getSearchUiState().collect {
-                    binding.progressBar.isVisible = it.showLoading
-                    binding.noMoviesFoundView.isVisible = it.showNoMoviesFound
-                    movieAdapter.submitList(it.movies)
-                    if (it.errorMessage != null) Snackbar.make(binding.root, it.errorMessage, Snackbar.LENGTH_SHORT).show()
-                }
-            }
+        launchAndRepeatWithViewLifecycle {
+            getSearchUiState().collect { handleSearchState(it) }
         }
 
         getNavigationState().observe {
@@ -65,6 +55,13 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
                 is NavigationState.MovieDetails -> MovieDetailsActivity.start(this@SearchActivity, it.movieId)
             }
         }
+    }
+
+    private fun handleSearchState(state: SearchViewModel.SearchUiState) {
+        binding.progressBar.isVisible = state.showLoading
+        binding.noMoviesFoundView.isVisible = state.showNoMoviesFound
+        movieAdapter.submitList(state.movies)
+        if (state.errorMessage != null) Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun setupActionBar() {
