@@ -70,11 +70,4 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
 
     private fun loadImage(url: String) =
         Glide.with(this).load(url).placeholder(R.color.light_gray).error(R.drawable.bg_image).into(binding.image)
-
-
-    companion object {
-        fun createInstance(movieId: Int) = MovieDetailsFragment().apply {
-            arguments = MovieDetailsFragmentArgs(movieId).toBundle()
-        }
-    }
 }
