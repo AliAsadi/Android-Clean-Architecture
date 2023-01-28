@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.clean.util.singleSharedFlow
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.SearchMovies
 import com.aliasadi.domain.util.onError
@@ -37,7 +36,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private val uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
-    private val navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
+    private val navigationState: MutableSharedFlow<NavigationState> = MutableSharedFlow()
 
     private var searchJob: Job? = null
 
@@ -56,8 +55,8 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun onMovieClicked(movieId: Int) {
-        navigationState.tryEmit(NavigationState.MovieDetails(movieId))
+    fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
+        navigationState.emit(NavigationState.MovieDetails(movieId))
     }
 
     private fun searchMovies(query: String) = launchOnMainImmediate {
