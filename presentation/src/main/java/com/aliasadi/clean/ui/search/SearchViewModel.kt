@@ -35,8 +35,11 @@ class SearchViewModel @Inject constructor(
         data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
-    private val uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
-    private val navigationState: MutableSharedFlow<NavigationState> = MutableSharedFlow()
+    private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
+    val uiState = _uiState.asStateFlow()
+
+    private val _navigationState: MutableSharedFlow<NavigationState> = MutableSharedFlow()
+    val navigationState = _navigationState.asSharedFlow()
 
     private var searchJob: Job? = null
 
@@ -44,9 +47,9 @@ class SearchViewModel @Inject constructor(
         searchJob?.cancel()
 
         if (query.isEmpty()) {
-            uiState.value = SearchUiState()
+            _uiState.value = SearchUiState()
         } else {
-            uiState.value = SearchUiState(showLoading = true)
+            _uiState.value = SearchUiState(showLoading = true)
 
             searchJob = launchOnIO {
                 delay(500)
@@ -56,23 +59,20 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
-        navigationState.emit(NavigationState.MovieDetails(movieId))
+        _navigationState.emit(NavigationState.MovieDetails(movieId))
     }
 
     private fun searchMovies(query: String) = launchOnMainImmediate {
         searchMovies.search(query).onSuccess {
             if (it.isEmpty()) {
-                uiState.value = SearchUiState(showNoMoviesFound = true)
+                _uiState.value = SearchUiState(showNoMoviesFound = true)
             } else {
-                uiState.value = SearchUiState(movies = it.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) })
+                _uiState.value = SearchUiState(movies = it.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) })
             }
         }.onError { error ->
-            uiState.update { it.copy(errorMessage = error.message) }
+            _uiState.update { it.copy(errorMessage = error.message) }
         }
     }
-
-    fun getNavigationState(): SharedFlow<NavigationState> = navigationState
-    fun getSearchUiState(): StateFlow<SearchUiState> = uiState
 
     class Factory(
         private val dispatchers: DispatchersProvider,

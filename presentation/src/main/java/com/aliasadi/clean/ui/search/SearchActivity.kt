@@ -48,12 +48,12 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     private fun setupObservers() = with(viewModel) {
         launchAndRepeatWithViewLifecycle {
-            launch { getSearchUiState().collect { handleSearchState(it) } }
-            launch { getNavigationState().collect { handleNavigationState(it) } }
+            launch { uiState.collect { handleSearchUiState(it) } }
+            launch { navigationState.collect { handleNavigationState(it) } }
         }
     }
 
-    private fun handleSearchState(state: SearchViewModel.SearchUiState) {
+    private fun handleSearchUiState(state: SearchViewModel.SearchUiState) {
         binding.progressBar.isVisible = state.showLoading
         binding.noMoviesFoundView.isVisible = state.showNoMoviesFound
         movieAdapter.submitList(state.movies)
