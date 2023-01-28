@@ -77,12 +77,12 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun saveSearchQuery(query: String) {
-        savedStateHandle[SEARCH_QUERY] = query
+        savedStateHandle[KEY_SEARCH_QUERY] = query
     }
 
-    fun getSearchQuery(): CharSequence? = savedStateHandle.get<String>(SEARCH_QUERY)
+    fun getSearchQuery(): CharSequence? = savedStateHandle.get<String>(KEY_SEARCH_QUERY)
 
     companion object {
-        const val SEARCH_QUERY = "last_search"
+        const val KEY_SEARCH_QUERY = "last_search"
     }
 }
