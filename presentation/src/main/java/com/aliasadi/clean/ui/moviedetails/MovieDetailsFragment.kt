@@ -4,11 +4,13 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.FragmentMovieDetailsBinding
 import com.aliasadi.clean.ui.base.BaseFragment
+import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -44,14 +46,22 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     }
 
     private fun observeViewModel() = with(viewModel) {
-        getMovieDetailsUiStateLiveData().observe { updateMovieDetails(it) }
-        getFavoriteStateLiveData().observe { updateFavoriteDrawable(it.drawable) }
+        launchAndRepeatWithViewLifecycle {
+            uiState.collect { handleMovieDetailsUiState(it) }
+        }
     }
 
-    private fun updateMovieDetails(movieState: MovieDetailsViewModel.MovieDetailsUiState) {
+    private fun handleMovieDetailsUiState(movieState: MovieDetailsViewModel.MovieDetailsUiState) {
         binding.movieTitle.text = movieState.title
         binding.description.text = movieState.description
         loadImage(movieState.imageUrl)
+        updateFavoriteDrawable(getFavoriteDrawable(movieState.isFavorite))
+    }
+
+    private fun getFavoriteDrawable(favorite: Boolean): Drawable? = if (favorite) {
+        ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite_fill_white_48)
+    } else {
+        ContextCompat.getDrawable(requireContext(), R.drawable.ic_favorite_border_white_48)
     }
 
     private fun updateFavoriteDrawable(drawable: Drawable?) = with(binding.favorite) {
