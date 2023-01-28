@@ -16,13 +16,15 @@ import com.aliasadi.domain.usecase.GetMovieDetails
 import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.onSuccess
-import javax.inject.Inject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class MovieDetailsViewModel internal constructor(
-    private var movieId: Int,
+class MovieDetailsViewModel @AssistedInject constructor(
+    @Assisted private var movieId: Int,
     private val getMovieDetails: GetMovieDetails,
     private val checkFavoriteStatus: CheckFavoriteStatus,
     private val addMovieToFavorite: AddMovieToFavorite,
@@ -34,9 +36,7 @@ class MovieDetailsViewModel internal constructor(
     data class FavoriteState(val drawable: Drawable?)
 
     data class MovieDetailsUiState(
-        val title: String,
-        val description: String,
-        val imageUrl: String
+        val title: String, val description: String, val imageUrl: String
     )
 
     private val movieDetailsUiState: MutableLiveData<MovieDetailsUiState> = MutableLiveData()
@@ -80,28 +80,18 @@ class MovieDetailsViewModel internal constructor(
     fun getMovieDetailsUiStateLiveData(): LiveData<MovieDetailsUiState> = movieDetailsUiState
     fun getFavoriteStateLiveData(): LiveData<FavoriteState> = favoriteState
 
-    class Factory @Inject constructor(
-        private val getMovieDetails: GetMovieDetails,
-        private val checkFavoriteStatus: CheckFavoriteStatus,
-        private val addMovieToFavorite: AddMovieToFavorite,
-        private val removeMovieFromFavorite: RemoveMovieFromFavorite,
-        private val resourceProvider: ResourceProvider,
-        private val dispatchers: DispatchersProvider
-    ) : ViewModelProvider.Factory {
+    @AssistedFactory
+    interface Factory {
+        fun create(movieId: Int): MovieDetailsViewModel
+    }
 
-        var movieId: Int = 0
-
+    companion object {
         @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MovieDetailsViewModel(
-                movieId = movieId,
-                getMovieDetails = getMovieDetails,
-                checkFavoriteStatus = checkFavoriteStatus,
-                addMovieToFavorite = addMovieToFavorite,
-                removeMovieFromFavorite = removeMovieFromFavorite,
-                resourceProvider = resourceProvider,
-                dispatchers = dispatchers
-            ) as T
+        fun provideFactory(
+            assistedFactory: Factory,
+            movieId: Int
+        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T = assistedFactory.create(movieId) as T
         }
     }
 }

@@ -26,7 +26,7 @@ class MovieDetailsFragment : BaseFragment<FragmentMovieDetailsBinding>() {
     lateinit var factory: MovieDetailsViewModel.Factory
 
     private val viewModel: MovieDetailsViewModel by viewModels {
-        factory.apply { movieId = args.movieId }
+        MovieDetailsViewModel.provideFactory(factory, args.movieId)
     }
 
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentMovieDetailsBinding =
