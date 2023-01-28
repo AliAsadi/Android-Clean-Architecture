@@ -1,6 +1,9 @@
 package com.aliasadi.clean.ui.favorites
 
-import androidx.lifecycle.*
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
@@ -18,7 +21,7 @@ import javax.inject.Inject
  * @author by Ali Asadi on 03/08/2022
  */
 @HiltViewModel
-class FavoritesViewModel @Inject internal constructor(
+class FavoritesViewModel @Inject constructor(
     private val getFavoriteMovies: GetFavoriteMovies,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers), DefaultLifecycleObserver {
@@ -82,15 +85,4 @@ class FavoritesViewModel @Inject internal constructor(
 
     fun getFavoriteUiState(): LiveData<FavoriteUiState> = favoriteUiState
     fun getNavigateState(): LiveData<NavigationState> = navigationState
-
-    class Factory(
-        private val getFavoriteMovies: GetFavoriteMovies,
-        private val dispatchers: DispatchersProvider
-    ) : ViewModelProvider.Factory {
-
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FavoritesViewModel(getFavoriteMovies, dispatchers) as T
-        }
-    }
 }

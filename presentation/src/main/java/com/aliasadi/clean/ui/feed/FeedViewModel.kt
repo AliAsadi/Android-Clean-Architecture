@@ -18,7 +18,7 @@ import javax.inject.Inject
  * Created by Ali Asadi on 13/05/2020
  */
 @HiltViewModel
-class FeedViewModel @Inject internal constructor(
+class FeedViewModel @Inject constructor(
     private val getMovies: GetMovies,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
