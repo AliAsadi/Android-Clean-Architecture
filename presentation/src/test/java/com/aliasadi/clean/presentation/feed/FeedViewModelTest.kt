@@ -1,19 +1,16 @@
 package com.aliasadi.clean.presentation.feed
 
-import androidx.lifecycle.Observer
+import app.cash.turbine.test
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.ui.feed.FeedViewModel
-import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState
-import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.feed.FeedViewModel.UiState
-import com.aliasadi.clean.ui.feed.FeedViewModel.UiState.*
 import com.aliasadi.domain.usecase.GetMovies
 import com.aliasadi.domain.util.Result
+import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.launch
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentCaptor
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
@@ -40,63 +37,58 @@ class FeedViewModelTest : BaseViewModelTest() {
 
     @Test
     fun onInitialState_loadMovies_onSuccess_hideLoadingAndShowMovies() = coroutineRule.runBlockingTest {
-        val uiStateObs: Observer<UiState> = mock()
-
-        viewModel.getUiState().observeForever(uiStateObs)
-
         `when`(getMovies.execute()).thenReturn(Result.Success(listOf()))
 
         viewModel.onInitialState()
 
-        val argumentCapture = ArgumentCaptor.forClass(UiState::class.java)
-        verify(uiStateObs, times(3)).onChanged(argumentCapture.capture())
-
-        assert(argumentCapture.allValues[0] is Loading)
-        assert(argumentCapture.allValues[1] is NotLoading)
-        assert(argumentCapture.allValues[2] is FeedUiState)
+        viewModel.uiState.test {
+            val emission: FeedViewModel.FeedUiState = awaitItem()
+            assertThat(emission.showLoading).isFalse()
+            assertThat(emission.movies).isEmpty()
+            assertThat(emission.errorMessage).isNull()
+        }
     }
 
     @Test
     fun onInitialState_loadMovies_onFailure_hideLoadingAndShowErrorMessage() = coroutineRule.runBlockingTest {
-        val uiStateObs: Observer<UiState> = mock()
-
-        viewModel.getUiState().observeForever(uiStateObs)
-
-
-        `when`(getMovies.execute()).thenReturn(Result.Error(mock()))
+        val errorMessage = "error"
+        `when`(getMovies.execute()).thenReturn(Result.Error(Throwable(errorMessage)))
 
         viewModel.onInitialState()
 
-        val argumentCapture = ArgumentCaptor.forClass(UiState::class.java)
-        verify(uiStateObs, times(3)).onChanged(argumentCapture.capture())
-
-        assert(argumentCapture.allValues[0] is Loading)
-        assert(argumentCapture.allValues[1] is NotLoading)
-        assert(argumentCapture.allValues[2] is Error)
+        viewModel.uiState.test {
+            val emission: FeedViewModel.FeedUiState = awaitItem()
+            assertThat(emission.showLoading).isFalse()
+            assertThat(emission.movies).isEmpty()
+            assertThat(emission.errorMessage).isEqualTo(errorMessage)
+        }
     }
 
 
     @Test
     fun onInitialState_loadMovies_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
-        val uiStateObs: Observer<UiState> = mock()
-        viewModel.getUiState().observeForever(uiStateObs)
-
         viewModel.onInitialState()
-
-        verify(uiStateObs).onChanged(isA(Loading.javaClass))
+        assertThat(viewModel.uiState.value.showLoading).isTrue()
     }
 
 
     @Test
-    fun onMovieClicked_navigateToMovieDetails() {
-        val navigateObs: Observer<NavigationState> = mock()
+    fun onMovieClicked_navigateToMovieDetails() = coroutineRule.runBlockingTest {
         val movieId = 1
 
-        viewModel.getNavigationState().observeForever(navigateObs)
+        launch {
+            viewModel.navigationState.test {
+                val emission = awaitItem()
+                assertThat(emission).isInstanceOf(FeedViewModel.NavigationState.MovieDetails::class.java)
+
+                when (emission) {
+                    is FeedViewModel.NavigationState.MovieDetails -> assertThat(emission.movieId).isEqualTo(movieId)
+                }
+            }
+        }
 
         viewModel.onMovieClicked(movieId)
 
-        verify(navigateObs).onChanged(isA(MovieDetails::class.java))
     }
 
 }

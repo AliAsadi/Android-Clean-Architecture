@@ -1,5 +1,6 @@
 package com.aliasadi.clean.ui.feed
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.entities.MovieListItem
@@ -43,7 +44,8 @@ class FeedViewModel @Inject constructor(
         onInitialState()
     }
 
-    private fun onInitialState() = launchOnMainImmediate {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun onInitialState() = launchOnMainImmediate {
         loadMovies()
     }
 
