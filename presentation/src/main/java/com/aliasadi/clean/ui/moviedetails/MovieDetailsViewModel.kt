@@ -1,5 +1,6 @@
 package com.aliasadi.clean.ui.moviedetails
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aliasadi.clean.ui.base.BaseViewModel
@@ -45,7 +46,8 @@ class MovieDetailsViewModel @AssistedInject constructor(
         onInitialState()
     }
 
-    private fun onInitialState() = launchOnMainImmediate {
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun onInitialState() = launchOnMainImmediate {
         getMovieById(movieId).onSuccess {
             _uiState.value = MovieDetailsUiState(
                 title = it.title,

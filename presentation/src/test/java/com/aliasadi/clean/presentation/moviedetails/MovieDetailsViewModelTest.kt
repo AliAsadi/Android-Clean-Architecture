@@ -1,22 +1,20 @@
 package com.aliasadi.clean.presentation.moviedetails
 
-import androidx.lifecycle.Observer
+import app.cash.turbine.test
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
-import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel.MovieDetailsUiState
-import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
 import com.aliasadi.domain.usecase.GetMovieDetails
 import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
+import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -24,11 +22,11 @@ import org.mockito.junit.MockitoJUnitRunner
  * Created by Ali Asadi on 16/05/2020
  **/
 @RunWith(MockitoJUnitRunner::class)
-class MovieEntityDetailsViewModelTest : BaseViewModelTest() {
+class MovieDetailsViewModelTest : BaseViewModelTest() {
 
     private var movieId: Int = 1413
 
-    private val movie = MovieEntity(movieId, "", "", "")
+    private val movie = MovieEntity(movieId, "title", "desc", "image", "category")
 
     @Mock
     lateinit var getMovieDetails: GetMovieDetails
@@ -42,9 +40,6 @@ class MovieEntityDetailsViewModelTest : BaseViewModelTest() {
     @Mock
     lateinit var removeMovieFromFavorite: RemoveMovieFromFavorite
 
-    @Mock
-    lateinit var resourceProvider: ResourceProvider
-
     private lateinit var viewModel: MovieDetailsViewModel
 
     @Before
@@ -55,7 +50,6 @@ class MovieEntityDetailsViewModelTest : BaseViewModelTest() {
             checkFavoriteStatus = checkFavoriteStatus,
             removeMovieFromFavorite = removeMovieFromFavorite,
             addMovieToFavorite = addMovieToFavorite,
-            resourceProvider = resourceProvider,
             dispatchers = coroutineRule.testDispatcherProvider
         )
     }
@@ -63,27 +57,29 @@ class MovieEntityDetailsViewModelTest : BaseViewModelTest() {
     @Test
     fun onInitialState_movieAvailable_showMovieDetails() = coroutineRule.runBlockingTest {
 
-        val movieObs: Observer<MovieDetailsUiState> = mock()
-
         `when`(getMovieDetails.getMovie(movieId)).thenReturn(Result.Success(movie))
-
-        viewModel.getMovieDetailsUiStateLiveData().observeForever(movieObs)
 
         viewModel.onInitialState()
 
-        Mockito.verify(movieObs).onChanged(any())
+        viewModel.uiState.test {
+            val emission = awaitItem()
+            assertThat(emission.description).isEqualTo(movie.description)
+            assertThat(emission.imageUrl).isEqualTo(movie.image)
+            assertThat(emission.title).isEqualTo(movie.title)
+            assertThat(emission.isFavorite).isFalse()
+        }
+
     }
 
     @Test
     fun onInitialState_movieNotAvailable_doNothing() = coroutineRule.runBlockingTest {
-        val movieObs: Observer<MovieDetailsUiState> = mock()
-
         `when`(getMovieDetails.getMovie(movieId)).thenReturn(Result.Error(mock()))
-
-        viewModel.getMovieDetailsUiStateLiveData().observeForever(movieObs)
 
         viewModel.onInitialState()
 
-        Mockito.verifyNoMoreInteractions(movieObs)
+        viewModel.uiState.test {
+            val emission = awaitItem()
+            assertThat(emission).isEqualTo(MovieDetailsViewModel.MovieDetailsUiState())
+        }
     }
 }
