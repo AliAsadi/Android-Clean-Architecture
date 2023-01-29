@@ -17,7 +17,6 @@ import com.aliasadi.clean.ui.feed.MovieAdapter
 import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
-import com.aliasadi.clean.util.show
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -74,12 +73,11 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     }
 
     private fun handleFavoriteUiState(favoriteUiState: FavoriteUiState) = with(favoriteUiState) {
+        binding.progressBar.isVisible = isLoading
         if (isLoading) {
-            binding.progressBar.show()
             if (binding.noDataView.isVisible) binding.noDataView.hide()
         } else {
-            if (noDataAvailable) binding.noDataView.show() else binding.noDataView.hide()
-            binding.progressBar.hide()
+            binding.noDataView.isVisible = noDataAvailable
             movieAdapter.submitList(movies)
         }
     }
