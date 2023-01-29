@@ -31,6 +31,7 @@ android {
     kotlinOptions {
         freeCompilerArgs += ["-Xjvm-default=all",]
     }
+    namespace 'com.aliasadi.clean'
 }
 
 dependencies {
@@ -71,9 +72,6 @@ dependencies {
     //Room
     implementation 'androidx.room:room-runtime:2.4.3'
     kapt 'androidx.room:room-compiler:2.4.3'
-
-    //PowerPreference
-    implementation 'com.github.AliAsadi:PowerPreference:2.1.0'
 
     //Hilt
     implementation "com.google.dagger:hilt-android:2.44"
