@@ -2,7 +2,7 @@ apply plugin: 'kotlin'
 
 dependencies {
     //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.21"
 
     //Mockito
     testImplementation 'org.mockito:mockito-core:3.10.0'
