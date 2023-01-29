@@ -40,7 +40,7 @@ class MovieDetailsActivity : BaseActivity<ActivityMovieDetailsBinding>() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 
