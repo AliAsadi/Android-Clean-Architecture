@@ -5,12 +5,12 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.dagger.hilt.android'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.aliasadi.clean"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 1
 
         versionName "1.0"
