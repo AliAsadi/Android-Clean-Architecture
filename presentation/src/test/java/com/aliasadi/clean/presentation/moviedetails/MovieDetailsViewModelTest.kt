@@ -2,6 +2,7 @@ package com.aliasadi.clean.presentation.moviedetails
 
 import app.cash.turbine.test
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
+import com.aliasadi.clean.presentation.util.mock
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.domain.entities.MovieEntity
