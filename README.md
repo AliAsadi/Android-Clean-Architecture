@@ -5,6 +5,10 @@ A demo movie android app that demonstrates Clean Architecture and is written in 
 ### The Motivation behind the app
 This repository was created with the intention of stepping outside of my comfort zone as much as possible, tackling topics outside of my area of expertise, and using it to implement new challenges and ideas.
 
+API: https://movies-mock-server.vercel.app/
+
+API (Repository): https://github.com/AliAsadi/movies-mock-server
+
 ### ⚠️NOTE
 If you are here trying to learn a new architecture and asking yourself what is the best architecture, I will share my thoughts on the topic. 
 
