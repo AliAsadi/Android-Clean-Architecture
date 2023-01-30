@@ -1,5 +1,6 @@
 package com.aliasadi.data.db.movies
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,8 +17,11 @@ interface MovieDao {
      *
      * @return all movies.
      */
-    @Query("SELECT * FROM movies")
+    @Query("SELECT * FROM movies ORDER BY category,id")
     fun getMovies(): List<MovieDbData>
+
+    @Query("SELECT * FROM movies ORDER BY category,id")
+    fun movies(): PagingSource<Int, MovieDbData>
 
     /**
      * Get all favorite movies from the movies table.
