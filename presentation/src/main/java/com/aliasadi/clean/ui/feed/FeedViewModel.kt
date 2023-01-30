@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
+import com.aliasadi.clean.ui.feed.usecase.GetMoviesPaging
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.GetMovies

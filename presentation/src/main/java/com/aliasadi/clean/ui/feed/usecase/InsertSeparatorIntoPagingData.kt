@@ -1,4 +1,4 @@
-package com.aliasadi.clean.ui.feed
+package com.aliasadi.clean.ui.feed.usecase
 
 import android.util.Log
 import androidx.paging.PagingData
