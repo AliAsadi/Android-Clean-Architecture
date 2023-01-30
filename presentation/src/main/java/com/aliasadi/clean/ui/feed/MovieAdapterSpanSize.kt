@@ -35,4 +35,19 @@ class MovieAdapterSpanSize {
             else -> config.separatorColumnSpanSize
         }
     }
+
+    class LookupPaging(
+        private val config: Config,
+        private val adapter: MoviePagingAdapter,
+    ) : GridLayoutManager.SpanSizeLookup() {
+
+        init {
+            isSpanIndexCacheEnabled = true
+        }
+
+        override fun getSpanSize(position: Int): Int = when (adapter.getItemViewType(position)) {
+            R.layout.item_movie -> config.movieColumnSpanSize
+            else -> config.separatorColumnSpanSize
+        }
+    }
 }
