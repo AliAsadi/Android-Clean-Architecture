@@ -1,8 +1,9 @@
 package com.aliasadi.clean.ui.feed
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.clean.ui.base.BaseViewModel
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val getMovies: GetMovies,
+    getMoviesWithSeparatorPaging: GetMoviesWithSeparatorPaging,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -33,6 +35,8 @@ class FeedViewModel @Inject constructor(
         val showLoading: Boolean = true,
         val errorMessage: String? = null
     )
+
+    val movies: Flow<PagingData<MovieListItem>> = getMoviesWithSeparatorPaging.movies().cachedIn(viewModelScope)
 
     private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(FeedUiState())
     val uiState = _uiState.asStateFlow()
@@ -84,16 +88,5 @@ class FeedViewModel @Inject constructor(
         }
 
         return listWithSeparators
-    }
-
-    class Factory(
-        private val getMovies: GetMovies,
-        private val dispatchers: DispatchersProvider
-    ) : ViewModelProvider.Factory {
-
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return FeedViewModel(getMovies, dispatchers) as T
-        }
     }
 }
