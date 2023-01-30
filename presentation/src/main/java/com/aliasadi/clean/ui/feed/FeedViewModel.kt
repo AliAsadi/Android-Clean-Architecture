@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     private val getMovies: GetMovies,
-    getMoviesWithSeparatorPaging: GetMoviesWithSeparatorPaging,
+    getMoviesPaging: GetMoviesPaging,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -36,7 +36,7 @@ class FeedViewModel @Inject constructor(
         val errorMessage: String? = null
     )
 
-    val movies: Flow<PagingData<MovieListItem>> = getMoviesWithSeparatorPaging.movies().cachedIn(viewModelScope)
+    val movies: Flow<PagingData<MovieListItem>> = getMoviesPaging.movies().cachedIn(viewModelScope)
 
     private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(FeedUiState())
     val uiState = _uiState.asStateFlow()

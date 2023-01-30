@@ -27,7 +27,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
     private val viewModel: FeedViewModel by viewModels()
 
-    private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
+    private val movieAdapter by lazy { MoviePagingAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
 
     private val detailsNavController by lazy { binding.container.getFragment<Fragment>().findNavController() }
 
@@ -55,7 +55,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
         RecyclerView.VERTICAL,
         false
     ).apply {
-        spanSizeLookup = MovieAdapterSpanSize.Lookup(config, movieAdapter)
+        spanSizeLookup = MovieAdapterSpanSize.LookupPaging(config, movieAdapter)
     }
 
     private fun observeViewModel() = with(viewModel) {

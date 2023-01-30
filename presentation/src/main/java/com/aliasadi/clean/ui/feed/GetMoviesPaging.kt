@@ -7,17 +7,18 @@ import com.aliasadi.clean.mapper.MovieEntityMapper
 import com.aliasadi.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 /**
  * @author by Ali Asadi on 30/01/2023
  */
-class GetMoviesWithSeparatorPaging(
+class GetMoviesPaging @Inject constructor(
     private val movieRepository: MovieRepository,
-    private val insertMovieSeparator: InsertMovieSeparator
+    private val insertSeparatorIntoPagingData: InsertSeparatorIntoPagingData
 ) {
 
     fun movies(): Flow<PagingData<MovieListItem>> = movieRepository.movies().map {
         val pagingData: PagingData<MovieListItem.Movie> = it.map { movie -> MovieEntityMapper.toPresentation(movie) }
-        insertMovieSeparator.insert(pagingData)
+        insertSeparatorIntoPagingData.insert(pagingData)
     }
 }

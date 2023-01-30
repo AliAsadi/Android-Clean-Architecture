@@ -4,11 +4,12 @@ import android.util.Log
 import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import com.aliasadi.clean.entities.MovieListItem
+import javax.inject.Inject
 
 /**
  * @author by Ali Asadi on 29/01/2023
  */
-class InsertMovieSeparator {
+class InsertSeparatorIntoPagingData  @Inject constructor(){
     fun insert(pagingData: PagingData<MovieListItem.Movie>): PagingData<MovieListItem> {
         return pagingData.insertSeparators { before: MovieListItem.Movie?, after: MovieListItem.Movie? ->
             when {
