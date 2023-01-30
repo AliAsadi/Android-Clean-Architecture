@@ -1,11 +1,13 @@
 package com.aliasadi.data.repository.movie
 
+import androidx.paging.PagingData
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.getResult
 import com.aliasadi.domain.util.onSuccess
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -16,6 +18,8 @@ class MovieRepositoryImpl constructor(
     private val cache: MovieDataSource.Cache,
     private val localFavorite: FavoriteMoviesDataSource.Local
 ) : MovieRepository {
+
+    override fun movies(): Flow<PagingData<MovieEntity>> = local.movies()
 
     override suspend fun getMovies(): Result<List<MovieEntity>> = getMoviesFromCache()
 
