@@ -60,13 +60,14 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
     private fun observeViewModel() = with(viewModel) {
         launchAndRepeatWithViewLifecycle {
+            launch { movies.collect { movieAdapter.submitData(it) } }
             launch { uiState.collect { handleFeedUiState(it) } }
             launch { navigationState.collect { handleNavigationState(it) } }
         }
     }
 
     private fun handleFeedUiState(it: FeedViewModel.FeedUiState) {
-        movieAdapter.submitList(it.movies)
+//        movieAdapter.submitList(it.movies)
         binding.progressBar.isVisible = it.showLoading
         if (it.errorMessage != null) Toast.makeText(requireActivity().applicationContext, it.errorMessage, Toast.LENGTH_LONG).show()
     }
