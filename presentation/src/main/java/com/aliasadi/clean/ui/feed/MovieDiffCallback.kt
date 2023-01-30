@@ -11,6 +11,8 @@ object MovieDiffCallback : DiffUtil.ItemCallback<MovieListItem>() {
     override fun areItemsTheSame(oldItem: MovieListItem, newItem: MovieListItem): Boolean =
         if (oldItem is MovieListItem.Movie && newItem is MovieListItem.Movie) {
             oldItem.id == newItem.id
+        } else if (oldItem is MovieListItem.Separator && newItem is MovieListItem.Separator) {
+            oldItem.category == newItem.category
         } else {
             oldItem == newItem
         }
