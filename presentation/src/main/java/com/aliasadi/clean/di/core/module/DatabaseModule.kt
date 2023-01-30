@@ -6,6 +6,7 @@ import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDatabase
 import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.db.movies.MovieDatabase
+import com.aliasadi.data.db.movies.MovieRemoteKeyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,6 +36,11 @@ class DatabaseModule {
     @Provides
     fun provideMovieDao(movieDatabase: MovieDatabase): MovieDao {
         return movieDatabase.movieDao()
+    }
+
+    @Provides
+    fun provideMovieRemoteKeyDao(movieDatabase: MovieDatabase): MovieRemoteKeyDao {
+        return movieDatabase.movieRemoteKeysDao()
     }
 
     @Provides

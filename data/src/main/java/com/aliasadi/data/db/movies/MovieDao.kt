@@ -39,11 +39,11 @@ interface MovieDao {
      * Insert all movies.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveMovies(movies: List<MovieDbData>)
+    suspend fun saveMovies(movies: List<MovieDbData>)
 
     /**
      * Delete all movies.
      */
     @Query("DELETE FROM movies")
-    fun deleteMovies()
+    suspend fun deleteMovies()
 }

@@ -1,6 +1,7 @@
 package com.aliasadi.data.repository.movie
 
-import androidx.paging.PagingData
+import androidx.paging.*
+import com.aliasadi.data.mapper.MovieDataMapper
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
@@ -8,6 +9,7 @@ import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.getResult
 import com.aliasadi.domain.util.onSuccess
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -16,10 +18,22 @@ class MovieRepositoryImpl constructor(
     private val remote: MovieDataSource.Remote,
     private val local: MovieDataSource.Local,
     private val cache: MovieDataSource.Cache,
+    private val remoteMediator: MovieRemoteMediator,
     private val localFavorite: FavoriteMoviesDataSource.Local
 ) : MovieRepository {
 
-    override fun movies(): Flow<PagingData<MovieEntity>> = local.movies()
+    @OptIn(ExperimentalPagingApi::class)
+    override fun movies(): Flow<PagingData<MovieEntity>> = Pager(
+        config = PagingConfig(
+            initialLoadSize = 30,
+            pageSize = 30,
+            enablePlaceholders = false
+        ),
+        remoteMediator = remoteMediator,
+        pagingSourceFactory = { local.movies() }
+    ).flow.map { pagingData ->
+        pagingData.map { MovieDataMapper.toDomain(it) }
+    }
 
     override suspend fun getMovies(): Result<List<MovieEntity>> = getMoviesFromCache()
 
@@ -68,11 +82,11 @@ class MovieRepositoryImpl constructor(
     }
 
     private suspend fun saveMovies(movieEntities: List<MovieEntity>) {
-        local.saveMovies(movieEntities)
+//        local.saveMovies(movieEntities)
     }
 
     private suspend fun refreshCache(movieEntities: List<MovieEntity>) {
-        cache.saveMovies(movieEntities)
+//        cache.saveMovies(movieEntities)
     }
 
     private suspend fun getFavoriteMoviesFromLocal(): Result<List<MovieEntity>> {

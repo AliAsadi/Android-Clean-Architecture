@@ -16,8 +16,8 @@ private const val MOVIE_STARTING_PAGE_INDEX = 1
  */
 @OptIn(ExperimentalPagingApi::class)
 class MovieRemoteMediator(
-    private val movieLocalDataSource: MovieDataSource.Local,
-    private val movieRemoteDataSource: MovieDataSource.Remote
+    private val local: MovieDataSource.Local,
+    private val remote: MovieDataSource.Remote
 ) : RemoteMediator<Int, MovieDbData>() {
 
     override suspend fun initialize(): InitializeAction {
@@ -49,7 +49,7 @@ class MovieRemoteMediator(
             }
         }
 
-        movieRemoteDataSource.getMovies(page, state.config.pageSize).getResult({ successResult ->
+        remote.getMovies(page, state.config.pageSize).getResult({ successResult ->
             val movies = successResult.data
 
             val endOfPaginationReached = movies.isEmpty()
@@ -65,8 +65,8 @@ class MovieRemoteMediator(
 //                    movieDao.deleteMovies()
             }
 
-            movieLocalDataSource.saveMovies(movies)
-            movieLocalDataSource.saveRemoteKeys(keys)
+            local.saveMovies(movies)
+            local.saveRemoteKeys(keys)
 
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         }, { errorResult ->
@@ -76,13 +76,13 @@ class MovieRemoteMediator(
 
     private suspend fun getLastRemoteKey(state: PagingState<Int, MovieDbData>): MovieRemoteKeyDbData? =
         state.lastItemOrNull()?.let { movie ->
-            movieLocalDataSource.getRemoteKeyByMovieId(movie.id)
+            local.getRemoteKeyByMovieId(movie.id)
         }
 
     private suspend fun getClosestRemoteKeys(state: PagingState<Int, MovieDbData>): MovieRemoteKeyDbData? =
         state.anchorPosition?.let {
             state.closestItemToPosition(it)?.let { movie ->
-                movieLocalDataSource.getRemoteKeyByMovieId(movie.id)
+                local.getRemoteKeyByMovieId(movie.id)
             }
         }
 }

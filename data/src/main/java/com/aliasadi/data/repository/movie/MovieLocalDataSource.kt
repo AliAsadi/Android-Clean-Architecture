@@ -1,18 +1,16 @@
 package com.aliasadi.data.repository.movie
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.map
+import androidx.paging.PagingSource
 import com.aliasadi.data.db.movies.MovieDao
+import com.aliasadi.data.db.movies.MovieRemoteKeyDao
+import com.aliasadi.data.entities.MovieDbData
+import com.aliasadi.data.entities.MovieRemoteKeyDbData
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.mapper.MovieDataMapper
 import com.aliasadi.data.util.DiskExecutor
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.asCoroutineDispatcher
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 /**
@@ -21,6 +19,7 @@ import kotlinx.coroutines.withContext
 class MovieLocalDataSource(
     private val executor: DiskExecutor,
     private val movieDao: MovieDao,
+    private val remoteKeyDao: MovieRemoteKeyDao,
 ) : MovieDataSource.Local {
 
     override suspend fun getMovies(): Result<List<MovieEntity>> = withContext(executor.asCoroutineDispatcher()) {
@@ -42,18 +41,17 @@ class MovieLocalDataSource(
         movieDao.saveMovies(movieEntities.map { MovieDataMapper.toDbData(it) })
     }
 
+    override suspend fun saveRemoteKeys(keys: List<MovieRemoteKeyDbData>) = withContext(executor.asCoroutineDispatcher()) {
+        remoteKeyDao.saveRemoteKeys(keys)
+    }
+
+    override suspend fun getRemoteKeyByMovieId(id: Int): MovieRemoteKeyDbData? = withContext(executor.asCoroutineDispatcher()) {
+        return@withContext remoteKeyDao.getRemoteKeyByMovieId(id)
+    }
+
     override suspend fun getFavoriteMovies(movieIds: List<Int>): Result<List<MovieEntity>> = withContext(executor.asCoroutineDispatcher()) {
         return@withContext Result.Success(movieDao.getFavoriteMovies(movieIds).map { MovieDataMapper.toDomain(it) })
     }
 
-    override fun movies(): Flow<PagingData<MovieEntity>> = Pager(getDefaultPagingConfig()) {
-        movieDao.movies()
-    }.flow.map { pagingData ->
-        pagingData.map { MovieDataMapper.toDomain(it) }
-    }
-
-    private fun getDefaultPagingConfig(): PagingConfig = PagingConfig(
-        pageSize = 30,
-        enablePlaceholders = false
-    )
+    override fun movies(): PagingSource<Int, MovieDbData> = movieDao.movies()
 }

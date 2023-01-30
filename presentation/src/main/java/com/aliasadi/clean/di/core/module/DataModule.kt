@@ -3,6 +3,7 @@ package com.aliasadi.clean.di.core.module
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.db.movies.MovieDao
+import com.aliasadi.data.db.movies.MovieRemoteKeyDao
 import com.aliasadi.data.repository.movie.*
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesLocalDataSource
@@ -29,17 +30,29 @@ class DataModule {
         movieRemote: MovieDataSource.Remote,
         movieLocal: MovieDataSource.Local,
         movieCache: MovieDataSource.Cache,
+        movieRemoteMediator: MovieRemoteMediator,
         favoriteLocal: FavoriteMoviesDataSource.Local,
     ): MovieRepository {
-        return MovieRepositoryImpl(movieRemote, movieLocal, movieCache, favoriteLocal)
+        return MovieRepositoryImpl(movieRemote, movieLocal, movieCache, movieRemoteMediator, favoriteLocal)
     }
 
     @Provides
     @Singleton
     fun provideMovieLocalDataSource(
-        executor: DiskExecutor, movieDao: MovieDao
+        executor: DiskExecutor,
+        movieDao: MovieDao,
+        movieRemoteKeyDao: MovieRemoteKeyDao,
     ): MovieDataSource.Local {
-        return MovieLocalDataSource(executor, movieDao)
+        return MovieLocalDataSource(executor, movieDao, movieRemoteKeyDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieMediator(
+        movieLocalDataSource: MovieDataSource.Local,
+        movieRemoteDataSource: MovieDataSource.Remote
+    ): MovieRemoteMediator {
+        return MovieRemoteMediator(movieLocalDataSource, movieRemoteDataSource)
     }
 
     @Provides
