@@ -37,12 +37,16 @@ class MovieLocalDataSource(
         } ?: Result.Error(DataNotAvailableException())
     }
 
-    override suspend fun saveMovies(movieEntities: List<MovieEntity>) = withContext(executor.asCoroutineDispatcher()) {
+    override suspend fun saveMovies(movieEntities: List<MovieEntity>) {
         movieDao.saveMovies(movieEntities.map { MovieDataMapper.toDbData(it) })
     }
 
-    override suspend fun saveRemoteKeys(keys: List<MovieRemoteKeyDbData>) = withContext(executor.asCoroutineDispatcher()) {
-        remoteKeyDao.saveRemoteKeys(keys)
+    override suspend fun getLastRemoteKey(): MovieRemoteKeyDbData? {
+        return remoteKeyDao.getLastRemoteKey()
+    }
+
+    override suspend fun saveRemoteKey(key: MovieRemoteKeyDbData) = withContext(executor.asCoroutineDispatcher()) {
+        remoteKeyDao.saveRemoteKey(key)
     }
 
     override suspend fun getRemoteKeyByMovieId(id: Int): MovieRemoteKeyDbData? = withContext(executor.asCoroutineDispatcher()) {

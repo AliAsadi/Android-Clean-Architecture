@@ -21,7 +21,8 @@ interface MovieDataSource {
         suspend fun getMovies(): Result<List<MovieEntity>>
         suspend fun getMovie(movieId: Int): Result<MovieEntity>
         suspend fun saveMovies(movieEntities: List<MovieEntity>)
-        suspend fun saveRemoteKeys(keys: List<MovieRemoteKeyDbData>)
+        suspend fun getLastRemoteKey(): MovieRemoteKeyDbData?
+        suspend fun saveRemoteKey(key: MovieRemoteKeyDbData)
         suspend fun getRemoteKeyByMovieId(id: Int): MovieRemoteKeyDbData?
         suspend fun getFavoriteMovies(movieIds: List<Int>): Result<List<MovieEntity>>
         fun movies(): PagingSource<Int, MovieDbData>
