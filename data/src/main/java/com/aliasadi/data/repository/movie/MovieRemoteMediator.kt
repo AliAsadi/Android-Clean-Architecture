@@ -8,7 +8,6 @@ import androidx.paging.RemoteMediator
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.entities.MovieRemoteKeyDbData
 import com.aliasadi.domain.util.getResult
-import kotlinx.coroutines.delay
 
 private const val MOVIE_STARTING_PAGE_INDEX = 1
 
@@ -22,18 +21,23 @@ class MovieRemoteMediator(
 ) : RemoteMediator<Int, MovieDbData>() {
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, MovieDbData>): MediatorResult {
+        Log.d("XXX", "load() called with: loadType = $loadType, state = ${state.lastItemOrNull()?.title}")
+
         val page = when (loadType) {
             LoadType.REFRESH -> MOVIE_STARTING_PAGE_INDEX
 
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
 
             LoadType.APPEND -> {
-                val remoteKey = getLastRemoteKey(state) ?: throw Exception("remoteKey == null")
-                remoteKey.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
+                //There was a problem, remote keys used to be null, and I temporarily fixed it by relying more
+                //on remoteKeys stored in the database than PagingState.
+                local.getLastRemoteKey()?.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
+
+                //OLD IMPLEMENTATION
+                //val remoteKey = getLastRemoteKey(state) ?: throw Exception("remoteKey == null")
+                //remoteKey.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
             }
         }
-
-        Log.d("XXX", "load() called with: loadType = $loadType, state = ${state.lastItemOrNull()?.title}")
 
         Log.d("XXX", "page: $page")
 
@@ -44,16 +48,11 @@ class MovieRemoteMediator(
 
             val prevPage = if (page == MOVIE_STARTING_PAGE_INDEX) null else page - 1
             val nextPage = if (endOfPaginationReached) null else page + 1
-            val keys = movies.map {
-                MovieRemoteKeyDbData(id = it.id, prevPage = prevPage, nextPage = nextPage)
-            }
+
+            val key = MovieRemoteKeyDbData(prevPage = prevPage, nextPage = nextPage)
 
             local.saveMovies(movies)
-            local.saveRemoteKeys(keys)
-
-            if (loadType == LoadType.REFRESH) {
-                delay(1000)
-            }
+            local.saveRemoteKey(key)
 
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         }, { errorResult ->
@@ -61,6 +60,7 @@ class MovieRemoteMediator(
         })
     }
 
+    //KEEPING IT FOR REFERENCE
     private suspend fun getLastRemoteKey(state: PagingState<Int, MovieDbData>): MovieRemoteKeyDbData? =
         state.lastItemOrNull()?.let { movie ->
             local.getRemoteKeyByMovieId(movie.id)
