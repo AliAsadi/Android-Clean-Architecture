@@ -1,6 +1,5 @@
 package com.aliasadi.data.repository.movie
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -21,12 +20,10 @@ class MovieRemoteMediator(
 ) : RemoteMediator<Int, MovieDbData>() {
 
     override suspend fun initialize(): InitializeAction {
-        return InitializeAction.SKIP_INITIAL_REFRESH
+        return InitializeAction.LAUNCH_INITIAL_REFRESH
     }
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, MovieDbData>): MediatorResult {
-        Log.d("XXX", "load() called with: loadType = $loadType, state = $state")
-
         val page = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKey = getClosestRemoteKeys(state)
@@ -58,11 +55,6 @@ class MovieRemoteMediator(
             val nextPage = if (endOfPaginationReached) null else page + 1
             val keys = movies.map {
                 MovieRemoteKeyDbData(id = it.id, prevPage = prevPage, nextPage = nextPage)
-            }
-
-            if (loadType == LoadType.REFRESH) {
-//                    remoteKeyDao.clearRemoteKeys()
-//                    movieDao.deleteMovies()
             }
 
             local.saveMovies(movies)

@@ -27,13 +27,13 @@ interface MovieDao {
      * Get all favorite movies from the movies table.
      */
     @Query("SELECT * FROM movies WHERE id IN (:movieIds)")
-    fun getFavoriteMovies(movieIds: List<Int>): List<MovieDbData>
+    suspend fun getFavoriteMovies(movieIds: List<Int>): List<MovieDbData>
 
     /**
      * Get movie by id.
      * **/
     @Query("SELECT * FROM movies WHERE id = :movieId")
-    fun getMovie(movieId: Int): MovieDbData?
+    suspend fun getMovie(movieId: Int): MovieDbData?
 
     /**
      * Insert all movies.
