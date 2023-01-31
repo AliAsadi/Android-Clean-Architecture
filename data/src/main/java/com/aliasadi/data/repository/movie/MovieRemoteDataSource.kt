@@ -14,27 +14,21 @@ class MovieRemoteDataSource(
 
     override suspend fun getMovies(): Result<List<MovieEntity>> = try {
         val result = movieApi.getMovies()
-        Result.Success(result.map {
-            MovieDataMapper.toDomain(it)
-        })
+        Result.Success(result.map { MovieDataMapper.toDomain(it) })
     } catch (e: Exception) {
         Result.Error(e)
     }
 
     override suspend fun getMovies(page: Int, limit: Int): Result<List<MovieEntity>> = try {
         val result = movieApi.getMovies(page, limit)
-        Result.Success(result.map {
-            MovieDataMapper.toDomain(it)
-        })
+        Result.Success(result.map { MovieDataMapper.toDomain(it) })
     } catch (e: Exception) {
         Result.Error(e)
     }
 
     override suspend fun search(query: String): Result<List<MovieEntity>> = try {
         val result = movieApi.search(query)
-        Result.Success(result.map {
-            MovieDataMapper.toDomain(it)
-        })
+        Result.Success(result.map { MovieDataMapper.toDomain(it) })
     } catch (e: Exception) {
         Result.Error(e)
     }
