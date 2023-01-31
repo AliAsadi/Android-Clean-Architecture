@@ -17,7 +17,7 @@ class GetMoviesWithSeparators @Inject constructor(
     private val insertSeparatorIntoPagingData: InsertSeparatorIntoPagingData
 ) {
 
-    fun movies(): Flow<PagingData<MovieListItem>> = movieRepository.movies().map {
+    fun movies(pageSize: Int): Flow<PagingData<MovieListItem>> = movieRepository.movies(pageSize).map {
         val pagingData: PagingData<MovieListItem.Movie> = it.map { movie -> MovieEntityMapper.toPresentation(movie) }
         insertSeparatorIntoPagingData.insert(pagingData)
     }

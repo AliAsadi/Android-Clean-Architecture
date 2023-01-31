@@ -21,10 +21,10 @@ class MovieRepositoryImpl constructor(
 ) : MovieRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override fun movies(): Flow<PagingData<MovieEntity>> = Pager(
+    override fun movies(pageSize: Int): Flow<PagingData<MovieEntity>> = Pager(
         config = PagingConfig(
-            initialLoadSize = 30,
-            pageSize = 30,
+            pageSize = pageSize,
+            initialLoadSize = pageSize,
             enablePlaceholders = false
         ),
         remoteMediator = remoteMediator,

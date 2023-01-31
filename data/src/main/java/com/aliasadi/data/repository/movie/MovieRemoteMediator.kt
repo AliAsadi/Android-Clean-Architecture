@@ -1,5 +1,6 @@
 package com.aliasadi.data.repository.movie
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -7,6 +8,7 @@ import androidx.paging.RemoteMediator
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.entities.MovieRemoteKeyDbData
 import com.aliasadi.domain.util.getResult
+import kotlinx.coroutines.delay
 
 private const val MOVIE_STARTING_PAGE_INDEX = 1
 
@@ -21,22 +23,19 @@ class MovieRemoteMediator(
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, MovieDbData>): MediatorResult {
         val page = when (loadType) {
-            LoadType.REFRESH -> {
-                val remoteKey = getClosestRemoteKeys(state)
-                remoteKey?.nextPage?.minus(1) ?: MOVIE_STARTING_PAGE_INDEX
-            }
-            LoadType.PREPEND -> {
-                return MediatorResult.Success(endOfPaginationReached = true)
-            }
+            LoadType.REFRESH -> MOVIE_STARTING_PAGE_INDEX
+
+            LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
+
             LoadType.APPEND -> {
-                val remoteKey = getLastRemoteKey(state)
-
-                if (remoteKey == null) {
-                    MOVIE_STARTING_PAGE_INDEX
-                } else remoteKey.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
-
+                val remoteKey = getLastRemoteKey(state) ?: throw Exception("remoteKey == null")
+                remoteKey.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
             }
         }
+
+        Log.d("XXX", "load() called with: loadType = $loadType, state = ${state.lastItemOrNull()?.title}")
+
+        Log.d("XXX", "page: $page")
 
         remote.getMovies(page, state.config.pageSize).getResult({ successResult ->
             val movies = successResult.data
@@ -52,6 +51,10 @@ class MovieRemoteMediator(
             local.saveMovies(movies)
             local.saveRemoteKeys(keys)
 
+            if (loadType == LoadType.REFRESH) {
+                delay(1000)
+            }
+
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         }, { errorResult ->
             return MediatorResult.Error(errorResult.error)
@@ -61,12 +64,5 @@ class MovieRemoteMediator(
     private suspend fun getLastRemoteKey(state: PagingState<Int, MovieDbData>): MovieRemoteKeyDbData? =
         state.lastItemOrNull()?.let { movie ->
             local.getRemoteKeyByMovieId(movie.id)
-        }
-
-    private suspend fun getClosestRemoteKeys(state: PagingState<Int, MovieDbData>): MovieRemoteKeyDbData? =
-        state.anchorPosition?.let {
-            state.closestItemToPosition(it)?.let { movie ->
-                local.getRemoteKeyByMovieId(movie.id)
-            }
         }
 }
