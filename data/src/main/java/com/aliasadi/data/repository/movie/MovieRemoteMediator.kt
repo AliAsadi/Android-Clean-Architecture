@@ -37,11 +37,7 @@ class MovieRemoteMediator(
 
                 if (remoteKey == null) {
                     MOVIE_STARTING_PAGE_INDEX
-                } else if (remoteKey.nextPage == null) {
-                    return MediatorResult.Success(endOfPaginationReached = true)
-                } else {
-                    remoteKey.nextPage
-                }
+                } else remoteKey.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
 
             }
         }
