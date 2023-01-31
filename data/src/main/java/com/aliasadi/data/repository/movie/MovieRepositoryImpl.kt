@@ -32,24 +32,17 @@ class MovieRepositoryImpl constructor(
         pagingData.map { MovieDataMapper.toDomain(it) }
     }
 
-
     override suspend fun search(query: String): Result<List<MovieEntity>> = remote.search(query)
 
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> = local.getMovie(movieId)
 
     override suspend fun getFavoriteMovies(): Result<List<MovieEntity>> = getFavoriteMoviesFromLocal()
 
-    override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> {
-        return localFavorite.checkFavoriteStatus(movieId)
-    }
+    override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = localFavorite.checkFavoriteStatus(movieId)
 
-    override suspend fun addMovieToFavorite(movieId: Int) {
-        localFavorite.addMovieToFavorite(movieId)
-    }
+    override suspend fun addMovieToFavorite(movieId: Int) = localFavorite.addMovieToFavorite(movieId)
 
-    override suspend fun removeMovieFromFavorite(movieId: Int) {
-        localFavorite.removeMovieFromFavorite(movieId)
-    }
+    override suspend fun removeMovieFromFavorite(movieId: Int) = localFavorite.removeMovieFromFavorite(movieId)
 
     private suspend fun getFavoriteMoviesFromLocal(): Result<List<MovieEntity>> {
         return localFavorite.getFavoriteMovieIds().getResult({
