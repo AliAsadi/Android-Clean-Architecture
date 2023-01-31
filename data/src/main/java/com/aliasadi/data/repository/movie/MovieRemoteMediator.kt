@@ -29,13 +29,7 @@ class MovieRemoteMediator(
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
 
             LoadType.APPEND -> {
-                //There was a problem, remote keys used to be null, and I temporarily fixed it by relying more
-                //on remoteKeys stored in the database than PagingState.
                 local.getLastRemoteKey()?.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
-
-                //OLD IMPLEMENTATION
-                //val remoteKey = getLastRemoteKey(state) ?: throw Exception("remoteKey == null")
-                //remoteKey.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
             }
         }
 
@@ -59,10 +53,4 @@ class MovieRemoteMediator(
             return MediatorResult.Error(errorResult.error)
         })
     }
-
-    //KEEPING IT FOR REFERENCE
-    private suspend fun getLastRemoteKey(state: PagingState<Int, MovieDbData>): MovieRemoteKeyDbData? =
-        state.lastItemOrNull()?.let { movie ->
-            local.getRemoteKeyByMovieId(movie.id)
-        }
 }
