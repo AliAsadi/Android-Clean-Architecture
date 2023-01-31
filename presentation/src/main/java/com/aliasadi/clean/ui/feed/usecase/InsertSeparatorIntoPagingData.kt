@@ -1,6 +1,5 @@
 package com.aliasadi.clean.ui.feed.usecase
 
-import android.util.Log
 import androidx.paging.PagingData
 import androidx.paging.insertSeparators
 import com.aliasadi.clean.entities.MovieListItem
@@ -47,7 +46,6 @@ class InsertSeparatorIntoPagingData  @Inject constructor(){
     private fun insertSeparatorItem(after: MovieListItem.Movie?): MovieListItem.Separator? = createSeparator(after)
 
     private fun createSeparator(item: MovieListItem.Movie?) = item?.let {
-        Log.d("XXX", "createSeparator() called")
         MovieListItem.Separator(it.category)
     }
 

@@ -8,7 +8,6 @@ import com.aliasadi.data.repository.movie.*
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesLocalDataSource
 import com.aliasadi.data.util.DiskExecutor
-import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.usecase.*
 import dagger.Module
@@ -72,8 +71,8 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideMovieRemoveDataSource(movieApi: MovieApi, dispatchers: DispatchersProvider): MovieDataSource.Remote {
-        return MovieRemoteDataSource(movieApi, dispatchers)
+    fun provideMovieRemoveDataSource(movieApi: MovieApi): MovieDataSource.Remote {
+        return MovieRemoteDataSource(movieApi)
     }
 
     @Provides

@@ -24,7 +24,6 @@ class MovieRepositoryImpl constructor(
     override fun movies(pageSize: Int): Flow<PagingData<MovieEntity>> = Pager(
         config = PagingConfig(
             pageSize = pageSize,
-            initialLoadSize = pageSize,
             enablePlaceholders = false
         ),
         remoteMediator = remoteMediator,
