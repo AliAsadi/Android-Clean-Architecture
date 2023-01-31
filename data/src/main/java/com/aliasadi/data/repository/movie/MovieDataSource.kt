@@ -27,11 +27,4 @@ interface MovieDataSource {
         suspend fun getFavoriteMovies(movieIds: List<Int>): Result<List<MovieEntity>>
         fun movies(): PagingSource<Int, MovieDbData>
     }
-
-    interface Cache {
-        suspend fun getMovies(): Result<List<MovieEntity>>
-        suspend fun getMovie(movieId: Int): Result<MovieEntity>
-        suspend fun saveMovies(movieEntities: List<MovieEntity>)
-        suspend fun getFavoriteMovies(movieIds: List<Int>): Result<List<MovieEntity>>
-    }
 }
