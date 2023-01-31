@@ -19,10 +19,6 @@ class MovieRemoteMediator(
     private val remote: MovieDataSource.Remote
 ) : RemoteMediator<Int, MovieDbData>() {
 
-    override suspend fun initialize(): InitializeAction {
-        return InitializeAction.SKIP_INITIAL_REFRESH
-    }
-
     override suspend fun load(loadType: LoadType, state: PagingState<Int, MovieDbData>): MediatorResult {
         val page = when (loadType) {
             LoadType.REFRESH -> {
