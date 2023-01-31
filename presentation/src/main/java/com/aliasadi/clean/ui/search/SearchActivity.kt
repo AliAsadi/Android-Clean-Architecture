@@ -7,14 +7,16 @@ import android.view.LayoutInflater
 import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.paging.CombinedLoadStates
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.ActivitySearchBinding
 import com.aliasadi.clean.ui.base.BaseActivity
-import com.aliasadi.clean.ui.feed.MovieAdapter
 import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
+import com.aliasadi.clean.ui.feed.MoviePagingAdapter
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
@@ -31,13 +33,18 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
 
     private val viewModel: SearchViewModel by viewModels()
 
-    private val movieAdapter by lazy { MovieAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
+    private val movieAdapter by lazy { MoviePagingAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
+
+    private val loadStateListener: (CombinedLoadStates) -> Unit = {
+        viewModel.onLoadStateUpdate(it, movieAdapter.itemCount)
+    }
 
     override fun inflateViewBinding(inflater: LayoutInflater): ActivitySearchBinding = ActivitySearchBinding.inflate(inflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViews()
+        setupListeners()
         setupObservers()
     }
 
@@ -46,17 +53,22 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         setupRecyclerView()
     }
 
+    private fun setupListeners() {
+        movieAdapter.addLoadStateListener(loadStateListener)
+    }
+
     private fun setupObservers() = with(viewModel) {
         launchAndRepeatWithViewLifecycle {
             launch { uiState.collect { handleSearchUiState(it) } }
             launch { navigationState.collect { handleNavigationState(it) } }
+            launch { movies.collect { movieAdapter.submitData(it) } }
         }
     }
 
     private fun handleSearchUiState(state: SearchViewModel.SearchUiState) {
+        binding.recyclerView.isInvisible = state.showLoading || state.showNoMoviesFound
         binding.progressBar.isVisible = state.showLoading
         binding.noMoviesFoundView.isVisible = state.showNoMoviesFound
-        movieAdapter.submitList(state.movies)
         if (state.errorMessage != null) Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_SHORT).show()
     }
 
@@ -82,7 +94,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         RecyclerView.VERTICAL,
         false
     ).apply {
-        spanSizeLookup = MovieAdapterSpanSize.Lookup(config, movieAdapter)
+        spanSizeLookup = MovieAdapterSpanSize.LookupPaging(config, movieAdapter)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -110,6 +122,11 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressedDispatcher.onBackPressed()
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        movieAdapter.removeLoadStateListener(loadStateListener)
     }
 
     private fun getImageFixedSize(): Int = applicationContext.resources.displayMetrics.widthPixels / 3

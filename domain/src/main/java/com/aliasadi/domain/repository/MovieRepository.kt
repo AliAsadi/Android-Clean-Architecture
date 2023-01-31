@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface MovieRepository {
     fun movies(pageSize: Int): Flow<PagingData<MovieEntity>>
-    suspend fun search(query: String): Result<List<MovieEntity>>
+    fun search(query: String, pageSize: Int): Flow<PagingData<MovieEntity>>
     suspend fun getMovie(movieId: Int): Result<MovieEntity>
     suspend fun getFavoriteMovies(): Result<List<MovieEntity>>
     suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>

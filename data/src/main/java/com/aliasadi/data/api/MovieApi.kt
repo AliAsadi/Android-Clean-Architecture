@@ -19,4 +19,11 @@ interface MovieApi {
 
     @GET("/movies")
     suspend fun search(@Query("q") query: String): List<MovieData>
+
+    @GET("/movies")
+    suspend fun search(
+        @Query("q") query: String,
+        @Query("_page") page: Int,
+        @Query("_limit") limit: Int,
+    ): List<MovieData>
 }

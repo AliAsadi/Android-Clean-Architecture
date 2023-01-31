@@ -32,4 +32,11 @@ class MovieRemoteDataSource(
     } catch (e: Exception) {
         Result.Error(e)
     }
+
+    override suspend fun search(query: String, page: Int, limit: Int): Result<List<MovieEntity>> = try {
+        val result = movieApi.search(query, page, limit)
+        Result.Success(result.map { MovieDataMapper.toDomain(it) })
+    } catch (e: Exception) {
+        Result.Error(e)
+    }
 }

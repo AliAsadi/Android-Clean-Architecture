@@ -32,7 +32,13 @@ class MovieRepositoryImpl constructor(
         pagingData.map { MovieDataMapper.toDomain(it) }
     }
 
-    override suspend fun search(query: String): Result<List<MovieEntity>> = remote.search(query)
+    override fun search(query: String, pageSize: Int): Flow<PagingData<MovieEntity>> = Pager(
+        config = PagingConfig(
+            pageSize = pageSize,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { SearchMoviePagingSource(query, remote) }
+    ).flow
 
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> = local.getMovie(movieId)
 
