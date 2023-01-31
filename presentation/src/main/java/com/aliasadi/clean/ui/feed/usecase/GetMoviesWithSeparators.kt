@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * @author by Ali Asadi on 30/01/2023
  */
-class GetMoviesPaging @Inject constructor(
+class GetMoviesWithSeparators @Inject constructor(
     private val movieRepository: MovieRepository,
     private val insertSeparatorIntoPagingData: InsertSeparatorIntoPagingData
 ) {

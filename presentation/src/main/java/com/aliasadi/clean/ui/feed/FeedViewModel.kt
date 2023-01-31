@@ -7,7 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.clean.ui.feed.usecase.GetMoviesPaging
+import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
 import com.aliasadi.data.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -18,7 +18,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class FeedViewModel @Inject constructor(
-    getMoviesPaging: GetMoviesPaging,
+    getMoviesWithSeparators: GetMoviesWithSeparators,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -31,7 +31,7 @@ class FeedViewModel @Inject constructor(
         data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
-    val movies: Flow<PagingData<MovieListItem>> = getMoviesPaging.movies().cachedIn(viewModelScope)
+    val movies: Flow<PagingData<MovieListItem>> = getMoviesWithSeparators.movies().cachedIn(viewModelScope)
 
     private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(FeedUiState())
     val uiState = _uiState.asStateFlow()
