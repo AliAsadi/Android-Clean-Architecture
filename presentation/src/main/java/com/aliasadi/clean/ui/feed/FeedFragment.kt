@@ -53,7 +53,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private fun setupRecyclerView(config: MovieAdapterSpanSize.Config = MovieAdapterSpanSize.Config(3)) = with(binding.recyclerView) {
-        adapter = movieAdapter
+        adapter = movieAdapter.withLoadStateFooter(PagingLoadStateAdapter { movieAdapter.retry()})
         layoutManager = createMovieGridLayoutManager(config)
         setHasFixedSize(true)
         setItemViewCacheSize(0)

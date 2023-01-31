@@ -15,6 +15,7 @@ class MovieAdapterSpanSize {
     data class Config(val gridSpanSize: Int) {
         val movieColumnSpanSize: Int = 1
         val separatorColumnSpanSize: Int = gridSpanSize
+        val footerColumnSpanSize: Int = gridSpanSize
     }
 
     /**
@@ -45,9 +46,16 @@ class MovieAdapterSpanSize {
             isSpanIndexCacheEnabled = true
         }
 
-        override fun getSpanSize(position: Int): Int = when (adapter.getItemViewType(position)) {
-            R.layout.item_movie -> config.movieColumnSpanSize
-            else -> config.separatorColumnSpanSize
+        override fun getSpanSize(position: Int): Int = if (isFooter(adapter.itemCount, position)) {
+            config.footerColumnSpanSize
+        } else {
+            when (adapter.getItemViewType(position)) {
+                R.layout.item_movie -> config.movieColumnSpanSize
+                else -> config.separatorColumnSpanSize
+            }
         }
+
+        private fun isFooter(itemCount: Int, position: Int) = itemCount == position
+
     }
 }
