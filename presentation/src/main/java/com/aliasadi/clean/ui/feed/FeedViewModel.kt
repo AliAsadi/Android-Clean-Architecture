@@ -10,9 +10,6 @@ import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesPaging
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
-import com.aliasadi.domain.usecase.GetMovies
-import com.aliasadi.domain.util.onError
-import com.aliasadi.domain.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -22,7 +19,6 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class FeedViewModel @Inject constructor(
-    private val getMovies: GetMovies,
     getMoviesPaging: GetMoviesPaging,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
@@ -59,18 +55,18 @@ class FeedViewModel @Inject constructor(
     }
 
     private suspend fun loadMovies() = launchOnMainImmediate {
-        getMovies.execute()
-            .onSuccess { movies ->
-                _uiState.update {
-                    it.copy(
-                        movies = insertSeparators(movies),
-                        showLoading = false,
-                        errorMessage = null
-                    )
-                }
-            }.onError { error ->
-                _uiState.update { it.copy(showLoading = false, errorMessage = error.message) }
-            }
+//        getMovies.execute()
+//            .onSuccess { movies ->
+//                _uiState.update {
+//                    it.copy(
+//                        movies = insertSeparators(movies),
+//                        showLoading = false,
+//                        errorMessage = null
+//                    )
+//                }
+//            }.onError { error ->
+//                _uiState.update { it.copy(showLoading = false, errorMessage = error.message) }
+//            }
     }
 
     private fun insertSeparators(movies: List<MovieEntity>): List<MovieListItem> {

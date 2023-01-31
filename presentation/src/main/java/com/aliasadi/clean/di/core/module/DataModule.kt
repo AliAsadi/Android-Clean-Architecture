@@ -29,11 +29,10 @@ class DataModule {
     fun provideMovieRepository(
         movieRemote: MovieDataSource.Remote,
         movieLocal: MovieDataSource.Local,
-        movieCache: MovieDataSource.Cache,
         movieRemoteMediator: MovieRemoteMediator,
         favoriteLocal: FavoriteMoviesDataSource.Local,
     ): MovieRepository {
-        return MovieRepositoryImpl(movieRemote, movieLocal, movieCache, movieRemoteMediator, favoriteLocal)
+        return MovieRepositoryImpl(movieRemote, movieLocal, movieRemoteMediator, favoriteLocal)
     }
 
     @Provides
@@ -75,11 +74,6 @@ class DataModule {
     @Singleton
     fun provideMovieRemoveDataSource(movieApi: MovieApi, dispatchers: DispatchersProvider): MovieDataSource.Remote {
         return MovieRemoteDataSource(movieApi, dispatchers)
-    }
-
-    @Provides
-    fun provideGetMovieUseCase(movieRepository: MovieRepository): GetMovies {
-        return GetMovies(movieRepository)
     }
 
     @Provides
