@@ -11,6 +11,7 @@ class MovieAdapterSpanSize {
     /**
      * @property gridSpanSize - The total number of columns in the grid.
      * @property separatorColumnSpanSize - Returns the number of columns that the item occupies.
+     * @property footerColumnSpanSize - Returns the number of columns that the item occupies.
      **/
     data class Config(val gridSpanSize: Int) {
         val movieColumnSpanSize: Int = 1
