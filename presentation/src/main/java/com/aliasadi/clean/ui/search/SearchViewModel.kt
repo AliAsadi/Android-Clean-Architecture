@@ -65,13 +65,12 @@ class SearchViewModel @Inject constructor(
 
     fun onLoadStateUpdate(loadState: CombinedLoadStates, itemCount: Int) {
         val showLoading = loadState.refresh is LoadState.Loading
+        val showNoData = loadState.append.endOfPaginationReached && itemCount < 1
 
         val error = when (val refresh = loadState.refresh) {
             is LoadState.Error -> refresh.error.message
             else -> null
         }
-
-        val showNoData = loadState.append.endOfPaginationReached && itemCount < 1
 
         _uiState.value = SearchUiState(
             showLoading = showLoading,
