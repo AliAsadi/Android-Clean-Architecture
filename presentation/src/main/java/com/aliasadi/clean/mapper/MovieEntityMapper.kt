@@ -15,3 +15,9 @@ object MovieEntityMapper {
     )
 
 }
+
+fun MovieEntity.toPresentation() = MovieListItem.Movie(
+    id = id,
+    imageUrl = image,
+    category = category
+)

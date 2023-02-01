@@ -6,6 +6,7 @@ import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.util.DiskExecutor
 import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.asCoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 /**
@@ -25,14 +26,7 @@ class FavoriteMoviesLocalDataSource(
         }
     }
 
-    override suspend fun getFavorMovies(): Result<List<FavoriteMovieDbData>> = withContext(executor.asCoroutineDispatcher()) {
-        val movies = favoriteMovieDao.getAll()
-        return@withContext if (movies.isNotEmpty()) {
-            Result.Success(movies)
-        } else {
-            Result.Error(DataNotAvailableException())
-        }
-    }
+    override fun favoriteMovies(): Flow<List<FavoriteMovieDbData>> = favoriteMovieDao.favoriteMovies()
 
     override suspend fun addMovieToFavorite(movie: FavoriteMovieDbData) = withContext(executor.asCoroutineDispatcher()) {
         favoriteMovieDao.add(movie)

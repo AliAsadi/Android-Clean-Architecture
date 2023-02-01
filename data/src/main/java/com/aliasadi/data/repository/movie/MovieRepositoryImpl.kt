@@ -7,7 +7,6 @@ import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
-import com.aliasadi.domain.util.getResult
 import com.aliasadi.domain.util.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -34,6 +33,10 @@ class MovieRepositoryImpl constructor(
         pagingData.map { it.toDomain() }
     }
 
+    override fun favoriteMovies(): Flow<List<MovieEntity>> = localFavorite.favoriteMovies().map { movieDbData ->
+        movieDbData.map { it.toDomain() }
+    }
+
     override fun search(query: String, pageSize: Int): Flow<PagingData<MovieEntity>> = Pager(
         config = PagingConfig(
             pageSize = pageSize,
@@ -44,8 +47,6 @@ class MovieRepositoryImpl constructor(
 
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> = local.getMovie(movieId)
 
-    override suspend fun getFavoriteMovies(): Result<List<MovieEntity>> = getFavoriteMoviesFromLocal()
-
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = localFavorite.checkFavoriteStatus(movieId)
 
     override suspend fun addMovieToFavorite(movieId: Int) {
@@ -55,12 +56,4 @@ class MovieRepositoryImpl constructor(
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Int) = localFavorite.removeMovieFromFavorite(movieId)
-
-    private suspend fun getFavoriteMoviesFromLocal(): Result<List<MovieEntity>> {
-        return localFavorite.getFavorMovies().getResult({ success ->
-            Result.Success(success.data.map { it.toDomain() })
-        }, {
-            Result.Error(it.error)
-        })
-    }
 }

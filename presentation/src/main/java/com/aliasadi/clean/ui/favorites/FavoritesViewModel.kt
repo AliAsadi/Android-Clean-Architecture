@@ -1,16 +1,11 @@
 package com.aliasadi.clean.ui.favorites
 
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.viewModelScope
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.mapper.MovieEntityMapper
+import com.aliasadi.clean.mapper.toPresentation
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.util.DispatchersProvider
-import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.GetFavoriteMovies
-import com.aliasadi.domain.util.onError
-import com.aliasadi.domain.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -20,9 +15,9 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    private val getFavoriteMovies: GetFavoriteMovies,
+    getFavoriteMovies: GetFavoriteMovies,
     dispatchers: DispatchersProvider
-) : BaseViewModel(dispatchers), DefaultLifecycleObserver {
+) : BaseViewModel(dispatchers) {
 
     data class FavoriteUiState(
         val isLoading: Boolean = true,
@@ -34,49 +29,21 @@ class FavoritesViewModel @Inject constructor(
         data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
-    private val _uiState: MutableStateFlow<FavoriteUiState> = MutableStateFlow(FavoriteUiState())
-    val uiState = _uiState.asStateFlow()
+    val uiState: StateFlow<FavoriteUiState> = getFavoriteMovies.favoriteMovies()
+        .map { movieEntities ->
+            if (movieEntities.isEmpty()) {
+                FavoriteUiState(isLoading = false, noDataAvailable = true, movies = emptyList())
+            } else {
+                FavoriteUiState(isLoading = false, noDataAvailable = false, movies = movieEntities.map { it.toPresentation() })
+            }
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Lazily,
+            initialValue = FavoriteUiState()
+        )
 
     private val _navigationState: MutableSharedFlow<NavigationState> = MutableSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
-
-    override fun onResume(owner: LifecycleOwner) {
-        onResumeInternal()
-    }
-
-    private fun onResumeInternal() = launchOnMainImmediate {
-        loadMovies()
-    }
-
-    private suspend fun loadMovies() {
-        getFavoriteMovies()
-            .onSuccess {
-                showData(it)
-            }.onError {
-                when (it) {
-                    is DataNotAvailableException -> showNoData()
-                    else -> _uiState.update { uiState -> uiState.copy(isLoading = false) }
-                }
-            }
-    }
-
-    private fun showData(list: List<MovieEntity>) {
-        _uiState.value = FavoriteUiState(
-            isLoading = false,
-            noDataAvailable = false,
-            movies = list.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) }
-        )
-    }
-
-    private fun showNoData() {
-        _uiState.value = FavoriteUiState(
-            isLoading = false,
-            noDataAvailable = true,
-            movies = emptyList()
-        )
-    }
-
-    private suspend fun getFavoriteMovies() = getFavoriteMovies.getFavoriteMovies()
 
     fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
         _navigationState.emit(NavigationState.MovieDetails(movieId))
