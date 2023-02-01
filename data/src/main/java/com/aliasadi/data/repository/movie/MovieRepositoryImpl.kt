@@ -49,7 +49,11 @@ class MovieRepositoryImpl constructor(
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> = local.getMovie(movieId).getResult({
         it
     }, {
-        remote.getMovie(movieId)
+        localFavorite.getFavoriteMovie(movieId).getResult({
+            it
+        }, {
+            remote.getMovie(movieId)
+        })
     })
 
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = localFavorite.checkFavoriteStatus(movieId)

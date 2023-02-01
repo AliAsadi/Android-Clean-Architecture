@@ -2,8 +2,10 @@ package com.aliasadi.data.repository.movie.favorite
 
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.entities.FavoriteMovieDbData
+import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.util.DiskExecutor
+import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -38,6 +40,15 @@ class FavoriteMoviesLocalDataSource(
 
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = withContext(executor.asCoroutineDispatcher()) {
         return@withContext Result.Success(favoriteMovieDao.get(movieId) != null)
+    }
+
+    override suspend fun getFavoriteMovie(movieId: Int): Result<MovieEntity> = withContext(executor.asCoroutineDispatcher()) {
+        val movie = favoriteMovieDao.get(movieId)
+        return@withContext if (movie != null) {
+            Result.Success(movie.toDomain())
+        } else {
+            Result.Error(DataNotAvailableException())
+        }
     }
 
 }
