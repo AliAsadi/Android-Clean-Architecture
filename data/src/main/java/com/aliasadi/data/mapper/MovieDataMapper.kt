@@ -1,35 +1,25 @@
 package com.aliasadi.data.mapper
 
-import com.aliasadi.data.entities.MovieData
+import com.aliasadi.data.entities.FavoriteMovieDbData
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.domain.entities.MovieEntity
 
 /**
  * Created by Ali Asadi on 13/05/2020
  **/
-object MovieDataMapper {
 
-    fun toDomain(movieData: MovieData): MovieEntity = MovieEntity(
-        id = movieData.id,
-        image = movieData.image,
-        description = movieData.description,
-        title = movieData.title,
-        category = movieData.category
-    )
+fun MovieEntity.toDbData() = MovieDbData(
+    id = id,
+    image = image,
+    description = description,
+    title = title,
+    category = category
+)
 
-    fun toDomain(movieDbData: MovieDbData): MovieEntity = MovieEntity(
-        id = movieDbData.id,
-        image = movieDbData.image,
-        description = movieDbData.description,
-        title = movieDbData.title,
-        category = movieDbData.category
-    )
-
-    fun toDbData(movieEntity: MovieEntity): MovieDbData = MovieDbData(
-        id = movieEntity.id,
-        image = movieEntity.image,
-        description = movieEntity.description,
-        title = movieEntity.title,
-        category = movieEntity.category
-    )
-}
+fun MovieEntity.toFavoriteDbData() = FavoriteMovieDbData(
+    id = id,
+    image = image,
+    description = description,
+    title = title,
+    category = category
+)

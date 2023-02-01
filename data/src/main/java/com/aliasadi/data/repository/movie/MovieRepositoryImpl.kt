@@ -1,12 +1,14 @@
 package com.aliasadi.data.repository.movie
 
 import androidx.paging.*
-import com.aliasadi.data.mapper.MovieDataMapper
+import com.aliasadi.data.entities.toDomain
+import com.aliasadi.data.mapper.toFavoriteDbData
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.getResult
+import com.aliasadi.domain.util.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -29,7 +31,7 @@ class MovieRepositoryImpl constructor(
         remoteMediator = remoteMediator,
         pagingSourceFactory = { local.movies() }
     ).flow.map { pagingData ->
-        pagingData.map { MovieDataMapper.toDomain(it) }
+        pagingData.map { it.toDomain() }
     }
 
     override fun search(query: String, pageSize: Int): Flow<PagingData<MovieEntity>> = Pager(
@@ -46,13 +48,17 @@ class MovieRepositoryImpl constructor(
 
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = localFavorite.checkFavoriteStatus(movieId)
 
-    override suspend fun addMovieToFavorite(movieId: Int) = localFavorite.addMovieToFavorite(movieId)
+    override suspend fun addMovieToFavorite(movieId: Int) {
+        getMovie(movieId).onSuccess {
+            localFavorite.addMovieToFavorite(it.toFavoriteDbData())
+        }
+    }
 
     override suspend fun removeMovieFromFavorite(movieId: Int) = localFavorite.removeMovieFromFavorite(movieId)
 
     private suspend fun getFavoriteMoviesFromLocal(): Result<List<MovieEntity>> {
-        return localFavorite.getFavoriteMovieIds().getResult({
-            local.getFavoriteMovies(it.data.map { it.movieId })
+        return localFavorite.getFavorMovies().getResult({ success ->
+            Result.Success(success.data.map { it.toDomain() })
         }, {
             Result.Error(it.error)
         })

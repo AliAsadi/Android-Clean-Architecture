@@ -10,7 +10,8 @@ interface FavoriteMoviesDataSource {
 
     interface Local {
         suspend fun getFavoriteMovieIds(): Result<List<FavoriteMovieDbData>>
-        suspend fun addMovieToFavorite(movieId: Int)
+        suspend fun getFavorMovies(): Result<List<FavoriteMovieDbData>>
+        suspend fun addMovieToFavorite(movie: FavoriteMovieDbData)
         suspend fun removeMovieFromFavorite(movieId: Int)
         suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>
     }

@@ -25,12 +25,21 @@ class FavoriteMoviesLocalDataSource(
         }
     }
 
-    override suspend fun addMovieToFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
-        favoriteMovieDao.add(FavoriteMovieDbData(movieId))
+    override suspend fun getFavorMovies(): Result<List<FavoriteMovieDbData>> = withContext(executor.asCoroutineDispatcher()) {
+        val movies = favoriteMovieDao.getAll()
+        return@withContext if (movies.isNotEmpty()) {
+            Result.Success(movies)
+        } else {
+            Result.Error(DataNotAvailableException())
+        }
+    }
+
+    override suspend fun addMovieToFavorite(movie: FavoriteMovieDbData) = withContext(executor.asCoroutineDispatcher()) {
+        favoriteMovieDao.add(movie)
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
-        favoriteMovieDao.remove(FavoriteMovieDbData(movieId))
+        favoriteMovieDao.remove(movieId)
     }
 
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = withContext(executor.asCoroutineDispatcher()) {
