@@ -26,6 +26,13 @@ class MovieRemoteDataSource(
         Result.Error(e)
     }
 
+    override suspend fun getMovie(movieId: Int): Result<MovieEntity> = try {
+        val result = movieApi.getMovie(movieId)
+        Result.Success(result.toDomain())
+    } catch (e: Exception) {
+        Result.Error(e)
+    }
+
     override suspend fun search(query: String): Result<List<MovieEntity>> = try {
         val result = movieApi.search(query)
         Result.Success(result.map { it.toDomain() })

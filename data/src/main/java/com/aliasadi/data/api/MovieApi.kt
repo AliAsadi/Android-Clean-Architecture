@@ -2,6 +2,7 @@ package com.aliasadi.data.api
 
 import com.aliasadi.data.entities.MovieData
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -16,6 +17,9 @@ interface MovieApi {
         @Query("_page") page: Int,
         @Query("_limit") limit: Int,
     ): List<MovieData>
+
+    @GET("/movies/{id}")
+    suspend fun getMovie(@Path("id") movieId: Int): MovieData
 
     @GET("/movies")
     suspend fun search(@Query("q") query: String): List<MovieData>

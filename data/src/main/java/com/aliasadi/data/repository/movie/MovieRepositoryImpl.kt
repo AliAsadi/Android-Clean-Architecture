@@ -7,6 +7,7 @@ import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
+import com.aliasadi.domain.util.getResult
 import com.aliasadi.domain.util.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -45,7 +46,11 @@ class MovieRepositoryImpl constructor(
         pagingSourceFactory = { SearchMoviePagingSource(query, remote) }
     ).flow
 
-    override suspend fun getMovie(movieId: Int): Result<MovieEntity> = local.getMovie(movieId)
+    override suspend fun getMovie(movieId: Int): Result<MovieEntity> = local.getMovie(movieId).getResult({
+        it
+    }, {
+        remote.getMovie(movieId)
+    })
 
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = localFavorite.checkFavoriteStatus(movieId)
 
