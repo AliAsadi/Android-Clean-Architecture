@@ -11,5 +11,5 @@ import kotlinx.coroutines.flow.Flow
 class SearchMovies(
     private val movieRepository: MovieRepository
 ) {
-    fun search(query: String, pageSize: Int): Flow<PagingData<MovieEntity>> = movieRepository.search(query, pageSize)
+    operator fun invoke(query: String, pageSize: Int): Flow<PagingData<MovieEntity>> = movieRepository.search(query, pageSize)
 }

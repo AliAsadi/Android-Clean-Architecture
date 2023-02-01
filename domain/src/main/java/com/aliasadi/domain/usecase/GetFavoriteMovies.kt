@@ -10,5 +10,5 @@ import kotlinx.coroutines.flow.Flow
 class GetFavoriteMovies(
     private val movieRepository: MovieRepository
 ) {
-    fun favoriteMovies(): Flow<List<MovieEntity>> = movieRepository.favoriteMovies()
+    operator fun invoke(): Flow<List<MovieEntity>> = movieRepository.favoriteMovies()
 }

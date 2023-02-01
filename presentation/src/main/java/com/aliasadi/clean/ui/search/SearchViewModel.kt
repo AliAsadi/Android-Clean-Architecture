@@ -42,7 +42,7 @@ class SearchViewModel @Inject constructor(
         .debounce(500)
         .filter { it.isNotEmpty() }
         .flatMapLatest { query ->
-            searchMovies.search(query, 30).map { pagingData ->
+            searchMovies(query, 30).map { pagingData ->
                 pagingData.map { MovieEntityMapper.toPresentation(it) as MovieListItem }
             }
         }.cachedIn(viewModelScope)

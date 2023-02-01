@@ -9,5 +9,5 @@ import com.aliasadi.domain.util.Result
 class CheckFavoriteStatus(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun check(movieId: Int): Result<Boolean> = movieRepository.checkFavoriteStatus(movieId)
+    suspend operator fun invoke(movieId: Int): Result<Boolean> = movieRepository.checkFavoriteStatus(movieId)
 }

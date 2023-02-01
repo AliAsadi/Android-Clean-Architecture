@@ -10,5 +10,5 @@ import com.aliasadi.domain.util.Result
 class GetMovieDetails(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun getMovie(movieId: Int): Result<MovieEntity> = movieRepository.getMovie(movieId)
+    suspend operator fun invoke(movieId: Int): Result<MovieEntity> = movieRepository.getMovie(movieId)
 }

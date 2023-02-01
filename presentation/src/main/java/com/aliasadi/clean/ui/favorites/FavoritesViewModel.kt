@@ -29,7 +29,7 @@ class FavoritesViewModel @Inject constructor(
         data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
-    val uiState: StateFlow<FavoriteUiState> = getFavoriteMovies.favoriteMovies()
+    val uiState: StateFlow<FavoriteUiState> = getFavoriteMovies()
         .map { movieEntities ->
             if (movieEntities.isEmpty()) {
                 FavoriteUiState(isLoading = false, noDataAvailable = true, movies = emptyList())
