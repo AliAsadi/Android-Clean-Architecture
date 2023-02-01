@@ -40,9 +40,7 @@ class SearchViewModel @Inject constructor(
             _uiState.value = if (query.isNotEmpty()) SearchUiState(showLoading = true) else SearchUiState()
         }
         .debounce(500)
-        .filter {
-            it.isNotEmpty()
-        }
+        .filter { it.isNotEmpty() }
         .flatMapLatest { query ->
             searchMovies.search(query, 30).map { pagingData ->
                 pagingData.map { MovieEntityMapper.toPresentation(it) as MovieListItem }
