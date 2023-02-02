@@ -47,6 +47,9 @@ dependencies {
     //Junit
     testImplementation 'junit:junit:4.13.2'
 
+    //WorkManager
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+
     //Instrumentation
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

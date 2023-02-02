@@ -66,11 +66,15 @@ class MovieRepositoryImpl constructor(
 
     override suspend fun removeMovieFromFavorite(movieId: Int) = localFavorite.removeMovieFromFavorite(movieId)
 
-    override suspend fun sync() {
-        localFavorite.getFavoriteMovieIds().onSuccess {
-            remote.getMovies(it).onSuccess { movieEntities ->
-                localFavorite.addMoviesToFavorite(movieEntities.map { it.toFavoriteDbData() })
-            }
-        }
-    }
+    override suspend fun sync(): Boolean = localFavorite.getFavoriteMovieIds().getResult({ movieIdsResult ->
+        remote.getMovies(movieIdsResult.data).getResult({
+            localFavorite.addMoviesToFavorite(it.data.map { it.toFavoriteDbData() })
+            true
+        }, {
+            false
+        })
+    }, {
+        false
+    })
+
 }
