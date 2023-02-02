@@ -5,10 +5,8 @@ import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.toPresentation
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.data.util.DispatchersProvider
-import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.usecase.GetFavoriteMovies
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -18,7 +16,6 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     getFavoriteMovies: GetFavoriteMovies,
-    movieRepository: MovieRepository,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -27,13 +24,6 @@ class FavoritesViewModel @Inject constructor(
         val noDataAvailable: Boolean = false,
         val movies: List<MovieListItem> = emptyList()
     )
-
-    init {
-        launchOnIO {
-            delay(5000)
-            movieRepository.sync()
-        }
-    }
 
     sealed class NavigationState {
         data class MovieDetails(val movieId: Int) : NavigationState()
