@@ -12,6 +12,10 @@ import com.aliasadi.data.entities.MovieDbData
  */
 @Dao
 interface MovieDao {
+
+    @Query("SELECT * FROM movies ORDER BY category,id")
+    fun movies(): PagingSource<Int, MovieDbData>
+
     /**
      * Get all movies from the movies table.
      *
@@ -19,15 +23,6 @@ interface MovieDao {
      */
     @Query("SELECT * FROM movies ORDER BY category,id")
     fun getMovies(): List<MovieDbData>
-
-    @Query("SELECT * FROM movies ORDER BY category,id")
-    fun movies(): PagingSource<Int, MovieDbData>
-
-    /**
-     * Get all favorite movies from the movies table.
-     */
-    @Query("SELECT * FROM movies WHERE id IN (:movieIds)")
-    suspend fun getFavoriteMovies(movieIds: List<Int>): List<MovieDbData>
 
     /**
      * Get movie by id.
