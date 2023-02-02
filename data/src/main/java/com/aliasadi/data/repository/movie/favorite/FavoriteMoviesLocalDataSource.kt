@@ -2,12 +2,14 @@ package com.aliasadi.data.repository.movie.favorite
 
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.entities.FavoriteMovieDbData
-import com.aliasadi.data.entities.MovieDbData
+import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.util.DiskExecutor
+import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 /**
@@ -18,7 +20,9 @@ class FavoriteMoviesLocalDataSource(
     private val favoriteMovieDao: FavoriteMovieDao,
 ) : FavoriteMoviesDataSource.Local {
 
-    override fun favoriteMovies(): Flow<List<MovieDbData>> = favoriteMovieDao.favoriteMovies()
+    override fun favoriteMovies(): Flow<List<MovieEntity>> = favoriteMovieDao.favoriteMovies().map { movieDbDataList ->
+        movieDbDataList.map { it.toDomain() }
+    }
 
     override suspend fun addMovieToFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
         favoriteMovieDao.add(FavoriteMovieDbData(movieId))
