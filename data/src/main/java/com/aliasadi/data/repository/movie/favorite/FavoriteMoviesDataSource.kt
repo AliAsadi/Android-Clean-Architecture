@@ -1,7 +1,6 @@
 package com.aliasadi.data.repository.movie.favorite
 
-import com.aliasadi.data.entities.FavoriteMovieDbData
-import com.aliasadi.domain.entities.MovieEntity
+import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 
@@ -11,13 +10,11 @@ import kotlinx.coroutines.flow.Flow
 interface FavoriteMoviesDataSource {
 
     interface Local {
-        fun favoriteMovies(): Flow<List<FavoriteMovieDbData>>
+        fun favoriteMovies(): Flow<List<MovieDbData>>
         suspend fun getFavoriteMovieIds(): Result<List<Int>>
-        suspend fun addMovieToFavorite(movie: FavoriteMovieDbData)
-        suspend fun addMoviesToFavorite(movies: List<FavoriteMovieDbData>)
+        suspend fun addMovieToFavorite(movieId: Int)
         suspend fun removeMovieFromFavorite(movieId: Int)
         suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>
-        suspend fun getFavoriteMovie(movieId: Int): Result<MovieEntity>
     }
 
 }
