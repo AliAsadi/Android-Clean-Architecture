@@ -19,6 +19,13 @@ class MovieRemoteDataSource(
         Result.Error(e)
     }
 
+    override suspend fun getMovies(movieIds: List<Int>): Result<List<MovieEntity>> = try {
+        val result = movieApi.getMovies(movieIds)
+        Result.Success(result.map { it.toDomain() })
+    } catch (e: Exception) {
+        Result.Error(e)
+    }
+
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> = try {
         val result = movieApi.getMovie(movieId)
         Result.Success(result.toDomain())

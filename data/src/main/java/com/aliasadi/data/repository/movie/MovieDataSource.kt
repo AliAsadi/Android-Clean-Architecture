@@ -13,6 +13,7 @@ interface MovieDataSource {
 
     interface Remote {
         suspend fun getMovies(page: Int, limit: Int): Result<List<MovieEntity>>
+        suspend fun getMovies(movieIds: List<Int>): Result<List<MovieEntity>>
         suspend fun getMovie(movieId: Int): Result<MovieEntity>
         suspend fun search(query: String, page: Int, limit: Int): Result<List<MovieEntity>>
     }

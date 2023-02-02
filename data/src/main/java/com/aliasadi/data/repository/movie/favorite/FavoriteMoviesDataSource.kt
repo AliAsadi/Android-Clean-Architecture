@@ -12,8 +12,9 @@ interface FavoriteMoviesDataSource {
 
     interface Local {
         fun favoriteMovies(): Flow<List<FavoriteMovieDbData>>
-        suspend fun getFavoriteMovieIds(): Result<List<FavoriteMovieDbData>>
+        suspend fun getFavoriteMovieIds(): Result<List<Int>>
         suspend fun addMovieToFavorite(movie: FavoriteMovieDbData)
+        suspend fun addMoviesToFavorite(movies: List<FavoriteMovieDbData>)
         suspend fun removeMovieFromFavorite(movieId: Int)
         suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>
         suspend fun getFavoriteMovie(movieId: Int): Result<MovieEntity>

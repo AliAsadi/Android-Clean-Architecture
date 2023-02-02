@@ -16,6 +16,9 @@ interface MovieApi {
         @Query("_limit") limit: Int,
     ): List<MovieData>
 
+    @GET("/movies")
+    suspend fun getMovies(@Query("id") movieIds: List<Int>): List<MovieData>
+
     @GET("/movies/{id}")
     suspend fun getMovie(@Path("id") movieId: Int): MovieData
 

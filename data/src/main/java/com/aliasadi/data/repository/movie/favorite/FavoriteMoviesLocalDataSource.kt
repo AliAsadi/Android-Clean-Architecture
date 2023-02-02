@@ -19,8 +19,8 @@ class FavoriteMoviesLocalDataSource(
     private val favoriteMovieDao: FavoriteMovieDao,
 ) : FavoriteMoviesDataSource.Local {
 
-    override suspend fun getFavoriteMovieIds(): Result<List<FavoriteMovieDbData>> = withContext(executor.asCoroutineDispatcher()) {
-        val movieIds = favoriteMovieDao.getAll()
+    override suspend fun getFavoriteMovieIds(): Result<List<Int>> = withContext(executor.asCoroutineDispatcher()) {
+        val movieIds = favoriteMovieDao.getAll().map { it.id }
         return@withContext if (movieIds.isNotEmpty()) {
             Result.Success(movieIds)
         } else {
@@ -32,6 +32,10 @@ class FavoriteMoviesLocalDataSource(
 
     override suspend fun addMovieToFavorite(movie: FavoriteMovieDbData) = withContext(executor.asCoroutineDispatcher()) {
         favoriteMovieDao.add(movie)
+    }
+
+    override suspend fun addMoviesToFavorite(movies: List<FavoriteMovieDbData>) = withContext(executor.asCoroutineDispatcher()) {
+        favoriteMovieDao.add(movies)
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Int) = withContext(executor.asCoroutineDispatcher()) {
