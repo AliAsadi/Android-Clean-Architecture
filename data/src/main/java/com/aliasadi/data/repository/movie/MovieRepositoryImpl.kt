@@ -2,6 +2,7 @@ package com.aliasadi.data.repository.movie
 
 import androidx.paging.*
 import com.aliasadi.data.entities.toDomain
+import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
@@ -66,10 +67,10 @@ class MovieRepositoryImpl constructor(
             local.saveMovies(it.data)
             true
         }, {
-            false
+            return it.error is DataNotAvailableException
         })
     }, {
-        false
+        return it.error is DataNotAvailableException
     })
 
 }
