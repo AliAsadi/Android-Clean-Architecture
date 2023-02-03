@@ -20,7 +20,6 @@ class SyncWork @AssistedInject constructor(
     val movieRepository: MovieRepository
 ) : CoroutineWorker(appContext, params) {
 
-
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         Log.d("XXX", "SyncWork: doWork() called")
         return@withContext if (movieRepository.sync()) {
