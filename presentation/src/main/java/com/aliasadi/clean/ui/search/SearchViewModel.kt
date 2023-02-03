@@ -25,6 +25,7 @@ class SearchViewModel @Inject constructor(
 ) : BaseViewModel(dispatchers) {
 
     data class SearchUiState(
+        val showDefaultState: Boolean = true,
         val showLoading: Boolean = false,
         val showNoMoviesFound: Boolean = false,
         val errorMessage: String? = null
@@ -37,7 +38,7 @@ class SearchViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     var movies: Flow<PagingData<MovieListItem>> = savedStateHandle.getStateFlow(KEY_SEARCH_QUERY, "")
         .onEach { query ->
-            _uiState.value = if (query.isNotEmpty()) SearchUiState(showLoading = true) else SearchUiState()
+            _uiState.value = if (query.isNotEmpty()) SearchUiState(showDefaultState = false, showLoading = true) else SearchUiState()
         }
         .debounce(500)
         .filter { it.isNotEmpty() }
@@ -72,11 +73,13 @@ class SearchViewModel @Inject constructor(
             else -> null
         }
 
-        _uiState.value = SearchUiState(
-            showLoading = showLoading,
-            showNoMoviesFound = showNoData,
-            errorMessage = error
-        )
+        _uiState.update {
+            it.copy(
+                showLoading = showLoading,
+                showNoMoviesFound = showNoData,
+                errorMessage = error
+            )
+        }
     }
 
     companion object {

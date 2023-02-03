@@ -19,6 +19,7 @@ import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
 import com.aliasadi.clean.ui.feed.MoviePagingAdapter
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
+import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,10 +66,16 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         }
     }
 
-    private fun handleSearchUiState(state: SearchViewModel.SearchUiState) {
-        binding.recyclerView.isInvisible = state.showLoading || state.showNoMoviesFound
-        binding.progressBar.isVisible = state.showLoading
-        binding.noMoviesFoundView.isVisible = state.showNoMoviesFound
+    private fun handleSearchUiState(state: SearchViewModel.SearchUiState) = with(binding) {
+        if (state.showDefaultState) {
+            recyclerView.hide()
+            progressBar.hide()
+            noMoviesFoundView.hide()
+        } else {
+            recyclerView.isInvisible = state.showLoading || state.showNoMoviesFound
+            progressBar.isVisible = state.showLoading
+            noMoviesFoundView.isVisible = state.showNoMoviesFound
+        }
         if (state.errorMessage != null) Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_SHORT).show()
     }
 
