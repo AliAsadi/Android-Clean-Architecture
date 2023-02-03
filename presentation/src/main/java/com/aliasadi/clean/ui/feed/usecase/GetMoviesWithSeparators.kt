@@ -3,7 +3,7 @@ package com.aliasadi.clean.ui.feed.usecase
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.mapper.MovieEntityMapper
+import com.aliasadi.clean.mapper.toPresentation
 import com.aliasadi.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,7 +18,7 @@ class GetMoviesWithSeparators @Inject constructor(
 ) {
 
     fun movies(pageSize: Int): Flow<PagingData<MovieListItem>> = movieRepository.movies(pageSize).map {
-        val pagingData: PagingData<MovieListItem.Movie> = it.map { movie -> MovieEntityMapper.toPresentation(movie) }
+        val pagingData: PagingData<MovieListItem.Movie> = it.map { movie -> movie.toPresentation() }
         insertSeparatorIntoPagingData.insert(pagingData)
     }
 }

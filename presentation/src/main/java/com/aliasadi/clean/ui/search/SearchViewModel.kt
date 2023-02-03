@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.mapper.MovieEntityMapper
+import com.aliasadi.clean.mapper.toPresentation
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.SearchMovies
@@ -44,7 +44,7 @@ class SearchViewModel @Inject constructor(
         .filter { it.isNotEmpty() }
         .flatMapLatest { query ->
             searchMovies(query, 30).map { pagingData ->
-                pagingData.map { MovieEntityMapper.toPresentation(it) as MovieListItem }
+                pagingData.map { movieEntity -> movieEntity.toPresentation() as MovieListItem }
             }
         }.cachedIn(viewModelScope)
 
