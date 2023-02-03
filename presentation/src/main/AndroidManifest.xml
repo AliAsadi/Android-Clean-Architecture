@@ -29,6 +29,11 @@
 
         <activity android:name="com.aliasadi.clean.ui.search.SearchActivity" />
 
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:node="remove" />
+
     </application>
 
 </manifest>

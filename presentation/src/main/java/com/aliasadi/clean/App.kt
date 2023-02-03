@@ -1,10 +1,37 @@
 package com.aliasadi.clean
 
 import android.app.Application
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
+import androidx.work.ExistingWorkPolicy
+import androidx.work.WorkManager
+import com.aliasadi.clean.workers.SyncWork
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
 @HiltAndroidApp
-class App : Application()
+class App : Application(), Configuration.Provider {
+
+    @Inject
+    lateinit var workerFactory: HiltWorkerFactory
+
+    override fun onCreate() {
+        super.onCreate()
+        WorkManager.getInstance(this).apply {
+            enqueueUniqueWork(
+                SyncWork::class.java.simpleName,
+                ExistingWorkPolicy.KEEP,
+                SyncWork.getWorkRequest()
+            )
+        }
+    }
+
+    override fun getWorkManagerConfiguration(): Configuration =
+        Configuration.Builder()
+            .setWorkerFactory(workerFactory)
+            .build()
+
+}

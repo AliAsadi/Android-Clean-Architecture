@@ -80,6 +80,8 @@ dependencies {
     //Hilt
     implementation "com.google.dagger:hilt-android:2.44.2"
     kapt "com.google.dagger:hilt-compiler:2.44.2"
+    implementation 'androidx.hilt:hilt-work:1.0.0'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
 
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
@@ -95,6 +97,9 @@ dependencies {
 
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
+    //WorkManager
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
 
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'junit:junit:4.13.2'
