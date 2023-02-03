@@ -18,15 +18,16 @@ class App : Application(), Configuration.Provider {
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
 
+    @Inject
+    lateinit var workManager: WorkManager
+
     override fun onCreate() {
         super.onCreate()
-        WorkManager.getInstance(this).apply {
-            enqueueUniqueWork(
-                SyncWork::class.java.simpleName,
-                ExistingWorkPolicy.KEEP,
-                SyncWork.getWorkRequest()
-            )
-        }
+        workManager.enqueueUniqueWork(
+            SyncWork::class.java.simpleName,
+            ExistingWorkPolicy.KEEP,
+            SyncWork.getWorkRequest()
+        )
     }
 
     override fun getWorkManagerConfiguration(): Configuration =
