@@ -1,4 +1,4 @@
-package com.aliasadi.clean.ui.feed.viewholder
+package com.aliasadi.clean.ui.adapters.movie.viewholder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

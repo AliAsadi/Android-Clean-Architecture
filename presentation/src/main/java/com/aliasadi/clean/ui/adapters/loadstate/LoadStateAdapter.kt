@@ -1,4 +1,4 @@
-package com.aliasadi.clean.ui.feed
+package com.aliasadi.clean.ui.adapters.loadstate
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,14 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.databinding.ItemLoadStateFooterBinding
+import com.aliasadi.clean.ui.adapters.loadstate.LoadStateAdapter.LoadStateViewHolder
 
 /**
  * @author by Ali Asadi on 31/01/2023
  */
-class PagingLoadStateAdapter(
+class LoadStateAdapter(
     private val onRetryClicked: () -> Unit
-) : LoadStateAdapter<PagingLoadStateAdapter.LoadStateViewHolder>() {
+) : LoadStateAdapter<LoadStateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder =
         LoadStateViewHolder(parent, onRetryClicked)

@@ -10,12 +10,12 @@ import androidx.paging.CombinedLoadStates
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.databinding.FragmentFavoritesBinding
+import com.aliasadi.clean.ui.adapters.movie.MovieAdapterSpanSize
+import com.aliasadi.clean.ui.adapters.movie.MoviePagingAdapter
 import com.aliasadi.clean.ui.base.BaseFragment
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.FavoriteUiState
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
-import com.aliasadi.clean.ui.feed.MoviePagingAdapter
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,7 +67,7 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         RecyclerView.VERTICAL,
         false
     ).apply {
-        spanSizeLookup = MovieAdapterSpanSize.LookupPaging(config, movieAdapter)
+        spanSizeLookup = MovieAdapterSpanSize.Lookup(config, movieAdapter)
     }
 
     private fun setupObservers() = with(viewModel) {

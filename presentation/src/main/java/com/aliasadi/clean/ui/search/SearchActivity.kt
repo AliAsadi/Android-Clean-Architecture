@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.ActivitySearchBinding
+import com.aliasadi.clean.ui.adapters.movie.MovieAdapterSpanSize
+import com.aliasadi.clean.ui.adapters.movie.MoviePagingAdapter
 import com.aliasadi.clean.ui.base.BaseActivity
-import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
-import com.aliasadi.clean.ui.feed.MoviePagingAdapter
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
 import com.aliasadi.clean.util.hide
@@ -101,7 +101,7 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         RecyclerView.VERTICAL,
         false
     ).apply {
-        spanSizeLookup = MovieAdapterSpanSize.LookupPaging(config, movieAdapter)
+        spanSizeLookup = MovieAdapterSpanSize.Lookup(config, movieAdapter)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

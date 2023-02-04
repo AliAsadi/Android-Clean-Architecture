@@ -1,4 +1,4 @@
-package com.aliasadi.clean.ui.feed
+package com.aliasadi.clean.ui.adapters.movie
 
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aliasadi.clean.R
@@ -24,21 +24,6 @@ class MovieAdapterSpanSize {
      * Check out the get span index method documentation for more information: [GridLayoutManager.SpanSizeLookup.getSpanIndex]
      * **/
     class Lookup(
-        private val config: Config,
-        private val adapter: MovieAdapter,
-    ) : GridLayoutManager.SpanSizeLookup() {
-
-        init {
-            isSpanIndexCacheEnabled = true
-        }
-
-        override fun getSpanSize(position: Int): Int = when (adapter.getItemViewType(position)) {
-            R.layout.item_movie -> config.movieColumnSpanSize
-            else -> config.separatorColumnSpanSize
-        }
-    }
-
-    class LookupPaging(
         private val config: Config,
         private val adapter: MoviePagingAdapter,
     ) : GridLayoutManager.SpanSizeLookup() {
