@@ -24,12 +24,8 @@ class MovieRemoteMediator(
 
         val page = when (loadType) {
             LoadType.REFRESH -> MOVIE_STARTING_PAGE_INDEX
-
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-
-            LoadType.APPEND -> {
-                local.getLastRemoteKey()?.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
-            }
+            LoadType.APPEND -> local.getLastRemoteKey()?.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
         }
 
         Log.d("XXX", "MovieRemoteMediator: load() called with: loadType = $loadType, page: $page, stateLastItem = ${state.isEmpty()}")
