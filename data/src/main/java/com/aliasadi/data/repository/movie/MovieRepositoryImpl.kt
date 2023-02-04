@@ -67,10 +67,10 @@ class MovieRepositoryImpl constructor(
             local.saveMovies(it.data)
             true
         }, {
-            return it.error is DataNotAvailableException
+            it.error is DataNotAvailableException
         })
     }, {
-        return it.error is DataNotAvailableException
+        it.error is DataNotAvailableException
     })
 
 }
