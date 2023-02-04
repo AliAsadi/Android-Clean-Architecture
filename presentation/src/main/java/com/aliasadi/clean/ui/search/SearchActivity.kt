@@ -10,15 +10,13 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.paging.CombinedLoadStates
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.ActivitySearchBinding
-import com.aliasadi.clean.ui.adapter.movie.MovieAdapterSpanSize
 import com.aliasadi.clean.ui.adapter.movie.MoviePagingAdapter
 import com.aliasadi.clean.ui.base.BaseActivity
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
+import com.aliasadi.clean.util.createMovieGridLayoutManager
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import com.google.android.material.snackbar.Snackbar
@@ -88,20 +86,11 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupRecyclerView(config: MovieAdapterSpanSize.Config = MovieAdapterSpanSize.Config(3)) = with(binding.recyclerView) {
+    private fun setupRecyclerView() = with(binding.recyclerView) {
         adapter = movieAdapter
-        layoutManager = createMovieGridLayoutManager(config)
+        layoutManager = createMovieGridLayoutManager(baseContext, movieAdapter)
         setHasFixedSize(true)
         setItemViewCacheSize(0)
-    }
-
-    private fun createMovieGridLayoutManager(config: MovieAdapterSpanSize.Config): GridLayoutManager = GridLayoutManager(
-        baseContext,
-        config.gridSpanSize,
-        RecyclerView.VERTICAL,
-        false
-    ).apply {
-        spanSizeLookup = MovieAdapterSpanSize.Lookup(config, movieAdapter)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

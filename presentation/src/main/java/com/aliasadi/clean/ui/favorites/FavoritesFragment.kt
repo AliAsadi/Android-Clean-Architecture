@@ -7,15 +7,13 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.databinding.FragmentFavoritesBinding
-import com.aliasadi.clean.ui.adapter.movie.MovieAdapterSpanSize
 import com.aliasadi.clean.ui.adapter.movie.MoviePagingAdapter
 import com.aliasadi.clean.ui.base.BaseFragment
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.FavoriteUiState
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.util.createMovieGridLayoutManager
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,20 +52,11 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         movieAdapter.addLoadStateListener(loadStateListener)
     }
 
-    private fun setupRecyclerView(config: MovieAdapterSpanSize.Config = MovieAdapterSpanSize.Config(3)) = with(binding.recyclerView) {
+    private fun setupRecyclerView() = with(binding.recyclerView) {
         adapter = movieAdapter
-        layoutManager = createMovieGridLayoutManager(config)
+        layoutManager = createMovieGridLayoutManager(requireContext(), movieAdapter)
         setHasFixedSize(true)
         setItemViewCacheSize(0)
-    }
-
-    private fun createMovieGridLayoutManager(config: MovieAdapterSpanSize.Config): GridLayoutManager = GridLayoutManager(
-        requireActivity(),
-        config.gridSpanSize,
-        RecyclerView.VERTICAL,
-        false
-    ).apply {
-        spanSizeLookup = MovieAdapterSpanSize.Lookup(config, movieAdapter)
     }
 
     private fun setupObservers() = with(viewModel) {
