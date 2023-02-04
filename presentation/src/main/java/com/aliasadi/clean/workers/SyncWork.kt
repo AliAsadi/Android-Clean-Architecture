@@ -40,7 +40,7 @@ class SyncWork @AssistedInject constructor(
     }
 
     companion object {
-        fun getWorkRequest() = OneTimeWorkRequestBuilder<SyncWork>()
+        fun getOneTimeWorkRequest() = OneTimeWorkRequestBuilder<SyncWork>()
             .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
             .build()
     }

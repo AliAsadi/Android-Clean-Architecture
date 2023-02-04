@@ -26,7 +26,7 @@ class App : Application(), Configuration.Provider {
         workManager.enqueueUniqueWork(
             SyncWork::class.java.simpleName,
             ExistingWorkPolicy.KEEP,
-            SyncWork.getWorkRequest()
+            SyncWork.getOneTimeWorkRequest()
         )
     }
 
