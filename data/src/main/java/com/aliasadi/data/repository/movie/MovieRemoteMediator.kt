@@ -38,6 +38,12 @@ class MovieRemoteMediator(
         if (state.isEmpty() && page == 2) return MediatorResult.Success(endOfPaginationReached = false)// There was a lag in loading the first page; as a result, it jumps to the end of the pagination.
 
         remote.getMovies(page, state.config.pageSize).getResult({ successResult ->
+
+            if (loadType == LoadType.REFRESH) {
+                local.clearMovies()
+                local.clearRemoteKeys()
+            }
+
             val movies = successResult.data
 
             val endOfPaginationReached = movies.isEmpty()

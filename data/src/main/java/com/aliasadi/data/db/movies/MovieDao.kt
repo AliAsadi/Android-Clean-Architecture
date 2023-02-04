@@ -37,8 +37,8 @@ interface MovieDao {
     suspend fun saveMovies(movies: List<MovieDbData>)
 
     /**
-     * Delete all movies.
+     * Delete all movies except favorites.
      */
-    @Query("DELETE FROM movies")
-    suspend fun deleteMovies()
+    @Query("DELETE FROM movies WHERE id NOT IN (SELECT movieId FROM favorite_movies)")
+    suspend fun clearMoviesExceptFavorites()
 }

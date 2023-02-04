@@ -25,5 +25,7 @@ interface MovieDataSource {
         suspend fun saveMovies(movieEntities: List<MovieEntity>)
         suspend fun getLastRemoteKey(): MovieRemoteKeyDbData?
         suspend fun saveRemoteKey(key: MovieRemoteKeyDbData)
+        suspend fun clearMovies()
+        suspend fun clearRemoteKeys()
     }
 }
