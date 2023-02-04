@@ -1,4 +1,4 @@
-package com.aliasadi.clean.ui.adapters.loadstate
+package com.aliasadi.clean.ui.adapter.loadstate
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.databinding.ItemLoadStateFooterBinding
-import com.aliasadi.clean.ui.adapters.loadstate.LoadStateAdapter.LoadStateViewHolder
+import com.aliasadi.clean.ui.adapter.loadstate.LoadStateAdapter.LoadStateViewHolder
 
 /**
  * @author by Ali Asadi on 31/01/2023

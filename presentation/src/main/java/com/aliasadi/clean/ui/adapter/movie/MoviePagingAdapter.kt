@@ -1,12 +1,12 @@
-package com.aliasadi.clean.ui.adapters.movie
+package com.aliasadi.clean.ui.adapter.movie
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.ui.adapters.movie.viewholder.MovieViewHolder
-import com.aliasadi.clean.ui.adapters.movie.viewholder.SeparatorViewHolder
+import com.aliasadi.clean.ui.adapter.movie.viewholder.MovieViewHolder
+import com.aliasadi.clean.ui.adapter.movie.viewholder.SeparatorViewHolder
 
 /**
  * Created by Ali Asadi on 13/05/2020

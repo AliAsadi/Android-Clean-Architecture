@@ -1,4 +1,4 @@
-package com.aliasadi.clean.ui.adapters.movie.viewholder
+package com.aliasadi.clean.ui.adapter.movie.viewholder
 
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater

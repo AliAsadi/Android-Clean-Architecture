@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.R
 import com.aliasadi.clean.databinding.ActivitySearchBinding
-import com.aliasadi.clean.ui.adapters.movie.MovieAdapterSpanSize
-import com.aliasadi.clean.ui.adapters.movie.MoviePagingAdapter
+import com.aliasadi.clean.ui.adapter.movie.MovieAdapterSpanSize
+import com.aliasadi.clean.ui.adapter.movie.MoviePagingAdapter
 import com.aliasadi.clean.ui.base.BaseActivity
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState

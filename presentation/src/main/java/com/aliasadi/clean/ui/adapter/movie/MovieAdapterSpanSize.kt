@@ -1,4 +1,4 @@
-package com.aliasadi.clean.ui.adapters.movie
+package com.aliasadi.clean.ui.adapter.movie
 
 import androidx.recyclerview.widget.GridLayoutManager
 import com.aliasadi.clean.R

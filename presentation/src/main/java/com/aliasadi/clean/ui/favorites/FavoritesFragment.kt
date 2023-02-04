@@ -10,8 +10,8 @@ import androidx.paging.CombinedLoadStates
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.databinding.FragmentFavoritesBinding
-import com.aliasadi.clean.ui.adapters.movie.MovieAdapterSpanSize
-import com.aliasadi.clean.ui.adapters.movie.MoviePagingAdapter
+import com.aliasadi.clean.ui.adapter.movie.MovieAdapterSpanSize
+import com.aliasadi.clean.ui.adapter.movie.MoviePagingAdapter
 import com.aliasadi.clean.ui.base.BaseFragment
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.FavoriteUiState
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState
