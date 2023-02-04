@@ -32,7 +32,6 @@ class MovieRemoteMediator(
             }
         }
 
-
         Log.d("XXX", "MovieRemoteMediator: load() called with: loadType = $loadType, page: $page, stateLastItem = ${state.isEmpty()}")
 
         if (state.isEmpty() && page == 2) return MediatorResult.Success(endOfPaginationReached = false)// There was a lag in loading the first page; as a result, it jumps to the end of the pagination.
