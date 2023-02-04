@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.MovieDetailsGraphDirections
 import com.aliasadi.clean.databinding.FragmentFeedBinding
-import com.aliasadi.clean.ui.adapter.loadstate.LoadStateAdapter
 import com.aliasadi.clean.ui.adapter.movie.MovieAdapterSpanSize
 import com.aliasadi.clean.ui.adapter.movie.MoviePagingAdapter
+import com.aliasadi.clean.ui.adapter.movie.loadstate.MovieLoadStateAdapter
 import com.aliasadi.clean.ui.base.BaseFragment
 import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
@@ -56,7 +56,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private fun setupRecyclerView(config: MovieAdapterSpanSize.Config = MovieAdapterSpanSize.Config(3)) = with(binding.recyclerView) {
-        adapter = movieAdapter.withLoadStateFooter(LoadStateAdapter { movieAdapter.retry() })
+        adapter = movieAdapter.withLoadStateFooter(MovieLoadStateAdapter { movieAdapter.retry() })
         layoutManager = createMovieGridLayoutManager(config)
         setHasFixedSize(true)
         setItemViewCacheSize(0)

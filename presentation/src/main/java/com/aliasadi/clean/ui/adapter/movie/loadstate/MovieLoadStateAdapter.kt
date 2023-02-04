@@ -1,4 +1,4 @@
-package com.aliasadi.clean.ui.adapter.loadstate
+package com.aliasadi.clean.ui.adapter.movie.loadstate
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,12 +7,12 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.aliasadi.clean.databinding.ItemLoadStateFooterBinding
-import com.aliasadi.clean.ui.adapter.loadstate.LoadStateAdapter.LoadStateViewHolder
+import com.aliasadi.clean.ui.adapter.movie.loadstate.MovieLoadStateAdapter.LoadStateViewHolder
 
 /**
  * @author by Ali Asadi on 31/01/2023
  */
-class LoadStateAdapter(
+class MovieLoadStateAdapter(
     private val onRetryClicked: () -> Unit
 ) : LoadStateAdapter<LoadStateViewHolder>() {
 
