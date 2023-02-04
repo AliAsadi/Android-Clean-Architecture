@@ -1,9 +1,9 @@
 package com.aliasadi.data.db.favoritemovies
 
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.aliasadi.data.entities.FavoriteMovieDbData
 import com.aliasadi.data.entities.MovieDbData
-import kotlinx.coroutines.flow.Flow
 
 /**
  * @author by Ali Asadi on 22/08/2022
@@ -15,7 +15,7 @@ interface FavoriteMovieDao {
     fun getAll(): List<FavoriteMovieDbData>
 
     @Query("SELECT * FROM movies where id in (SELECT movieId FROM favorite_movies)")
-    fun favoriteMovies(): Flow<List<MovieDbData>>
+    fun favoriteMovies(): PagingSource<Int, MovieDbData>
 
     @Query("SELECT * FROM favorite_movies where movieId=:movieId")
     fun get(movieId: Int): FavoriteMovieDbData?

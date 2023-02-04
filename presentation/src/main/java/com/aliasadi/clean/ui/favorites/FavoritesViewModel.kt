@@ -1,6 +1,7 @@
 package com.aliasadi.clean.ui.favorites
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.*
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.toPresentation
 import com.aliasadi.clean.ui.base.BaseViewModel
@@ -21,31 +22,37 @@ class FavoritesViewModel @Inject constructor(
 
     data class FavoriteUiState(
         val isLoading: Boolean = true,
-        val noDataAvailable: Boolean = false,
-        val movies: List<MovieListItem> = emptyList()
+        val noDataAvailable: Boolean = false
     )
 
     sealed class NavigationState {
         data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
-    val uiState: StateFlow<FavoriteUiState> = getFavoriteMovies()
-        .map { movieEntities ->
-            if (movieEntities.isEmpty()) {
-                FavoriteUiState(isLoading = false, noDataAvailable = true, movies = emptyList())
-            } else {
-                FavoriteUiState(isLoading = false, noDataAvailable = false, movies = movieEntities.map { it.toPresentation() })
-            }
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Lazily,
-            initialValue = FavoriteUiState()
-        )
+    val movies: Flow<PagingData<MovieListItem>> = getFavoriteMovies(30).map {
+        it.map { it.toPresentation() as MovieListItem }
+    }.cachedIn(viewModelScope)
+
+    private val _uiState: MutableStateFlow<FavoriteUiState> = MutableStateFlow(FavoriteUiState())
+    val uiState = _uiState.asStateFlow()
 
     private val _navigationState: MutableSharedFlow<NavigationState> = MutableSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
 
+
     fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
         _navigationState.emit(NavigationState.MovieDetails(movieId))
+    }
+
+    fun onLoadStateUpdate(loadState: CombinedLoadStates, itemCount: Int) {
+        val showLoading = loadState.refresh is LoadState.Loading
+        val showNoData = loadState.append.endOfPaginationReached && itemCount < 1
+
+        _uiState.update {
+            it.copy(
+                isLoading = showLoading,
+                noDataAvailable = showNoData
+            )
+        }
     }
 }

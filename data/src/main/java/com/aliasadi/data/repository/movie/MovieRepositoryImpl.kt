@@ -35,7 +35,14 @@ class MovieRepositoryImpl constructor(
         pagingData.map { it.toDomain() }
     }
 
-    override fun favoriteMovies(): Flow<List<MovieEntity>> = localFavorite.favoriteMovies()
+    override fun favoriteMovies(pageSize: Int): Flow<PagingData<MovieEntity>> = Pager(
+        config = PagingConfig(
+            pageSize = pageSize,
+            enablePlaceholders = false
+        ), pagingSourceFactory = { localFavorite.favoriteMovies() }
+    ).flow.map { pagingData ->
+        pagingData.map { it.toDomain() }
+    }
 
     override fun search(query: String, pageSize: Int): Flow<PagingData<MovieEntity>> = Pager(
         config = PagingConfig(
