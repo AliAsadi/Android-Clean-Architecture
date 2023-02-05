@@ -3,15 +3,11 @@ package com.aliasadi.clean.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
-import com.aliasadi.clean.util.NetworkState.Available
-import com.aliasadi.clean.util.NetworkState.Lost
+import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Available
+import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Lost
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-
-enum class NetworkState {
-    Available, Lost
-}
 
 /**
  * @author by Ali Asadi on 05/02/2023
@@ -19,6 +15,12 @@ enum class NetworkState {
 class NetworkMonitor(
     @ApplicationContext context: Context
 ) {
+
+    enum class NetworkState {
+        Available, Lost;
+
+        fun isAvailable() = this == Available
+    }
 
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -42,6 +44,4 @@ class NetworkMonitor(
 
         connectivityManager.registerDefaultNetworkCallback(callback)
     }
-
-    fun isConnected() = _networkState.value == Available
 }

@@ -1,6 +1,7 @@
 package com.aliasadi.clean.ui.feed
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -15,10 +16,12 @@ import com.aliasadi.clean.ui.adapter.movie.MoviePagingAdapter
 import com.aliasadi.clean.ui.adapter.movie.loadstate.MovieLoadStateAdapter
 import com.aliasadi.clean.ui.base.BaseFragment
 import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.util.NetworkMonitor
 import com.aliasadi.clean.util.createMovieGridLayoutManager
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -36,6 +39,9 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
     private val loadStateListener: (CombinedLoadStates) -> Unit = {
         viewModel.onLoadStateUpdate(it)
     }
+
+    @Inject
+    lateinit var networkMonitor: NetworkMonitor
 
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentFeedBinding = FragmentFeedBinding.inflate(inflater)
 
@@ -65,7 +71,13 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
             launch { movies.collect { movieAdapter.submitData(it) } }
             launch { uiState.collect { handleFeedUiState(it) } }
             launch { navigationState.collect { handleNavigationState(it) } }
+            launch { networkMonitor.networkState.collect { handleNetworkState(it) } }
         }
+    }
+
+    private fun handleNetworkState(state: NetworkMonitor.NetworkState) {
+        Log.d("XXX", "FeedFragment: handleNetworkState() called with: state = $state")
+        if (state.isAvailable() && viewModel.uiState.value.errorMessage != null) movieAdapter.retry()
     }
 
     private fun handleFeedUiState(it: FeedViewModel.FeedUiState) {
