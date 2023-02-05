@@ -3,11 +3,14 @@ package com.aliasadi.clean.util
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
+import android.util.Log
 import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Available
 import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Lost
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
 
 /**
  * @author by Ali Asadi on 05/02/2023
@@ -24,24 +27,31 @@ class NetworkMonitor(
 
     private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    private val _networkState: MutableStateFlow<NetworkState> = MutableStateFlow(getInitialState())
-    val networkState = _networkState.asStateFlow()
+    val networkState: Flow<NetworkState> = callbackFlow {
 
-    private fun getInitialState(): NetworkState = if (connectivityManager.activeNetwork != null) Available else Lost
+        launch { send(getInitialState()) }
 
-    init {
         val callback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                _networkState.value = Available
+                launch { send(Available) }
+                Log.d("XXX", "NetworkMonitor: onAvailable() called")
             }
 
             override fun onLost(network: Network) {
                 super.onLost(network)
-                _networkState.value = Lost
+                launch { send(Lost) }
+                Log.d("XXX", "NetworkMonitor: onLost() called")
             }
         }
 
         connectivityManager.registerDefaultNetworkCallback(callback)
+
+        awaitClose {
+            Log.d("XXX", "NetworkMonitor: awaitClose")
+            connectivityManager.unregisterNetworkCallback(callback)
+        }
     }
+
+    private fun getInitialState(): NetworkState = if (connectivityManager.activeNetwork != null) Available else Lost
 }
