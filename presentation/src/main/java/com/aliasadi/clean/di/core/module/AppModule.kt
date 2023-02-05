@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.work.WorkManager
 import com.aliasadi.clean.di.core.AppSettingsSharedPreference
+import com.aliasadi.clean.util.NetworkMonitor
 import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.data.util.DiskExecutor
 import com.aliasadi.data.util.DispatchersProvider
@@ -13,6 +14,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 /**
  * Created by Ali Asadi on 15/05/2020
@@ -48,4 +50,9 @@ class AppModule {
         @ApplicationContext context: Context
     ): WorkManager = WorkManager.getInstance(context)
 
+    @Provides
+    @Singleton
+    fun provideNetworkMonitor(
+        @ApplicationContext context: Context
+    ): NetworkMonitor = NetworkMonitor(context)
 }
