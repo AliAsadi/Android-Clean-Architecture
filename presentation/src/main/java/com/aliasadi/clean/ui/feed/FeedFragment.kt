@@ -76,7 +76,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private fun handleNetworkState(state: NetworkMonitor.NetworkState) {
-        Log.d("XXX", "FeedFragment: handleNetworkState() called with: state = $state")
+        Log.d("XXX", "FeedFragment: handleNetworkState() called with: NetworkState = $state")
         if (state.isAvailable() && viewModel.uiState.value.errorMessage != null) movieAdapter.retry()
     }
 

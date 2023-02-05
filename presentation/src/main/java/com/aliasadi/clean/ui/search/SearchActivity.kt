@@ -3,7 +3,6 @@ package com.aliasadi.clean.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import androidx.activity.viewModels
@@ -17,14 +16,12 @@ import com.aliasadi.clean.ui.adapter.movie.MoviePagingAdapter
 import com.aliasadi.clean.ui.base.BaseActivity
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
-import com.aliasadi.clean.util.NetworkMonitor
 import com.aliasadi.clean.util.createMovieGridLayoutManager
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * @author by Ali Asadi on 25/09/2022
@@ -40,9 +37,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
     private val loadStateListener: (CombinedLoadStates) -> Unit = {
         viewModel.onLoadStateUpdate(it, movieAdapter.itemCount)
     }
-
-    @Inject
-    lateinit var networkMonitor: NetworkMonitor
 
     override fun inflateViewBinding(inflater: LayoutInflater): ActivitySearchBinding = ActivitySearchBinding.inflate(inflater)
 
@@ -67,11 +61,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
             launch { uiState.collect { handleSearchUiState(it) } }
             launch { navigationState.collect { handleNavigationState(it) } }
             launch { movies.collect { movieAdapter.submitData(it) } }
-            launch {
-                networkMonitor.networkState.collect {
-                    Log.d("XXX", "setupObservers() called $it")
-                }
-            }
         }
     }
 
