@@ -10,6 +10,9 @@ A demo movie android app that demonstrates Clean Architecture and is written in 
 * Auto Sync using both NetworkConnectivityStream and WorkManager to ensure data is always up-to-date.
 * The ability to add movies to a favorite.
 
+For a basic version of the app without pagination, check out the [basic_app](https://github.com/AliAsadi/Android-Clean-Architecture/tree/basic_app
+) branch.
+
 ### The Motivation behind the app
 This repository was created with the intention of stepping outside of my comfort zone as much as possible, tackling topics outside of my area of expertise, and using it to implement new challenges and ideas.
 
