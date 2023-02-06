@@ -2,6 +2,14 @@
 
 A demo movie android app that demonstrates Clean Architecture and is written in Kotlin.💯🎞 
 
+# Features
+
+* Offline-first app, allowing users to access the app even without an internet connection.
+* Pagination to efficiently load large amounts of data and improve the user experience.
+* Search functionality to quickly find specific information within the app.
+* Auto Sync using both NetworkConnectivityStream and WorkManager to ensure data is always up-to-date.
+* The ability to add movies to a favorite.
+
 ### The Motivation behind the app
 This repository was created with the intention of stepping outside of my comfort zone as much as possible, tackling topics outside of my area of expertise, and using it to implement new challenges and ideas.
 
