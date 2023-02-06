@@ -1,6 +1,7 @@
 package com.aliasadi.data.repository.movie.favorite
 
-import com.aliasadi.data.entities.FavoriteMovieDbData
+import androidx.paging.PagingSource
+import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.domain.util.Result
 
 /**
@@ -9,7 +10,8 @@ import com.aliasadi.domain.util.Result
 interface FavoriteMoviesDataSource {
 
     interface Local {
-        suspend fun getFavoriteMovieIds(): Result<List<FavoriteMovieDbData>>
+        fun favoriteMovies(): PagingSource<Int, MovieDbData>
+        suspend fun getFavoriteMovieIds(): Result<List<Int>>
         suspend fun addMovieToFavorite(movieId: Int)
         suspend fun removeMovieFromFavorite(movieId: Int)
         suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>

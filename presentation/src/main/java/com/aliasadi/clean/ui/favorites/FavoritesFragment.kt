@@ -6,15 +6,14 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.CombinedLoadStates
 import com.aliasadi.clean.databinding.FragmentFavoritesBinding
+import com.aliasadi.clean.ui.adapter.movie.MoviePagingAdapter
 import com.aliasadi.clean.ui.base.BaseFragment
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.FavoriteUiState
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.feed.MovieAdapter
-import com.aliasadi.clean.ui.feed.MovieAdapterSpanSize
+import com.aliasadi.clean.util.createMovieGridLayoutManager
 import com.aliasadi.clean.util.hide
 import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,18 +29,18 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     private val viewModel: FavoritesViewModel by viewModels()
 
     private val movieAdapter by lazy {
-        MovieAdapter(viewModel::onMovieClicked, getImageFixedSize())
+        MoviePagingAdapter(viewModel::onMovieClicked, getImageFixedSize())
+    }
+
+    private val loadStateListener: (CombinedLoadStates) -> Unit = {
+        viewModel.onLoadStateUpdate(it, movieAdapter.itemCount)
     }
 
     override fun inflateViewBinding(inflater: LayoutInflater): FragmentFavoritesBinding = FragmentFavoritesBinding.inflate(inflater)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycle.addObserver(viewModel)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupViews()
+        setupListeners()
         setupObservers()
     }
 
@@ -49,24 +48,20 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
         setupRecyclerView()
     }
 
-    private fun setupRecyclerView(config: MovieAdapterSpanSize.Config = MovieAdapterSpanSize.Config(3)) = with(binding.recyclerView) {
+    private fun setupListeners() {
+        movieAdapter.addLoadStateListener(loadStateListener)
+    }
+
+    private fun setupRecyclerView() = with(binding.recyclerView) {
         adapter = movieAdapter
-        layoutManager = createMovieGridLayoutManager(config)
+        layoutManager = createMovieGridLayoutManager(requireContext(), movieAdapter)
         setHasFixedSize(true)
         setItemViewCacheSize(0)
     }
 
-    private fun createMovieGridLayoutManager(config: MovieAdapterSpanSize.Config): GridLayoutManager = GridLayoutManager(
-        requireActivity(),
-        config.gridSpanSize,
-        RecyclerView.VERTICAL,
-        false
-    ).apply {
-        spanSizeLookup = MovieAdapterSpanSize.Lookup(config, movieAdapter)
-    }
-
     private fun setupObservers() = with(viewModel) {
         launchAndRepeatWithViewLifecycle {
+            launch { movies.collect { movieAdapter.submitData(it) } }
             launch { uiState.collect { handleFavoriteUiState(it) } }
             launch { navigationState.collect { handleNavigationState(it) } }
         }
@@ -78,7 +73,6 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
             if (binding.noDataView.isVisible) binding.noDataView.hide()
         } else {
             binding.noDataView.isVisible = noDataAvailable
-            movieAdapter.submitList(movies)
         }
     }
 
@@ -89,6 +83,11 @@ class FavoritesFragment : BaseFragment<FragmentFavoritesBinding>() {
     private fun navigateToMovieDetails(movieId: Int) = findNavController().navigate(
         FavoritesFragmentDirections.toMovieDetailsActivity(movieId)
     )
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        movieAdapter.removeLoadStateListener(loadStateListener)
+    }
 
     private fun getImageFixedSize(): Int = requireContext().applicationContext.resources.displayMetrics.widthPixels / 3
 

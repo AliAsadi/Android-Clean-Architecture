@@ -1,8 +1,9 @@
 package com.aliasadi.domain.usecase
 
+import androidx.paging.PagingData
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
-import com.aliasadi.domain.util.Result
+import kotlinx.coroutines.flow.Flow
 
 /**
  * @author by Ali Asadi on 24/09/2022
@@ -10,5 +11,5 @@ import com.aliasadi.domain.util.Result
 class SearchMovies(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun search(query: String): Result<List<MovieEntity>> = movieRepository.search(query)
+    operator fun invoke(query: String, pageSize: Int): Flow<PagingData<MovieEntity>> = movieRepository.search(query, pageSize)
 }

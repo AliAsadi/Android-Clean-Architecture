@@ -8,5 +8,5 @@ import com.aliasadi.domain.repository.MovieRepository
 class RemoveMovieFromFavorite(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun remove(movieId: Int) = movieRepository.removeMovieFromFavorite(movieId)
+    suspend operator fun invoke(movieId: Int) = movieRepository.removeMovieFromFavorite(movieId)
 }

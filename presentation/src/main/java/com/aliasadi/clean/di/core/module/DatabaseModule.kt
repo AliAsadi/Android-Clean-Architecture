@@ -3,9 +3,9 @@ package com.aliasadi.clean.di.core.module
 import android.content.Context
 import androidx.room.Room
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
-import com.aliasadi.data.db.favoritemovies.FavoriteMovieDatabase
 import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.db.movies.MovieDatabase
+import com.aliasadi.data.db.movies.MovieRemoteKeyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,18 +27,17 @@ class DatabaseModule {
     }
 
     @Provides
-    @Singleton
-    fun provideFavoriteMovieDatabase(@ApplicationContext context: Context): FavoriteMovieDatabase {
-        return Room.databaseBuilder(context, FavoriteMovieDatabase::class.java, "favorite_movie.db").build()
-    }
-
-    @Provides
     fun provideMovieDao(movieDatabase: MovieDatabase): MovieDao {
         return movieDatabase.movieDao()
     }
 
     @Provides
-    fun provideFavoriteMovieDao(favoriteMovieDatabase: FavoriteMovieDatabase): FavoriteMovieDao {
-        return favoriteMovieDatabase.favoriteMovieDao()
+    fun provideMovieRemoteKeyDao(movieDatabase: MovieDatabase): MovieRemoteKeyDao {
+        return movieDatabase.movieRemoteKeysDao()
+    }
+
+    @Provides
+    fun provideFavoriteMovieDao(movieDatabase: MovieDatabase): FavoriteMovieDao {
+        return movieDatabase.favoriteMovieDao()
     }
 }

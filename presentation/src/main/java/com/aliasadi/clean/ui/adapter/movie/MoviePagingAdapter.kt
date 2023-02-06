@@ -1,24 +1,25 @@
-package com.aliasadi.clean.ui.feed
+package com.aliasadi.clean.ui.adapter.movie
 
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.ui.feed.viewholder.MovieViewHolder
-import com.aliasadi.clean.ui.feed.viewholder.SeparatorViewHolder
+import com.aliasadi.clean.ui.adapter.movie.viewholder.MovieViewHolder
+import com.aliasadi.clean.ui.adapter.movie.viewholder.SeparatorViewHolder
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class MovieAdapter(
+class MoviePagingAdapter(
     private val onMovieClick: (movieId: Int) -> Unit,
     private val imageFixedSize: Int,
-) : ListAdapter<MovieListItem, ViewHolder>(MovieDiffCallback) {
+) : PagingDataAdapter<MovieListItem, ViewHolder>(MovieDiffCallback) {
 
-    override fun getItemViewType(position: Int): Int = when (getItem(position)) {
+    override fun getItemViewType(position: Int): Int = when (peek(position)) {
         is MovieListItem.Movie -> R.layout.item_movie
         is MovieListItem.Separator -> R.layout.item_separator
+        null -> throw RuntimeException("Unknown view type")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = when (viewType) {

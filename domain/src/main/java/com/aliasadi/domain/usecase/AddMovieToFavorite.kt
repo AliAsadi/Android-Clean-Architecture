@@ -8,5 +8,5 @@ import com.aliasadi.domain.repository.MovieRepository
 class AddMovieToFavorite(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun add(movieId: Int) = movieRepository.addMovieToFavorite(movieId)
+    suspend operator fun invoke(movieId: Int) = movieRepository.addMovieToFavorite(movieId)
 }

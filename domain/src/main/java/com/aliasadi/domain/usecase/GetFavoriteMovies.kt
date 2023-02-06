@@ -1,8 +1,9 @@
 package com.aliasadi.domain.usecase
 
+import androidx.paging.PagingData
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
-import com.aliasadi.domain.util.Result
+import kotlinx.coroutines.flow.Flow
 
 /**
  * @author by Ali Asadi on 13/08/2022
@@ -10,5 +11,5 @@ import com.aliasadi.domain.util.Result
 class GetFavoriteMovies(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun getFavoriteMovies(): Result<List<MovieEntity>> = movieRepository.getFavoriteMovies()
+    operator fun invoke(pageSize: Int): Flow<PagingData<MovieEntity>> = movieRepository.favoriteMovies(pageSize)
 }

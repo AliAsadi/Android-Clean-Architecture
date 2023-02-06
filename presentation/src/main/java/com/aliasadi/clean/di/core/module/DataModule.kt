@@ -3,11 +3,11 @@ package com.aliasadi.clean.di.core.module
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.db.movies.MovieDao
+import com.aliasadi.data.db.movies.MovieRemoteKeyDao
 import com.aliasadi.data.repository.movie.*
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesLocalDataSource
 import com.aliasadi.data.util.DiskExecutor
-import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.usecase.*
 import dagger.Module
@@ -28,18 +28,29 @@ class DataModule {
     fun provideMovieRepository(
         movieRemote: MovieDataSource.Remote,
         movieLocal: MovieDataSource.Local,
-        movieCache: MovieDataSource.Cache,
+        movieRemoteMediator: MovieRemoteMediator,
         favoriteLocal: FavoriteMoviesDataSource.Local,
     ): MovieRepository {
-        return MovieRepositoryImpl(movieRemote, movieLocal, movieCache, favoriteLocal)
+        return MovieRepositoryImpl(movieRemote, movieLocal, movieRemoteMediator, favoriteLocal)
     }
 
     @Provides
     @Singleton
     fun provideMovieLocalDataSource(
-        executor: DiskExecutor, movieDao: MovieDao
+        executor: DiskExecutor,
+        movieDao: MovieDao,
+        movieRemoteKeyDao: MovieRemoteKeyDao,
     ): MovieDataSource.Local {
-        return MovieLocalDataSource(executor, movieDao)
+        return MovieLocalDataSource(executor, movieDao, movieRemoteKeyDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieMediator(
+        movieLocalDataSource: MovieDataSource.Local,
+        movieRemoteDataSource: MovieDataSource.Remote
+    ): MovieRemoteMediator {
+        return MovieRemoteMediator(movieLocalDataSource, movieRemoteDataSource)
     }
 
     @Provides
@@ -53,20 +64,8 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideMovieCacheDataSource(diskExecutor: DiskExecutor): MovieDataSource.Cache {
-        return MovieCacheDataSource(diskExecutor)
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideMovieRemoveDataSource(movieApi: MovieApi, dispatchers: DispatchersProvider): MovieDataSource.Remote {
-        return MovieRemoteDataSource(movieApi, dispatchers)
-    }
-
-    @Provides
-    fun provideGetMovieUseCase(movieRepository: MovieRepository): GetMovies {
-        return GetMovies(movieRepository)
+    fun provideMovieRemoveDataSource(movieApi: MovieApi): MovieDataSource.Remote {
+        return MovieRemoteDataSource(movieApi)
     }
 
     @Provides

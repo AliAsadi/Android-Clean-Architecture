@@ -1,16 +1,16 @@
 package com.aliasadi.clean.ui.search
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
+import androidx.paging.*
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.mapper.MovieEntityMapper
+import com.aliasadi.clean.mapper.toPresentation
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.SearchMovies
-import com.aliasadi.domain.util.onError
-import com.aliasadi.domain.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class SearchViewModel @Inject constructor(
 ) : BaseViewModel(dispatchers) {
 
     data class SearchUiState(
-        val movies: List<MovieListItem> = emptyList(),
+        val showDefaultState: Boolean = true,
         val showLoading: Boolean = false,
         val showNoMoviesFound: Boolean = false,
         val errorMessage: String? = null
@@ -35,54 +35,54 @@ class SearchViewModel @Inject constructor(
         data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
+    var movies: Flow<PagingData<MovieListItem>> = savedStateHandle.getStateFlow(KEY_SEARCH_QUERY, "")
+        .onEach { query ->
+            _uiState.value = if (query.isNotEmpty()) SearchUiState(showDefaultState = false, showLoading = true) else SearchUiState()
+        }
+        .debounce(500)
+        .filter { it.isNotEmpty() }
+        .flatMapLatest { query ->
+            searchMovies(query, 30).map { pagingData ->
+                pagingData.map { movieEntity -> movieEntity.toPresentation() as MovieListItem }
+            }
+        }.cachedIn(viewModelScope)
+
     private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
     val uiState = _uiState.asStateFlow()
 
     private val _navigationState: MutableSharedFlow<NavigationState> = MutableSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
 
-    private var searchJob: Job? = null
-
     fun onSearch(query: String) {
-        searchJob?.cancel()
-
-        if (query.isEmpty()) {
-            _uiState.value = SearchUiState()
-        } else {
-            _uiState.value = SearchUiState(showLoading = true)
-
-            searchJob = launchOnIO {
-                delay(500)
-                searchMovies(query)
-            }
-        }
-
-        saveSearchQuery(query)
+        savedStateHandle[KEY_SEARCH_QUERY] = query
     }
 
     fun onMovieClicked(movieId: Int) = launchOnMainImmediate {
         _navigationState.emit(NavigationState.MovieDetails(movieId))
     }
 
-    private fun searchMovies(query: String) = launchOnMainImmediate {
-        searchMovies.search(query).onSuccess {
-            if (it.isEmpty()) {
-                _uiState.value = SearchUiState(showNoMoviesFound = true)
-            } else {
-                _uiState.value = SearchUiState(movies = it.map { movieEntity -> MovieEntityMapper.toPresentation(movieEntity) })
-            }
-        }.onError { error ->
-            _uiState.update { it.copy(errorMessage = error.message) }
+    fun getSearchQuery(): CharSequence? = savedStateHandle.get<String>(KEY_SEARCH_QUERY)
+
+    fun onLoadStateUpdate(loadState: CombinedLoadStates, itemCount: Int) {
+        val showLoading = loadState.refresh is LoadState.Loading
+        val showNoData = loadState.append.endOfPaginationReached && itemCount < 1
+
+        val error = when (val refresh = loadState.refresh) {
+            is LoadState.Error -> refresh.error.message
+            else -> null
+        }
+
+        _uiState.update {
+            it.copy(
+                showLoading = showLoading,
+                showNoMoviesFound = showNoData,
+                errorMessage = error
+            )
         }
     }
 
-    private fun saveSearchQuery(query: String) {
-        savedStateHandle[KEY_SEARCH_QUERY] = query
-    }
-
-    fun getSearchQuery(): CharSequence? = savedStateHandle.get<String>(KEY_SEARCH_QUERY)
-
     companion object {
-        const val KEY_SEARCH_QUERY = "last_search"
+        const val KEY_SEARCH_QUERY = "search_query"
     }
 }

@@ -1,5 +1,6 @@
 package com.aliasadi.data.entities
 
+import com.aliasadi.domain.entities.MovieEntity
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -11,4 +12,12 @@ data class MovieData(
     @SerializedName("image") val image: String,
     @SerializedName("title") val title: String,
     @SerializedName("category") val category: String,
+)
+
+fun MovieData.toDomain() = MovieEntity(
+    id = id,
+    image = image,
+    description = description,
+    title = title,
+    category = category
 )
