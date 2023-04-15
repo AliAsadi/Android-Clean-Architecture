@@ -26,7 +26,12 @@ android {
 
     buildFeatures {
         viewBinding true
+        compose true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.4"
+    }
+
 
     kotlinOptions {
         freeCompilerArgs += ["-Xjvm-default=all",]
@@ -100,6 +105,13 @@ dependencies {
 
     //WorkManager
     implementation "androidx.work:work-runtime-ktx:2.7.1"
+
+    //Compose
+    implementation 'androidx.activity:activity-compose:1.7.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
+    implementation "androidx.compose.ui:ui:1.4.1"
+    implementation "androidx.compose.ui:ui-tooling-preview:1.4.1"
+    implementation 'androidx.compose.material3:material3:1.0.1'
 
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'junit:junit:4.13.2'
