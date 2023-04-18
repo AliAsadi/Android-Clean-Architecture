@@ -52,6 +52,8 @@ fun MovieDetailsScreen(
     state: MovieDetailsViewModel.MovieDetailsUiState,
     onFavoriteClick: () -> Unit
 ) {
+    val favoriteIcon = if (state.isFavorite) R.drawable.ic_favorite_fill_white_48 else R.drawable.ic_favorite_border_white_48
+
     Scaffold(floatingActionButton = {
         FloatingActionButton(
             onClick = {
@@ -59,7 +61,7 @@ fun MovieDetailsScreen(
             }
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_favorite_border_white_48),
+                painter = painterResource(id = favoriteIcon),
                 contentDescription = null,
                 Modifier.size(24.dp)
             )
