@@ -19,7 +19,6 @@ class MovieLoadStateAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadStateViewHolder =
         LoadStateViewHolder(parent, onRetryClicked)
 
-
     override fun onBindViewHolder(holder: LoadStateViewHolder, loadState: LoadState) {
         holder.bind(loadState)
     }

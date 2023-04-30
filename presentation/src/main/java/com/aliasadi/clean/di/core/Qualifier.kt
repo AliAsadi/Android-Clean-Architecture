@@ -1,4 +1,4 @@
-@file:Suppress("MatchingDeclarationName")
+@file:Suppress("MatchingDeclarationName", "Filename")
 
 package com.aliasadi.clean.di.core
 

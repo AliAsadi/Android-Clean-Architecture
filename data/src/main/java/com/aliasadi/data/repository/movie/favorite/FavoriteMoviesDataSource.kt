@@ -16,5 +16,4 @@ interface FavoriteMoviesDataSource {
         suspend fun removeMovieFromFavorite(movieId: Int)
         suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>
     }
-
 }

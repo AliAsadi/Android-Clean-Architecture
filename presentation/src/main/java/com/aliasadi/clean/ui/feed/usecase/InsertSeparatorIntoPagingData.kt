@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * @author by Ali Asadi on 29/01/2023
  */
-class InsertSeparatorIntoPagingData  @Inject constructor(){
+class InsertSeparatorIntoPagingData @Inject constructor() {
     fun insert(pagingData: PagingData<MovieListItem.Movie>): PagingData<MovieListItem> {
         return pagingData.insertSeparators { before: MovieListItem.Movie?, after: MovieListItem.Movie? ->
             when {
@@ -49,5 +49,4 @@ class InsertSeparatorIntoPagingData  @Inject constructor(){
     private fun createSeparator(item: MovieListItem.Movie?) = item?.let {
         MovieListItem.Separator(it.category)
     }
-
 }

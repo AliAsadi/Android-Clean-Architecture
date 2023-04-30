@@ -270,7 +270,7 @@ formatting:
   Filename:
     active: true
   FinalNewline:
-    active: true
+    active: false
     autoCorrect: true
     insertFinalNewLine: true
   ImportOrdering:
@@ -293,7 +293,7 @@ formatting:
     active: true
     autoCorrect: true
   NoBlankLineBeforeRbrace:
-    active: true
+    active: false
     autoCorrect: true
   NoConsecutiveBlankLines:
     active: true
@@ -326,7 +326,7 @@ formatting:
     active: true
     autoCorrect: true
   NoWildcardImports:
-    active: true
+    active: false
   PackageName:
     active: true
     autoCorrect: true

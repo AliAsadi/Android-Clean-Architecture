@@ -40,7 +40,6 @@ class FavoritesViewModel @Inject constructor(
     private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
 
-
     fun onMovieClicked(movieId: Int) =
         _navigationState.tryEmit(NavigationState.MovieDetails(movieId))
 

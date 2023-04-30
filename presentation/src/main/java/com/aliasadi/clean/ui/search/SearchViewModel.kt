@@ -62,7 +62,6 @@ class SearchViewModel @Inject constructor(
     fun onMovieClicked(movieId: Int) =
         _navigationState.tryEmit(NavigationState.MovieDetails(movieId))
 
-
     fun getSearchQuery(): CharSequence? = savedStateHandle.get<String>(KEY_SEARCH_QUERY)
 
     fun onLoadStateUpdate(loadState: CombinedLoadStates, itemCount: Int) {

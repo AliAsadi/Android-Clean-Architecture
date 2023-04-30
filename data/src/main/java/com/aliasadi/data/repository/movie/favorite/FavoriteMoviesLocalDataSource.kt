@@ -40,5 +40,4 @@ class FavoriteMoviesLocalDataSource(
             Result.Error(DataNotAvailableException())
         }
     }
-
 }

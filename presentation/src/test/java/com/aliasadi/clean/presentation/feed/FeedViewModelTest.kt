@@ -64,13 +64,11 @@ class FeedViewModelTest : BaseViewModelTest() {
         }
     }
 
-
     @Test
     fun onInitialState_loadMovies_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
         viewModel.onInitialState()
         assertThat(viewModel.uiState.value.showLoading).isTrue()
     }
-
 
     @Test
     fun onMovieClicked_navigateToMovieDetails() = coroutineRule.runBlockingTest {
@@ -90,5 +88,4 @@ class FeedViewModelTest : BaseViewModelTest() {
         viewModel.onMovieClicked(movieId)
 
     }
-
 }
