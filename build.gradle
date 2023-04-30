@@ -26,6 +26,9 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
+
+    //Apply Detekt plugin for all modules (presentation, data, domain)
+    apply from: "$rootDir/detekt.gradle"
 }
 
 task clean(type: Delete) {
