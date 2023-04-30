@@ -100,6 +100,16 @@ I like it because it helps me avoid accidentals “leaks” between the layers.
 - [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
 - [Mockito](https://github.com/mockito/mockito) - For Mocking and Unit Testing
 
+## Code Style
+
+The code style in this project was ensured using [Detekt](https://detekt.dev/).
+
+**Check command:**
+
+```
+./gradlew detekt
+```
+
 --------------------------------------------------------------------------------------------
 
 **Feel free to submit any type of issues and suggestions for improving the coding standard**
