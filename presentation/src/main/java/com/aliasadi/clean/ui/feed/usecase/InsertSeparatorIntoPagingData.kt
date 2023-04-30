@@ -38,6 +38,7 @@ class InsertSeparatorIntoPagingData  @Inject constructor(){
     /**
      * Insert Footer; return null to skip adding a footer.
      * **/
+    @Suppress("FunctionOnlyReturningConstant")
     private fun insertFooterItem(): MovieListItem? = null
 
     /**

@@ -16,12 +16,14 @@ class MoviePagingAdapter(
     private val imageFixedSize: Int,
 ) : PagingDataAdapter<MovieListItem, ViewHolder>(MovieDiffCallback) {
 
+    @Suppress("TooGenericExceptionThrown")
     override fun getItemViewType(position: Int): Int = when (peek(position)) {
         is MovieListItem.Movie -> R.layout.item_movie
         is MovieListItem.Separator -> R.layout.item_separator
         null -> throw RuntimeException("Unknown view type")
     }
 
+    @Suppress("TooGenericExceptionThrown")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = when (viewType) {
         R.layout.item_movie -> MovieViewHolder(parent, onMovieClick, imageFixedSize)
         R.layout.item_separator -> SeparatorViewHolder(parent)

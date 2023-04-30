@@ -1,3 +1,5 @@
+@file:Suppress("MatchingDeclarationName")
+
 package com.aliasadi.clean.di.core
 
 import javax.inject.Qualifier

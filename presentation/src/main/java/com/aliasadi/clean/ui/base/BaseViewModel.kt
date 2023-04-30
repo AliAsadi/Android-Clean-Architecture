@@ -5,8 +5,14 @@ import android.os.MessageQueue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aliasadi.data.util.DispatchersProvider
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.MainCoroutineDispatcher
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.android.HandlerDispatcher
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Created by Ali Asadi on 13/05/2020
