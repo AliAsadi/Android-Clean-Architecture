@@ -1,6 +1,10 @@
 package com.aliasadi.data.repository.movie
 
-import androidx.paging.*
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
@@ -79,5 +83,4 @@ class MovieRepositoryImpl constructor(
     }, {
         it.error is DataNotAvailableException
     })
-
 }
