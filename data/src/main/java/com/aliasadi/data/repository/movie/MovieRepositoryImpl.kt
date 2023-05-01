@@ -43,7 +43,8 @@ class MovieRepositoryImpl constructor(
         config = PagingConfig(
             pageSize = pageSize,
             enablePlaceholders = false
-        ), pagingSourceFactory = { localFavorite.favoriteMovies() }
+        ),
+        pagingSourceFactory = { localFavorite.favoriteMovies() }
     ).flow.map { pagingData ->
         pagingData.map { it.toDomain() }
     }

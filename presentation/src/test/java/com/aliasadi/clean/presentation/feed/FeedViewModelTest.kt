@@ -1,12 +1,18 @@
 package com.aliasadi.clean.presentation.feed
 
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import androidx.paging.LoadStates
+import androidx.paging.PagingData
 import app.cash.turbine.test
+import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.ui.feed.FeedViewModel
-import com.aliasadi.domain.usecase.GetMovies
-import com.aliasadi.domain.util.Result
+import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import org.junit.Before
 import org.junit.Test
@@ -23,51 +29,52 @@ import org.mockito.junit.MockitoJUnitRunner
 class FeedViewModelTest : BaseViewModelTest() {
 
     @Mock
-    lateinit var getMovies: GetMovies
+    lateinit var getMoviesWithSeparators: GetMoviesWithSeparators
 
     private lateinit var viewModel: FeedViewModel
 
+    private val movies = listOf(MovieListItem.Movie(1, "", ""))
+
+    private val pagingData: Flow<PagingData<MovieListItem>> = flowOf(PagingData.from(movies))
+
     @Before
     fun setUp() {
+        `when`(getMoviesWithSeparators.movies(pageSize = anyInt())).thenReturn(pagingData)
         viewModel = FeedViewModel(
-            getMovies = getMovies,
+            getMoviesWithSeparators = getMoviesWithSeparators,
             dispatchers = coroutineRule.testDispatcherProvider
         )
     }
 
     @Test
-    fun onInitialState_loadMovies_onSuccess_hideLoadingAndShowMovies() = coroutineRule.runBlockingTest {
-        `when`(getMovies.execute()).thenReturn(Result.Success(listOf()))
+    fun onLoadStateUpdate_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
+        viewModel.onLoadStateUpdate(getLoadState(LoadState.Loading))
 
-        viewModel.onInitialState()
-
-        viewModel.uiState.test {
-            val emission: FeedViewModel.FeedUiState = awaitItem()
-            assertThat(emission.showLoading).isFalse()
-            assertThat(emission.movies).isEmpty()
-            assertThat(emission.errorMessage).isNull()
-        }
+        assertThat(viewModel.uiState.value.showLoading).isTrue()
     }
 
     @Test
-    fun onInitialState_loadMovies_onFailure_hideLoadingAndShowErrorMessage() = coroutineRule.runBlockingTest {
+    fun onLoadStateUpdate_onFailure_hideLoadingAndShowErrorMessage() = coroutineRule.runBlockingTest {
         val errorMessage = "error"
-        `when`(getMovies.execute()).thenReturn(Result.Error(Throwable(errorMessage)))
-
-        viewModel.onInitialState()
+        viewModel.onLoadStateUpdate(getLoadState(LoadState.Error(Throwable(errorMessage))))
 
         viewModel.uiState.test {
             val emission: FeedViewModel.FeedUiState = awaitItem()
             assertThat(emission.showLoading).isFalse()
-            assertThat(emission.movies).isEmpty()
             assertThat(emission.errorMessage).isEqualTo(errorMessage)
         }
     }
 
     @Test
-    fun onInitialState_loadMovies_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
-        viewModel.onInitialState()
-        assertThat(viewModel.uiState.value.showLoading).isTrue()
+    fun onLoadStateUpdate_onSuccess_hideLoadingAndShowMovies() = coroutineRule.runBlockingTest {
+        viewModel.onLoadStateUpdate(getLoadState(LoadState.NotLoading(true)))
+
+        // TODO - test movies flow
+        viewModel.uiState.test {
+            val emission: FeedViewModel.FeedUiState = awaitItem()
+            assertThat(emission.showLoading).isFalse()
+            assertThat(emission.errorMessage).isNull()
+        }
     }
 
     @Test
@@ -88,4 +95,7 @@ class FeedViewModelTest : BaseViewModelTest() {
         viewModel.onMovieClicked(movieId)
 
     }
+
+    private fun getLoadState(state: LoadState): CombinedLoadStates =
+        CombinedLoadStates(state, state, state, LoadStates(state, state, state))
 }
