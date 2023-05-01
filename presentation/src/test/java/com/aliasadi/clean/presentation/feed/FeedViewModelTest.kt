@@ -47,14 +47,14 @@ class FeedViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun onInitialState_loadMovies_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
+    fun onLoadStateUpdate_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
         viewModel.onLoadStateUpdate(getLoadState(LoadState.Loading))
 
         assertThat(viewModel.uiState.value.showLoading).isTrue()
     }
 
     @Test
-    fun onInitialState_loadMovies_onFailure_hideLoadingAndShowErrorMessage() = coroutineRule.runBlockingTest {
+    fun onLoadStateUpdate_onFailure_hideLoadingAndShowErrorMessage() = coroutineRule.runBlockingTest {
         val errorMessage = "error"
         viewModel.onLoadStateUpdate(getLoadState(LoadState.Error(Throwable(errorMessage))))
 
@@ -66,7 +66,7 @@ class FeedViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun onInitialState_loadMovies_onSuccess_hideLoadingAndShowMovies() = coroutineRule.runBlockingTest {
+    fun onLoadStateUpdate_onSuccess_hideLoadingAndShowMovies() = coroutineRule.runBlockingTest {
         viewModel.onLoadStateUpdate(getLoadState(LoadState.NotLoading(true)))
 
         // TODO - test movies flow
