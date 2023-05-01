@@ -21,7 +21,6 @@ class MovieRemoteMediator(
 ) : RemoteMediator<Int, MovieDbData>() {
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, MovieDbData>): MediatorResult {
-
         val page = when (loadType) {
             LoadType.REFRESH -> MOVIE_STARTING_PAGE_INDEX
             LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)

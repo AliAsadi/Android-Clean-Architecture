@@ -57,7 +57,6 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
 
     @Test
     fun onInitialState_movieAvailable_showMovieDetails() = coroutineRule.runBlockingTest {
-
         `when`(getMovieDetails.getMovie(movieId)).thenReturn(Result.Success(movie))
 
         viewModel.onInitialState()
