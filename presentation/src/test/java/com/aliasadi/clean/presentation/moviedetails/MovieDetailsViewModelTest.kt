@@ -57,23 +57,23 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
 
     @Test
     fun onInitialState_movieAvailable_showMovieDetails() = coroutineRule.runBlockingTest {
-        `when`(getMovieDetails.getMovie(movieId)).thenReturn(Result.Success(movie))
+        `when`(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
 
         viewModel.onInitialState()
 
         viewModel.uiState.test {
             val emission = awaitItem()
+            expectMostRecentItem()
             assertThat(emission.description).isEqualTo(movie.description)
             assertThat(emission.imageUrl).isEqualTo(movie.image)
             assertThat(emission.title).isEqualTo(movie.title)
             assertThat(emission.isFavorite).isFalse()
         }
-
     }
 
     @Test
     fun onInitialState_movieNotAvailable_doNothing() = coroutineRule.runBlockingTest {
-        `when`(getMovieDetails.getMovie(movieId)).thenReturn(Result.Error(mock()))
+        `when`(getMovieDetails(movieId)).thenReturn(Result.Error(mock()))
 
         viewModel.onInitialState()
 
