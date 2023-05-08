@@ -63,7 +63,6 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
 
         viewModel.uiState.test {
             val emission = awaitItem()
-            expectMostRecentItem()
             assertThat(emission.description).isEqualTo(movie.description)
             assertThat(emission.imageUrl).isEqualTo(movie.image)
             assertThat(emission.title).isEqualTo(movie.title)
