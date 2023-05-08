@@ -3,7 +3,6 @@ package com.aliasadi.clean.presentation.moviedetails
 import app.cash.turbine.test
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.mock
-import com.aliasadi.clean.presentation.util.rules.runTest
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
@@ -58,7 +57,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun onInitialState_movieAvailable_showMovieDetails() = coroutineRule.runTest {
+    fun onInitialState_movieAvailable_showMovieDetails() = runTest {
         `when`(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
 
         viewModel.onInitialState()
@@ -73,7 +72,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun onInitialState_movieNotAvailable_doNothing() = coroutineRule.runTest {
+    fun onInitialState_movieNotAvailable_doNothing() = runTest {
         `when`(getMovieDetails(movieId)).thenReturn(Result.Error(mock()))
 
         viewModel.onInitialState()
