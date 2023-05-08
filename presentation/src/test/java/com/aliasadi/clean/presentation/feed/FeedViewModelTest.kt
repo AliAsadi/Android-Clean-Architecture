@@ -7,10 +7,10 @@ import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
-import com.aliasadi.clean.presentation.util.rules.runBlockingTest
 import com.aliasadi.clean.ui.feed.FeedViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
@@ -25,6 +25,7 @@ import org.mockito.junit.MockitoJUnitRunner
  * Created by Ali Asadi on 16/05/2020
  **/
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
 class FeedViewModelTest : BaseViewModelTest() {
 
@@ -47,14 +48,14 @@ class FeedViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun onLoadStateUpdate_onLoading_showLoadingView() = coroutineRule.runBlockingTest {
+    fun onLoadStateUpdate_onLoading_showLoadingView() = runTest {
         viewModel.onLoadStateUpdate(getLoadState(LoadState.Loading))
 
         assertThat(viewModel.uiState.value.showLoading).isTrue()
     }
 
     @Test
-    fun onLoadStateUpdate_onFailure_hideLoadingAndShowErrorMessage() = coroutineRule.runBlockingTest {
+    fun onLoadStateUpdate_onFailure_hideLoadingAndShowErrorMessage() = runTest {
         val errorMessage = "error"
         viewModel.onLoadStateUpdate(getLoadState(LoadState.Error(Throwable(errorMessage))))
 
@@ -66,7 +67,7 @@ class FeedViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun onLoadStateUpdate_onSuccess_hideLoadingAndShowMovies() = coroutineRule.runBlockingTest {
+    fun onLoadStateUpdate_onSuccess_hideLoadingAndShowMovies() = runTest {
         viewModel.onLoadStateUpdate(getLoadState(LoadState.NotLoading(true)))
 
         // TODO - test movies flow
@@ -78,7 +79,7 @@ class FeedViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun onMovieClicked_navigateToMovieDetails() = coroutineRule.runBlockingTest {
+    fun onMovieClicked_navigateToMovieDetails() = runTest {
         val movieId = 1
 
         launch {
