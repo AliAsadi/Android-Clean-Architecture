@@ -3,7 +3,7 @@ package com.aliasadi.clean.presentation.moviedetails
 import app.cash.turbine.test
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.mock
-import com.aliasadi.clean.presentation.util.rules.runBlockingTest
+import com.aliasadi.clean.presentation.util.rules.runTest
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
@@ -12,6 +12,7 @@ import com.aliasadi.domain.usecase.GetMovieDetails
 import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,6 +23,7 @@ import org.mockito.junit.MockitoJUnitRunner
 /**
  * Created by Ali Asadi on 16/05/2020
  **/
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(MockitoJUnitRunner::class)
 class MovieDetailsViewModelTest : BaseViewModelTest() {
 
@@ -56,7 +58,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun onInitialState_movieAvailable_showMovieDetails() = coroutineRule.runBlockingTest {
+    fun onInitialState_movieAvailable_showMovieDetails() = coroutineRule.runTest {
         `when`(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
 
         viewModel.onInitialState()
@@ -71,7 +73,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     }
 
     @Test
-    fun onInitialState_movieNotAvailable_doNothing() = coroutineRule.runBlockingTest {
+    fun onInitialState_movieNotAvailable_doNothing() = coroutineRule.runTest {
         `when`(getMovieDetails(movieId)).thenReturn(Result.Error(mock()))
 
         viewModel.onInitialState()

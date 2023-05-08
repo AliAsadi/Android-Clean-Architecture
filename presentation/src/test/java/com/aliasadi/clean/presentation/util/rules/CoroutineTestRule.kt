@@ -35,6 +35,6 @@ class CoroutineTestRule : TestWatcher() {
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-fun CoroutineTestRule.runBlockingTest(block: suspend TestScope.() -> Unit) = runTest(testDispatcher) {
+fun CoroutineTestRule.runTest(block: suspend TestScope.() -> Unit) = runTest(testDispatcher) {
     block()
 }
