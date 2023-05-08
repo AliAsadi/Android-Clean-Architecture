@@ -14,17 +14,16 @@ import org.junit.runner.Description
 @OptIn(ExperimentalCoroutinesApi::class)
 class CoroutineTestRule : TestWatcher() {
 
-    internal val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
+    internal val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
 
-    override fun starting(description: Description?) {
+    override fun starting(description: Description) {
         super.starting(description)
         Dispatchers.setMain(testDispatcher)
     }
 
-    override fun finished(description: Description?) {
+    override fun finished(description: Description) {
         super.finished(description)
         Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
     }
 
     val testDispatcherProvider = object : DispatchersProvider {
@@ -33,10 +32,9 @@ class CoroutineTestRule : TestWatcher() {
         override fun getMainImmediate(): CoroutineDispatcher = testDispatcher
         override fun getDefault(): CoroutineDispatcher = testDispatcher
     }
-
 }
 
 @OptIn(ExperimentalCoroutinesApi::class)
-fun CoroutineTestRule.runBlockingTest(block: suspend TestCoroutineScope.() -> Unit) {
-    testDispatcher.runBlockingTest(block)
+fun CoroutineTestRule.runBlockingTest(block: suspend TestScope.() -> Unit) = runTest(testDispatcher) {
+    block()
 }
