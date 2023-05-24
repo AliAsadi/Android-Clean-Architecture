@@ -21,10 +21,6 @@ API: https://movies-mock-server.vercel.app/
 API (Repository): https://github.com/AliAsadi/movies-mock-server
 
 ### ⚠️NOTE
-If you are here trying to learn a new architecture and asking yourself what is the best architecture, I will share my thoughts on the topic. 
-
-It's important to note that there is no such thing as **"the perfect architecture."** 
-
 Architecture by its nature is **dynamic** and **ever-evolving**, there are always several solutions to every problem, and what works best will depend on the specific requirements and constraints of your project.
 
 ![image](https://user-images.githubusercontent.com/20803775/214686254-9405504c-05d2-417e-9cf5-669a1a57e8a6.png)
