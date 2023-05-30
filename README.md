@@ -4,11 +4,12 @@ A demo movie android app that demonstrates Clean Architecture and is written in 
 
 # Features
 
-* Offline-first app, allowing users to access the app even without an internet connection.
-* Pagination to efficiently load large amounts of data and improve the user experience.
-* Search functionality to quickly find specific information within the app.
-* Auto Sync using both NetworkConnectivityStream and WorkManager to ensure data is always up-to-date.
-* The ability to add movies to a favorite.
+1. **Offline-first**: The app can be accessed even without an internet connection.
+2. **Pagination**: Efficiently loads large amounts of data to improve the user experience.
+3. **Search functionality**: Allows users to quickly find specific information within the app.
+4. **Auto Sync**: Uses both NetworkConnectivityStream and WorkManager to ensure data is always up-to-date.
+5. **Favorites**: Users can add movies to a favorites list.
+
 
 For a basic version of the app without pagination, check out the [basic_app](https://github.com/AliAsadi/Android-Clean-Architecture/tree/basic_app
 ) branch.
