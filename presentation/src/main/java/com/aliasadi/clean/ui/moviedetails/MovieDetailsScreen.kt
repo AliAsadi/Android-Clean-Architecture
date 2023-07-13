@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.aliasadi.clean.R
-import com.aliasadi.clean.ui.theme.AppTheme
+import com.aliasadi.clean.ui.preview.PreviewContainer
 
 /**
  * @author by Ali Asadi on 15/04/2023
@@ -33,7 +33,7 @@ import com.aliasadi.clean.ui.theme.AppTheme
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun MovieDetailsScreenPreview() {
-    AppTheme {
+    PreviewContainer {
         MovieDetailsScreen(
             MovieDetailsViewModel.MovieDetailsUiState(
                 imageUrl = "https://i.stack.imgur.com/lDFzt.jpg",
