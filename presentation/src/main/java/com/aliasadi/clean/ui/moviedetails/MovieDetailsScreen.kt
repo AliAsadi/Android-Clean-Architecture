@@ -49,7 +49,7 @@ private fun MovieDetailsScreenPreview() {
 }
 
 @Composable
-fun MovieDetailsRoute(
+fun MovieDetailsPage(
     viewModel: MovieDetailsViewModel,
     onFavoriteClick: () -> Unit
 ) {

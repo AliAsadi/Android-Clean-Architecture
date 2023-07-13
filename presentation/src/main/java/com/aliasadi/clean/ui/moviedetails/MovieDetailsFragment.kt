@@ -25,7 +25,7 @@ class MovieDetailsFragment : BaseComposeFragment() {
 
     @Composable
     override fun Content() {
-        MovieDetailsRoute(viewModel) {
+        MovieDetailsPage(viewModel) {
             viewModel.onFavoriteClicked()
         }
     }
