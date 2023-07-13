@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.aliasadi.clean.R
-import com.aliasadi.clean.ui.preview.PreviewContainer
+import com.aliasadi.clean.util.preview.PreviewContainer
 
 /**
  * @author by Ali Asadi on 15/04/2023
