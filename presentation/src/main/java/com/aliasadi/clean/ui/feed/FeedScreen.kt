@@ -2,6 +2,7 @@ package com.aliasadi.clean.ui.feed
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,27 +18,30 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.CombinedLoadStates
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
+import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.widget.Loader
 import com.aliasadi.clean.util.preview.PreviewContainer
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 /**
  * @author by Ali Asadi on 18/04/2023
@@ -62,24 +66,36 @@ private class ImageSize(
 fun FeedPage(
     viewModel: FeedViewModel,
     loadStateListener: (CombinedLoadStates) -> Unit,
+    onMovieClick: (movieId: Int) -> Unit,
 ) {
+    val context = LocalContext.current
     val moviesPaging = viewModel.movies.collectAsLazyPagingItems()
     val state by viewModel.uiState.collectAsState()
     loadStateListener(moviesPaging.loadState)
-    FeedScreen(moviesPaging, state)
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.navigationState.onEach {
+            when (it) {
+                is MovieDetails -> MovieDetailsActivity.start(context, it.movieId)
+            }
+        }.launchIn(this)
+    }
+
+    FeedScreen(moviesPaging, state, onMovieClick)
 }
 
 @Composable
 private fun FeedScreen(
     movies: LazyPagingItems<MovieListItem>,
-    state: FeedViewModel.FeedUiState
+    state: FeedViewModel.FeedUiState,
+    onMovieClick: (movieId: Int) -> Unit
 ) {
     Surface {
         Box(contentAlignment = Alignment.Center) {
             if (state.showLoading) {
                 Loader()
             } else {
-                MovieGridList(movies)
+                MovieGridList(movies, onMovieClick)
             }
         }
     }
@@ -87,7 +103,7 @@ private fun FeedScreen(
 }
 
 @Composable
-private fun MovieGridList(movies: LazyPagingItems<MovieListItem>) {
+private fun MovieGridList(movies: LazyPagingItems<MovieListItem>, onMovieClick: (movieId: Int) -> Unit) {
     val imageSize = ImageSize.getImageFixedSize()
     LazyVerticalGrid(columns = GridCells.Fixed(3)) {
         items(movies.itemCount, span = { index ->
@@ -99,7 +115,7 @@ private fun MovieGridList(movies: LazyPagingItems<MovieListItem>) {
             GridItemSpan(spinSize)
         }) { index ->
             when (val movie = movies[index]) {
-                is MovieListItem.Movie -> MovieItem(movie.imageUrl, imageSize)
+                is MovieListItem.Movie -> MovieItem(movie, imageSize, onMovieClick)
                 is MovieListItem.Separator -> Separator(movie.category)
                 else -> Loader()
             }
@@ -109,9 +125,9 @@ private fun MovieGridList(movies: LazyPagingItems<MovieListItem>) {
 
 
 @Composable
-private fun MovieItem(imageUrl: String, imageSize: ImageSize) {
+private fun MovieItem(movie: MovieListItem.Movie, imageSize: ImageSize, onMovieClick: (movieId: Int) -> Unit = {}) {
     SubcomposeAsyncImage(
-        model = imageUrl,
+        model = movie.imageUrl,
         loading = { MovieItemPlaceholder() },
         error = { MovieItemPlaceholder() },
         contentDescription = null,
@@ -119,6 +135,7 @@ private fun MovieItem(imageUrl: String, imageSize: ImageSize) {
         modifier = Modifier
             .padding(8.dp)
             .size(imageSize.width, imageSize.height)
+            .clickable { onMovieClick(movie.id) }
     )
 }
 
@@ -154,9 +171,9 @@ private fun SeparatorAndMovieItem() {
             Column {
                 Separator("Action")
                 Row {
-                    MovieItem("https://i.stack.imgur.com/lDFzt.jpg", imageSize)
-                    MovieItem("Bob", imageSize)
-                    MovieItem("https://i.stack.imgur.com/lDFzt.jpg", imageSize)
+                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
+                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
+                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
                 }
             }
         }
