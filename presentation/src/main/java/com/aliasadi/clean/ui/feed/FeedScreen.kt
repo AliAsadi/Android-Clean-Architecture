@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -126,17 +129,23 @@ private fun MovieGridList(movies: LazyPagingItems<MovieListItem>, onMovieClick: 
 
 @Composable
 private fun MovieItem(movie: MovieListItem.Movie, imageSize: ImageSize, onMovieClick: (movieId: Int) -> Unit = {}) {
-    SubcomposeAsyncImage(
-        model = movie.imageUrl,
-        loading = { MovieItemPlaceholder() },
-        error = { MovieItemPlaceholder() },
-        contentDescription = null,
-        contentScale = ContentScale.Crop,
-        modifier = Modifier
-            .padding(8.dp)
-            .size(imageSize.width, imageSize.height)
-            .clickable { onMovieClick(movie.id) }
-    )
+    Card(
+        modifier = Modifier.padding(3.dp),
+        elevation = CardDefaults.cardElevation(1.dp),
+        shape = RoundedCornerShape(4.dp),
+
+    ) {
+        SubcomposeAsyncImage(
+            model = movie.imageUrl,
+            loading = { MovieItemPlaceholder() },
+            error = { MovieItemPlaceholder() },
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(imageSize.width, imageSize.height)
+                .clickable { onMovieClick(movie.id) }
+        )
+    }
 }
 
 @Composable
