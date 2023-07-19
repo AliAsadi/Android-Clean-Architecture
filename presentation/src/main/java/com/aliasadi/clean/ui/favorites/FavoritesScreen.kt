@@ -92,7 +92,7 @@ fun FavoritesScreenPreview() {
 
     PreviewContainer {
         val movies = flowOf(PagingData.from(movieItems)).collectAsLazyPagingItems()
-        FavoritesScreen(FavoritesViewModel.FavoriteUiState(), movies) {
+        FavoritesScreen(FavoritesViewModel.FavoriteUiState(isLoading = false, noDataAvailable = true), movies) {
 
         }
     }
