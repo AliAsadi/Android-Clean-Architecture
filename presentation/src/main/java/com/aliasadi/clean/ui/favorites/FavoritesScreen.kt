@@ -1,6 +1,5 @@
 package com.aliasadi.clean.ui.favorites
 
-
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Surface
