@@ -45,9 +45,10 @@ class MovieDetailsActivity : BaseActivity<ActivityMovieDetailsBinding>() {
     }
 
     companion object {
-        fun start(context: Context, movieId: Int) {
+        fun start(context: Context, movieId: Int, newTask: Boolean = false) {
             val starter = Intent(context, MovieDetailsActivity::class.java)
             starter.putExtra("movieId", movieId)
+            if (newTask) starter.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(starter)
         }
     }

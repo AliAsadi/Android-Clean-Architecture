@@ -3,94 +3,46 @@ package com.aliasadi.clean.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
-import androidx.paging.CombinedLoadStates
+import androidx.compose.runtime.Composable
 import com.aliasadi.clean.R
-import com.aliasadi.clean.databinding.ActivitySearchBinding
-import com.aliasadi.clean.ui.adapter.movie.MoviePagingAdapter
-import com.aliasadi.clean.ui.base.BaseActivity
-import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
-import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState
-import com.aliasadi.clean.util.createMovieGridLayoutManager
-import com.aliasadi.clean.util.hide
-import com.aliasadi.clean.util.launchAndRepeatWithViewLifecycle
-import com.google.android.material.snackbar.Snackbar
+import com.aliasadi.clean.ui.base.BaseComposeActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 /**
  * @author by Ali Asadi on 25/09/2022
  */
 
 @AndroidEntryPoint
-class SearchActivity : BaseActivity<ActivitySearchBinding>() {
+class SearchActivity : BaseComposeActivity() {
 
     private val viewModel: SearchViewModel by viewModels()
 
-    private val movieAdapter by lazy { MoviePagingAdapter(viewModel::onMovieClicked, getImageFixedSize()) }
-
-    private val loadStateListener: (CombinedLoadStates) -> Unit = {
-        viewModel.onLoadStateUpdate(it, movieAdapter.itemCount)
+    @Composable
+    override fun ActivityContent() {
+        SearchPage(
+            viewModel = viewModel,
+            loadStateListener = { state, itemCount ->
+                viewModel.onLoadStateUpdate(state, itemCount)
+            },
+            onMovieClick = viewModel::onMovieClicked
+        )
     }
-
-    override fun inflateViewBinding(inflater: LayoutInflater): ActivitySearchBinding = ActivitySearchBinding.inflate(inflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupViews()
-        setupListeners()
-        setupObservers()
     }
 
     private fun setupViews() {
         setupActionBar()
-        setupRecyclerView()
-    }
-
-    private fun setupListeners() {
-        movieAdapter.addLoadStateListener(loadStateListener)
-    }
-
-    private fun setupObservers() = with(viewModel) {
-        launchAndRepeatWithViewLifecycle {
-            launch { uiState.collect { handleSearchUiState(it) } }
-            launch { navigationState.collect { handleNavigationState(it) } }
-            launch { movies.collect { movieAdapter.submitData(it) } }
-        }
-    }
-
-    private fun handleSearchUiState(state: SearchViewModel.SearchUiState) = with(binding) {
-        if (state.showDefaultState) {
-            recyclerView.hide()
-            progressBar.hide()
-            noMoviesFoundView.hide()
-        } else {
-            recyclerView.isInvisible = state.showLoading || state.showNoMoviesFound
-            progressBar.isVisible = state.showLoading
-            noMoviesFoundView.isVisible = state.showNoMoviesFound
-        }
-        if (state.errorMessage != null) Snackbar.make(binding.root, state.errorMessage, Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun handleNavigationState(state: NavigationState) = when (state) {
-        is NavigationState.MovieDetails -> MovieDetailsActivity.start(this, state.movieId)
     }
 
     private fun setupActionBar() {
         supportActionBar?.title = ""
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun setupRecyclerView() = with(binding.recyclerView) {
-        adapter = movieAdapter
-        layoutManager = createMovieGridLayoutManager(baseContext, movieAdapter)
-        setHasFixedSize(true)
-        setItemViewCacheSize(0)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -119,13 +71,6 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>() {
         onBackPressedDispatcher.onBackPressed()
         return true
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        movieAdapter.removeLoadStateListener(loadStateListener)
-    }
-
-    private fun getImageFixedSize(): Int = applicationContext.resources.displayMetrics.widthPixels / 3
 
     companion object {
         fun start(context: Context) {
