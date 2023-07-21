@@ -1,7 +1,6 @@
 package com.aliasadi.clean.ui.search
 
 import android.content.res.Configuration
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -39,7 +38,6 @@ fun SearchPage(
     val movies = viewModel.movies.collectAsLazyPagingItems()
     loadStateListener(movies.loadState, movies.itemCount)
 
-    Log.d("XXX", "$context")
     LaunchedEffect(key1 = Unit) {
         viewModel.navigationState.onEach {
             when (it) {
