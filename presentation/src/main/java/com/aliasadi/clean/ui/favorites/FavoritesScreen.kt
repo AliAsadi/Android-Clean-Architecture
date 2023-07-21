@@ -1,13 +1,11 @@
 package com.aliasadi.clean.ui.favorites
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.CombinedLoadStates
@@ -19,7 +17,7 @@ import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.widget.EmptyStateView
-import com.aliasadi.clean.ui.widget.Loader
+import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.flow.flowOf
@@ -65,9 +63,7 @@ fun FavoritesScreen(
         MovieList(movies = movies, onMovieClick = onMovieClick)
 
         if (isLoading) {
-            Box(contentAlignment = Alignment.Center) {
-                Loader()
-            }
+            LoaderFullScreen()
         } else {
             if (noDataAvailable) {
                 EmptyStateView(titleRes = R.string.no_favorite_movies_at_the_moment)

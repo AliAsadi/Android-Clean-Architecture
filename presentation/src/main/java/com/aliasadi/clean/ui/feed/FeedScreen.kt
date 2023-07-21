@@ -1,21 +1,24 @@
 package com.aliasadi.clean.ui.feed
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.CombinedLoadStates
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
-import com.aliasadi.clean.ui.widget.Loader
+import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
+import com.aliasadi.clean.util.preview.PreviewContainer
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -52,12 +55,19 @@ private fun FeedScreen(
     onMovieClick: (movieId: Int) -> Unit
 ) {
     Surface {
-        Box(contentAlignment = Alignment.Center) {
-            if (state.showLoading) {
-                Loader()
-            } else {
-                MovieList(movies, onMovieClick)
-            }
+        if (state.showLoading) {
+            LoaderFullScreen()
+        } else {
+            MovieList(movies, onMovieClick)
         }
+    }
+}
+
+@Preview(device = Devices.PIXEL_3, showSystemUi = true)
+@Composable
+private fun FeedScreenPreview() {
+    val movies = flowOf(PagingData.from(listOf<MovieListItem>())).collectAsLazyPagingItems()
+    PreviewContainer {
+        FeedScreen(movies, FeedViewModel.FeedUiState()) {}
     }
 }

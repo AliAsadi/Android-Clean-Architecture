@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DynamicFeed
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -33,7 +33,7 @@ fun MainScreen() {
     }) { paddingValues ->
         Box(
             Modifier
-                .fillMaxSize(1f)
+                .fillMaxSize()
                 .padding(paddingValues)
         ) {
             AppNavHost(navController)
@@ -43,7 +43,7 @@ fun MainScreen() {
 
 fun getBottomNavigationItems() = listOf(
     BottomNavigationItem("Feed", imageVector = Icons.Default.DynamicFeed, Screen.FeedScreen.route),
-    BottomNavigationItem("Favorites", imageVector = Icons.Default.Favorite, Screen.FavoritesScreen.route)
+    BottomNavigationItem("Favorites", imageVector = Icons.Default.FavoriteBorder, Screen.FavoritesScreen.route)
 )
 
 @Preview
