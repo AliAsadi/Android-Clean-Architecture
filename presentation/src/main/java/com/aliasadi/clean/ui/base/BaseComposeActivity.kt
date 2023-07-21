@@ -2,9 +2,12 @@ package com.aliasadi.clean.ui.base
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import com.aliasadi.clean.di.core.AppSettingsSharedPreference
 import com.aliasadi.clean.ui.theme.AppTheme
 import javax.inject.Inject
@@ -26,13 +29,12 @@ abstract class BaseComposeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(ComposeView(baseContext).apply {
-            setContent {
-                AppTheme(isDarkModeEnabled()) {
+        setContent {
+            AppTheme(isDarkModeEnabled()) {
                     ActivityContent()
-                }
             }
-        })
+        }
+
     }
 
     companion object {
