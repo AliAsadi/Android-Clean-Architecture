@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.aliasadi.clean.ui.navigation.Navigation
+import com.aliasadi.clean.ui.navigation.AppNavHost
 import com.aliasadi.clean.ui.navigation.Screen
 import com.aliasadi.clean.ui.widget.BottomNavigationItem
 import com.aliasadi.clean.ui.widget.BottomNavigationView
@@ -36,7 +36,7 @@ fun MainScreen() {
                 .fillMaxSize(1f)
                 .padding(paddingValues)
         ) {
-            Navigation(navController)
+            AppNavHost(navController)
         }
     }
 }

@@ -11,7 +11,7 @@ import com.aliasadi.clean.ui.feed.FeedPage
 import com.aliasadi.clean.ui.feed.FeedViewModel
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun AppNavHost(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.FeedScreen.route) {
         composable(route = Screen.FeedScreen.route) {
             val viewModel = hiltViewModel<FeedViewModel>()
