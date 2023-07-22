@@ -13,11 +13,15 @@ import androidx.compose.ui.graphics.Color
 private val DarkColors = darkColorScheme(
     primary = Black1A,
     primaryContainer = DarkGrayD3,
+    background = Black1A,
+    surfaceVariant = Black1A //For TextField (SearchView)
 )
 
 private val LightColors = lightColorScheme(
     primary = Color.White,
     primaryContainer = DarkGrayD3,
+    background = Color.White,
+    surfaceVariant = Color.White
 )
 
 @Composable
