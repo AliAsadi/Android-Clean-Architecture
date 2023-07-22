@@ -38,7 +38,7 @@ sealed class Screen(val route: String) {
     object MainScreen : Screen("main_screen")
     object FeedScreen : Screen("feed_screen")
     object FavoritesScreen : Screen("favorites_screen")
-
+    object Search : Screen("search_screen")
     object MovieDetailsScreen : Screen("movie_details_screen") {
         const val MOVIE_ID: String = "movieId"
     }

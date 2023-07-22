@@ -11,6 +11,8 @@ import com.aliasadi.clean.ui.main.MainScreen
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsPage
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.clean.ui.navigation.Screen.MovieDetailsScreen.MOVIE_ID
+import com.aliasadi.clean.ui.search.SearchPage
+import com.aliasadi.clean.ui.search.SearchViewModel
 
 
 @Composable
@@ -42,6 +44,16 @@ fun AppGraph(
                 appNavController = navController,
                 viewModel = viewModel,
                 onFavoriteClick = viewModel::onFavoriteClicked
+            )
+        }
+
+        composable(route = Screen.Search.route) {
+            val viewModel = hiltViewModel<SearchViewModel>()
+            SearchPage(
+                appNavController = navController,
+                viewModel = viewModel,
+                loadStateListener = viewModel::onLoadStateUpdate,
+                onMovieClick = viewModel::onMovieClicked
             )
         }
     }

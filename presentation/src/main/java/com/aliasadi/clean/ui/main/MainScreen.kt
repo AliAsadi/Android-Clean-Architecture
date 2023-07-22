@@ -1,6 +1,5 @@
 package com.aliasadi.clean.ui.main
 
-import android.content.Context
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,26 +27,27 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.navigation.MainGraph
 import com.aliasadi.clean.ui.navigation.Screen
-import com.aliasadi.clean.ui.search.SearchActivity
 import com.aliasadi.clean.ui.widget.BottomNavigationItem
 import com.aliasadi.clean.ui.widget.BottomNavigationView
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     appNavController: NavHostController,
     darkMode: Boolean,
     onThemeUpdated: () -> Unit
 ) {
-    val context = LocalContext.current
     val navController = rememberNavController()
     var appBarTitle by remember { mutableStateOf("Feed") }
 
     Scaffold(
         topBar = {
-            TopBar(appBarTitle, darkMode, context, onThemeUpdated)
+            TopBar(appBarTitle, darkMode, onThemeUpdated,
+                onSearchClick = {
+                    appNavController.navigate(Screen.Search.route)
+                }
+            )
         },
         bottomBar = {
             BottomNavigationView(
@@ -74,14 +74,14 @@ fun MainScreen(
 fun TopBar(
     title: String,
     darkMode: Boolean,
-    context: Context,
-    onThemeUpdated: () -> Unit
+    onThemeUpdated: () -> Unit,
+    onSearchClick: () -> Unit
 ) {
     TopAppBar(
         title = { Text(text = title) },
         actions = {
             IconButton(
-                onClick = { SearchActivity.start(context) }
+                onClick = { onSearchClick() }
             ) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
             }
