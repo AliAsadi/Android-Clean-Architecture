@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -15,7 +15,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
+import com.aliasadi.clean.ui.navigation.Screen
 import com.aliasadi.clean.ui.widget.EmptyStateView
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun FavoritesPage(
+    appNavController: NavHostController,
     viewModel: FavoritesViewModel,
     loadStateListener: (CombinedLoadStates, Int) -> Unit,
     onMovieClick: (movieId: Int) -> Unit
@@ -33,12 +34,11 @@ fun FavoritesPage(
     val uiState by viewModel.uiState.collectAsState()
     val movies = viewModel.movies.collectAsLazyPagingItems()
     loadStateListener(movies.loadState, movies.itemCount)
-    val context = LocalContext.current
 
     LaunchedEffect(key1 = Unit) {
         viewModel.navigationState.onEach {
             when (it) {
-                is MovieDetails -> MovieDetailsActivity.start(context, it.movieId)
+                is MovieDetails -> appNavController.navigate(Screen.MovieDetailsScreen.route + "/${it.movieId}")
             }
         }.launchIn(this)
     }

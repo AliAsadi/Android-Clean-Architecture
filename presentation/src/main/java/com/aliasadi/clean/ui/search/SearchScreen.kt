@@ -15,7 +15,6 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.search.SearchViewModel.SearchUiState
 import com.aliasadi.clean.ui.widget.EmptyStateView
@@ -33,7 +32,6 @@ fun SearchPage(
     loadStateListener: (CombinedLoadStates, Int) -> Unit,
     onMovieClick: (movieId: Int) -> Unit
 ) {
-    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
     val movies = viewModel.movies.collectAsLazyPagingItems()
     loadStateListener(movies.loadState, movies.itemCount)
@@ -41,7 +39,9 @@ fun SearchPage(
     LaunchedEffect(key1 = Unit) {
         viewModel.navigationState.onEach {
             when (it) {
-                is MovieDetails -> MovieDetailsActivity.start(context, it.movieId, true)
+                is MovieDetails -> {
+                    //MovieDetailsActivity.start(context, it.movieId, true)
+                }
             }
         }.launchIn(this)
     }

@@ -11,11 +11,12 @@ import com.aliasadi.clean.ui.feed.FeedPage
 import com.aliasadi.clean.ui.feed.FeedViewModel
 
 @Composable
-fun MainGraph(navController: NavHostController) {
+fun MainGraph(navController: NavHostController, appNavController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.FeedScreen.route) {
         composable(route = Screen.FeedScreen.route) {
             val viewModel = hiltViewModel<FeedViewModel>()
             FeedPage(
+                appNavController = appNavController,
                 viewModel = viewModel,
                 loadStateListener = viewModel::onLoadStateUpdate,
                 onMovieClick = viewModel::onMovieClicked
@@ -24,6 +25,7 @@ fun MainGraph(navController: NavHostController) {
         composable(route = Screen.FavoritesScreen.route) {
             val viewModel = hiltViewModel<FavoritesViewModel>()
             FavoritesPage(
+                appNavController = appNavController,
                 viewModel = viewModel,
                 loadStateListener = viewModel::onLoadStateUpdate,
                 onMovieClick = viewModel::onMovieClicked
@@ -36,4 +38,8 @@ sealed class Screen(val route: String) {
     object MainScreen : Screen("main_screen")
     object FeedScreen : Screen("feed_screen")
     object FavoritesScreen : Screen("favorites_screen")
+
+    object MovieDetailsScreen : Screen("movie_details_screen") {
+        const val MOVIE_ID: String = "movieId"
+    }
 }

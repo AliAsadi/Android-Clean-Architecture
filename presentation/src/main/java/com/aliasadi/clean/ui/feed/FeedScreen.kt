@@ -5,16 +5,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.moviedetails.MovieDetailsActivity
+import com.aliasadi.clean.ui.navigation.Screen
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
 import com.aliasadi.clean.util.preview.PreviewContainer
@@ -28,11 +28,11 @@ import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun FeedPage(
+    appNavController: NavHostController,
     viewModel: FeedViewModel,
     loadStateListener: (CombinedLoadStates) -> Unit,
     onMovieClick: (movieId: Int) -> Unit,
 ) {
-    val context = LocalContext.current
     val moviesPaging = viewModel.movies.collectAsLazyPagingItems()
     val state by viewModel.uiState.collectAsState()
     loadStateListener(moviesPaging.loadState)
@@ -40,7 +40,7 @@ fun FeedPage(
     LaunchedEffect(key1 = Unit) {
         viewModel.navigationState.onEach {
             when (it) {
-                is MovieDetails -> MovieDetailsActivity.start(context, it.movieId)
+                is MovieDetails -> appNavController.navigate(Screen.MovieDetailsScreen.route + "/${it.movieId}")
             }
         }.launchIn(this)
     }

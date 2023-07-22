@@ -8,11 +8,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,6 +26,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.aliasadi.clean.R
 import com.aliasadi.clean.util.preview.PreviewContainer
@@ -43,41 +50,50 @@ private fun MovieDetailsScreenPreview() {
             ),
             onFavoriteClick = {
 
-            }
+            },
+            rememberNavController()
         )
     }
 }
 
 @Composable
 fun MovieDetailsPage(
+    appNavController: NavHostController,
     viewModel: MovieDetailsViewModel,
     onFavoriteClick: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
-    MovieDetailsScreen(state, onFavoriteClick)
+    MovieDetailsScreen(state, onFavoriteClick, appNavController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailsScreen(
     state: MovieDetailsViewModel.MovieDetailsUiState,
-    onFavoriteClick: () -> Unit
+    onFavoriteClick: () -> Unit,
+    appNavController: NavHostController
 ) {
     val favoriteIcon = if (state.isFavorite) R.drawable.ic_favorite_fill_white_48 else R.drawable.ic_favorite_border_white_48
 
-    Scaffold(floatingActionButton = {
-        FloatingActionButton(
-            onClick = {
-                onFavoriteClick()
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = { onFavoriteClick() }) {
+                Image(
+                    painter = painterResource(id = favoriteIcon),
+                    contentDescription = null,
+                    Modifier.size(24.dp)
+                )
             }
-        ) {
-            Image(
-                painter = painterResource(id = favoriteIcon),
-                contentDescription = null,
-                Modifier.size(24.dp)
-            )
+        }, topBar = {
+            TopAppBar(title = {}, navigationIcon = {
+                IconButton(onClick = {
+                    appNavController.popBackStack()
+                }) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                }
+            })
         }
-    }) { paddingValues ->
+    ) { paddingValues ->
         Column(
             Modifier
                 .fillMaxSize(1f)

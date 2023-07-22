@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.navigation.MainGraph
 import com.aliasadi.clean.ui.navigation.Screen
@@ -35,7 +36,11 @@ import com.aliasadi.clean.util.preview.PreviewContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(darkMode: Boolean, onThemeUpdated: () -> Unit) {
+fun MainScreen(
+    appNavController: NavHostController,
+    darkMode: Boolean,
+    onThemeUpdated: () -> Unit
+) {
     val context = LocalContext.current
     val navController = rememberNavController()
     var appBarTitle by remember { mutableStateOf("Feed") }
@@ -59,7 +64,7 @@ fun MainScreen(darkMode: Boolean, onThemeUpdated: () -> Unit) {
                 .fillMaxSize(1f)
                 .padding(paddingValues)
         ) {
-            MainGraph(navController)
+            MainGraph(navController, appNavController)
         }
     }
 }
@@ -103,6 +108,6 @@ fun getBottomNavigationItems() = listOf(
 @Composable
 fun MainScreenPreview() {
     PreviewContainer {
-        MainScreen(false) {}
+//        MainScreen(false) {}
     }
 }
