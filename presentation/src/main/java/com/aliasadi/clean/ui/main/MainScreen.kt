@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.aliasadi.clean.ui.navigation.AppNavHost
+import com.aliasadi.clean.ui.navigation.MainGraph
 import com.aliasadi.clean.ui.navigation.Screen
 import com.aliasadi.clean.ui.search.SearchActivity
 import com.aliasadi.clean.ui.widget.BottomNavigationItem
@@ -59,7 +59,7 @@ fun MainScreen(darkMode: Boolean, onThemeUpdated: () -> Unit) {
                 .fillMaxSize(1f)
                 .padding(paddingValues)
         ) {
-            AppNavHost(navController)
+            MainGraph(navController)
         }
     }
 }

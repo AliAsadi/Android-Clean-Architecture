@@ -6,8 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.di.core.AppSettingsSharedPreference
+import com.aliasadi.clean.ui.navigation.AppGraph
 import com.aliasadi.clean.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -34,11 +37,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var darkMode by mutableStateOf(isDarkModeEnabled())
 
         setContent {
+            val navController = rememberNavController()
+            var darkMode by remember { mutableStateOf(isDarkModeEnabled()) }
+
             AppTheme(darkMode) {
-                MainScreen(
+                AppGraph(
+                    navController = navController,
                     darkMode = darkMode,
                     onThemeUpdated = {
                         val updated = !darkMode

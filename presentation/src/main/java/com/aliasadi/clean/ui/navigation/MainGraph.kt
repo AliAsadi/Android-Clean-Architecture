@@ -11,7 +11,7 @@ import com.aliasadi.clean.ui.feed.FeedPage
 import com.aliasadi.clean.ui.feed.FeedViewModel
 
 @Composable
-fun AppNavHost(navController: NavHostController) {
+fun MainGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.FeedScreen.route) {
         composable(route = Screen.FeedScreen.route) {
             val viewModel = hiltViewModel<FeedViewModel>()
@@ -33,6 +33,7 @@ fun AppNavHost(navController: NavHostController) {
 }
 
 sealed class Screen(val route: String) {
+    object MainScreen : Screen("main_screen")
     object FeedScreen : Screen("feed_screen")
     object FavoritesScreen : Screen("favorites_screen")
 }
