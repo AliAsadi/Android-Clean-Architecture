@@ -38,15 +38,16 @@ import com.aliasadi.clean.util.preview.PreviewContainer
 @Composable
 fun MovieList(
     movies: LazyPagingItems<MovieListItem>,
-    onMovieClick: (movieId: Int) -> Unit
+    onMovieClick: (movieId: Int) -> Unit,
+    config: MovieSpanSizeConfig = MovieSpanSizeConfig(3)
 ) {
     val imageSize = ImageSize.getImageFixedSize()
-    LazyVerticalGrid(columns = GridCells.Fixed(3)) {
+    LazyVerticalGrid(columns = GridCells.Fixed(config.gridSpanSize)) {
         items(movies.itemCount, span = { index ->
             val spinSize = when (movies[index]) {
-                is MovieListItem.Movie -> 1
-                is MovieListItem.Separator -> 3
-                null -> 3
+                is MovieListItem.Movie -> config.movieColumnSpanSize
+                is MovieListItem.Separator -> config.separatorColumnSpanSize
+                null -> config.footerColumnSpanSize
             }
             GridItemSpan(spinSize)
         }) { index ->
@@ -120,6 +121,18 @@ private class ImageSize(
         }
     }
 }
+
+/**
+ * @property gridSpanSize - The total number of columns in the grid.
+ * @property separatorColumnSpanSize - Returns the number of columns that the item occupies.
+ * @property footerColumnSpanSize - Returns the number of columns that the item occupies.
+ **/
+data class MovieSpanSizeConfig(val gridSpanSize: Int) {
+    val movieColumnSpanSize: Int = 1
+    val separatorColumnSpanSize: Int = gridSpanSize
+    val footerColumnSpanSize: Int = gridSpanSize
+}
+
 
 @Preview("Light")
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
