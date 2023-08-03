@@ -1,9 +1,11 @@
 package com.aliasadi.clean.presentation.moviedetails
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.mock
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
+import com.aliasadi.clean.ui.navigation.Screen
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
@@ -42,16 +44,21 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
     @Mock
     lateinit var removeMovieFromFavorite: RemoveMovieFromFavorite
 
+    @Mock
+    lateinit var savedStateHandle: SavedStateHandle
+
     private lateinit var viewModel: MovieDetailsViewModel
 
     @Before
     fun setUp() {
+        `when`(savedStateHandle.get<Int>(Screen.MovieDetailsScreen.MOVIE_ID)).thenReturn(movieId)
+
         viewModel = MovieDetailsViewModel(
-            movieId = movieId,
             getMovieDetails = getMovieDetails,
             checkFavoriteStatus = checkFavoriteStatus,
             removeMovieFromFavorite = removeMovieFromFavorite,
             addMovieToFavorite = addMovieToFavorite,
+            savedStateHandle = savedStateHandle,
             dispatchers = coroutineRule.testDispatcherProvider
         )
     }

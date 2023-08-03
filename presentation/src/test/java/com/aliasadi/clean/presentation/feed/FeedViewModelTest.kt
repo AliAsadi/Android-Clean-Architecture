@@ -9,6 +9,7 @@ import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.ui.feed.FeedViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
+import com.aliasadi.clean.util.NetworkMonitor
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -32,6 +33,9 @@ class FeedViewModelTest : BaseViewModelTest() {
     @Mock
     lateinit var getMoviesWithSeparators: GetMoviesWithSeparators
 
+    @Mock
+    lateinit var networkMonitor: NetworkMonitor
+
     private lateinit var viewModel: FeedViewModel
 
     private val movies = listOf(MovieListItem.Movie(1, "", ""))
@@ -43,6 +47,7 @@ class FeedViewModelTest : BaseViewModelTest() {
         `when`(getMoviesWithSeparators.movies(pageSize = anyInt())).thenReturn(pagingData)
         viewModel = FeedViewModel(
             getMoviesWithSeparators = getMoviesWithSeparators,
+            networkMonitor = networkMonitor,
             dispatchers = coroutineRule.testDispatcherProvider
         )
     }
