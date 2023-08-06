@@ -14,7 +14,9 @@ A demo movie android app that demonstrates Clean Architecture and is written in 
 For a basic version of the app without pagination, check out the [basic_app](https://github.com/AliAsadi/Android-Clean-Architecture/tree/basic_app
 ) branch.
 
-🚧 The Compose version of the app is currently under construction. Feel free to check it out on the [compose](https://github.com/AliAsadi/Android-Clean-Architecture/tree/compose
+> 🚧 The Compose version of the app is currently under construction.
+>
+> Feel free to check it out on the [compose](https://github.com/AliAsadi/Android-Clean-Architecture/tree/compose
 ) branch for updates and progress
 
 ### The Motivation behind the app
