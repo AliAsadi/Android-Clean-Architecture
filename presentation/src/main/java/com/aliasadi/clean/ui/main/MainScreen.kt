@@ -21,7 +21,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -30,7 +29,6 @@ import com.aliasadi.clean.ui.navigation.Screen
 import com.aliasadi.clean.ui.widget.BottomNavigationItem
 import com.aliasadi.clean.ui.widget.BottomNavigationView
 import com.aliasadi.clean.util.preview.PreviewContainer
-
 
 @Composable
 fun MainScreen(
@@ -43,7 +41,10 @@ fun MainScreen(
 
     Scaffold(
         topBar = {
-            TopBar(appBarTitle, darkMode, onThemeUpdated,
+            TopBar(
+                appBarTitle,
+                darkMode,
+                onThemeUpdated,
                 onSearchClick = {
                     appNavController.navigate(Screen.Search.route)
                 }
@@ -58,7 +59,8 @@ fun MainScreen(
                     navController.navigate(bottomItem.route)
                 }
             )
-        }) { paddingValues ->
+        }
+    ) { paddingValues ->
         Box(
             Modifier
                 .fillMaxSize(1f)

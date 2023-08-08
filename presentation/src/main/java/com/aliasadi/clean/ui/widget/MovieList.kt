@@ -34,7 +34,6 @@ import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.util.preview.PreviewContainer
 
-
 @Composable
 fun MovieList(
     movies: LazyPagingItems<MovieListItem>,
@@ -70,8 +69,7 @@ private fun MovieItem(
         modifier = Modifier.padding(3.dp),
         elevation = CardDefaults.cardElevation(1.dp),
         shape = RoundedCornerShape(4.dp),
-
-        ) {
+    ) {
         SubcomposeAsyncImage(
             model = movie.imageUrl,
             loading = { MovieItemPlaceholder() },
@@ -132,7 +130,6 @@ data class MovieSpanSizeConfig(val gridSpanSize: Int) {
     val separatorColumnSpanSize: Int = gridSpanSize
     val footerColumnSpanSize: Int = gridSpanSize
 }
-
 
 @Preview("Light")
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)

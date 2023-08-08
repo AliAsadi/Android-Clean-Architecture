@@ -15,7 +15,7 @@ private val DarkColors = darkColorScheme(
     primaryContainer = DarkGrayD3,
     background = Black1A,
     onPrimary = Color.White,
-    surfaceVariant = Black1A //For TextField (SearchView)
+    surfaceVariant = Black1A // For TextField (SearchView)
 )
 
 private val LightColors = lightColorScheme(
@@ -31,7 +31,6 @@ fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-
     // val dynamicColor = darkTheme && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     // val colors = when {
     //     dynamicColor && darkTheme -> {

@@ -14,7 +14,6 @@ import com.aliasadi.clean.ui.navigation.Screen.MovieDetailsScreen.MOVIE_ID
 import com.aliasadi.clean.ui.search.SearchPage
 import com.aliasadi.clean.ui.search.SearchViewModel
 
-
 @Composable
 fun AppGraph(
     navController: NavHostController,

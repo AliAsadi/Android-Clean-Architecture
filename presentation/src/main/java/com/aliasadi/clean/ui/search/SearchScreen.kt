@@ -31,7 +31,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-
 @Composable
 fun SearchPage(
     appNavController: NavHostController,
@@ -47,7 +46,7 @@ fun SearchPage(
         viewModel.navigationState.onEach {
             when (it) {
                 is MovieDetails -> {
-                    //MovieDetailsActivity.start(context, it.movieId, true)
+                    // MovieDetailsActivity.start(context, it.movieId, true)
                 }
             }
         }.launchIn(this)
@@ -97,8 +96,6 @@ fun SearchScreen(
             }
 
         }
-
-
     }
 }
 

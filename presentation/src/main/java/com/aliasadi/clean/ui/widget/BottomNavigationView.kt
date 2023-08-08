@@ -9,12 +9,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
-data class BottomNavigationItem(
-    val tabName: String,
-    val imageVector: ImageVector,
-    val route: String,
-)
-
 @Composable
 fun BottomNavigationView(
     items: List<BottomNavigationItem>,
@@ -38,3 +32,9 @@ fun BottomNavigationView(
         }
     }
 }
+
+data class BottomNavigationItem(
+    val tabName: String,
+    val imageVector: ImageVector,
+    val route: String,
+)

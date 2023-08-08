@@ -46,7 +46,7 @@ class FeedViewModel @Inject constructor(
 
     init {
         networkMonitor.networkState.onEach {
-            ////TODO - refreshData
+            // TODO - refreshData
         }.launchIn(viewModelScope)
     }
 

@@ -48,9 +48,7 @@ private fun MovieDetailsScreenPreview() {
                 description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
                 isFavorite = false,
             ),
-            onFavoriteClick = {
-
-            },
+            onFavoriteClick = {},
             rememberNavController()
         )
     }
@@ -84,7 +82,8 @@ fun MovieDetailsScreen(
                     Modifier.size(24.dp)
                 )
             }
-        }, topBar = {
+        },
+        topBar = {
             TopAppBar(title = {}, navigationIcon = {
                 IconButton(onClick = {
                     appNavController.popBackStack()
@@ -103,7 +102,8 @@ fun MovieDetailsScreen(
                 model = state.imageUrl,
                 placeholder = painterResource(id = R.drawable.bg_image),
                 contentDescription = null,
-                contentScale = ContentScale.Crop, modifier = Modifier
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
                     .height(280.dp)
                     .fillMaxWidth(1f)
             )

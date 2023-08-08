@@ -72,7 +72,6 @@ fun FavoritesScreen(
     }
 }
 
-
 @Preview(showSystemUi = true, name = "Light")
 @Preview(showSystemUi = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
@@ -87,8 +86,6 @@ fun FavoritesScreenPreview() {
 
     PreviewContainer {
         val movies = flowOf(PagingData.from(movieItems)).collectAsLazyPagingItems()
-        FavoritesScreen(FavoritesViewModel.FavoriteUiState(isLoading = false, noDataAvailable = true), movies) {
-
-        }
+        FavoritesScreen(FavoritesViewModel.FavoriteUiState(isLoading = false, noDataAvailable = true), movies) {}
     }
 }
