@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.dagger.hilt.android'
 
 android {
-    compileSdkVersion 34
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.aliasadi.clean"
