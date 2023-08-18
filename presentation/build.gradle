@@ -96,9 +96,6 @@ dependencies {
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"
 
-    //Mockito
-    testImplementation 'org.mockito:mockito-core:3.10.0'
-    testImplementation "org.mockito:mockito-inline:3.10.0"
 
     //Paging
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
@@ -125,6 +122,9 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
     implementation("io.coil-kt:coil-compose:2.3.0")
 
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:5.0.0'
+    testImplementation "org.mockito:mockito-inline:5.0.0"
 
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'junit:junit:4.13.2'
