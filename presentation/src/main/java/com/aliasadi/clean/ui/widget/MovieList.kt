@@ -65,22 +65,17 @@ private fun MovieItem(
     imageSize: ImageSize,
     onMovieClick: (movieId: Int) -> Unit = {}
 ) {
-    Card(
-        modifier = Modifier.padding(3.dp),
-        elevation = CardDefaults.cardElevation(1.dp),
-        shape = RoundedCornerShape(4.dp),
-    ) {
-        SubcomposeAsyncImage(
-            model = movie.imageUrl,
-            loading = { MovieItemPlaceholder() },
-            error = { MovieItemPlaceholder() },
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .size(imageSize.width, imageSize.height)
-                .clickable { onMovieClick(movie.id) }
-        )
-    }
+    SubcomposeAsyncImage(
+        model = movie.imageUrl,
+        loading = { MovieItemPlaceholder() },
+        error = { MovieItemPlaceholder() },
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .padding(3.dp)
+            .size(imageSize.width, imageSize.height)
+            .clickable { onMovieClick(movie.id) }
+    )
 }
 
 @Composable
