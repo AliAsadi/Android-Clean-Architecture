@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.DynamicFeed
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.DarkMode
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -23,15 +22,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.navigation.MainGraph
 import com.aliasadi.clean.ui.navigation.Screen
 import com.aliasadi.clean.ui.widget.BottomNavigationItem
 import com.aliasadi.clean.ui.widget.BottomNavigationView
+import com.aliasadi.clean.ui.widget.DefaultDivider
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable
@@ -85,7 +83,6 @@ fun TopBar(
     onSearchClick: () -> Unit
 ) {
     Column {
-
         TopAppBar(
             title = { Text(text = title) },
             actions = {
@@ -106,10 +103,7 @@ fun TopBar(
                 }
             }
         )
-        Divider(
-            modifier = Modifier.shadow(elevation = 5.dp),
-            thickness = 0.3.dp
-        )
+        DefaultDivider()
     }
 }
 
