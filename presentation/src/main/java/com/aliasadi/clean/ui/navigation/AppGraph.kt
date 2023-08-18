@@ -5,7 +5,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.aliasadi.clean.ui.main.MainScreen
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsPage
@@ -13,6 +12,7 @@ import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.clean.ui.navigation.Screen.MovieDetailsScreen.MOVIE_ID
 import com.aliasadi.clean.ui.search.SearchPage
 import com.aliasadi.clean.ui.search.SearchViewModel
+import com.aliasadi.clean.util.composableHorizontalSlide
 
 @Composable
 fun AppGraph(
@@ -21,14 +21,14 @@ fun AppGraph(
     onThemeUpdated: () -> Unit
 ) {
     NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
-        composable(route = Screen.MainScreen.route) {
+        composableHorizontalSlide(route = Screen.MainScreen.route) {
             MainScreen(
                 appNavController = navController,
                 darkMode = darkMode,
                 onThemeUpdated = onThemeUpdated
             )
         }
-        composable(
+        composableHorizontalSlide(
             route = Screen.MovieDetailsScreen.route + "/{$MOVIE_ID}",
             arguments = listOf(
                 navArgument(MOVIE_ID) {
@@ -46,7 +46,7 @@ fun AppGraph(
             )
         }
 
-        composable(route = Screen.Search.route) {
+        composableHorizontalSlide(route = Screen.Search.route) {
             val viewModel = hiltViewModel<SearchViewModel>()
             SearchPage(
                 appNavController = navController,

@@ -4,16 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import com.aliasadi.clean.ui.favorites.FavoritesPage
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel
 import com.aliasadi.clean.ui.feed.FeedPage
 import com.aliasadi.clean.ui.feed.FeedViewModel
+import com.aliasadi.clean.util.composableHorizontalSlide
 
 @Composable
 fun MainGraph(navController: NavHostController, appNavController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.FeedScreen.route) {
-        composable(route = Screen.FeedScreen.route) {
+        composableHorizontalSlide(route = Screen.FeedScreen.route) {
             val viewModel = hiltViewModel<FeedViewModel>()
             FeedPage(
                 appNavController = appNavController,
@@ -22,7 +22,7 @@ fun MainGraph(navController: NavHostController, appNavController: NavHostControl
                 onMovieClick = viewModel::onMovieClicked
             )
         }
-        composable(route = Screen.FavoritesScreen.route) {
+        composableHorizontalSlide(route = Screen.FavoritesScreen.route) {
             val viewModel = hiltViewModel<FavoritesViewModel>()
             FavoritesPage(
                 appNavController = appNavController,
