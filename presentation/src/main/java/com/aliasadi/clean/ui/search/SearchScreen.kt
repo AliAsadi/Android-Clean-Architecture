@@ -20,6 +20,8 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
+import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState
+import com.aliasadi.clean.ui.navigation.Screen
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.search.SearchViewModel.SearchUiState
 import com.aliasadi.clean.ui.widget.EmptyStateView
@@ -47,7 +49,7 @@ fun SearchPage(
         viewModel.navigationState.onEach {
             when (it) {
                 is MovieDetails -> {
-                    // MovieDetailsActivity.start(context, it.movieId, true)
+                     appNavController.navigate(Screen.MovieDetailsScreen.route + "/${it.movieId}")
                 }
             }
         }.launchIn(this)
