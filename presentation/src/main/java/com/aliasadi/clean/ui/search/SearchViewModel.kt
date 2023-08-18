@@ -1,20 +1,11 @@
 package com.aliasadi.clean.ui.search
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.toPresentation
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.clean.ui.search.SearchViewModel.MutableSearchUiState
-import com.aliasadi.clean.util.getValue
-import com.aliasadi.clean.util.setValue
 import com.aliasadi.clean.util.singleSharedFlow
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.usecase.SearchMovies
@@ -23,7 +14,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
-import kotlin.reflect.KProperty
 
 /**
  * @author by Ali Asadi on 25/09/2022
@@ -35,20 +25,12 @@ class SearchViewModel @Inject constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    @Stable
-    interface SearchUiState {
-        val showDefaultState: Boolean
-        val showLoading: Boolean
-        val showNoMoviesFound: Boolean
-        val errorMessage: String?
-    }
-
-    class MutableSearchUiState : SearchUiState {
-        override var showDefaultState: Boolean by MutableStateFlow(true)
-        override var showLoading: Boolean by MutableStateFlow(false)
-        override var showNoMoviesFound: Boolean by MutableStateFlow(false)
-        override var errorMessage: String? by MutableStateFlow(null)
-    }
+    data class SearchUiState(
+        val showDefaultState: Boolean = true,
+        val showLoading: Boolean = false,
+        val showNoMoviesFound: Boolean = false,
+        val errorMessage: String? = null
+    )
 
     sealed class NavigationState {
         data class MovieDetails(val movieId: Int) : NavigationState()
@@ -57,17 +39,7 @@ class SearchViewModel @Inject constructor(
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     var movies: Flow<PagingData<MovieListItem>> = savedStateHandle.getStateFlow(KEY_SEARCH_QUERY, "")
         .onEach { query ->
-            if (query.isNotEmpty()) {
-                _uiState.showDefaultState = false
-                _uiState.showLoading = true
-                _uiState.showNoMoviesFound = false
-                _uiState.errorMessage = null
-            } else {
-                _uiState.showDefaultState = true
-                _uiState.showLoading = false
-                _uiState.showNoMoviesFound = false
-                _uiState.errorMessage = null
-            }
+            _uiState.value = if (query.isNotEmpty()) SearchUiState(showDefaultState = false, showLoading = true) else SearchUiState()
         }
         .debounce(500)
         .filter { it.isNotEmpty() }
@@ -77,8 +49,8 @@ class SearchViewModel @Inject constructor(
             }
         }.cachedIn(viewModelScope)
 
-    private var _uiState = MutableSearchUiState()
-    val uiState: SearchUiState = _uiState
+    private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
+    val uiState = _uiState.asStateFlow()
 
     private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
@@ -101,9 +73,13 @@ class SearchViewModel @Inject constructor(
             else -> null
         }
 
-        _uiState.showLoading = showLoading
-        _uiState.showNoMoviesFound = showNoData
-        _uiState.errorMessage = error
+        _uiState.update {
+            it.copy(
+                showLoading = showLoading,
+                showNoMoviesFound = showNoData,
+                errorMessage = error
+            )
+        }
     }
 
     companion object {
