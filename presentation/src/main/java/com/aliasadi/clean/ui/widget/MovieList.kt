@@ -2,6 +2,7 @@ package com.aliasadi.clean.ui.widget
 
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,10 +14,6 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,7 +24,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.FontWeight.Companion
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -35,6 +31,7 @@ import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
+import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable
@@ -44,7 +41,10 @@ fun MovieList(
     config: MovieSpanSizeConfig = MovieSpanSizeConfig(3)
 ) {
     val imageSize = ImageSize.getImageFixedSize()
-    LazyVerticalGrid(columns = GridCells.Fixed(config.gridSpanSize)) {
+    LazyVerticalGrid(
+        modifier = Modifier.background(colors.background),
+        columns = GridCells.Fixed(config.gridSpanSize)
+    ) {
         items(movies.itemCount, span = { index ->
             val spinSize = when (movies[index]) {
                 is MovieListItem.Movie -> config.movieColumnSpanSize
