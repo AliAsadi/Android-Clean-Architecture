@@ -36,24 +36,6 @@ import com.aliasadi.clean.util.preview.PreviewContainer
  * @author by Ali Asadi on 15/04/2023
  */
 
-@Preview(name = "Light")
-@Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun MovieDetailsScreenPreview() {
-    PreviewContainer {
-        MovieDetailsScreen(
-            MovieDetailsViewModel.MovieDetailsUiState(
-                imageUrl = "https://i.stack.imgur.com/lDFzt.jpg",
-                title = "Avatar",
-                description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
-                isFavorite = false,
-            ),
-            onFavoriteClick = {},
-            rememberNavController()
-        )
-    }
-}
-
 @Composable
 fun MovieDetailsPage(
     appNavController: NavHostController,
@@ -124,5 +106,23 @@ fun MovieDetailsScreen(
                     .fillMaxWidth(1f),
             )
         }
+    }
+}
+
+@Preview(name = "Light")
+@Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun MovieDetailsScreenPreview() {
+    PreviewContainer {
+        MovieDetailsScreen(
+            MovieDetailsViewModel.MovieDetailsUiState(
+                imageUrl = "https://i.stack.imgur.com/lDFzt.jpg",
+                title = "Avatar",
+                description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+                isFavorite = false,
+            ),
+            onFavoriteClick = {},
+            rememberNavController()
+        )
     }
 }
