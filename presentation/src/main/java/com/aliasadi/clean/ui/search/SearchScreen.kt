@@ -48,7 +48,7 @@ fun SearchPage(
         viewModel.navigationState.onEach {
             when (it) {
                 is MovieDetails -> {
-                     appNavController.navigate(Screen.MovieDetailsScreen.route + "/${it.movieId}")
+                    appNavController.navigate(Screen.MovieDetailsScreen.route + "/${it.movieId}")
                 }
             }
         }.launchIn(this)
