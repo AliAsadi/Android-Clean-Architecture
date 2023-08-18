@@ -115,6 +115,6 @@ fun SearchScreenPreview() {
 
     PreviewContainer {
         val movies = flowOf(PagingData.from(movieItems)).collectAsLazyPagingItems()
-//        SearchScreen(SearchUiState(), movies, {}, {}, {})
+        SearchScreen(SearchUiState(), movies, {}, {}, {})
     }
 }
