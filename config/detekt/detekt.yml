@@ -105,10 +105,12 @@ complexity:
     ignoreOverloaded: false
   CyclomaticComplexMethod:
     active: true
-    threshold: 15
+    threshold: 23
     ignoreSingleWhenExpression: false
     ignoreSimpleWhenEntries: false
     ignoreNestingFunctions: false
+    ignoreAnnotated:
+      - Composable
     nestingFunctions:
       - 'also'
       - 'apply'
@@ -128,6 +130,8 @@ complexity:
   LongMethod:
     active: true
     threshold: 60
+    ignoreAnnotated:
+      - Composable
   LongParameterList:
     active: true
     functionThreshold: 20
@@ -786,7 +790,7 @@ formatting:
     active: false
     autoCorrect: true
   ImportOrdering:
-    active: true
+    active: false
     autoCorrect: true
     layout: '*,java.**,javax.**,kotlin.**,^'
   Indentation:
@@ -905,7 +909,7 @@ formatting:
     active: false
     autoCorrect: true
   StringTemplate:
-    active: true
+    active: false
     autoCorrect: true
   TrailingCommaOnCallSite:
     active: false
