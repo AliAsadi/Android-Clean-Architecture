@@ -29,7 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.aliasadi.clean.R
+import com.aliasadi.clean.R.drawable
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 /**
@@ -80,9 +82,10 @@ fun MovieDetailsScreen(
                 .fillMaxSize(1f)
                 .padding(paddingValues)
         ) {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 model = state.imageUrl,
-                placeholder = painterResource(id = R.drawable.bg_image),
+                loading = { MovieItemPlaceholder() },
+                error = { MovieItemPlaceholder() },
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -107,6 +110,15 @@ fun MovieDetailsScreen(
             )
         }
     }
+}
+
+@Composable
+private fun MovieItemPlaceholder() {
+    Image(
+        painter = painterResource(id = drawable.bg_image),
+        contentDescription = "",
+        contentScale = ContentScale.Crop,
+    )
 }
 
 @Preview(name = "Light")
