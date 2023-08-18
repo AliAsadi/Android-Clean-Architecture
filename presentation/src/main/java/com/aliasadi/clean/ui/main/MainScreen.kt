@@ -1,6 +1,7 @@
 package com.aliasadi.clean.ui.main
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -9,6 +10,7 @@ import androidx.compose.material.icons.filled.DynamicFeed
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.DarkMode
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,7 +23,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.navigation.MainGraph
@@ -49,6 +53,7 @@ fun MainScreen(
                     appNavController.navigate(Screen.Search.route)
                 }
             )
+
         },
         bottomBar = {
             BottomNavigationView(
@@ -79,26 +84,33 @@ fun TopBar(
     onThemeUpdated: () -> Unit,
     onSearchClick: () -> Unit
 ) {
-    TopAppBar(
-        title = { Text(text = title) },
-        actions = {
-            IconButton(
-                onClick = { onSearchClick() }
-            ) {
-                Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
-            }
-            IconButton(
-                onClick = { onThemeUpdated() }
-            ) {
-                val icon = if (darkMode) {
-                    Icons.Filled.DarkMode
-                } else {
-                    Icons.Outlined.DarkMode
+    Column {
+
+        TopAppBar(
+            title = { Text(text = title) },
+            actions = {
+                IconButton(
+                    onClick = { onSearchClick() }
+                ) {
+                    Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
                 }
-                Icon(imageVector = icon, contentDescription = "Dark Mode")
+                IconButton(
+                    onClick = { onThemeUpdated() }
+                ) {
+                    val icon = if (darkMode) {
+                        Icons.Filled.DarkMode
+                    } else {
+                        Icons.Outlined.DarkMode
+                    }
+                    Icon(imageVector = icon, contentDescription = "Dark Mode")
+                }
             }
-        }
-    )
+        )
+        Divider(
+            modifier = Modifier.shadow(elevation = 5.dp),
+            thickness = 0.3.dp
+        )
+    }
 }
 
 fun getBottomNavigationItems() = listOf(
