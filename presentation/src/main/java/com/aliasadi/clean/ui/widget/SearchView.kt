@@ -13,6 +13,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
+import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -62,7 +64,9 @@ fun SearchView(
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = { keyboardController?.hide() }),
         singleLine = true,
-        maxLines = 1
+        maxLines = 1,
+        colors = TextFieldDefaults.colors(cursorColor = colors.onPrimary)
+
     )
 }
 
