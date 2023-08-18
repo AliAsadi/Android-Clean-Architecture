@@ -45,12 +45,12 @@ dependencies {
 
     implementation project(":data")
 
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"
+
     //Support
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
 
     //okHttp
     implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.2"
@@ -58,7 +58,6 @@ dependencies {
 
     //Extensions
     implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.fragment:fragment-ktx:1.5.5'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     //GSON
@@ -93,12 +92,8 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 
-    //Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"
-
 
     //Paging
-    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
     implementation "androidx.paging:paging-compose:3.2.0"
 
     //WorkManager
@@ -118,6 +113,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose"
 
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
     implementation("io.coil-kt:coil-compose:2.3.0")
