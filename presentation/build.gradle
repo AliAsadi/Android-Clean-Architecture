@@ -23,14 +23,15 @@ android {
         viewBinding true
         compose true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.8"
     }
 
-
     kotlinOptions {
         freeCompilerArgs += ["-Xjvm-default=all",]
     }
+
     namespace 'com.aliasadi.clean'
 }
 
