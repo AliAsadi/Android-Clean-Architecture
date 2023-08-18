@@ -1,7 +1,9 @@
 package com.aliasadi.clean.ui.main
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -23,6 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.navigation.MainGraph
@@ -112,10 +115,16 @@ fun getBottomNavigationItems() = listOf(
     BottomNavigationItem("Favorites", imageVector = Icons.Default.FavoriteBorder, Screen.FavoritesScreen.route)
 )
 
-@Preview
+@Preview(name = "Light")
+@Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun MainScreenPreview() {
     PreviewContainer {
-//        MainScreen(false) {}
+        Column {
+            TopBar("Feed", true, {}) {}
+            Spacer(modifier = Modifier.padding(10.dp))
+            TopBar("Feed", false, {}) {}
+        }
+        //MainScreen(rememberNavController(), true) {}
     }
 }
