@@ -14,7 +14,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
 -->
-<code_scheme name="bluevine-codestyle" version="1">
+<code_scheme name="app-codestyle" version="1">
   <option name="RIGHT_MARGIN" value="140" />
   <AndroidXmlCodeStyleSettings>
     <option name="USE_CUSTOM_SETTINGS" value="true" />
