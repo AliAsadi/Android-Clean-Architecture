@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.navigation.MainGraph
@@ -61,8 +62,14 @@ fun MainScreen(
                 items = getBottomNavigationItems(),
                 navController = navController,
                 onItemClick = { bottomItem ->
-                    appBarTitle = bottomItem.tabName
-                    navController.navigate(bottomItem.route)
+                    val currentRoute = navController.currentDestination?.route
+                    if (currentRoute != bottomItem.route) {
+                        appBarTitle = bottomItem.tabName
+                        navController.navigate(bottomItem.route) {
+                            launchSingleTop = true
+                            popUpTo(navController.graph.findStartDestination().id)
+                        }
+                    }
                 }
             )
         }
