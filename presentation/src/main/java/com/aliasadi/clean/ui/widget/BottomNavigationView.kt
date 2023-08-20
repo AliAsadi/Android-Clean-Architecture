@@ -1,9 +1,6 @@
 package com.aliasadi.clean.ui.widget
 
 import android.content.res.Configuration
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DynamicFeed
-import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -15,7 +12,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.main.getBottomNavigationItems
-import com.aliasadi.clean.ui.navigation.Screen
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable

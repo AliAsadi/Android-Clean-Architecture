@@ -125,6 +125,6 @@ fun MainScreenPreview() {
             Spacer(modifier = Modifier.padding(10.dp))
             TopBar("Feed", false, {}) {}
         }
-        //MainScreen(rememberNavController(), true) {}
+//        MainScreen(rememberNavController(), true) {}
     }
 }
