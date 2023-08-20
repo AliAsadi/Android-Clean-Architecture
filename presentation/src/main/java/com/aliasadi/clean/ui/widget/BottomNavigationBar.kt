@@ -15,10 +15,10 @@ import com.aliasadi.clean.ui.main.getBottomNavigationItems
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable
-fun BottomNavigationView(
-    items: List<BottomNavigationItem>,
+fun BottomNavigationBar(
+    items: List<BottomNavigationBarItem>,
     navController: NavController,
-    onItemClick: (BottomNavigationItem) -> Unit
+    onItemClick: (BottomNavigationBarItem) -> Unit
 ) {
     val backStackEntry = navController.currentBackStackEntryAsState()
     NavigationBar {
@@ -41,13 +41,13 @@ fun BottomNavigationView(
 @Preview(name = "Light")
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun BottomNavigationItemPreview() {
+private fun BottomNavigationBarViewPreview() {
     PreviewContainer {
-        BottomNavigationView(getBottomNavigationItems(), rememberNavController()) {}
+        BottomNavigationBar(getBottomNavigationItems(), rememberNavController()) {}
     }
 }
 
-data class BottomNavigationItem(
+data class BottomNavigationBarItem(
     val tabName: String,
     val imageVector: ImageVector,
     val route: String,

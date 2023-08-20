@@ -31,8 +31,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.navigation.MainGraph
 import com.aliasadi.clean.ui.navigation.Screen
-import com.aliasadi.clean.ui.widget.BottomNavigationItem
-import com.aliasadi.clean.ui.widget.BottomNavigationView
+import com.aliasadi.clean.ui.widget.BottomNavigationBarItem
+import com.aliasadi.clean.ui.widget.BottomNavigationBar
 import com.aliasadi.clean.ui.widget.DefaultDivider
 import com.aliasadi.clean.util.preview.PreviewContainer
 
@@ -58,7 +58,7 @@ fun MainScreen(
 
         },
         bottomBar = {
-            BottomNavigationView(
+            BottomNavigationBar(
                 items = getBottomNavigationItems(),
                 navController = navController,
                 onItemClick = { bottomItem ->
@@ -118,8 +118,8 @@ fun TopBar(
 }
 
 fun getBottomNavigationItems() = listOf(
-    BottomNavigationItem("Feed", imageVector = Icons.Default.DynamicFeed, Screen.FeedScreen.route),
-    BottomNavigationItem("Favorites", imageVector = Icons.Default.FavoriteBorder, Screen.FavoritesScreen.route)
+    BottomNavigationBarItem("Feed", imageVector = Icons.Default.DynamicFeed, Screen.FeedScreen.route),
+    BottomNavigationBarItem("Favorites", imageVector = Icons.Default.FavoriteBorder, Screen.FavoritesScreen.route)
 )
 
 @Preview(name = "Light")
