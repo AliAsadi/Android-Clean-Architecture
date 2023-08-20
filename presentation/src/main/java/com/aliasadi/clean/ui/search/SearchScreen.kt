@@ -10,9 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData
@@ -86,10 +88,17 @@ fun SearchScreen(
             Box(modifier = Modifier.padding(it)) {
                 if (!showDefaultState) {
                     if (isLoading) {
-                        LoaderFullScreen()
+                        LoaderFullScreen(
+                            alignment = Alignment.TopCenter,
+                            modifier = Modifier.padding(top = 150.dp)
+                        )
                     } else {
                         if (showNoMoviesFound) {
-                            EmptyStateView(titleRes = R.string.no_movies_found)
+                            EmptyStateView(
+                                titleRes = R.string.no_movies_found,
+                                alignment = Alignment.TopCenter,
+                                modifier = Modifier.padding(top = 150.dp)
+                            )
                         } else {
                             MovieList(movies = movies, onMovieClick = onMovieClick)
                         }
@@ -101,8 +110,8 @@ fun SearchScreen(
     }
 }
 
-@Preview(showSystemUi = true, name = "Light")
-@Preview(showSystemUi = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(name = "Light")
+@Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun SearchScreenPreview() {
     val movieItems: List<MovieListItem> = listOf(
@@ -115,6 +124,7 @@ fun SearchScreenPreview() {
 
     PreviewContainer {
         val movies = flowOf(PagingData.from(movieItems)).collectAsLazyPagingItems()
-        SearchScreen(SearchUiState(), movies, {}, {}, {})
+//            SearchScreen(SearchUiState(), movies, {}, {}, {})
+        SearchScreen(SearchUiState(showDefaultState = false, showNoMoviesFound = true), movies, {}, {}, {})
     }
 }

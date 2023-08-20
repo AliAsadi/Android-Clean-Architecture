@@ -12,18 +12,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun LoaderFullScreen() {
-    Box(
-        Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Loader()
-    }
+fun Loader() {
+    CircularProgressIndicator(color = Color.LightGray)
 }
 
 @Composable
-fun Loader() {
-    CircularProgressIndicator(color = Color.LightGray)
+fun LoaderFullScreen(
+    modifier: Modifier = Modifier,
+    alignment: Alignment = Alignment.Center
+) {
+    Box(
+        modifier.fillMaxSize(),
+        contentAlignment = alignment
+    ) {
+        Loader()
+    }
 }
 
 @Preview("Light")
