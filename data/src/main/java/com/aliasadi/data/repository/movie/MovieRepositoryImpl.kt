@@ -12,6 +12,7 @@ import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.getResult
+import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -66,10 +67,16 @@ class MovieRepositoryImpl constructor(
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = localFavorite.checkFavoriteStatus(movieId)
 
     override suspend fun addMovieToFavorite(movieId: Int) {
-        getMovie(movieId).onSuccess {
-            local.saveMovies(Collections.singletonList(it))
-            localFavorite.addMovieToFavorite(movieId)
-        }
+        local.getMovie(movieId)
+            .onSuccess {
+                localFavorite.addMovieToFavorite(movieId)
+            }
+            .onError {
+                remote.getMovie(movieId).onSuccess {
+                    local.saveMovies(listOf(it))
+                    localFavorite.addMovieToFavorite(movieId)
+                }
+            }
     }
 
     override suspend fun removeMovieFromFavorite(movieId: Int) = localFavorite.removeMovieFromFavorite(movieId)
