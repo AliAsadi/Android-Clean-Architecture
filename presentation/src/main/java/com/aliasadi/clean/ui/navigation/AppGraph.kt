@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navArgument
+import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.ui.main.MainScreen
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsPage
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
@@ -23,7 +24,7 @@ fun AppGraph(
     NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
         composableHorizontalSlide(route = Screen.MainScreen.route) {
             MainScreen(
-                appNavController = navController,
+                mainRouter = MainRouter(navController),
                 darkMode = darkMode,
                 onThemeUpdated = onThemeUpdated
             )

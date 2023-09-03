@@ -8,15 +8,16 @@ import com.aliasadi.clean.ui.favorites.FavoritesPage
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel
 import com.aliasadi.clean.ui.feed.FeedPage
 import com.aliasadi.clean.ui.feed.FeedViewModel
+import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.util.composableHorizontalSlide
 
 @Composable
-fun MainGraph(navController: NavHostController, appNavController: NavHostController) {
+fun MainGraph(navController: NavHostController, mainRouter: MainRouter) {
     NavHost(navController = navController, startDestination = Screen.FeedScreen.route) {
         composableHorizontalSlide(route = Screen.FeedScreen.route) {
             val viewModel = hiltViewModel<FeedViewModel>()
             FeedPage(
-                appNavController = appNavController,
+                mainRouter = mainRouter,
                 viewModel = viewModel,
                 loadStateListener = viewModel::onLoadStateUpdate,
                 onMovieClick = viewModel::onMovieClicked
@@ -25,7 +26,7 @@ fun MainGraph(navController: NavHostController, appNavController: NavHostControl
         composableHorizontalSlide(route = Screen.FavoritesScreen.route) {
             val viewModel = hiltViewModel<FavoritesViewModel>()
             FavoritesPage(
-                appNavController = appNavController,
+                mainRouter = mainRouter,
                 viewModel = viewModel,
                 loadStateListener = viewModel::onLoadStateUpdate,
                 onMovieClick = viewModel::onMovieClicked

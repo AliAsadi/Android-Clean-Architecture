@@ -27,18 +27,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.navigation.MainGraph
 import com.aliasadi.clean.ui.navigation.Screen
-import com.aliasadi.clean.ui.widget.BottomNavigationBarItem
 import com.aliasadi.clean.ui.widget.BottomNavigationBar
+import com.aliasadi.clean.ui.widget.BottomNavigationBarItem
 import com.aliasadi.clean.ui.widget.DefaultDivider
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable
 fun MainScreen(
-    appNavController: NavHostController,
+    mainRouter: MainRouter,
     darkMode: Boolean,
     onThemeUpdated: () -> Unit
 ) {
@@ -52,7 +51,7 @@ fun MainScreen(
                 darkMode,
                 onThemeUpdated,
                 onSearchClick = {
-                    appNavController.navigate(Screen.Search.route)
+                    mainRouter.navigateToSearch()
                 }
             )
 
@@ -79,7 +78,7 @@ fun MainScreen(
                 .fillMaxSize(1f)
                 .padding(paddingValues)
         ) {
-            MainGraph(navController, appNavController)
+            MainGraph(navController, mainRouter)
         }
     }
 }

@@ -7,7 +7,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -15,7 +14,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.navigation.Screen
+import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.ui.widget.EmptyStateView
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
@@ -26,7 +25,7 @@ import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun FavoritesPage(
-    appNavController: NavHostController,
+    mainRouter: MainRouter,
     viewModel: FavoritesViewModel,
     loadStateListener: (CombinedLoadStates, Int) -> Unit,
     onMovieClick: (movieId: Int) -> Unit
@@ -38,7 +37,7 @@ fun FavoritesPage(
     LaunchedEffect(key1 = Unit) {
         viewModel.navigationState.onEach {
             when (it) {
-                is MovieDetails -> appNavController.navigate(Screen.MovieDetailsScreen.route + "/${it.movieId}")
+                is MovieDetails ->mainRouter.navigateToMovieDetails(it.movieId)
             }
         }.launchIn(this)
     }
