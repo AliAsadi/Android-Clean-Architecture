@@ -5,6 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.ui.main.MainScreen
@@ -17,16 +18,18 @@ import com.aliasadi.clean.util.composableHorizontalSlide
 
 @Composable
 fun AppGraph(
-    navController: NavHostController,
+    appNavController: NavHostController,
     darkMode: Boolean,
     onThemeUpdated: () -> Unit
 ) {
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route) {
+    NavHost(navController = appNavController, startDestination = Screen.MainScreen.route) {
         composableHorizontalSlide(route = Screen.MainScreen.route) {
+            val nestedNavController = rememberNavController()
             MainScreen(
-                mainRouter = MainRouter(navController),
+                mainRouter = MainRouter(appNavController),
                 darkMode = darkMode,
-                onThemeUpdated = onThemeUpdated
+                onThemeUpdated = onThemeUpdated,
+                nestedNavController = nestedNavController
             )
         }
         composableHorizontalSlide(
@@ -41,7 +44,7 @@ fun AppGraph(
         ) {
             val viewModel = hiltViewModel<MovieDetailsViewModel>()
             MovieDetailsPage(
-                appNavController = navController,
+                appNavController = appNavController,
                 viewModel = viewModel,
                 onFavoriteClick = viewModel::onFavoriteClicked
             )
@@ -50,7 +53,7 @@ fun AppGraph(
         composableHorizontalSlide(route = Screen.Search.route) {
             val viewModel = hiltViewModel<SearchViewModel>()
             SearchPage(
-                appNavController = navController,
+                appNavController = appNavController,
                 viewModel = viewModel,
                 loadStateListener = viewModel::onLoadStateUpdate,
                 onMovieClick = viewModel::onMovieClicked
