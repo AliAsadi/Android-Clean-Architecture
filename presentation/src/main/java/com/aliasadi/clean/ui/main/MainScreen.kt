@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.ui.navigation.MainGraph
 import com.aliasadi.clean.ui.navigation.Screen
@@ -39,9 +40,9 @@ import com.aliasadi.clean.util.preview.PreviewContainer
 fun MainScreen(
     mainRouter: MainRouter,
     darkMode: Boolean,
-    onThemeUpdated: () -> Unit
+    onThemeUpdated: () -> Unit,
+    nestedNavController: NavHostController
 ) {
-    val navController = rememberNavController()
     var appBarTitle by remember { mutableStateOf("Feed") }
 
     Scaffold(
@@ -59,14 +60,14 @@ fun MainScreen(
         bottomBar = {
             BottomNavigationBar(
                 items = getBottomNavigationItems(),
-                navController = navController,
+                navController = nestedNavController,
                 onItemClick = { bottomItem ->
-                    val currentRoute = navController.currentDestination?.route
+                    val currentRoute = nestedNavController.currentDestination?.route
                     if (currentRoute != bottomItem.route) {
                         appBarTitle = bottomItem.tabName
-                        navController.navigate(bottomItem.route) {
+                        nestedNavController.navigate(bottomItem.route) {
                             launchSingleTop = true
-                            popUpTo(navController.graph.findStartDestination().id)
+                            popUpTo(nestedNavController.graph.findStartDestination().id)
                         }
                     }
                 }
@@ -78,7 +79,7 @@ fun MainScreen(
                 .fillMaxSize(1f)
                 .padding(paddingValues)
         ) {
-            MainGraph(navController, mainRouter)
+            MainGraph(nestedNavController, mainRouter)
         }
     }
 }
