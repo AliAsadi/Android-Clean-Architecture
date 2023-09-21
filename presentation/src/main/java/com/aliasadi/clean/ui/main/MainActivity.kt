@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
             AppTheme(darkMode) {
                 AppGraph(
-                    navController = navController,
+                    appNavController = navController,
                     darkMode = darkMode,
                     onThemeUpdated = {
                         val updated = !darkMode
