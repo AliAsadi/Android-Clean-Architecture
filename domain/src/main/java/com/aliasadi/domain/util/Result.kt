@@ -1,5 +1,8 @@
 package com.aliasadi.domain.util
 
+import com.aliasadi.domain.util.Result.Error
+import com.aliasadi.domain.util.Result.Success
+
 /**
  * Created by Ali Asadi on 13/05/2020
  */
@@ -9,14 +12,17 @@ sealed class Result<T> {
 }
 
 inline fun <T, R> Result<T>.getResult(
-    success: (Result.Success<T>) -> R,
-    error: (Result.Error<T>) -> R
-): R = if (this is Result.Success) success(this) else error(this as Result.Error)
+    success: (Success<T>) -> R,
+    error: (Error<T>) -> R
+): R = when (this) {
+    is Success -> success(this)
+    is Error -> error(this)
+}
 
 inline fun <T> Result<T>.onSuccess(
     block: (T) -> Unit
-): Result<T> = if (this is Result.Success) also { block(data) } else this
+): Result<T> = if (this is Success) also { block(data) } else this
 
 inline fun <T> Result<T>.onError(
     block: (Throwable) -> Unit
-): Result<T> = if (this is Result.Error) also { block(error) } else this
+): Result<T> = if (this is Error) also { block(error) } else this
