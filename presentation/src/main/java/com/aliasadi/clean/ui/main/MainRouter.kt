@@ -1,17 +1,17 @@
 package com.aliasadi.clean.ui.main
 
 import androidx.navigation.NavHostController
-import com.aliasadi.clean.ui.navigation.Screen
+import com.aliasadi.clean.ui.bottomnav.Screen
 
 class MainRouter(
-    private val appNavController: NavHostController
+    private val mainNavController: NavHostController
 ) {
 
     fun navigateToSearch() {
-        appNavController.navigate(Screen.Search.route)
+        mainNavController.navigate(Screen.Search.route)
     }
 
     fun navigateToMovieDetails(movieId: Int) {
-        appNavController.navigate(Screen.MovieDetailsScreen.route + "/${movieId}")
+        mainNavController.navigate(Screen.MovieDetailsScreen.route + "/${movieId}")
     }
 }

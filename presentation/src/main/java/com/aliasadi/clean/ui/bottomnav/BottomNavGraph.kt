@@ -1,9 +1,11 @@
-package com.aliasadi.clean.ui.navigation
+package com.aliasadi.clean.ui.bottomnav
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.aliasadi.clean.ui.bottomnav.Screen.FavoritesScreen
+import com.aliasadi.clean.ui.bottomnav.Screen.FeedScreen
 import com.aliasadi.clean.ui.favorites.FavoritesPage
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel
 import com.aliasadi.clean.ui.feed.FeedPage
@@ -12,16 +14,16 @@ import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.util.composableHorizontalSlide
 
 @Composable
-fun MainGraph(navController: NavHostController, mainRouter: MainRouter) {
-    NavHost(navController = navController, startDestination = Screen.FeedScreen.route) {
-        composableHorizontalSlide(route = Screen.FeedScreen.route) {
+fun BottomNavGraph(navController: NavHostController, mainRouter: MainRouter) {
+    NavHost(navController = navController, startDestination = FeedScreen.route) {
+        composableHorizontalSlide(route = FeedScreen.route) {
             val viewModel = hiltViewModel<FeedViewModel>()
             FeedPage(
                 mainRouter = mainRouter,
                 viewModel = viewModel,
             )
         }
-        composableHorizontalSlide(route = Screen.FavoritesScreen.route) {
+        composableHorizontalSlide(route = FavoritesScreen.route) {
             val viewModel = hiltViewModel<FavoritesViewModel>()
             FavoritesPage(
                 mainRouter = mainRouter,

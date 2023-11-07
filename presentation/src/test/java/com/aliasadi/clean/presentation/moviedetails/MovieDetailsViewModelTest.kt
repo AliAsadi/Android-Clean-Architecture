@@ -5,7 +5,7 @@ import app.cash.turbine.test
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.mock
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
-import com.aliasadi.clean.ui.navigation.Screen
+import com.aliasadi.clean.ui.bottomnav.Screen
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus

@@ -10,7 +10,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.di.core.AppSettingsSharedPreference
-import com.aliasadi.clean.ui.navigation.AppGraph
 import com.aliasadi.clean.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -42,8 +41,8 @@ class MainActivity : ComponentActivity() {
             var darkMode by remember { mutableStateOf(isDarkModeEnabled()) }
 
             AppTheme(darkMode) {
-                AppGraph(
-                    appNavController = navController,
+                MainGraph(
+                    mainNavController = navController,
                     darkMode = darkMode,
                     onThemeUpdated = {
                         val updated = !darkMode

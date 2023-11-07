@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.aliasadi.clean.ui.main.getBottomNavigationItems
+import com.aliasadi.clean.ui.bottomnav.getBottomNavigationItems
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable

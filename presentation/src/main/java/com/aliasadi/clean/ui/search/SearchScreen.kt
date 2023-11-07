@@ -21,7 +21,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.ui.navigation.Screen
+import com.aliasadi.clean.ui.bottomnav.Screen
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.search.SearchViewModel.SearchUiState
 import com.aliasadi.clean.ui.widget.EmptyStateView
@@ -35,7 +35,7 @@ import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun SearchPage(
-    appNavController: NavHostController,
+    mainNavController: NavHostController,
     viewModel: SearchViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -47,7 +47,7 @@ fun SearchPage(
         viewModel.navigationState.onEach {
             when (it) {
                 is MovieDetails -> {
-                    appNavController.navigate(Screen.MovieDetailsScreen.route + "/${it.movieId}")
+                    mainNavController.navigate(Screen.MovieDetailsScreen.route + "/${it.movieId}")
                 }
             }
         }.launchIn(this)
@@ -58,7 +58,7 @@ fun SearchPage(
         movies = movies,
         onMovieClick = viewModel::onMovieClicked,
         onQueryChange = viewModel::onSearch,
-        onBackClick = { appNavController.popBackStack() }
+        onBackClick = { mainNavController.popBackStack() }
     )
 }
 

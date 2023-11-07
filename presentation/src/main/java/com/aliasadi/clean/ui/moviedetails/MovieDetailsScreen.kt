@@ -38,11 +38,11 @@ import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable
 fun MovieDetailsPage(
-    appNavController: NavHostController,
+    mainNavController: NavHostController,
     viewModel: MovieDetailsViewModel,
 ) {
     val state by viewModel.uiState.collectAsState()
-    MovieDetailsScreen(state, viewModel::onFavoriteClicked, appNavController)
+    MovieDetailsScreen(state, viewModel::onFavoriteClicked, mainNavController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
