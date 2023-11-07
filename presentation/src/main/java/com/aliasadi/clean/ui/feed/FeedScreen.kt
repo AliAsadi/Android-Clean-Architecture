@@ -17,8 +17,6 @@ import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 /**
  * @author by Ali Asadi on 18/04/2023
@@ -30,34 +28,36 @@ fun FeedPage(
     viewModel: FeedViewModel,
 ) {
     val moviesPaging = viewModel.movies.collectAsLazyPagingItems()
-    val state by viewModel.uiState.collectAsState()
-    viewModel.onLoadStateUpdate(moviesPaging.loadState)
+    val uiState by viewModel.uiState.collectAsState()
+    val navigationState by viewModel.navigationState.collectAsState(null)
+    val networkState by viewModel.networkState.collectAsState(null)
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.navigationState
-            .onEach {
-                when (it) {
-                    is MovieDetails -> mainRouter.navigateToMovieDetails(it.movieId)
-                }
-            }
-            .launchIn(this)
-
-        viewModel.networkState
-            .onEach { if (it.isAvailable()) moviesPaging.refresh() }
-            .launchIn(this)
+    LaunchedEffect(key1 = moviesPaging.loadState) {
+        viewModel.onLoadStateUpdate(moviesPaging.loadState)
     }
 
-    FeedScreen(moviesPaging, state, viewModel::onMovieClicked)
+    LaunchedEffect(key1 = navigationState) {
+        when (val navState = navigationState) {
+            is MovieDetails -> mainRouter.navigateToMovieDetails(navState.movieId)
+            null -> Unit
+        }
+    }
+
+    LaunchedEffect(key1 = networkState) {
+        networkState?.let { if (it.isAvailable()) moviesPaging.refresh() }
+    }
+
+    FeedScreen(moviesPaging, uiState, viewModel::onMovieClicked)
 }
 
 @Composable
 private fun FeedScreen(
     movies: LazyPagingItems<MovieListItem>,
-    state: FeedViewModel.FeedUiState,
+    uiState: FeedViewModel.FeedUiState,
     onMovieClick: (movieId: Int) -> Unit
 ) {
     Surface {
-        if (state.showLoading) {
+        if (uiState.showLoading) {
             LoaderFullScreen()
         } else {
             MovieList(movies, onMovieClick)
