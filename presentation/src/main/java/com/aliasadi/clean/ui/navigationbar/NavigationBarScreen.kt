@@ -1,4 +1,4 @@
-package com.aliasadi.clean.ui.bottomnav
+package com.aliasadi.clean.ui.navigationbar
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,7 +21,7 @@ import com.aliasadi.clean.ui.widget.BottomNavigationBarItem
 import com.aliasadi.clean.ui.widget.TopBar
 
 @Composable
-fun BottomNavScreen(
+fun NavigationBarScreen(
     mainRouter: MainRouter,
     darkMode: Boolean,
     onThemeUpdated: () -> Unit,
@@ -63,7 +63,7 @@ fun BottomNavScreen(
                 .fillMaxSize(1f)
                 .padding(paddingValues)
         ) {
-            BottomNavGraph(nestedNavController, mainRouter)
+            NavigationBarGraph(nestedNavController, mainRouter)
         }
     }
 }

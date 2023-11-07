@@ -3,7 +3,7 @@ package com.aliasadi.clean.ui.moviedetails
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.SavedStateHandle
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.clean.ui.bottomnav.Screen
+import com.aliasadi.clean.ui.navigationbar.Screen
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite

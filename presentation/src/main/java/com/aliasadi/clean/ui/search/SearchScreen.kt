@@ -21,7 +21,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.ui.bottomnav.Screen
+import com.aliasadi.clean.ui.navigationbar.Screen
 import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.search.SearchViewModel.SearchUiState
 import com.aliasadi.clean.ui.widget.EmptyStateView

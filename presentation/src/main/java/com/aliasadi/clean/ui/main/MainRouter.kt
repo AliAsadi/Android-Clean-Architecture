@@ -1,7 +1,7 @@
 package com.aliasadi.clean.ui.main
 
 import androidx.navigation.NavHostController
-import com.aliasadi.clean.ui.bottomnav.Screen
+import com.aliasadi.clean.ui.navigationbar.Screen
 
 class MainRouter(
     private val mainNavController: NavHostController
