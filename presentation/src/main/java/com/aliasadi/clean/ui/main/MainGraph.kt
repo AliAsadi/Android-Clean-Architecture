@@ -7,13 +7,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.aliasadi.clean.ui.navigationbar.NavigationBarScreen
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsPage
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
-import com.aliasadi.clean.ui.navigationbar.Screen.MainScreen
-import com.aliasadi.clean.ui.navigationbar.Screen.MovieDetailsScreen
-import com.aliasadi.clean.ui.navigationbar.Screen.MovieDetailsScreen.MOVIE_ID
-import com.aliasadi.clean.ui.navigationbar.Screen.Search
+import com.aliasadi.clean.navigation.Page
+import com.aliasadi.clean.ui.navigationbar.NavigationBarScreen
 import com.aliasadi.clean.ui.search.SearchPage
 import com.aliasadi.clean.ui.search.SearchViewModel
 import com.aliasadi.clean.util.composableHorizontalSlide
@@ -24,8 +21,8 @@ fun MainGraph(
     darkMode: Boolean,
     onThemeUpdated: () -> Unit
 ) {
-    NavHost(navController = mainNavController, startDestination = MainScreen.route) {
-        composableHorizontalSlide(route = MainScreen.route) {
+    NavHost(navController = mainNavController, startDestination = Page.Main.route) {
+        composableHorizontalSlide(route = Page.Main.route) {
             val nestedNavController = rememberNavController()
             NavigationBarScreen(
                 mainRouter = MainRouter(mainNavController),
@@ -35,7 +32,7 @@ fun MainGraph(
             )
         }
 
-        composableHorizontalSlide(route = Search.route) {
+        composableHorizontalSlide(route = Page.Search.route) {
             val viewModel = hiltViewModel<SearchViewModel>()
             SearchPage(
                 mainNavController = mainNavController,
@@ -44,9 +41,9 @@ fun MainGraph(
         }
 
         composableHorizontalSlide(
-            route = MovieDetailsScreen.route + "/{$MOVIE_ID}",
+            route = "${Page.MovieDetails.route}/{${Page.MovieDetails.MOVIE_ID}}",
             arguments = listOf(
-                navArgument(MOVIE_ID) {
+                navArgument(Page.MovieDetails.MOVIE_ID) {
                     type = NavType.IntType
                     defaultValue = 0
                     nullable = false

@@ -34,7 +34,7 @@ fun FavoritesPage(
     LaunchedEffect(key1 = Unit) {
         viewModel.navigationState.onEach {
             when (it) {
-                is MovieDetails ->mainRouter.navigateToMovieDetails(it.movieId)
+                is MovieDetails -> mainRouter.navigateToMovieDetails(it.movieId)
             }
         }.launchIn(this)
     }

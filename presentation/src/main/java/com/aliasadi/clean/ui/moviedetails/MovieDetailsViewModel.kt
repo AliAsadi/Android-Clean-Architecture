@@ -3,7 +3,7 @@ package com.aliasadi.clean.ui.moviedetails
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.SavedStateHandle
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.clean.ui.navigationbar.Screen
+import com.aliasadi.clean.navigation.Page
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
@@ -46,7 +46,7 @@ class MovieDetailsViewModel @Inject constructor(
     private var movieId: Int
 
     init {
-        movieId = savedStateHandle[Screen.MovieDetailsScreen.MOVIE_ID] ?: 0
+        movieId = savedStateHandle[Page.MovieDetails.MOVIE_ID] ?: 0
         onInitialState()
     }
 

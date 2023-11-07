@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.aliasadi.clean.ui.main.MainRouter
+import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.widget.BottomNavigationBar
 import com.aliasadi.clean.ui.widget.BottomNavigationBarItem
 import com.aliasadi.clean.ui.widget.TopBar
@@ -69,6 +70,6 @@ fun NavigationBarScreen(
 }
 
 fun getBottomNavigationItems() = listOf(
-    BottomNavigationBarItem("Feed", imageVector = Icons.Default.DynamicFeed, Screen.FeedScreen.route),
-    BottomNavigationBarItem("Favorites", imageVector = Icons.Default.FavoriteBorder, Screen.FavoritesScreen.route)
+    BottomNavigationBarItem("Feed", imageVector = Icons.Default.DynamicFeed, Page.Feed.route),
+    BottomNavigationBarItem("Favorites", imageVector = Icons.Default.FavoriteBorder, Page.Favorites.route)
 )
