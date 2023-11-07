@@ -34,11 +34,17 @@ fun FeedPage(
     viewModel.onLoadStateUpdate(moviesPaging.loadState)
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.navigationState.onEach {
-            when (it) {
-                is MovieDetails -> mainRouter.navigateToMovieDetails(it.movieId)
+        viewModel.navigationState
+            .onEach {
+                when (it) {
+                    is MovieDetails -> mainRouter.navigateToMovieDetails(it.movieId)
+                }
             }
-        }.launchIn(this)
+            .launchIn(this)
+
+        viewModel.networkState
+            .onEach { if (it.isAvailable()) moviesPaging.refresh() }
+            .launchIn(this)
     }
 
     FeedScreen(moviesPaging, state, viewModel::onMovieClicked)

@@ -44,11 +44,7 @@ class FeedViewModel @Inject constructor(
     private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
 
-    init {
-        networkMonitor.networkState.onEach {
-            // TODO - refreshData
-        }.launchIn(viewModelScope)
-    }
+    val networkState = networkMonitor.networkState
 
     fun onMovieClicked(movieId: Int) =
         _navigationState.tryEmit(NavigationState.MovieDetails(movieId))
