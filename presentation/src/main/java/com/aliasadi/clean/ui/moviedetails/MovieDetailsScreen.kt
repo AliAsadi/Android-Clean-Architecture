@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.SubcomposeAsyncImage
-import com.aliasadi.clean.R
 import com.aliasadi.clean.R.drawable
 import com.aliasadi.clean.util.preview.PreviewContainer
 
@@ -41,10 +40,9 @@ import com.aliasadi.clean.util.preview.PreviewContainer
 fun MovieDetailsPage(
     appNavController: NavHostController,
     viewModel: MovieDetailsViewModel,
-    onFavoriteClick: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
-    MovieDetailsScreen(state, onFavoriteClick, appNavController)
+    MovieDetailsScreen(state, viewModel::onFavoriteClicked, appNavController)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,7 +52,7 @@ fun MovieDetailsScreen(
     onFavoriteClick: () -> Unit,
     appNavController: NavHostController
 ) {
-    val favoriteIcon = if (state.isFavorite) R.drawable.ic_favorite_fill_white_48 else R.drawable.ic_favorite_border_white_48
+    val favoriteIcon = if (state.isFavorite) drawable.ic_favorite_fill_white_48 else drawable.ic_favorite_border_white_48
 
     Scaffold(
         floatingActionButton = {

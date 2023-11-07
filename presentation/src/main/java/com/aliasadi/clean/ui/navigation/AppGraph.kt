@@ -32,6 +32,15 @@ fun AppGraph(
                 nestedNavController = nestedNavController
             )
         }
+
+        composableHorizontalSlide(route = Screen.Search.route) {
+            val viewModel = hiltViewModel<SearchViewModel>()
+            SearchPage(
+                appNavController = appNavController,
+                viewModel = viewModel,
+            )
+        }
+
         composableHorizontalSlide(
             route = Screen.MovieDetailsScreen.route + "/{$MOVIE_ID}",
             arguments = listOf(
@@ -46,17 +55,6 @@ fun AppGraph(
             MovieDetailsPage(
                 appNavController = appNavController,
                 viewModel = viewModel,
-                onFavoriteClick = viewModel::onFavoriteClicked
-            )
-        }
-
-        composableHorizontalSlide(route = Screen.Search.route) {
-            val viewModel = hiltViewModel<SearchViewModel>()
-            SearchPage(
-                appNavController = appNavController,
-                viewModel = viewModel,
-                loadStateListener = viewModel::onLoadStateUpdate,
-                onMovieClick = viewModel::onMovieClicked
             )
         }
     }

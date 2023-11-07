@@ -7,7 +7,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -27,12 +26,10 @@ import kotlinx.coroutines.flow.onEach
 fun FavoritesPage(
     mainRouter: MainRouter,
     viewModel: FavoritesViewModel,
-    loadStateListener: (CombinedLoadStates, Int) -> Unit,
-    onMovieClick: (movieId: Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val movies = viewModel.movies.collectAsLazyPagingItems()
-    loadStateListener(movies.loadState, movies.itemCount)
+    viewModel.onLoadStateUpdate(movies.loadState, movies.itemCount)
 
     LaunchedEffect(key1 = Unit) {
         viewModel.navigationState.onEach {
@@ -45,7 +42,7 @@ fun FavoritesPage(
     FavoritesScreen(
         favoriteUiState = uiState,
         movies = movies,
-        onMovieClick = onMovieClick
+        onMovieClick = viewModel::onMovieClicked
     )
 }
 

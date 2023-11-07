@@ -19,8 +19,6 @@ fun MainGraph(navController: NavHostController, mainRouter: MainRouter) {
             FeedPage(
                 mainRouter = mainRouter,
                 viewModel = viewModel,
-                loadStateListener = viewModel::onLoadStateUpdate,
-                onMovieClick = viewModel::onMovieClicked
             )
         }
         composableHorizontalSlide(route = Screen.FavoritesScreen.route) {
@@ -28,8 +26,6 @@ fun MainGraph(navController: NavHostController, mainRouter: MainRouter) {
             FavoritesPage(
                 mainRouter = mainRouter,
                 viewModel = viewModel,
-                loadStateListener = viewModel::onLoadStateUpdate,
-                onMovieClick = viewModel::onMovieClicked
             )
         }
     }

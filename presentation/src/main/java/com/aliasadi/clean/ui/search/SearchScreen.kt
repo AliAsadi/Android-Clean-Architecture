@@ -16,7 +16,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -38,13 +37,11 @@ import kotlinx.coroutines.flow.onEach
 fun SearchPage(
     appNavController: NavHostController,
     viewModel: SearchViewModel,
-    loadStateListener: (CombinedLoadStates, Int) -> Unit,
-    onMovieClick: (movieId: Int) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     val movies = viewModel.movies.collectAsLazyPagingItems()
-    loadStateListener(movies.loadState, movies.itemCount)
+    viewModel.onLoadStateUpdate(movies.loadState, movies.itemCount)
 
     LaunchedEffect(key1 = Unit) {
         viewModel.navigationState.onEach {
@@ -59,7 +56,7 @@ fun SearchPage(
     SearchScreen(
         searchUiState = uiState,
         movies = movies,
-        onMovieClick = onMovieClick,
+        onMovieClick = viewModel::onMovieClicked,
         onQueryChange = viewModel::onSearch,
         onBackClick = { appNavController.popBackStack() }
     )

@@ -7,7 +7,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.paging.CombinedLoadStates
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -29,12 +28,10 @@ import kotlinx.coroutines.flow.onEach
 fun FeedPage(
     mainRouter: MainRouter,
     viewModel: FeedViewModel,
-    loadStateListener: (CombinedLoadStates) -> Unit,
-    onMovieClick: (movieId: Int) -> Unit,
 ) {
     val moviesPaging = viewModel.movies.collectAsLazyPagingItems()
     val state by viewModel.uiState.collectAsState()
-    loadStateListener(moviesPaging.loadState)
+    viewModel.onLoadStateUpdate(moviesPaging.loadState)
 
     LaunchedEffect(key1 = Unit) {
         viewModel.navigationState.onEach {
@@ -44,7 +41,7 @@ fun FeedPage(
         }.launchIn(this)
     }
 
-    FeedScreen(moviesPaging, state, onMovieClick)
+    FeedScreen(moviesPaging, state, viewModel::onMovieClicked)
 }
 
 @Composable
