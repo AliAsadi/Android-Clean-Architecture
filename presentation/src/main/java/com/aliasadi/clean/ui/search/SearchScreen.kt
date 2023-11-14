@@ -30,8 +30,6 @@ import com.aliasadi.clean.ui.widget.MovieList
 import com.aliasadi.clean.ui.widget.SearchView
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun SearchPage(
@@ -39,18 +37,18 @@ fun SearchPage(
     viewModel: SearchViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsState()
-
+    val navigationState by viewModel.navigationState.collectAsState(null)
     val movies = viewModel.movies.collectAsLazyPagingItems()
     viewModel.onLoadStateUpdate(movies.loadState, movies.itemCount)
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.navigationState.onEach {
-            when (it) {
-                is MovieDetails -> {
-                    mainNavController.navigate(Page.MovieDetails.route + "/${it.movieId}")
-                }
+    LaunchedEffect(key1 = navigationState) {
+        when (val navState = navigationState) {
+            is MovieDetails -> {
+                mainNavController.navigate(Page.MovieDetails.route + "/${navState.movieId}")
             }
-        }.launchIn(this)
+
+            else -> Unit
+        }
     }
 
     SearchScreen(

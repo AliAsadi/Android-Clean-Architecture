@@ -19,8 +19,6 @@ import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun FavoritesPage(
@@ -29,14 +27,14 @@ fun FavoritesPage(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val movies = viewModel.movies.collectAsLazyPagingItems()
+    val navigationState by viewModel.navigationState.collectAsState(null)
     viewModel.onLoadStateUpdate(movies.loadState, movies.itemCount)
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.navigationState.onEach {
-            when (it) {
-                is MovieDetails -> mainRouter.navigateToMovieDetails(it.movieId)
-            }
-        }.launchIn(this)
+    LaunchedEffect(key1 = navigationState) {
+        when (val navState = navigationState) {
+            is MovieDetails -> mainRouter.navigateToMovieDetails(navState.movieId)
+            else -> Unit
+        }
     }
 
     FavoritesScreen(
