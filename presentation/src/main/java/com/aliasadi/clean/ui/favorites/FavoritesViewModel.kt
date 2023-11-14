@@ -30,9 +30,12 @@ class FavoritesViewModel @Inject constructor(
         data class MovieDetails(val movieId: Int) : NavigationState()
     }
 
-    val movies: Flow<PagingData<MovieListItem>> = getFavoriteMovies(30).map {
-        it.map { it.toPresentation() as MovieListItem }
-    }.cachedIn(viewModelScope)
+    val movies: Flow<PagingData<MovieListItem>> = getFavoriteMovies(30)
+        .map { pagingData ->
+            pagingData.map { movieEntity ->
+                movieEntity.toPresentation() as MovieListItem
+            }
+        }.cachedIn(viewModelScope)
 
     private val _uiState: MutableStateFlow<FavoriteUiState> = MutableStateFlow(FavoriteUiState())
     val uiState = _uiState.asStateFlow()
