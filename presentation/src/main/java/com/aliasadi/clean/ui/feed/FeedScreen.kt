@@ -44,7 +44,7 @@ fun FeedPage(
     }
 
     LaunchedEffect(key1 = networkState) {
-        networkState?.let { if (it.isAvailable()) moviesPaging.refresh() }
+//        networkState?.let { if (it.isAvailable()) moviesPaging.refresh() }
     }
 
     FeedScreen(moviesPaging, uiState, viewModel::onMovieClicked)

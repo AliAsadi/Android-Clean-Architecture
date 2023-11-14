@@ -33,7 +33,7 @@ class MovieRemoteMediator(
         if (state.isEmpty() && page == 2) return MediatorResult.Success(endOfPaginationReached = false)
 
         remote.getMovies(page, state.config.pageSize).getResult({ successResult ->
-
+            Log.d("XXX", "MovieRemoteMediator: get movies from remote")
             if (loadType == LoadType.REFRESH) {
                 local.clearMovies()
                 local.clearRemoteKeys()
