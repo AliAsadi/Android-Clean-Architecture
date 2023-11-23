@@ -30,7 +30,7 @@ This API is the primary data source for the app, providing a mock database of mo
 
 This repository hosts the source code and documentation for the Movies Mock Server API
 
-## ⚠️NOTE
+## 💡 Architectural Insights
 Architecture by its nature is **dynamic** and **ever-evolving**, there are always several solutions to every problem, and what works best will depend on the specific requirements and constraints of your project.
 
 ![image](https://user-images.githubusercontent.com/20803775/214686254-9405504c-05d2-417e-9cf5-669a1a57e8a6.png)
