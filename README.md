@@ -17,14 +17,20 @@ A demo movie android app showcasing Clean Architecture, written in Kotlin and fe
 * For a basic version of the app **without pagination**, check out the [xml_based_basic_app](https://github.com/AliAsadi/Android-Clean-Architecture/tree/xml_based_basic_app
 ) branch.
 
-### The Motivation behind the app
+## The Motivation behind the app
 This repository was created with the intention of stepping outside of my comfort zone as much as possible, tackling topics outside of my area of expertise, and using it to implement new challenges and ideas.
 
-API: https://movies-mock-server.vercel.app/
+## Movies Mock Server API
 
-API (Repository): https://github.com/AliAsadi/movies-mock-server
+**API:** [Movies Mock Server](https://movies-mock-server.vercel.app/)
 
-### ⚠️NOTE
+This API is the primary data source for the app, providing a mock database of movie information. It is designed to mimic real-world data operations including fetching, updating, and managing movie data.
+
+**API Repository:** [Movies Mock Server Repository](https://github.com/AliAsadi/movies-mock-server)
+
+This repository hosts the source code and documentation for the Movies Mock Server API
+
+## ⚠️NOTE
 Architecture by its nature is **dynamic** and **ever-evolving**, there are always several solutions to every problem, and what works best will depend on the specific requirements and constraints of your project.
 
 ![image](https://user-images.githubusercontent.com/20803775/214686254-9405504c-05d2-417e-9cf5-669a1a57e8a6.png)
