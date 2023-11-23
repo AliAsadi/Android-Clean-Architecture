@@ -116,15 +116,7 @@ The code style in this project was ensured using [Detekt](https://detekt.dev/).
 ./gradlew detekt
 ```
 
---------------------------------------------------------------------------------------------
-
-**Feel free to submit any type of issues and suggestions for improving the coding standard**
-
-**Happy Coding!!!** ![](https://i.imgur.com/rneCZCN.png)
-
---------------------------------------------------------------------------------------------
-
-### License
+## License
 ```
    Copyright (C) 2020 Ali Asadi
    Licensed under the Apache License, Version 2.0 (the "License");
@@ -140,5 +132,5 @@ The code style in this project was ensured using [Detekt](https://detekt.dev/).
    limitations under the License.
 ```
 
-### Contributing
+## Contributing
 Just make pull request. You are in!
