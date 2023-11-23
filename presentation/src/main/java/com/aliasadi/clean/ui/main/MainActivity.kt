@@ -1,68 +1,57 @@
 package com.aliasadi.clean.ui.main
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
-import com.aliasadi.clean.R
-import com.aliasadi.clean.databinding.ActivityMainBinding
-import com.aliasadi.clean.ui.base.BaseActivity
-import com.aliasadi.clean.ui.search.SearchActivity
-import com.google.android.material.navigation.NavigationBarView
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.navigation.compose.rememberNavController
+import com.aliasadi.clean.di.core.AppSettingsSharedPreference
+import com.aliasadi.clean.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * @author by Ali Asadi on 07/08/2022
  */
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : ComponentActivity() {
 
-    private val navController by lazy { binding.container.getFragment<NavHostFragment>().navController }
+    companion object {
+        const val DARK_MODE = "dark_mode"
+    }
 
-    override fun inflateViewBinding(inflater: LayoutInflater): ActivityMainBinding = ActivityMainBinding.inflate(inflater)
+    @Inject
+    @AppSettingsSharedPreference
+    lateinit var appSettings: SharedPreferences
+
+    private fun isDarkModeEnabled() = appSettings.getBoolean(DARK_MODE, false)
+
+    private fun enableDarkMode(enable: Boolean) = appSettings.edit().putBoolean(DARK_MODE, enable).commit()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupViews()
-    }
 
-    private fun setupViews() {
-        setupActionBar()
-        setupNavigationView()
-    }
+        setContent {
+            val navController = rememberNavController()
+            var darkMode by remember { mutableStateOf(isDarkModeEnabled()) }
 
-    private fun setupActionBar() = NavigationUI.setupActionBarWithNavController(
-        this,
-        navController,
-        AppBarConfiguration(setOf(R.id.feedFragment, R.id.favoritesFragment))
-    )
-
-    private fun setupNavigationView() = with(binding.navigationView) {
-        if (this is NavigationBarView) setupWithNavController(navController)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        @DrawableRes val darkModeIcon: Int = if (isDarkModeEnabled()) R.drawable.ic_dark_mode_fill else R.drawable.ic_dark_mode
-        menu?.findItem(R.id.action_dark_mode)?.icon = ContextCompat.getDrawable(this, darkModeIcon)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_search -> SearchActivity.start(this)
-            R.id.action_dark_mode -> {
-                enableDarkMode(!isDarkModeEnabled())
-                recreate()
+            AppTheme(darkMode) {
+                MainGraph(
+                    mainNavController = navController,
+                    darkMode = darkMode,
+                    onThemeUpdated = {
+                        val updated = !darkMode
+                        enableDarkMode(updated)
+                        darkMode = updated
+                    }
+                )
             }
         }
-        return true
     }
+
 }

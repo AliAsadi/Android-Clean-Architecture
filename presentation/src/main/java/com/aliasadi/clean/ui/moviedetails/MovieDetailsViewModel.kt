@@ -1,9 +1,9 @@
 package com.aliasadi.clean.ui.moviedetails
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.SavedStateHandle
 import com.aliasadi.clean.ui.base.BaseViewModel
+import com.aliasadi.clean.navigation.Page
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
@@ -13,23 +13,23 @@ import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.getResult
 import com.aliasadi.domain.util.onSuccess
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class MovieDetailsViewModel @AssistedInject constructor(
-    @Assisted private var movieId: Int,
+@HiltViewModel
+class MovieDetailsViewModel @Inject constructor(
     private val getMovieDetails: GetMovieDetails,
     private val checkFavoriteStatus: CheckFavoriteStatus,
     private val addMovieToFavorite: AddMovieToFavorite,
     private val removeMovieFromFavorite: RemoveMovieFromFavorite,
+    savedStateHandle: SavedStateHandle,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -43,7 +43,10 @@ class MovieDetailsViewModel @AssistedInject constructor(
     private val _uiState: MutableStateFlow<MovieDetailsUiState> = MutableStateFlow(MovieDetailsUiState())
     val uiState = _uiState.asStateFlow()
 
+    private var movieId: Int
+
     init {
+        movieId = savedStateHandle[Page.MovieDetails.MOVIE_ID] ?: 0
         onInitialState()
     }
 
@@ -70,19 +73,4 @@ class MovieDetailsViewModel @AssistedInject constructor(
     private suspend fun getMovieById(movieId: Int): Result<MovieEntity> = getMovieDetails(movieId)
 
     private suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = checkFavoriteStatus.invoke(movieId)
-
-    @AssistedFactory
-    interface Factory {
-        fun create(movieId: Int): MovieDetailsViewModel
-    }
-
-    companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun provideFactory(
-            assistedFactory: Factory,
-            movieId: Int
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T = assistedFactory.create(movieId) as T
-        }
-    }
 }

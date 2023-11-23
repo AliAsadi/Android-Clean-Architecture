@@ -8,6 +8,7 @@ import androidx.paging.cachedIn
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
+import com.aliasadi.clean.util.NetworkMonitor
 import com.aliasadi.clean.util.singleSharedFlow
 import com.aliasadi.data.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     getMoviesWithSeparators: GetMoviesWithSeparators,
+    networkMonitor: NetworkMonitor,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
@@ -41,6 +43,8 @@ class FeedViewModel @Inject constructor(
 
     private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
+
+    val networkState = networkMonitor.networkState
 
     fun onMovieClicked(movieId: Int) =
         _navigationState.tryEmit(NavigationState.MovieDetails(movieId))
