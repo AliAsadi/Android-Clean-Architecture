@@ -97,6 +97,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
 
     //Coli
     implementation("io.coil-kt:coil-compose:2.3.0")
