@@ -85,7 +85,7 @@ private fun MovieItem(
 private fun Separator(title: String) {
     Text(
         text = title,
-        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Medium),
+        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Normal),
         modifier = Modifier
             .padding(10.dp)
             .fillMaxWidth()

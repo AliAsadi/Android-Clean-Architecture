@@ -13,22 +13,21 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
  * @author by Ali Asadi on 16/04/2023
  */
 private val darkColors = darkColorScheme(
-
-    primary = Color(0xFF000000), // Main Primary Color
+    primary = Color.Black, // Main Primary Color
     onPrimary = Color.White, // Used for text and icons that appear on top of primary elements.
 
-    primaryContainer = Color(0xFFC1071E), // Used for elements that contain primary elements, such as floating action buttons.
+    primaryContainer = RedC1, // Used for elements that contain primary elements, such as floating action buttons.
 
-    background = Color(0xFF000000), // Background color used for the app's screens
+    background = Color.Black, // Background color used for the app's screens
 
-    surface = Color(0xFF000000), // Background color used in components like the NavigationBar and TopAppBar
-    onSurface = Color(0xFFFFFFFF), // For example, selected text in NavigationBar
+    surface = Color.Black, // Background color used in components like the NavigationBar and TopAppBar
+    onSurface = Color.White, // For example, selected text in NavigationBar
 
-    surfaceVariant = Color(0xFF000000), // Used in TextField, SearchView
-    onSurfaceVariant = Color(0xFFFFFFFF), // Used for text and icons in NavigationBar and Application Icons
+    surfaceVariant = Color.Black, // Used in TextField, SearchView
+    onSurfaceVariant = Color.White, // Used for text and icons in NavigationBar and Application Icons
 
-    secondaryContainer = Color(0xFFC1071E), // Hover color on (NavigationBar)
-    onSecondaryContainer = Color(0xFFFFFFFF) // Selected icon color on (NavigationBar)
+    secondaryContainer = RedC1, // Hover color on (NavigationBar)
+    onSecondaryContainer = Color.White // Selected icon color on (NavigationBar)
 )
 
 private val lightColors = lightColorScheme(
