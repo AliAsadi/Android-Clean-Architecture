@@ -33,8 +33,8 @@ private val darkColors = darkColorScheme(
 private val lightColors = lightColorScheme(
     primary = Color.White,
     onPrimary = Color.Black,
-
     primaryContainer = DarkGrayD3,
+    secondaryContainer = LightGrayD3,
     background = Color.White,
     surfaceVariant = Color.White,
     surface = Color.White

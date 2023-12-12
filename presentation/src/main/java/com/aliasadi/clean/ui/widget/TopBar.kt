@@ -17,8 +17,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,12 +31,23 @@ import com.aliasadi.clean.util.preview.PreviewContainer
 fun TopBar(
     title: String,
     darkMode: Boolean,
+    fontFamily: FontFamily = FontFamily.Cursive,
+    fontSize: TextUnit = 25.sp,
+    fontWeight: FontWeight = FontWeight.SemiBold,
     onThemeUpdated: () -> Unit,
     onSearchClick: () -> Unit
 ) {
     Column {
         TopAppBar(
-            title = { Text(text = title) },
+            title = {
+                Text(
+                    text = title,
+                    fontSize = fontSize,
+                    fontFamily = fontFamily,
+                    color = colors.primaryContainer,
+                    fontWeight = fontWeight
+                )
+            },
             actions = {
                 IconButton(
                     onClick = { onSearchClick() }
@@ -50,19 +66,18 @@ fun TopBar(
                 }
             }
         )
-        DefaultDivider()
     }
 }
 
 @Preview(name = "Light")
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun TopBarPreview() {
+private fun TopBarPreview() {
     PreviewContainer {
         Column {
-            TopBar("Feed", true, {}) {}
+            TopBar("AppName", true, onThemeUpdated = {}, onSearchClick = {})
             Spacer(modifier = Modifier.padding(10.dp))
-            TopBar("Feed", false, {}) {}
+            TopBar("MovieClean", false, onThemeUpdated = {}, onSearchClick = {})
         }
     }
 }

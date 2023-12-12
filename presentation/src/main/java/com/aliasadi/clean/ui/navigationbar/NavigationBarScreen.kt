@@ -28,14 +28,12 @@ fun NavigationBarScreen(
     onThemeUpdated: () -> Unit,
     nestedNavController: NavHostController
 ) {
-    var appBarTitle by remember { mutableStateOf("Feed") }
-
     Scaffold(
         topBar = {
             TopBar(
-                appBarTitle,
+                "MovieClean",
                 darkMode,
-                onThemeUpdated,
+                onThemeUpdated = onThemeUpdated,
                 onSearchClick = {
                     mainRouter.navigateToSearch()
                 }
@@ -49,7 +47,6 @@ fun NavigationBarScreen(
                 onItemClick = { bottomItem ->
                     val currentRoute = nestedNavController.currentDestination?.route
                     if (currentRoute != bottomItem.route) {
-                        appBarTitle = bottomItem.tabName
                         nestedNavController.navigate(bottomItem.route) {
                             launchSingleTop = true
                             popUpTo(nestedNavController.graph.findStartDestination().id)
