@@ -93,12 +93,9 @@ fun SearchView(
 @Preview(showSystemUi = true, name = "Light")
 @Preview(showSystemUi = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun SearchViewPreview() {
-    PreviewContainer {
-        Row {
-            Surface {
-                SearchView({}, {})
-            }
-        }
-    }
+private fun SearchViewPreview() = PreviewContainer {
+    SearchView(
+        onQueryChange = {},
+        onBackClick = {}
+    )
 }
