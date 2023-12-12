@@ -8,15 +8,11 @@ import androidx.compose.material.icons.filled.DynamicFeed
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.navigation.Page
+import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.ui.widget.BottomNavigationBar
 import com.aliasadi.clean.ui.widget.BottomNavigationBarItem
 import com.aliasadi.clean.ui.widget.TopBar
