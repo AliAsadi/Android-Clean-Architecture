@@ -16,7 +16,7 @@ private val darkColors = darkColorScheme(
     primary = Color.Black, // Main Primary Color
     onPrimary = Color.White, // Used for text and icons that appear on top of primary elements.
 
-    primaryContainer = RedC1, // Used for elements that contain primary elements, such as floating action buttons.
+    primaryContainer = AppColor.RedC1, // Used for elements that contain primary elements, such as floating action buttons.
 
     background = Color.Black, // Background color used for the app's screens
 
@@ -26,15 +26,15 @@ private val darkColors = darkColorScheme(
     surfaceVariant = Color.Black, // Used in TextField, SearchView
     onSurfaceVariant = Color.White, // Used for text and icons in NavigationBar and Application Icons
 
-    secondaryContainer = RedC1, // Hover color on (NavigationBar)
+    secondaryContainer = AppColor.RedC1, // Hover color on (NavigationBar)
     onSecondaryContainer = Color.White // Selected icon color on (NavigationBar)
 )
 
 private val lightColors = lightColorScheme(
     primary = Color.White,
     onPrimary = Color.Black,
-    primaryContainer = DarkGrayD3,
-    secondaryContainer = LightGrayD3,
+    primaryContainer = AppColor.DarkGrayD3,
+    secondaryContainer = AppColor.LightGrayD3,
     background = Color.White,
     surfaceVariant = Color.White,
     surface = Color.White
