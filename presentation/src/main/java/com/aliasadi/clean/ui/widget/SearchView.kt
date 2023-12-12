@@ -87,8 +87,6 @@ fun SearchView(
             )
 
         )
-
-        DefaultDivider()
     }
 }
 
