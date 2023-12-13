@@ -3,7 +3,8 @@
 
 A demo movie android app showcasing Clean Architecture, written in Kotlin and featuring Jetpack Compose for modern, declarative UIs. 💯🎞
 
-![image](https://github.com/AliAsadi/Android-Clean-Architecture/assets/20803775/e51ff2fd-a7bb-4f70-8adb-f5992d0f5e1c)
+![image](https://github.com/AliAsadi/Android-Clean-Architecture/assets/20803775/afc6c445-8a0d-4cdc-a2de-0672be74c04a)
+
 
 
 # Features
