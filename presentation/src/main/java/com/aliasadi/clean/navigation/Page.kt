@@ -1,7 +1,7 @@
 package com.aliasadi.clean.navigation
 
 sealed class Page(val route: String) {
-    object Main : Page("main")
+    object NavigationBar : Page("navigation_bar")
     object Feed : Page("feed")
     object Favorites : Page("favorites")
     object Search : Page("search")

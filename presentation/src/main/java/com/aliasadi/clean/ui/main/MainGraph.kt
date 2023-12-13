@@ -21,8 +21,8 @@ fun MainGraph(
     darkMode: Boolean,
     onThemeUpdated: () -> Unit
 ) {
-    NavHost(navController = mainNavController, startDestination = Page.Main.route) {
-        composableHorizontalSlide(route = Page.Main.route) {
+    NavHost(navController = mainNavController, startDestination = Page.NavigationBar.route) {
+        composableHorizontalSlide(route = Page.NavigationBar.route) {
             val nestedNavController = rememberNavController()
             NavigationBarScreen(
                 mainRouter = MainRouter(mainNavController),
