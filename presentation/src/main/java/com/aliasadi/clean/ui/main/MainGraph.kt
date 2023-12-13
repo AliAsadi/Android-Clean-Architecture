@@ -25,6 +25,7 @@ fun MainGraph(
         composableHorizontalSlide(route = Page.NavigationBar.route) {
             val nestedNavController = rememberNavController()
             NavigationBarScreen(
+                viewModel = hiltViewModel(),
                 mainRouter = MainRouter(mainNavController),
                 darkMode = darkMode,
                 onThemeUpdated = onThemeUpdated,

@@ -6,12 +6,12 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.aliasadi.clean.ui.navigationbar.getBottomNavigationItems
+import com.aliasadi.clean.ui.navigationbar.BottomNavigationBarItem
+import com.aliasadi.clean.ui.navigationbar.BottomNavigationBarItem.*
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable
@@ -43,12 +43,7 @@ fun BottomNavigationBar(
 @Composable
 private fun BottomNavigationBarViewPreview() {
     PreviewContainer {
-        BottomNavigationBar(getBottomNavigationItems(), rememberNavController()) {}
+        BottomNavigationBar(listOf(Feed, MyFavorites), rememberNavController()) {}
     }
 }
 
-data class BottomNavigationBarItem(
-    val tabName: String,
-    val imageVector: ImageVector,
-    val route: String,
-)
