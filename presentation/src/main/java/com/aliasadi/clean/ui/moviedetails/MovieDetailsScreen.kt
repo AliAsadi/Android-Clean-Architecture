@@ -65,7 +65,9 @@ fun MovieDetailsScreen(
             }
         },
         topBar = {
-            TopAppBar(title = {}, navigationIcon = {
+            TopAppBar(title = {
+                Text(text = "Overview")
+            }, navigationIcon = {
                 IconButton(onClick = {
                     appNavController.popBackStack()
                 }) {
@@ -92,7 +94,7 @@ fun MovieDetailsScreen(
 
             Text(
                 text = state.title,
-                style = MaterialTheme.typography.displaySmall,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier
                     .padding(16.dp, 16.dp, 16.dp, 0.dp)
                     .fillMaxWidth(1f),
@@ -100,7 +102,7 @@ fun MovieDetailsScreen(
 
             Text(
                 text = state.description,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .padding(16.dp, 8.dp)
                     .fillMaxWidth(1f),
