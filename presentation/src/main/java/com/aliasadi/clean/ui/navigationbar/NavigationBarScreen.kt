@@ -64,5 +64,5 @@ fun NavigationBarScreen(
 
 fun getBottomNavigationItems() = listOf(
     BottomNavigationBarItem("Feed", imageVector = Icons.Default.DynamicFeed, Page.Feed.route),
-    BottomNavigationBarItem("Favorites", imageVector = Icons.Default.FavoriteBorder, Page.Favorites.route)
+    BottomNavigationBarItem("My Favorites", imageVector = Icons.Default.FavoriteBorder, Page.Favorites.route)
 )
