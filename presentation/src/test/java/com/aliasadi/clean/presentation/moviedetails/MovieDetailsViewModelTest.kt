@@ -2,10 +2,10 @@ package com.aliasadi.clean.presentation.moviedetails
 
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
+import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.presentation.base.BaseViewModelTest
 import com.aliasadi.clean.presentation.util.mock
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
-import com.aliasadi.clean.ui.navigationbar.Screen
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
@@ -30,7 +30,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
 
     private var movieId: Int = 1413
 
-    private val movie = MovieEntity(movieId, "title", "desc", "image", "category")
+    private val movie = MovieEntity(movieId, "title", "desc", "image", "category", "")
 
     @Mock
     lateinit var getMovieDetails: GetMovieDetails
@@ -51,7 +51,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
 
     @Before
     fun setUp() {
-        `when`(savedStateHandle.get<Int>(Screen.MovieDetailsScreen.MOVIE_ID)).thenReturn(movieId)
+        `when`(savedStateHandle.get<Int>(Page.MovieDetails.MOVIE_ID)).thenReturn(movieId)
 
         viewModel = MovieDetailsViewModel(
             getMovieDetails = getMovieDetails,

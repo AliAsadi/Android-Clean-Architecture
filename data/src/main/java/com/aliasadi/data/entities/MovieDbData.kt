@@ -12,14 +12,16 @@ data class MovieDbData(
     @PrimaryKey val id: Int,
     val description: String,
     val image: String,
+    val backgroundUrl: String,
     val title: String,
     val category: String,
 )
 
 fun MovieDbData.toDomain() = MovieEntity(
     id = id,
-    image = image,
-    description = description,
     title = title,
-    category = category
+    description = description,
+    image = image,
+    category = category,
+    backgroundUrl = backgroundUrl
 )

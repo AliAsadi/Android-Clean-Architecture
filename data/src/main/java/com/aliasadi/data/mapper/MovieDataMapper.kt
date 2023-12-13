@@ -12,5 +12,6 @@ fun MovieEntity.toDbData() = MovieDbData(
     image = image,
     description = description,
     title = title,
-    category = category
+    category = category,
+    backgroundUrl = backgroundUrl
 )

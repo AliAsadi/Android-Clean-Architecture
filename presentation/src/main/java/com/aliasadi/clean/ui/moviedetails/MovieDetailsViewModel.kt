@@ -57,7 +57,7 @@ class MovieDetailsViewModel @Inject constructor(
             _uiState.value = MovieDetailsUiState(
                 title = it.title,
                 description = it.description,
-                imageUrl = it.image,
+                imageUrl = it.backgroundUrl,
                 isFavorite = isFavorite.await()
             )
         }
