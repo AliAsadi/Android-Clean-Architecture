@@ -22,6 +22,7 @@ import com.aliasadi.clean.ui.theme.AppColor
 import com.aliasadi.clean.ui.widget.BottomNavigationBar
 import com.aliasadi.clean.ui.widget.TopBar
 import com.aliasadi.clean.util.preview.PreviewContainer
+import com.aliasadi.data.util.DispatchersProviderImpl
 
 @Composable
 fun NavigationBarScreen(
@@ -81,7 +82,7 @@ private fun NavigationBarScreenPreview() = PreviewContainer {
     val darkTheme = isSystemInDarkTheme()
 
     NavigationBarScreen(
-        viewModel = hiltViewModel(),
+        viewModel = NavigationBarSharedViewModel(DispatchersProviderImpl),
         mainRouter = mainRouter,
         darkMode = darkTheme,
         onThemeUpdated = { },
