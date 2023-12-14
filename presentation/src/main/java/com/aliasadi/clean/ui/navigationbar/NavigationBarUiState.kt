@@ -8,7 +8,8 @@ import com.aliasadi.clean.navigation.Page
 
 data class NavigationBarUiState(
     val bottomItems: List<BottomNavigationBarItem> = listOf(
-        BottomNavigationBarItem.Feed, BottomNavigationBarItem.MyFavorites
+        BottomNavigationBarItem.Feed,
+        BottomNavigationBarItem.MyFavorites
     )
 )
 

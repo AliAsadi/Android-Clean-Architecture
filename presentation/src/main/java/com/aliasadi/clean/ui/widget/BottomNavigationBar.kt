@@ -46,4 +46,3 @@ private fun BottomNavigationBarViewPreview() {
         BottomNavigationBar(listOf(Feed, MyFavorites), rememberNavController()) {}
     }
 }
-

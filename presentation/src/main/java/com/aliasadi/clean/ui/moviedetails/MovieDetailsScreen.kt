@@ -65,15 +65,14 @@ fun MovieDetailsScreen(
             }
         },
         topBar = {
-            TopAppBar(title = {
-                Text(text = "Overview")
-            }, navigationIcon = {
-                IconButton(onClick = {
-                    appNavController.popBackStack()
-                }) {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+            TopAppBar(
+                title = { Text(text = "Overview") },
+                navigationIcon = {
+                    IconButton(onClick = { appNavController.popBackStack() }) {
+                        Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)
+                    }
                 }
-            })
+            )
         }
     ) { paddingValues ->
         Column(
