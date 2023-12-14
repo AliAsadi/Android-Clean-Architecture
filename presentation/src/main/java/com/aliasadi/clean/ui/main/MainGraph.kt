@@ -7,13 +7,16 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.aliasadi.clean.navigation.Graphs
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsPage
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.clean.navigation.Page
+import com.aliasadi.clean.ui.navigationbar.NavigationBarNestedGraph
 import com.aliasadi.clean.ui.navigationbar.NavigationBarScreen
 import com.aliasadi.clean.ui.search.SearchPage
 import com.aliasadi.clean.ui.search.SearchViewModel
 import com.aliasadi.clean.util.composableHorizontalSlide
+import com.aliasadi.clean.util.sharedViewModel
 
 @Composable
 fun MainGraph(
@@ -21,16 +24,22 @@ fun MainGraph(
     darkMode: Boolean,
     onThemeUpdated: () -> Unit
 ) {
-    NavHost(navController = mainNavController, startDestination = Page.NavigationBar.route) {
-        composableHorizontalSlide(route = Page.NavigationBar.route) {
+    NavHost(navController = mainNavController, startDestination = Page.NavigationBar.route, route = Graphs.GRAPH_ROUTE_MAIN.name) {
+        composableHorizontalSlide(route = Page.NavigationBar.route) { backStack ->
             val nestedNavController = rememberNavController()
             NavigationBarScreen(
-                viewModel = hiltViewModel(),
+                sharedViewModel = backStack.sharedViewModel(navController = mainNavController),
                 mainRouter = MainRouter(mainNavController),
                 darkMode = darkMode,
                 onThemeUpdated = onThemeUpdated,
                 nestedNavController = nestedNavController
-            )
+            ) {
+                NavigationBarNestedGraph(
+                    navController = nestedNavController,
+                    mainNavController = mainNavController,
+                    parentRoute = Graphs.GRAPH_ROUTE_MAIN.name
+                )
+            }
         }
 
         composableHorizontalSlide(route = Page.Search.route) {

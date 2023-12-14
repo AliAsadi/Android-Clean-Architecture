@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -37,12 +39,14 @@ import com.aliasadi.clean.util.preview.PreviewContainer
 fun MovieList(
     movies: LazyPagingItems<MovieListItem>,
     onMovieClick: (movieId: Int) -> Unit,
+    lazyGridState: LazyGridState = rememberLazyGridState(),
     config: MovieSpanSizeConfig = MovieSpanSizeConfig(3)
 ) {
     val imageSize = ImageSize.getImageFixedSize()
     LazyVerticalGrid(
         modifier = Modifier.background(colors.background),
-        columns = GridCells.Fixed(config.gridSpanSize)
+        columns = GridCells.Fixed(config.gridSpanSize),
+        state = lazyGridState
     ) {
         items(movies.itemCount, span = { index ->
             val spinSize = when (movies[index]) {

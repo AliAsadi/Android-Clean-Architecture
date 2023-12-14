@@ -9,3 +9,7 @@ sealed class Page(val route: String) {
         const val MOVIE_ID: String = "movieId"
     }
 }
+
+enum class Graphs {
+    GRAPH_ROUTE_MAIN,
+}

@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -26,12 +25,12 @@ import com.aliasadi.data.util.DispatchersProviderImpl
 
 @Composable
 fun NavigationBarScreen(
-    viewModel: NavigationBarSharedViewModel,
+    sharedViewModel: NavigationBarSharedViewModel,
     mainRouter: MainRouter,
     darkMode: Boolean,
     onThemeUpdated: () -> Unit,
     nestedNavController: NavHostController,
-    content: @Composable () -> Unit = { NavigationBarGraph(nestedNavController, mainRouter) }
+    content: @Composable () -> Unit
 ) {
     val uiState = NavigationBarUiState()
     Scaffold(
@@ -58,7 +57,7 @@ fun NavigationBarScreen(
                             popUpTo(nestedNavController.graph.findStartDestination().id)
                         }
                     }
-                    viewModel.onBottomItemClicked(bottomItem)
+                    sharedViewModel.onBottomItemClicked(bottomItem)
                 }
             )
         }
@@ -82,7 +81,7 @@ private fun NavigationBarScreenPreview() = PreviewContainer {
     val darkTheme = isSystemInDarkTheme()
 
     NavigationBarScreen(
-        viewModel = NavigationBarSharedViewModel(DispatchersProviderImpl),
+        sharedViewModel = NavigationBarSharedViewModel(DispatchersProviderImpl),
         mainRouter = mainRouter,
         darkMode = darkTheme,
         onThemeUpdated = { },

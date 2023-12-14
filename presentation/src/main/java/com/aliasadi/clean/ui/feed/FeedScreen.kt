@@ -1,5 +1,7 @@
 package com.aliasadi.clean.ui.feed
 
+import androidx.compose.foundation.lazy.grid.LazyGridState
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,10 +15,13 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.main.MainRouter
+import com.aliasadi.clean.ui.navigationbar.NavigationBarSharedViewModel
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 /**
  * @author by Ali Asadi on 18/04/2023
@@ -26,6 +31,7 @@ import kotlinx.coroutines.flow.flowOf
 fun FeedPage(
     mainRouter: MainRouter,
     viewModel: FeedViewModel,
+    sharedViewModel: NavigationBarSharedViewModel,
 ) {
     val moviesPaging = viewModel.movies.collectAsLazyPagingItems()
     val uiState by viewModel.uiState.collectAsState()
@@ -47,20 +53,28 @@ fun FeedPage(
 //        networkState?.let { if (it.isAvailable()) moviesPaging.refresh() }
     }
 
-    FeedScreen(moviesPaging, uiState, viewModel::onMovieClicked)
+    val lazyGridState = rememberLazyGridState()
+    LaunchedEffect(key1 = Unit) {
+        sharedViewModel.bottomItem.onEach {
+            lazyGridState.animateScrollToItem(0)
+        }.launchIn(this)
+    }
+
+    FeedScreen(moviesPaging, uiState, lazyGridState, viewModel::onMovieClicked)
 }
 
 @Composable
 private fun FeedScreen(
     movies: LazyPagingItems<MovieListItem>,
     uiState: FeedViewModel.FeedUiState,
+    lazyGridState: LazyGridState,
     onMovieClick: (movieId: Int) -> Unit
 ) {
     Surface {
         if (uiState.showLoading) {
             LoaderFullScreen()
         } else {
-            MovieList(movies, onMovieClick)
+            MovieList(movies, onMovieClick, lazyGridState)
         }
     }
 }
@@ -70,6 +84,6 @@ private fun FeedScreen(
 private fun FeedScreenPreview() {
     val movies = flowOf(PagingData.from(listOf<MovieListItem>())).collectAsLazyPagingItems()
     PreviewContainer {
-        FeedScreen(movies, FeedViewModel.FeedUiState()) {}
+        FeedScreen(movies, FeedViewModel.FeedUiState(), rememberLazyGridState()) {}
     }
 }
