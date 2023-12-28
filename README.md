@@ -41,11 +41,8 @@ Architecture by its nature is **dynamic** and **ever-evolving**, there are alway
 ![image](https://user-images.githubusercontent.com/20803775/214686254-9405504c-05d2-417e-9cf5-669a1a57e8a6.png)
 
 # Screenshots
-| Mode  | Feed | Favorites | Movie Details | Search |
-|-------|------|-----------|--------------|----------|
-| Dark | <img src="screenshot/dark-screen1.png" width="250"> | <img src="screenshot/dark-screen2.png" width="250"> | <img src="screenshot/dark-screen3.png" width="250"> | <img src="screenshot/dark-screen4.png" width="250"> |
-| Light | <img src="screenshot/light-screen1.png" width="250"> | <img src="screenshot/light-screen2.png" width="250"> | <img src="screenshot/light-screen3.png" width="250"> | <img src="screenshot/light-screen4.png" width="250"> |
 
+![image](screenshot/screenshot-cover.png)
 
 | Orientation  | Feed | 
 |-------|------|
