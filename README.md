@@ -44,11 +44,6 @@ Architecture by its nature is **dynamic** and **ever-evolving**, there are alway
 
 ![image](screenshot/screenshot-cover.png)
 
-| Orientation  | Feed | 
-|-------|------|
-| Landscape | <img src="screenshot/l-screen.png"> |
-
-
 # Clean Architecture
 
 The core principles of the clean approach can be summarized as followed:
