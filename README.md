@@ -23,7 +23,7 @@ A demo movie android app showcasing Clean Architecture, written in Kotlin and fe
 ) branch.
 
 ## The Motivation behind the app
-This repository was created with the intention of stepping outside of my comfort zone as much as possible, tackling topics outside of my area of expertise, and using it to implement new challenges and ideas.
+This repository was created with the intention of sharing knowledge, stepping outside of my comfort zone, and using it to implement new challenges and ideas.
 
 ## Movies Mock Server API
 
