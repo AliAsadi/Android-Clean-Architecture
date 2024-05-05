@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 19
-        targetSdk 33
+        targetSdk 34
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", "\"https://movies-mock-server.vercel.app/\""
     }
@@ -27,11 +27,11 @@ dependencies {
     api project(":domain")
 
     //Room
-    implementation 'androidx.room:room-runtime:2.5.0'
-    implementation 'androidx.room:room-ktx:2.5.0'
-    implementation 'androidx.room:room-paging:2.5.0'
-    implementation 'androidx.paging:paging-common-ktx:3.1.1'
-    kapt 'androidx.room:room-compiler:2.5.0'
+    implementation 'androidx.room:room-runtime:2.6.1'
+    implementation 'androidx.room:room-ktx:2.6.1'
+    implementation 'androidx.room:room-paging:2.6.1'
+    implementation 'androidx.paging:paging-common-ktx:3.2.1'
+    kapt 'androidx.room:room-compiler:2.6.1'
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
