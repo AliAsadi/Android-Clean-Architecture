@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import androidx.work.WorkManager
 import com.aliasadi.clean.di.core.AppSettingsSharedPreference
 import com.aliasadi.clean.util.NetworkMonitor
-import com.aliasadi.clean.util.ResourceProvider
 import com.aliasadi.data.util.DiskExecutor
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.data.util.DispatchersProviderImpl
@@ -32,11 +31,6 @@ class AppModule {
     @Provides
     fun provideDispatchersProvider(): DispatchersProvider {
         return DispatchersProviderImpl
-    }
-
-    @Provides
-    fun provideResourceProvider(@ApplicationContext context: Context): ResourceProvider {
-        return ResourceProvider(context)
     }
 
     @Provides
