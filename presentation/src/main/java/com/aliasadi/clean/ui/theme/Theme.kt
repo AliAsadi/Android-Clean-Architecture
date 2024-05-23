@@ -38,7 +38,6 @@ private val lightColors = lightColorScheme(
     background = Color.White,
     surfaceVariant = Color.White,
     surface = Color.White
-
 )
 
 lateinit var colors: ColorScheme
