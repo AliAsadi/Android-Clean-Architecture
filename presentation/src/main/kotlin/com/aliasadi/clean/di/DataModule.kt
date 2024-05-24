@@ -1,15 +1,22 @@
 package com.aliasadi.clean.di
 
-import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.db.movies.MovieRemoteKeyDao
-import com.aliasadi.data.repository.movie.*
+import com.aliasadi.data.repository.movie.MovieDataSource
+import com.aliasadi.data.repository.movie.MovieLocalDataSource
+import com.aliasadi.data.repository.movie.MovieRemoteMediator
+import com.aliasadi.data.repository.movie.MovieRepositoryImpl
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesLocalDataSource
 import com.aliasadi.data.util.DiskExecutor
 import com.aliasadi.domain.repository.MovieRepository
-import com.aliasadi.domain.usecase.*
+import com.aliasadi.domain.usecase.AddMovieToFavorite
+import com.aliasadi.domain.usecase.CheckFavoriteStatus
+import com.aliasadi.domain.usecase.GetFavoriteMovies
+import com.aliasadi.domain.usecase.GetMovieDetails
+import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
+import com.aliasadi.domain.usecase.SearchMovies
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,7 +26,7 @@ import javax.inject.Singleton
 /**
  * Created by Ali Asadi on 15/05/2020
  **/
-@Module
+@Module(includes = [RemoteDataSourceModule::class])
 @InstallIn(SingletonComponent::class)
 class DataModule {
 
@@ -60,12 +67,6 @@ class DataModule {
         favoriteMovieDao: FavoriteMovieDao
     ): FavoriteMoviesDataSource.Local {
         return FavoriteMoviesLocalDataSource(executor, favoriteMovieDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMovieRemoveDataSource(movieApi: MovieApi): MovieDataSource.Remote {
-        return MovieRemoteDataSource(movieApi)
     }
 
     @Provides

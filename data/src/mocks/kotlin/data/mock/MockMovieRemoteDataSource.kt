@@ -16,10 +16,11 @@ class MockMovieRemoteDataSource(
     override suspend fun getMovies(page: Int, limit: Int): Result<List<MovieEntity>> = try {
         Result.Success(
             listOf(
-                MovieEntity(0, "title", "desc", "image", "2222", ""),
+                MovieEntity(0, "title", "desc", "image", "category 2", ""),
                 MovieEntity(1, "title", "desc", "image", "category", ""),
                 MovieEntity(2, "title", "desc", "image", "category", ""),
                 MovieEntity(3, "title", "desc", "image", "category", ""),
+                MovieEntity(4, "title", "desc", "image", "category 2", ""),
             )
         )
     } catch (e: Exception) {
