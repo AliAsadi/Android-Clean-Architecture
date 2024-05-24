@@ -30,6 +30,8 @@ class NetworkMonitor(
 
     val networkState: Flow<NetworkState> = callbackFlow {
 
+        launch { send(getInitialState()) }
+
         val callback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)

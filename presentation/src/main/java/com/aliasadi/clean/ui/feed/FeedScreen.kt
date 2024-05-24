@@ -1,28 +1,17 @@
 package com.aliasadi.clean.ui.feed
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.main.MainRouter
@@ -93,26 +82,6 @@ private fun FeedScreen(
         } else {
             MovieList(movies, onMovieClick, lazyGridState)
         }
-
-        if (!uiState.networkAvailable) {
-            NoInternetConnectionBanner()
-        }
-    }
-}
-
-@Composable
-private fun NoInternetConnectionBanner() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.Red)
-            .padding(8.dp),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = stringResource(id = R.string.no_internet_connection),
-            color = Color.White,
-        )
     }
 }
 
@@ -138,7 +107,6 @@ private fun FeedScreenPreview() {
             movies, FeedViewModel.FeedUiState(
                 showLoading = false,
                 errorMessage = null,
-                networkAvailable = false
             ),
             lazyGridState = rememberLazyGridState(),
             onMovieClick = {}

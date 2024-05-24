@@ -37,7 +37,6 @@ class FeedViewModel @Inject constructor(
     data class FeedUiState(
         val showLoading: Boolean = true,
         val errorMessage: String? = null,
-        val networkAvailable: Boolean = true,
     )
 
     sealed class NavigationState {
@@ -48,11 +47,7 @@ class FeedViewModel @Inject constructor(
         pageSize = 30
     ).cachedIn(viewModelScope)
 
-    private var networkState: NetworkState = networkMonitor.getInitialState()
-
-    private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(
-        FeedUiState(networkAvailable = networkState.isAvailable())
-    )
+    private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(FeedUiState())
     val uiState = _uiState.asStateFlow()
 
     private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
@@ -61,13 +56,14 @@ class FeedViewModel @Inject constructor(
     private val _refreshListState: MutableSharedFlow<Unit> = singleSharedFlow()
     val refreshListState = _refreshListState.asSharedFlow()
 
+    private var networkState: NetworkState = networkMonitor.getInitialState()
+
     init {
         networkMonitor.networkState.onEach { updatedNetworkState ->
             if (networkState != updatedNetworkState && networkState == Lost) {
                 _refreshListState.emit(Unit)
             }
             networkState = updatedNetworkState
-            _uiState.update { it.copy(networkAvailable = networkState.isAvailable()) }
         }.launchIn(viewModelScope)
     }
 

@@ -4,6 +4,8 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,6 +13,9 @@ import androidx.compose.runtime.setValue
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.di.core.AppSettingsSharedPreference
 import com.aliasadi.clean.ui.theme.AppTheme
+import com.aliasadi.clean.ui.widget.NoInternetConnectionBanner
+import com.aliasadi.clean.util.NetworkMonitor
+import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Available
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,6 +34,9 @@ class MainActivity : ComponentActivity() {
     @AppSettingsSharedPreference
     lateinit var appSettings: SharedPreferences
 
+    @Inject
+    lateinit var networkMonitor: NetworkMonitor
+
     private fun isDarkModeEnabled() = appSettings.getBoolean(DARK_MODE, false)
 
     private fun enableDarkMode(enable: Boolean) = appSettings.edit().putBoolean(DARK_MODE, enable).commit()
@@ -41,17 +49,26 @@ class MainActivity : ComponentActivity() {
             var darkMode by remember { mutableStateOf(isDarkModeEnabled()) }
 
             AppTheme(darkMode) {
-                MainGraph(
-                    mainNavController = navController,
-                    darkMode = darkMode,
-                    onThemeUpdated = {
-                        val updated = !darkMode
-                        enableDarkMode(updated)
-                        darkMode = updated
+                Column {
+                    val networkState by networkMonitor.networkState.collectAsState(initial = Available)
+
+                    if (!networkState.isAvailable()) {
+                        NoInternetConnectionBanner()
                     }
-                )
+
+                    MainGraph(
+                        mainNavController = navController,
+                        darkMode = darkMode,
+                        onThemeUpdated = {
+                            val updated = !darkMode
+                            enableDarkMode(updated)
+                            darkMode = updated
+                        }
+                    )
+                }
             }
         }
     }
+
 
 }
