@@ -12,8 +12,9 @@ A demo movie android app showcasing Clean Architecture, written in Kotlin and fe
 1. **Offline-first**: The app can be accessed even without an internet connection.
 2. **Pagination**: Efficiently loads large amounts of data to improve the user experience.
 3. **Search functionality**: Allows users to quickly find specific information within the app.
-4. **Auto Sync**: Uses both NetworkConnectivityStream and WorkManager to ensure data is always up-to-date.
-5. **Favorites**: Users can add movies to a favorites list.
+4. **Connectivity Status**: Shows a banner to inform users of their connectivity status.
+5. **Auto Sync**: Uses both NetworkConnectivityStream and WorkManager to ensure data is always up-to-date.
+6. **Favorites**: Users can add movies to a favorites list.
 
 ## Previous Versions
 * To explore the app's earlier **XML-based UI**, check out the [xml_based_app](https://github.com/AliAsadi/Android-Clean-Architecture/tree/xml_based_app
