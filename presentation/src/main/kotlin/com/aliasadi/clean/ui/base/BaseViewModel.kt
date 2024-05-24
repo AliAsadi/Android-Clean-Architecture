@@ -17,11 +17,11 @@ import kotlinx.coroutines.withContext
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-abstract class BaseViewModel(
+open class BaseViewModel(
     dispatchers: DispatchersProvider
 ) : ViewModel() {
 
-    private val io = dispatchers.getIO()
+    private val io = dispatchers.io
 
     /**
      * Use main if you need to perform a UI operation ASAP (as soon as possible) but not immediately; otherwise, use [mainImmediate].
@@ -38,7 +38,7 @@ abstract class BaseViewModel(
      *
      * @see [MainCoroutineDispatcher], [HandlerDispatcher], [CoroutineDispatcher].
      * **/
-    private val main = dispatchers.getMain()
+    private val main = dispatchers.main
 
     /**
      * Use mainImmediate if you need to perform an immediate operation in the UI; otherwise, use [main].
@@ -48,7 +48,7 @@ abstract class BaseViewModel(
      *
      * @see [MainCoroutineDispatcher], [HandlerDispatcher], [CoroutineDispatcher].
      * **/
-    private val mainImmediate = dispatchers.getMainImmediate()
+    private val mainImmediate = dispatchers.main.immediate
 
     protected fun launchOnIO(block: suspend CoroutineScope.() -> Unit): Job = viewModelScope.launchOnIO(block)
     protected fun launchOnMain(block: suspend CoroutineScope.() -> Unit): Job = viewModelScope.launchOnMain(block)

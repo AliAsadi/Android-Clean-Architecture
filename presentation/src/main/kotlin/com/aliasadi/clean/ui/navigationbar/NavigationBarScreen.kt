@@ -22,6 +22,7 @@ import com.aliasadi.clean.ui.widget.BottomNavigationBar
 import com.aliasadi.clean.ui.widget.TopBar
 import com.aliasadi.clean.util.preview.PreviewContainer
 import com.aliasadi.data.util.DispatchersProviderImpl
+import kotlinx.coroutines.Dispatchers
 
 @Composable
 fun NavigationBarScreen(
@@ -81,7 +82,7 @@ private fun NavigationBarScreenPreview() = PreviewContainer {
     val darkTheme = isSystemInDarkTheme()
 
     NavigationBarScreen(
-        sharedViewModel = NavigationBarSharedViewModel(DispatchersProviderImpl),
+        sharedViewModel = NavigationBarSharedViewModel(DispatchersProviderImpl(Dispatchers.Main, Dispatchers.Main, Dispatchers.Main)),
         mainRouter = mainRouter,
         darkMode = darkTheme,
         onThemeUpdated = { },

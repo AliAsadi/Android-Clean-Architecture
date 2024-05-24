@@ -6,8 +6,6 @@ import androidx.work.WorkManager
 import com.aliasadi.clean.di.AppSettingsSharedPreference
 import com.aliasadi.clean.util.NetworkMonitor
 import com.aliasadi.data.util.DiskExecutor
-import com.aliasadi.data.util.DispatchersProvider
-import com.aliasadi.data.util.DispatchersProviderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,11 +24,6 @@ class AppModule {
     @Provides
     fun provideDiskExecutor(): DiskExecutor {
         return DiskExecutor()
-    }
-
-    @Provides
-    fun provideDispatchersProvider(): DispatchersProvider {
-        return DispatchersProviderImpl
     }
 
     @Provides
