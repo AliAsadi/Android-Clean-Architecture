@@ -22,8 +22,10 @@ android {
     flavorDimensions += "environment"
 
     productFlavors {
-        create("mocks")
-        create("prod")
+        create("prod") {
+            isDefault = true
+        }
+        create("mock")
     }
 
     namespace 'com.aliasadi.data'

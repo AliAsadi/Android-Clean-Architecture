@@ -24,9 +24,10 @@ android {
     productFlavors {
         create("prod") {
             applicationIdSuffix = ".prod"
+            isDefault = true
         }
-        create("mocks") {
-            applicationIdSuffix = ".mocks"
+        create("mock") {
+            applicationIdSuffix = ".mock"
         }
     }
 

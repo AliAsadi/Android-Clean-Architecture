@@ -1,10 +1,12 @@
 package com.aliasadi.clean.di
 
+import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.db.movies.MovieRemoteKeyDao
 import com.aliasadi.data.repository.movie.MovieDataSource
 import com.aliasadi.data.repository.movie.MovieLocalDataSource
+import com.aliasadi.data.repository.movie.MovieRemoteDataSource
 import com.aliasadi.data.repository.movie.MovieRemoteMediator
 import com.aliasadi.data.repository.movie.MovieRepositoryImpl
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
@@ -26,7 +28,7 @@ import javax.inject.Singleton
 /**
  * Created by Ali Asadi on 15/05/2020
  **/
-@Module(includes = [RemoteDataSourceModule::class])
+@Module
 @InstallIn(SingletonComponent::class)
 class DataModule {
 
@@ -39,6 +41,12 @@ class DataModule {
         favoriteLocal: FavoriteMoviesDataSource.Local,
     ): MovieRepository {
         return MovieRepositoryImpl(movieRemote, movieLocal, movieRemoteMediator, favoriteLocal)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieRemoveDataSource(movieApi: MovieApi): MovieDataSource.Remote {
+        return MovieRemoteDataSource(movieApi)
     }
 
     @Provides

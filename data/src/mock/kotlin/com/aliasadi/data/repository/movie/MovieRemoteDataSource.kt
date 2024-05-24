@@ -1,15 +1,14 @@
-package data.mock
+package com.aliasadi.data.repository.movie
 
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.toDomain
-import com.aliasadi.data.repository.movie.MovieDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class MockMovieRemoteDataSource(
+class MovieRemoteDataSource(
     private val movieApi: MovieApi
 ) : MovieDataSource.Remote {
 
