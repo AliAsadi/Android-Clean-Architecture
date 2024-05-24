@@ -29,10 +29,10 @@ allprojects {
     apply from: "$rootDir/detekt.gradle"
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
 
-task detektTask(type: Exec) {
+tasks.register('detektTask', Exec) {
     commandLine './gradlew', 'detektMain'
 }
