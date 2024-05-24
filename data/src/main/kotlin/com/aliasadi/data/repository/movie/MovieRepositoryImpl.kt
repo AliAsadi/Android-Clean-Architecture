@@ -21,7 +21,7 @@ import java.util.*
 /**
  * Created by Ali Asadi on 13/05/2020
  */
-class MovieRepositoryImpl constructor(
+class MovieRepositoryImpl(
     private val remote: MovieDataSource.Remote,
     private val local: MovieDataSource.Local,
     private val remoteMediator: MovieRemoteMediator,
