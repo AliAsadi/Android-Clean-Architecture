@@ -11,6 +11,7 @@ import kotlinx.coroutines.delay
 /**
  * Created by Ali Asadi on 24/05/2024
  */
+@Suppress("UnusedPrivateProperty")
 class MovieRemoteDataSource(
     private val movieApi: MovieApi
 ) : MovieDataSource.Remote {
