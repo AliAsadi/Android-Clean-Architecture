@@ -17,7 +17,7 @@ class MovieRemoteDataSource(
 ) : MovieDataSource.Remote {
 
     companion object {
-        const val DEFAULT_API_DELAY = 1000L
+        const val DEFAULT_API_DELAY = 500L
     }
 
     override suspend fun getMovies(page: Int, limit: Int): Result<List<MovieEntity>> {
