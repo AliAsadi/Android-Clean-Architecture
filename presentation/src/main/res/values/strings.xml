@@ -8,4 +8,5 @@
     <string name="no_movies_found">There were no movies found.</string>
     <string name="no_favorite_movies_at_the_moment">There are no favorite movies\n on your list at the moment.</string>
     <string name="retry">Retry</string>
+    <string name="no_internet_connection">No Internet Connection</string>
 </resources>

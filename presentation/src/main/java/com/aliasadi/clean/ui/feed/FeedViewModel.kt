@@ -9,10 +9,19 @@ import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
 import com.aliasadi.clean.util.NetworkMonitor
+import com.aliasadi.clean.util.NetworkMonitor.NetworkState
+import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Lost
 import com.aliasadi.clean.util.singleSharedFlow
 import com.aliasadi.data.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 /**
@@ -27,7 +36,8 @@ class FeedViewModel @Inject constructor(
 
     data class FeedUiState(
         val showLoading: Boolean = true,
-        val errorMessage: String? = null
+        val errorMessage: String? = null,
+        val networkAvailable: Boolean = true,
     )
 
     sealed class NavigationState {
@@ -38,13 +48,28 @@ class FeedViewModel @Inject constructor(
         pageSize = 30
     ).cachedIn(viewModelScope)
 
-    private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(FeedUiState())
+    private var networkState: NetworkState = networkMonitor.getInitialState()
+
+    private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(
+        FeedUiState(networkAvailable = networkState.isAvailable())
+    )
     val uiState = _uiState.asStateFlow()
 
     private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
 
-    val networkState = networkMonitor.networkState
+    private val _refreshListState: MutableSharedFlow<Unit> = singleSharedFlow()
+    val refreshListState = _refreshListState.asSharedFlow()
+
+    init {
+        networkMonitor.networkState.onEach { updatedNetworkState ->
+            if (networkState != updatedNetworkState && networkState == Lost) {
+                _refreshListState.emit(Unit)
+            }
+            networkState = updatedNetworkState
+            _uiState.update { it.copy(networkAvailable = networkState.isAvailable()) }
+        }.launchIn(viewModelScope)
+    }
 
     fun onMovieClicked(movieId: Int) =
         _navigationState.tryEmit(NavigationState.MovieDetails(movieId))

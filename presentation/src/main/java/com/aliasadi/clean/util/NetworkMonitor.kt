@@ -30,8 +30,6 @@ class NetworkMonitor(
 
     val networkState: Flow<NetworkState> = callbackFlow {
 
-        launch { send(getInitialState()) }
-
         val callback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
@@ -54,5 +52,5 @@ class NetworkMonitor(
         }
     }.distinctUntilChanged()
 
-    private fun getInitialState(): NetworkState = if (connectivityManager.activeNetwork != null) Available else Lost
+    fun getInitialState(): NetworkState = if (connectivityManager.activeNetwork != null) Available else Lost
 }
