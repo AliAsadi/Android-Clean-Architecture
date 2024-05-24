@@ -104,7 +104,8 @@ private fun FeedScreenPreview() {
     ).collectAsLazyPagingItems()
     PreviewContainer {
         FeedScreen(
-            movies, FeedViewModel.FeedUiState(
+            movies = movies,
+            uiState = FeedViewModel.FeedUiState(
                 showLoading = false,
                 errorMessage = null,
             ),
