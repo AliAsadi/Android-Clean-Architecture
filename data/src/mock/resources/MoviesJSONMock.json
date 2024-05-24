@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "title": "The Shawshank Redemption",
+    "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+    "image": "https://image.tmdb.org/t/p/original//z8onk7LV9Mmw6zKz4hT6pzzvmvl.jpg",
+    "category": "Drama",
+    "backgroundUrl": ""
+  },
+  {
+    "id": 1,
+    "title": "The Godfather",
+    "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+    "image": "https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg",
+    "category": "Crime",
+    "backgroundUrl": ""
+  },
+  {
+    "id": 2,
+    "title": "The Dark Knight",
+    "description": "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
+    "image": "https://upload.wikimedia.org/wikipedia/en/8/8a/Dark_Knight.jpg",
+    "category": "Action",
+    "backgroundUrl": ""
+  },
+  {
+    "id": 3,
+    "title": "Pulp Fiction",
+    "description": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+    "image": "https://upload.wikimedia.org/wikipedia/en/8/82/Pulp_Fiction_cover.jpg",
+    "category": "Crime",
+    "backgroundUrl": ""
+  },
+  {
+    "id": 4,
+    "title": "Schindler's List",
+    "description": "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
+    "image": "https://upload.wikimedia.org/wikipedia/en/3/38/Schindler%27s_List_movie.jpg",
+    "category": "Biography",
+    "backgroundUrl": ""
+  }
+]
