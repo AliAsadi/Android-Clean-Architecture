@@ -2,6 +2,7 @@ package com.aliasadi.data.repository.movie
 
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.toDomain
+import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.utils.JsonLoader
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
@@ -39,12 +40,7 @@ class MovieRemoteDataSource(
         return if (movie != null) {
             Result.Success(movie.toDomain())
         } else {
-            Result.Success(
-                MovieEntity(
-                    movieId, "Mock Movie $movieId", "Description for Mock Movie $movieId", "https://via.placeholder.com/200x300.jpg",
-                    "Category $movieId", ""
-                )
-            )
+            Result.Error(DataNotAvailableException())
         }
     }
 
