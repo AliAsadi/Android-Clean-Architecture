@@ -1,4 +1,4 @@
-package com.aliasadi.clean.di.core.module
+package com.aliasadi.clean.di
 
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao

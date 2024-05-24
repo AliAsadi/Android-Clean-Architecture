@@ -19,6 +19,17 @@ android {
         }
     }
 
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("prod") {
+            applicationIdSuffix = ".prod"
+        }
+        create("mocks") {
+            applicationIdSuffix = ".mocks"
+        }
+    }
+
     buildFeatures {
         viewBinding true
         compose true

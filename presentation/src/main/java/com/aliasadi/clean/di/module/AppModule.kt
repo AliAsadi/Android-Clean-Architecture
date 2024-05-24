@@ -1,9 +1,9 @@
-package com.aliasadi.clean.di.core.module
+package com.aliasadi.clean.di.module
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.work.WorkManager
-import com.aliasadi.clean.di.core.AppSettingsSharedPreference
+import com.aliasadi.clean.di.AppSettingsSharedPreference
 import com.aliasadi.clean.util.NetworkMonitor
 import com.aliasadi.data.util.DiskExecutor
 import com.aliasadi.data.util.DispatchersProvider

@@ -19,6 +19,13 @@ android {
         }
     }
 
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("mocks")
+        create("prod")
+    }
+
     namespace 'com.aliasadi.data'
 }
 

@@ -1,4 +1,4 @@
-package com.aliasadi.clean.di.core.module
+package com.aliasadi.clean.di.module
 
 import com.aliasadi.data.BuildConfig
 import com.aliasadi.data.api.MovieApi

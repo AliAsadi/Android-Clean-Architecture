@@ -1,4 +1,4 @@
-package com.aliasadi.clean.di.core.module
+package com.aliasadi.clean.di.module
 
 import android.content.Context
 import androidx.room.Room

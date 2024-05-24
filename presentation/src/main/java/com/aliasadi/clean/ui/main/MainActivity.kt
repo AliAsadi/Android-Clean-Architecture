@@ -11,7 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.navigation.compose.rememberNavController
-import com.aliasadi.clean.di.core.AppSettingsSharedPreference
+import com.aliasadi.clean.di.AppSettingsSharedPreference
 import com.aliasadi.clean.ui.theme.AppTheme
 import com.aliasadi.clean.ui.widget.NoInternetConnectionBanner
 import com.aliasadi.clean.util.NetworkMonitor
