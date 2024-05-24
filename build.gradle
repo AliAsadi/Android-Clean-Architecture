@@ -34,5 +34,5 @@ task clean(type: Delete) {
 }
 
 task detektTask(type: Exec) {
-    commandLine './gradlew', 'detekt'
+    commandLine './gradlew', 'detektMain'
 }
