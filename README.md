@@ -16,12 +16,26 @@ A demo movie android app showcasing Clean Architecture, written in Kotlin and fe
 5. **Auto Sync**: Uses both NetworkConnectivityStream and WorkManager to ensure data is always up-to-date.
 6. **Favorites**: Users can add movies to a favorites list.
 
+
 ## Previous Versions
 * To explore the app's earlier **XML-based UI**, check out the [xml_based_app](https://github.com/AliAsadi/Android-Clean-Architecture/tree/xml_based_app
 ) branch.
 
 * For a basic version of the app **without pagination**, check out the [xml_based_basic_app](https://github.com/AliAsadi/Android-Clean-Architecture/tree/xml_based_basic_app
 ) branch.
+
+
+# Variants
+
+The project has two variants: **production** and **mock**.
+
+1. **Mock Variant:** Fetches generated mock data.
+
+2. **Production Variant:** Calls the production API.
+
+Each variant has a distinct `MovieRemoteDataSource` implementation, ensuring that in the mock variant, data is generated, while in the production variant, the actual API is called.
+
+![image](https://github.com/AliAsadi/Android-Clean-Architecture/assets/20803775/10009f97-6f8c-47b0-81d6-e90870ce0b89)
 
 ## The Motivation behind the app
 This repository was created with the intention of sharing knowledge, stepping outside of my comfort zone, and using it to implement new challenges and ideas.
