@@ -5,7 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.aliasadi.clean.navigation.GRAPH_ROUTE_MAIN
+import com.aliasadi.clean.navigation.Graph
 import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsPage
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
@@ -25,7 +25,7 @@ fun MainGraph(
     NavHost(
         navController = mainNavController,
         startDestination = Page.NavigationBar,
-        route = GRAPH_ROUTE_MAIN::class
+        route = Graph.Main::class
     ) {
         composableHorizontalSlide<Page.NavigationBar> { backStack ->
             val nestedNavController = rememberNavController()
@@ -39,7 +39,7 @@ fun MainGraph(
                 NavigationBarNestedGraph(
                     navController = nestedNavController,
                     mainNavController = mainNavController,
-                    parentRoute = GRAPH_ROUTE_MAIN::class
+                    parentRoute = Graph.Main::class
                 )
             }
         }
