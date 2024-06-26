@@ -3,7 +3,7 @@ package com.aliasadi.clean.ui.favorites
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.mapper.toPresentation
+import com.aliasadi.clean.mapper.toMovieListItem
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.util.singleSharedFlow
 import com.aliasadi.data.util.DispatchersProvider
@@ -33,7 +33,7 @@ class FavoritesViewModel @Inject constructor(
     val movies: Flow<PagingData<MovieListItem>> = getFavoriteMovies(30)
         .map { pagingData ->
             pagingData.map { movieEntity ->
-                movieEntity.toPresentation() as MovieListItem
+                movieEntity.toMovieListItem()
             }
         }.cachedIn(viewModelScope)
 

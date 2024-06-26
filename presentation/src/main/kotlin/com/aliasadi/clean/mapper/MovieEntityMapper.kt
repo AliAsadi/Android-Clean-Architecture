@@ -12,3 +12,5 @@ fun MovieEntity.toPresentation() = MovieListItem.Movie(
     imageUrl = image,
     category = category
 )
+
+fun MovieEntity.toMovieListItem(): MovieListItem = this.toPresentation()
