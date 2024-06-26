@@ -2,7 +2,7 @@ package com.aliasadi.clean.ui.widget
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,9 +14,9 @@ import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable
 fun DefaultDivider() {
-    Divider(
+    HorizontalDivider(
         modifier = Modifier.shadow(elevation = 5.dp),
-        thickness = 0.3.dp,
+        thickness = 0.3.dp
     )
 }
 

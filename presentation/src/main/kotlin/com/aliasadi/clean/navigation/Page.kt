@@ -1,15 +1,33 @@
 package com.aliasadi.clean.navigation
 
-sealed class Page(val route: String) {
-    object NavigationBar : Page("navigation_bar")
-    object Feed : Page("feed")
-    object Favorites : Page("favorites")
-    object Search : Page("search")
-    object MovieDetails : Page("movie_details") {
-        const val MOVIE_ID: String = "movieId"
+import kotlinx.serialization.Serializable
+
+sealed class Page {
+    @Serializable
+    data object NavigationBar : Page()
+
+    @Serializable
+    data object Feed : Page()
+
+    @Serializable
+    data object Favorites : Page()
+
+    @Serializable
+    data object Search : Page()
+
+    @Serializable
+    data class MovieDetails(val movieId: Int) : Page() {
+        companion object {
+            const val KEY_MOVIE_ID = "movieId"
+        }
     }
 }
 
-enum class Graphs {
-    GRAPH_ROUTE_MAIN,
+sealed class Graph {
+    @Serializable
+    data object Main : Graph()
+}
+
+fun Page.route(): String? {
+    return this.javaClass.canonicalName
 }
