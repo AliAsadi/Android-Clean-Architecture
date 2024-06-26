@@ -1,11 +1,8 @@
-plugins {
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.0'
-}
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.dagger.hilt.android'
+apply plugin: 'kotlinx-serialization'
 
 android {
     compileSdk 34
