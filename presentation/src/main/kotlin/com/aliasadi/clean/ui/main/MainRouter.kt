@@ -12,6 +12,6 @@ class MainRouter(
     }
 
     fun navigateToMovieDetails(movieId: Int) {
-        mainNavController.navigate(Page.MovieDetails(movieId.toString()))
+        mainNavController.navigate(Page.MovieDetails(movieId))
     }
 }

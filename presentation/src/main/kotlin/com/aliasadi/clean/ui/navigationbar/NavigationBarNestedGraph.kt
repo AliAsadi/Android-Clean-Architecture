@@ -1,16 +1,14 @@
 package com.aliasadi.clean.ui.navigationbar
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.aliasadi.clean.navigation.GRAPH_ROUTE_MAIN
+import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.favorites.FavoritesPage
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel
 import com.aliasadi.clean.ui.feed.FeedPage
 import com.aliasadi.clean.ui.feed.FeedViewModel
-import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.util.composableHorizontalSlide
 import com.aliasadi.clean.util.sharedViewModel

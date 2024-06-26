@@ -43,7 +43,7 @@ class MovieDetailsViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<MovieDetailsUiState> = MutableStateFlow(MovieDetailsUiState())
     val uiState = _uiState.asStateFlow()
 
-    private var movieId: Int = savedStateHandle.get<String>(Page.MovieDetails.keyMovieId)?.toInt() ?: 0
+    private var movieId: Int = savedStateHandle.get<Int>(Page.MovieDetails.keyMovieId) ?: 0
 
     init {
         onInitialState()

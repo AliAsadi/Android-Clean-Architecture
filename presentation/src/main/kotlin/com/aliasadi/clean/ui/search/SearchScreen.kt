@@ -44,7 +44,7 @@ fun SearchPage(
     LaunchedEffect(key1 = navigationState) {
         when (val navState = navigationState) {
             is MovieDetails -> {
-                mainNavController.navigate(Page.MovieDetails(navState.movieId.toString()))
+                mainNavController.navigate(Page.MovieDetails(navState.movieId))
             }
 
             else -> Unit

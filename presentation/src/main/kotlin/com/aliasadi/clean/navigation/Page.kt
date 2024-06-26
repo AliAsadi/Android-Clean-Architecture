@@ -16,7 +16,7 @@ sealed class Page {
     data object Search : Page()
 
     @Serializable
-    data class MovieDetails(val movieId: String) : Page() {
+    data class MovieDetails(val movieId: Int) : Page() {
         companion object {
             const val keyMovieId = "movieId"
         }
