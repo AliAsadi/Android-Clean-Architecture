@@ -23,11 +23,11 @@ sealed class Page {
     }
 }
 
-fun Page.route(): String? {
-    return this.javaClass.canonicalName
-}
-
 sealed class Graph {
     @Serializable
     data object Main : Graph()
+}
+
+fun Page.route(): String? {
+    return this.javaClass.canonicalName
 }
