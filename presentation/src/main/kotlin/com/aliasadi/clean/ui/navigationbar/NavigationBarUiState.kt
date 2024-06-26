@@ -16,8 +16,8 @@ data class NavigationBarUiState(
 sealed class BottomNavigationBarItem(
     val tabName: String,
     val imageVector: ImageVector,
-    val route: String,
+    val page: Page,
 ) {
-    object Feed : BottomNavigationBarItem("Feed", imageVector = Icons.Default.DynamicFeed, Page.Feed.route)
-    object MyFavorites : BottomNavigationBarItem("My Favorites", imageVector = Icons.Default.FavoriteBorder, Page.Favorites.route)
+    data object Feed : BottomNavigationBarItem("Feed", imageVector = Icons.Default.DynamicFeed, Page.Feed)
+    data object MyFavorites : BottomNavigationBarItem("My Favorites", imageVector = Icons.Default.FavoriteBorder, Page.Favorites)
 }

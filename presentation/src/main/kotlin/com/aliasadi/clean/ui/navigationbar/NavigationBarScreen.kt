@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.aliasadi.clean.navigation.route
 import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.ui.theme.AppColor
 import com.aliasadi.clean.ui.widget.BottomNavigationBar
@@ -51,9 +52,11 @@ fun NavigationBarScreen(
                 items = uiState.bottomItems,
                 navController = nestedNavController,
                 onItemClick = { bottomItem ->
-                    val currentRoute = nestedNavController.currentDestination?.route
-                    if (currentRoute != bottomItem.route) {
-                        nestedNavController.navigate(bottomItem.route) {
+                    val currentPageRoute = nestedNavController.currentDestination?.route
+                    val clickedPageRoute = bottomItem.page
+                    val notSamePage = currentPageRoute != clickedPageRoute.route()
+                    if (notSamePage) {
+                        nestedNavController.navigate(clickedPageRoute) {
                             launchSingleTop = true
                             popUpTo(nestedNavController.graph.findStartDestination().id)
                         }

@@ -10,6 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.aliasadi.clean.navigation.route
 import com.aliasadi.clean.ui.navigationbar.BottomNavigationBarItem
 import com.aliasadi.clean.ui.navigationbar.BottomNavigationBarItem.*
 import com.aliasadi.clean.util.preview.PreviewContainer
@@ -23,7 +24,7 @@ fun BottomNavigationBar(
     val backStackEntry = navController.currentBackStackEntryAsState()
     NavigationBar {
         items.forEach { item ->
-            val selected = item.route == backStackEntry.value?.destination?.route
+            val selected = item.page.route() == backStackEntry.value?.destination?.route
             NavigationBarItem(
                 selected = selected,
                 onClick = { onItemClick(item) },
