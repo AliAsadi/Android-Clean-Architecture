@@ -51,7 +51,7 @@ class MovieDetailsViewModelTest : BaseViewModelTest() {
 
     @Before
     fun setUp() {
-        `when`(savedStateHandle.get<Int>(Page.MovieDetails.MOVIE_ID)).thenReturn(movieId)
+        `when`(savedStateHandle.get<Int>(Page.MovieDetails.KEY_MOVIE_ID)).thenReturn(movieId)
 
         viewModel = MovieDetailsViewModel(
             getMovieDetails = getMovieDetails,
