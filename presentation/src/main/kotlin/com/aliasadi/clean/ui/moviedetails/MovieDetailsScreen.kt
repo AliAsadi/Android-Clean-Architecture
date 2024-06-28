@@ -55,7 +55,7 @@ fun MovieDetailsPage(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieDetailsScreen(
-    state: MovieDetailsViewModel.MovieDetailsUiState,
+    state: MovieDetailsUiState,
     onFavoriteClick: () -> Unit,
     appNavController: NavHostController
 ) {
@@ -148,7 +148,7 @@ private fun MovieItemPlaceholder() {
 private fun MovieDetailsScreenPreview() {
     PreviewContainer {
         MovieDetailsScreen(
-            MovieDetailsViewModel.MovieDetailsUiState(
+            MovieDetailsUiState(
                 imageUrl = "https://i.stack.imgur.com/lDFzt.jpg",
                 title = "Avatar",
                 description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",

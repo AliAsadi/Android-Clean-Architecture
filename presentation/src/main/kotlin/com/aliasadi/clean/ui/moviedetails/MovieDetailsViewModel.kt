@@ -33,13 +33,6 @@ class MovieDetailsViewModel @Inject constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    data class MovieDetailsUiState(
-        val title: String = "",
-        val description: String = "",
-        val imageUrl: String = "",
-        val isFavorite: Boolean = false,
-    )
-
     private val _uiState: MutableStateFlow<MovieDetailsUiState> = MutableStateFlow(MovieDetailsUiState())
     val uiState = _uiState.asStateFlow()
 

@@ -12,7 +12,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.ui.favorites.FavoritesViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.ui.favorites.FavoritesNavigationState.MovieDetails
 import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.ui.widget.EmptyStateView
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
@@ -46,7 +46,7 @@ fun FavoritesPage(
 
 @Composable
 fun FavoritesScreen(
-    favoriteUiState: FavoritesViewModel.FavoriteUiState,
+    favoriteUiState: FavoriteUiState,
     movies: LazyPagingItems<MovieListItem>,
     onMovieClick: (movieId: Int) -> Unit
 ) {
@@ -80,6 +80,6 @@ fun FavoritesScreenPreview() {
 
     PreviewContainer {
         val movies = flowOf(PagingData.from(movieItems)).collectAsLazyPagingItems()
-        FavoritesScreen(FavoritesViewModel.FavoriteUiState(isLoading = false, noDataAvailable = true), movies) {}
+        FavoritesScreen(FavoriteUiState(isLoading = false, noDataAvailable = true), movies) {}
     }
 }

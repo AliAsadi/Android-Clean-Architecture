@@ -21,15 +21,6 @@ class FavoritesViewModel @Inject constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    data class FavoriteUiState(
-        val isLoading: Boolean = true,
-        val noDataAvailable: Boolean = false
-    )
-
-    sealed class NavigationState {
-        data class MovieDetails(val movieId: Int) : NavigationState()
-    }
-
     val movies: Flow<PagingData<MovieListItem>> = getFavoriteMovies(30)
         .map { pagingData ->
             pagingData.map { movieEntity ->
@@ -40,11 +31,11 @@ class FavoritesViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<FavoriteUiState> = MutableStateFlow(FavoriteUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
+    private val _navigationState: MutableSharedFlow<FavoritesNavigationState> = singleSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
 
     fun onMovieClicked(movieId: Int) =
-        _navigationState.tryEmit(NavigationState.MovieDetails(movieId))
+        _navigationState.tryEmit(FavoritesNavigationState.MovieDetails(movieId))
 
     fun onLoadStateUpdate(loadState: CombinedLoadStates, itemCount: Int) {
         val showLoading = loadState.refresh is LoadState.Loading
