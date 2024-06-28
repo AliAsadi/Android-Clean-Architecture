@@ -41,7 +41,6 @@ import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.entities.MovieListItem.Movie
 import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.delay
@@ -85,7 +84,7 @@ fun MovieList(
 
 @Composable
 private fun MovieItem(
-    movie: Movie,
+    movie: MovieListItem.Movie,
     imageSize: ImageSize,
     onMovieClick: (movieId: Int) -> Unit = {},
     lazyGridState: LazyGridState,
@@ -109,7 +108,7 @@ private fun MovieItem(
             scale = 0.70f
         }
     }
-    
+
     SubcomposeAsyncImage(
         model = movie.imageUrl,
         loading = { MovieItemPlaceholder() },
