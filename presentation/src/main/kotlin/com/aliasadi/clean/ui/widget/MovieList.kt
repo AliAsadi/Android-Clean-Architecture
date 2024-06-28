@@ -23,6 +23,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -81,7 +82,7 @@ private fun MovieItem(
     imageSize: ImageSize,
     onMovieClick: (movieId: Int) -> Unit = {}
 ) {
-    var scale by remember { mutableStateOf(1f) }
+    var scale by remember { mutableFloatStateOf(1f) }
     val animatedScale by animateFloatAsState(targetValue = scale, label = "FloatAnimation")
 
     SubcomposeAsyncImage(
