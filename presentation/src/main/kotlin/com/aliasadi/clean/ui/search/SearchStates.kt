@@ -7,6 +7,6 @@ data class SearchUiState(
     val errorMessage: String? = null
 )
 
-sealed class NavigationState {
-    data class MovieDetails(val movieId: Int) : NavigationState()
+sealed class SearchNavigationState {
+    data class MovieDetails(val movieId: Int) : SearchNavigationState()
 }

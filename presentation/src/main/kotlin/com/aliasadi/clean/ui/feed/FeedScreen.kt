@@ -16,7 +16,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.navigation.Page
-import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
+import com.aliasadi.clean.ui.feed.FeedNavigationState.MovieDetails
 import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.ui.navigationbar.NavigationBarSharedViewModel
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
@@ -82,7 +82,7 @@ fun FeedPage(
 @Composable
 private fun FeedScreen(
     movies: LazyPagingItems<MovieListItem>,
-    uiState: FeedViewModel.FeedUiState,
+    uiState: FeedUiState,
     lazyGridState: LazyGridState,
     onMovieClick: (movieId: Int) -> Unit
 ) {
@@ -115,7 +115,7 @@ private fun FeedScreenPreview() {
     PreviewContainer {
         FeedScreen(
             movies = movies,
-            uiState = FeedViewModel.FeedUiState(
+            uiState = FeedUiState(
                 showLoading = false,
                 errorMessage = null,
             ),

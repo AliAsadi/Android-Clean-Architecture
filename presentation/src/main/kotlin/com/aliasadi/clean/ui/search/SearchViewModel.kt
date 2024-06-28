@@ -55,7 +55,7 @@ class SearchViewModel @Inject constructor(
             }
         }.cachedIn(viewModelScope)
 
-    private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
+    private val _navigationState: MutableSharedFlow<SearchNavigationState> = singleSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
 
     fun onSearch(query: String) {
@@ -63,7 +63,7 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onMovieClicked(movieId: Int) =
-        _navigationState.tryEmit(NavigationState.MovieDetails(movieId))
+        _navigationState.tryEmit(SearchNavigationState.MovieDetails(movieId))
 
     fun onLoadStateUpdate(loadState: CombinedLoadStates, itemCount: Int) {
         val showLoading = loadState.refresh is LoadState.Loading

@@ -34,15 +34,6 @@ class FeedViewModel @Inject constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    data class FeedUiState(
-        val showLoading: Boolean = true,
-        val errorMessage: String? = null,
-    )
-
-    sealed class NavigationState {
-        data class MovieDetails(val movieId: Int) : NavigationState()
-    }
-
     val movies: Flow<PagingData<MovieListItem>> = getMoviesWithSeparators.movies(
         pageSize = 30
     ).cachedIn(viewModelScope)
@@ -50,7 +41,7 @@ class FeedViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(FeedUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
+    private val _navigationState: MutableSharedFlow<FeedNavigationState> = singleSharedFlow()
     val navigationState = _navigationState.asSharedFlow()
 
     private val _refreshListState: MutableSharedFlow<Unit> = singleSharedFlow()
@@ -68,7 +59,7 @@ class FeedViewModel @Inject constructor(
     }
 
     fun onMovieClicked(movieId: Int) =
-        _navigationState.tryEmit(NavigationState.MovieDetails(movieId))
+        _navigationState.tryEmit(FeedNavigationState.MovieDetails(movieId))
 
     fun onLoadStateUpdate(loadState: CombinedLoadStates) {
         val showLoading = loadState.refresh is LoadState.Loading
