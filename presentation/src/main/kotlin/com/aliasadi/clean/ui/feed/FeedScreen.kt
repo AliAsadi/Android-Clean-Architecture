@@ -13,6 +13,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.entities.MovieListItem
+import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.feed.FeedViewModel.NavigationState.MovieDetails
 import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.ui.navigationbar.NavigationBarSharedViewModel
@@ -57,7 +58,9 @@ fun FeedPage(
     val lazyGridState = rememberLazyGridState()
     LaunchedEffect(key1 = Unit) {
         sharedViewModel.bottomItem.onEach {
-            lazyGridState.animateScrollToItem(0)
+            if (it.page == Page.Feed) {
+                lazyGridState.animateScrollToItem(0)
+            }
         }.launchIn(this)
     }
 
