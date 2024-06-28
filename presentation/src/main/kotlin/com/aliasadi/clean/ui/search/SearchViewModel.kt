@@ -1,5 +1,6 @@
 package com.aliasadi.clean.ui.search
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.paging.*
@@ -38,10 +39,10 @@ class SearchViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     var movies: Flow<PagingData<MovieListItem>> = savedStateHandle.getStateFlow(KEY_SEARCH_QUERY, "")
+        .debounce(500)
         .onEach { query ->
             _uiState.value = if (query.isNotEmpty()) SearchUiState(showDefaultState = false, showLoading = true) else SearchUiState()
         }
-        .debounce(500)
         .filter { it.isNotEmpty() }
         .flatMapLatest { query ->
             searchMovies(query, 30).map { pagingData ->
