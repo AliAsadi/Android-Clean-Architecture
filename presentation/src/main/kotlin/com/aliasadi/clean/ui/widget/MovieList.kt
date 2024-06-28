@@ -1,9 +1,12 @@
 package com.aliasadi.clean.ui.widget
 
 import android.content.res.Configuration
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,8 +22,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -34,6 +43,7 @@ import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
+import kotlinx.coroutines.delay
 
 @Composable
 fun MovieList(
@@ -71,6 +81,9 @@ private fun MovieItem(
     imageSize: ImageSize,
     onMovieClick: (movieId: Int) -> Unit = {}
 ) {
+    var scale by remember { mutableStateOf(1f) }
+    val animatedScale by animateFloatAsState(targetValue = scale, label = "FloatAnimation")
+
     SubcomposeAsyncImage(
         model = movie.imageUrl,
         loading = { MovieItemPlaceholder() },
@@ -80,8 +93,19 @@ private fun MovieItem(
         modifier = Modifier
             .padding(3.dp)
             .size(imageSize.width, imageSize.height)
-            .clickable { onMovieClick(movie.id) }
+            .scale(animatedScale)
             .clip(RoundedCornerShape(2))
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        scale = 0.90f
+                        tryAwaitRelease()
+                        scale = 1f
+                    }, onTap = {
+                        onMovieClick(movie.id)
+                    }
+                )
+            }
     )
 }
 
