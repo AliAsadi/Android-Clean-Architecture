@@ -39,20 +39,12 @@ class SearchViewModel @Inject constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    data class SearchUiState(
-        val showDefaultState: Boolean = true,
-        val showLoading: Boolean = false,
-        val showNoMoviesFound: Boolean = false,
-        val errorMessage: String? = null
-    )
-
-    sealed class NavigationState {
-        data class MovieDetails(val movieId: Int) : NavigationState()
-    }
+    private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
+    val uiState = _uiState.asStateFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     var movies: Flow<PagingData<MovieListItem>> = savedStateHandle.getStateFlow(KEY_SEARCH_QUERY, "")
-        .debounce(500)
+        .debounce(if (_uiState.value.showDefaultState) 0 else 500)
         .onEach { query ->
             _uiState.value = if (query.isNotEmpty()) SearchUiState(showDefaultState = false, showLoading = true) else SearchUiState()
         }
@@ -62,9 +54,6 @@ class SearchViewModel @Inject constructor(
                 pagingData.map { movieEntity -> movieEntity.toMovieListItem() }
             }
         }.cachedIn(viewModelScope)
-
-    private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
-    val uiState = _uiState.asStateFlow()
 
     private val _navigationState: MutableSharedFlow<NavigationState> = singleSharedFlow()
     val navigationState = _navigationState.asSharedFlow()

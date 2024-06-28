@@ -22,8 +22,6 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.navigation.Page
-import com.aliasadi.clean.ui.search.SearchViewModel.NavigationState.MovieDetails
-import com.aliasadi.clean.ui.search.SearchViewModel.SearchUiState
 import com.aliasadi.clean.ui.widget.EmptyStateView
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
@@ -43,7 +41,7 @@ fun SearchPage(
 
     LaunchedEffect(key1 = navigationState) {
         when (val navState = navigationState) {
-            is MovieDetails -> {
+            is NavigationState.MovieDetails -> {
                 mainNavController.navigate(Page.MovieDetails(navState.movieId))
             }
 
