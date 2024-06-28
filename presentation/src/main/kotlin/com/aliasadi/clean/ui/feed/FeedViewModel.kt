@@ -61,7 +61,7 @@ class FeedViewModel @Inject constructor(
     init {
         networkMonitor.networkState.onEach { updatedNetworkState ->
             if (networkState != updatedNetworkState && networkState == Lost) {
-                _refreshListState.emit(Unit)
+                onRefresh()
             }
             networkState = updatedNetworkState
         }.launchIn(viewModelScope)
@@ -79,5 +79,9 @@ class FeedViewModel @Inject constructor(
         }
 
         _uiState.update { it.copy(showLoading = showLoading, errorMessage = error) }
+    }
+
+    fun onRefresh() = launchOnMainImmediate {
+        _refreshListState.emit(Unit)
     }
 }

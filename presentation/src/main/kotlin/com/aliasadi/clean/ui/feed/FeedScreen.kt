@@ -2,6 +2,8 @@ package com.aliasadi.clean.ui.feed
 
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,6 +21,7 @@ import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.ui.navigationbar.NavigationBarSharedViewModel
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
+import com.aliasadi.clean.ui.widget.PullToRefresh
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
@@ -28,6 +31,7 @@ import kotlinx.coroutines.flow.onEach
  * @author by Ali Asadi on 18/04/2023
  */
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FeedPage(
     mainRouter: MainRouter,
@@ -37,6 +41,7 @@ fun FeedPage(
     val moviesPaging = viewModel.movies.collectAsLazyPagingItems()
     val uiState by viewModel.uiState.collectAsState()
     val navigationState by viewModel.navigationState.collectAsState(null)
+    val pullToRefreshState = rememberPullRefreshState(uiState.showLoading, { viewModel.onRefresh() })
 
     LaunchedEffect(key1 = moviesPaging.loadState) {
         viewModel.onLoadStateUpdate(moviesPaging.loadState)
@@ -64,12 +69,14 @@ fun FeedPage(
         }.launchIn(this)
     }
 
-    FeedScreen(
-        movies = moviesPaging,
-        uiState = uiState,
-        lazyGridState = lazyGridState,
-        onMovieClick = viewModel::onMovieClicked
-    )
+    PullToRefresh(state = pullToRefreshState, refresh = uiState.showLoading) {
+        FeedScreen(
+            movies = moviesPaging,
+            uiState = uiState,
+            lazyGridState = lazyGridState,
+            onMovieClick = viewModel::onMovieClicked
+        )
+    }
 }
 
 @Composable
