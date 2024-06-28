@@ -4,8 +4,6 @@ import android.content.res.Configuration
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,9 +20,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -42,6 +41,7 @@ import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
+import com.aliasadi.clean.entities.MovieListItem.Movie
 import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.delay
@@ -51,7 +51,7 @@ fun MovieList(
     movies: LazyPagingItems<MovieListItem>,
     onMovieClick: (movieId: Int) -> Unit,
     lazyGridState: LazyGridState = rememberLazyGridState(),
-    config: MovieSpanSizeConfig = MovieSpanSizeConfig(3)
+    config: MovieSpanSizeConfig = MovieSpanSizeConfig(3),
 ) {
     val imageSize = ImageSize.getImageFixedSize()
     LazyVerticalGrid(
@@ -68,7 +68,14 @@ fun MovieList(
             GridItemSpan(spinSize)
         }) { index ->
             when (val movie = movies[index]) {
-                is MovieListItem.Movie -> MovieItem(movie, imageSize, onMovieClick)
+                is MovieListItem.Movie -> MovieItem(
+                    movie = movie,
+                    imageSize = imageSize,
+                    onMovieClick = onMovieClick,
+                    lazyGridState = lazyGridState,
+                    index = index,
+                )
+
                 is MovieListItem.Separator -> Separator(movie.category)
                 else -> Loader()
             }
@@ -78,12 +85,31 @@ fun MovieList(
 
 @Composable
 private fun MovieItem(
-    movie: MovieListItem.Movie,
+    movie: Movie,
     imageSize: ImageSize,
-    onMovieClick: (movieId: Int) -> Unit = {}
+    onMovieClick: (movieId: Int) -> Unit = {},
+    lazyGridState: LazyGridState,
+    index: Int,
 ) {
-    var scale by remember { mutableFloatStateOf(1f) }
+    var scale by remember { mutableFloatStateOf(0.70f) }
     val animatedScale by animateFloatAsState(targetValue = scale, label = "FloatAnimation")
+
+    val itemVisible by remember {
+        derivedStateOf {
+            val visibleItems = lazyGridState.layoutInfo.visibleItemsInfo
+            visibleItems.any { it.index == index }
+        }
+    }
+
+    LaunchedEffect(itemVisible) {
+        if (itemVisible) {
+            delay(100)
+            scale = 1f
+        } else {
+            scale = 0.70f
+        }
+    }
+
 
     SubcomposeAsyncImage(
         model = movie.imageUrl,
@@ -166,9 +192,9 @@ private fun SeparatorAndMovieItem() {
             Column {
                 Separator("Action")
                 Row {
-                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
-                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
-                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
+//                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
+//                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
+//                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
                 }
             }
         }
