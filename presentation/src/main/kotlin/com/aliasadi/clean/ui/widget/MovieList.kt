@@ -66,13 +66,20 @@ fun MovieList(
             }
             GridItemSpan(spinSize)
         }) { index ->
+
+            val itemVisible by remember {
+                derivedStateOf {
+                    val visibleItems = lazyGridState.layoutInfo.visibleItemsInfo
+                    visibleItems.any { it.index == index }
+                }
+            }
+
             when (val movie = movies[index]) {
                 is MovieListItem.Movie -> MovieItem(
                     movie = movie,
                     imageSize = imageSize,
                     onMovieClick = onMovieClick,
-                    lazyGridState = lazyGridState,
-                    index = index,
+                    itemVisible = itemVisible
                 )
 
                 is MovieListItem.Separator -> Separator(movie.category)
@@ -86,19 +93,11 @@ fun MovieList(
 private fun MovieItem(
     movie: MovieListItem.Movie,
     imageSize: ImageSize,
+    itemVisible: Boolean,
     onMovieClick: (movieId: Int) -> Unit = {},
-    lazyGridState: LazyGridState,
-    index: Int,
 ) {
     var scale by remember { mutableFloatStateOf(0.70f) }
     val animatedScale by animateFloatAsState(targetValue = scale, label = "FloatAnimation")
-
-    val itemVisible by remember {
-        derivedStateOf {
-            val visibleItems = lazyGridState.layoutInfo.visibleItemsInfo
-            visibleItems.any { it.index == index }
-        }
-    }
 
     LaunchedEffect(itemVisible) {
         if (itemVisible) {
@@ -191,9 +190,9 @@ private fun SeparatorAndMovieItem() {
             Column {
                 Separator("Action")
                 Row {
-//                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
-//                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
-//                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize)
+                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize, true)
+                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize, true)
+                    MovieItem(MovieListItem.Movie(1, "https://i.stack.imgur.com/lDFzt.jpg", ""), imageSize, true)
                 }
             }
         }
