@@ -109,8 +109,7 @@ private fun MovieItem(
             scale = 0.70f
         }
     }
-
-
+    
     SubcomposeAsyncImage(
         model = movie.imageUrl,
         loading = { MovieItemPlaceholder() },
@@ -128,7 +127,8 @@ private fun MovieItem(
                         scale = 0.90f
                         tryAwaitRelease()
                         scale = 1f
-                    }, onTap = {
+                    },
+                    onTap = {
                         onMovieClick(movie.id)
                     }
                 )

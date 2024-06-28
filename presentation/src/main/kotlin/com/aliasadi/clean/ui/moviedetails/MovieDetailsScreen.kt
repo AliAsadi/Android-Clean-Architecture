@@ -1,14 +1,8 @@
 package com.aliasadi.clean.ui.moviedetails
 
 import android.content.res.Configuration
-import android.view.animation.DecelerateInterpolator
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.expandIn
-import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.scaleIn
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,9 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -127,8 +119,7 @@ fun MovieDetailsScreen(
 
             AnimatedVisibility(
                 visible = animationVisible,
-
-                ) {
+            ) {
                 Text(
                     text = state.description,
                     style = MaterialTheme.typography.bodyMedium,
