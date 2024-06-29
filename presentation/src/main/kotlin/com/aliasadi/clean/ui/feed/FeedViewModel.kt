@@ -35,7 +35,7 @@ class FeedViewModel @Inject constructor(
 ) : BaseViewModel(dispatchers) {
 
     val movies: Flow<PagingData<MovieListItem>> = getMoviesWithSeparators.movies(
-        pageSize = 30
+        pageSize = 90
     ).cachedIn(viewModelScope)
 
     private val _uiState: MutableStateFlow<FeedUiState> = MutableStateFlow(FeedUiState())
