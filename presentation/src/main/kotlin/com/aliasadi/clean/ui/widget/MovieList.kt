@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -33,6 +34,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,6 +48,7 @@ import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
+import com.aliasadi.clean.util.toPX
 import kotlinx.coroutines.delay
 
 @Composable
@@ -113,9 +116,9 @@ private fun MovieItem(
 
     SubcomposeAsyncImage(
         model = ImageRequest.Builder(LocalContext.current)
-            .scale(Scale.FIT)
-            .size(imageSize.width.value.toInt(), imageSize.height.value.toInt())
             .data(movie.imageUrl)
+            .scale(Scale.FILL)
+            .size(imageSize.width.toPX(), imageSize.height.toPX())
             .build(),
         loading = { MovieItemPlaceholder() },
         error = { MovieItemPlaceholder() },
@@ -123,7 +126,7 @@ private fun MovieItem(
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .padding(3.dp)
-            .size(imageSize.width, imageSize.height)
+            .aspectRatio(9 / 16f)
             .scale(animatedScale)
             .clip(RoundedCornerShape(2))
             .pointerInput(Unit) {
@@ -169,8 +172,9 @@ private class ImageSize(
         @Composable
         fun getImageFixedSize(): ImageSize {
             val configuration = LocalConfiguration.current
+            val aspectRatio = 19f / 6f
             val imageWidth = configuration.screenWidthDp.dp / 3
-            val imageHeight = imageWidth.times(1.3f)
+            val imageHeight = imageWidth * aspectRatio
             return ImageSize(imageWidth, imageHeight)
         }
     }
