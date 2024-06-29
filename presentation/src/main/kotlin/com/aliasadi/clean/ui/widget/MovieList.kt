@@ -45,6 +45,7 @@ import coil.size.Scale
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.theme.colors
+import com.aliasadi.clean.util.ImageSize
 import com.aliasadi.clean.util.preview.PreviewContainer
 import com.aliasadi.clean.util.toPX
 import kotlinx.coroutines.delay
@@ -162,21 +163,7 @@ fun MovieItemPlaceholder() {
     )
 }
 
-private class ImageSize(
-    val width: Dp,
-    val height: Dp
-) {
-    companion object {
-        @Composable
-        fun getImageFixedSize(): ImageSize {
-            val configuration = LocalConfiguration.current
-            val aspectRatio = 19f / 6f
-            val imageWidth = configuration.screenWidthDp.dp / 3
-            val imageHeight = imageWidth * aspectRatio
-            return ImageSize(imageWidth, imageHeight)
-        }
-    }
-}
+
 
 /**
  * @property gridSpanSize - The total number of columns in the grid.
