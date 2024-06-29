@@ -153,7 +153,7 @@ private fun Separator(title: String) {
 }
 
 @Composable
-fun MovieItemPlaceholder() {
+private fun MovieItemPlaceholder() {
     Image(
         painter = painterResource(id = R.drawable.bg_image),
         contentDescription = "",
@@ -175,7 +175,7 @@ data class MovieSpanSizeConfig(val gridSpanSize: Int) {
 @Preview("Light")
 @Preview(name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun SeparatorAndMovieItem() {
+private fun SeparatorAndMovieItemPreview() {
     PreviewContainer {
         Surface {
             val imageSize = ImageSize.getImageFixedSize()
