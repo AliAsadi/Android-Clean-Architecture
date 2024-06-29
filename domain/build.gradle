@@ -1,7 +1,7 @@
 apply plugin: 'kotlin'
 
 dependencies {
-    implementation 'androidx.paging:paging-common-ktx:3.2.1'
+    implementation 'androidx.paging:paging-common-ktx:3.3.0'
 
     //Mockito
     testImplementation 'org.mockito:mockito-core:5.0.0'
