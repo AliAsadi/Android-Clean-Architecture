@@ -31,12 +31,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
@@ -162,8 +160,6 @@ fun MovieItemPlaceholder() {
         contentScale = ContentScale.Crop,
     )
 }
-
-
 
 /**
  * @property gridSpanSize - The total number of columns in the grid.
