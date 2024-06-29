@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,6 +40,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
+import coil.size.Scale
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.theme.colors
@@ -109,7 +112,11 @@ private fun MovieItem(
     }
 
     SubcomposeAsyncImage(
-        model = movie.imageUrl,
+        model = ImageRequest.Builder(LocalContext.current)
+            .scale(Scale.FIT)
+            .size(imageSize.width.value.toInt(), imageSize.height.value.toInt())
+            .data(movie.imageUrl)
+            .build(),
         loading = { MovieItemPlaceholder() },
         error = { MovieItemPlaceholder() },
         contentDescription = null,
