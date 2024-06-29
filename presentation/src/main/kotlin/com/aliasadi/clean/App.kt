@@ -5,6 +5,12 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
+import coil.ImageLoader
+import coil.ImageLoaderFactory
+import coil.disk.DiskCache
+import coil.memory.MemoryCache
+import coil.request.CachePolicy
+import coil.util.DebugLogger
 import com.aliasadi.clean.workers.SyncWork
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
@@ -13,7 +19,7 @@ import javax.inject.Inject
  * Created by Ali Asadi on 13/05/2020
  */
 @HiltAndroidApp
-class App : Application(), Configuration.Provider {
+class App : Application(), Configuration.Provider, ImageLoaderFactory {
 
     @Inject
     lateinit var workerFactory: HiltWorkerFactory
@@ -34,5 +40,25 @@ class App : Application(), Configuration.Provider {
             ExistingWorkPolicy.KEEP,
             SyncWork.getOneTimeWorkRequest()
         )
+    }
+
+    override fun newImageLoader(): ImageLoader {
+        return ImageLoader(this).newBuilder()
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .memoryCache {
+                MemoryCache.Builder(this)
+                    .maxSizePercent(0.1)
+                    .strongReferencesEnabled(true)
+                    .build()
+            }
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .diskCache {
+                DiskCache.Builder()
+                    .maxSizePercent(0.3)
+                    .directory(cacheDir)
+                    .build()
+            }
+            .logger(DebugLogger())
+            .build()
     }
 }
