@@ -20,7 +20,7 @@ class SearchMoviePagingSource(
 
         return remote.search(query, page, params.loadSize).getResult({
             LoadResult.Page(
-                data = it.data,
+                data = it.data.distinctBy { movie -> movie.id },
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
                 nextKey = if (it.data.isEmpty()) null else page + 1
             )
