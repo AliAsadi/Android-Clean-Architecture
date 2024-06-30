@@ -15,7 +15,7 @@ A demo movie android app showcasing Clean Architecture, written in Kotlin and fe
 4. **Connectivity Status**: Shows a banner to inform users of their connectivity status.
 5. **Auto Sync**: Uses both NetworkConnectivityStream and WorkManager to ensure data is always up-to-date.
 6. **Favorites**: Users can add movies to a favorites list.
-
+7. **Pull to Refresh**: Allows users to refresh the content by pulling down on the screen.
 
 ## Previous Versions
 * To explore the app's earlier **XML-based UI**, check out the [xml_based_app](https://github.com/AliAsadi/Android-Clean-Architecture/tree/xml_based_app
