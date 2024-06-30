@@ -2,6 +2,7 @@ package com.aliasadi.clean.ui.search
 
 import android.content.res.Configuration
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -88,8 +89,8 @@ fun SearchScreen(
                     } else {
                         if (showNoMoviesFound) {
                             EmptyStateView(
-                                titleRes = R.string.no_movies_found,
-                                alignment = Alignment.TopCenter,
+                                subtitleRes = R.string.no_movies_found,
+                                verticalArrangement = Arrangement.Top,
                                 modifier = Modifier.padding(top = 150.dp)
                             )
                         } else {

@@ -2,7 +2,9 @@ package com.aliasadi.clean.ui.widget
 
 import android.content.res.Configuration
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
@@ -11,26 +13,46 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.aliasadi.clean.R
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable
 fun EmptyStateView(
-    @StringRes titleRes: Int,
     modifier: Modifier = Modifier,
-    alignment: Alignment = Alignment.Center
+    @StringRes titleRes: Int? = null,
+    @StringRes subtitleRes: Int? = null,
+    verticalArrangement: Arrangement.Vertical = Arrangement.Center,
+    horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally
 ) {
-    Box(
+    Column(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = alignment
+        verticalArrangement = verticalArrangement,
+        horizontalAlignment = horizontalAlignment
     ) {
-        Text(
-            text = stringResource(id = titleRes),
-            textAlign = TextAlign.Center,
-        )
+
+        titleRes?.let {
+            Text(
+                text = stringResource(id = it),
+                textAlign = TextAlign.Center,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+        Spacer(modifier = Modifier.padding(8.dp))
+        subtitleRes?.let {
+            Text(
+                text = stringResource(id = it),
+                fontSize = 18.sp,
+                lineHeight = 24.sp,
+                textAlign = TextAlign.Center,
+            )
+        }
+
     }
 }
 
@@ -41,8 +63,7 @@ private fun EmptyStateViewPreview() {
     PreviewContainer {
         Surface {
             EmptyStateView(
-                titleRes = R.string.no_movies_found,
-                alignment = Alignment.TopCenter,
+                subtitleRes = R.string.no_movies_found,
                 modifier = Modifier.padding(top = 150.dp)
             )
         }
