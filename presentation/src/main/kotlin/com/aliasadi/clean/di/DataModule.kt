@@ -56,7 +56,7 @@ class DataModule {
         movieDao: MovieDao,
         movieRemoteKeyDao: MovieRemoteKeyDao,
     ): MovieDataSource.Local {
-        return MovieLocalDataSource(executor, movieDao, movieRemoteKeyDao)
+        return MovieLocalDataSource(movieDao, movieRemoteKeyDao, executor)
     }
 
     @Provides
