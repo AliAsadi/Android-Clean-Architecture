@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -11,11 +12,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -73,11 +79,15 @@ fun SearchScreen(
         val showNoMoviesFound = searchUiState.showNoMoviesFound
         val isLoading = searchUiState.showLoading
         val errorMessage = searchUiState.errorMessage
+        var query: String by remember { mutableStateOf("") }
 
         if (errorMessage != null) Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
 
         Scaffold(topBar = {
-            SearchView(onQueryChange, onBackClick)
+            SearchView({
+                query = it
+                onQueryChange(it)
+            }, onBackClick)
         }) {
             Box(modifier = Modifier.padding(it)) {
                 if (!showDefaultState) {
@@ -89,9 +99,15 @@ fun SearchScreen(
                     } else {
                         if (showNoMoviesFound) {
                             EmptyStateView(
-                                subtitleRes = R.string.no_movies_found,
+                                titleRes = R.string.no_search_results_title,
+                                iconRes = R.drawable.bg_empty_search,
+                                iconSize = 100.dp,
+                                iconSpacing = 12.dp,
+                                subtitleText = stringResource(id = R.string.no_search_results_subtitle, query),
+                                titleTextSize = 20.sp,
+                                subtitleTextSize = 16.sp,
                                 verticalArrangement = Arrangement.Top,
-                                modifier = Modifier.padding(top = 150.dp)
+                                modifier = Modifier.padding(top = 80.dp, start = 24.dp, end = 24.dp)
                             )
                         } else {
                             MovieList(movies = movies, onMovieClick = onMovieClick)

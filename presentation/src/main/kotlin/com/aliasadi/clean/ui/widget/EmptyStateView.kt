@@ -6,6 +6,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,7 +37,9 @@ fun EmptyStateView(
     @DrawableRes iconRes: Int? = null,
     @StringRes titleRes: Int? = null,
     @StringRes subtitleRes: Int? = null,
+    subtitleText: String? = null,
     iconSize: Dp = 200.dp,
+    iconSpacing: Dp = 0.dp,
     titleTextSize: TextUnit = 22.sp,
     subtitleTextSize: TextUnit = 20.sp,
     verticalArrangement: Arrangement.Vertical = Arrangement.Center,
@@ -56,6 +59,7 @@ fun EmptyStateView(
                 contentDescription = null
             )
         }
+        Spacer(modifier = Modifier.padding(iconSpacing))
         titleRes?.let {
             Text(
                 text = stringResource(id = it),
@@ -66,15 +70,24 @@ fun EmptyStateView(
         }
         Spacer(modifier = Modifier.padding(8.dp))
         subtitleRes?.let {
-            Text(
-                text = stringResource(id = it),
-                fontSize = subtitleTextSize,
-                lineHeight = 24.sp,
-                textAlign = TextAlign.Center,
-            )
+            Subtitle(stringResource(id = it), subtitleTextSize)
+        }
+
+        subtitleText?.let {
+            Subtitle(it, subtitleTextSize)
         }
 
     }
+}
+
+@Composable
+private fun Subtitle(text: String, subtitleTextSize: TextUnit) {
+    Text(
+        text = text,
+        fontSize = subtitleTextSize,
+        lineHeight = 24.sp,
+        textAlign = TextAlign.Center,
+    )
 }
 
 @Preview("Light")

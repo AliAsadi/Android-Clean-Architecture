@@ -5,7 +5,8 @@
     <string name="favorites">Favorites</string>
     <string name="movie_details_placeholder_text">Click on a movie\n to view its details.</string>
     <string name="search">Search</string>
-    <string name="no_movies_found">There were no movies found.</string>
+    <string name="no_search_results_title">No Results Found</string>
+    <string name="no_search_results_subtitle">No results for \"%s\". Please try another search.</string>
     <string name="no_favorite_movies_title">No Favorites Added</string>
     <string name="no_favorite_movies_subtitle">Save a favorite movie and it\nwill show up here.</string>
     <string name="retry">Retry</string>

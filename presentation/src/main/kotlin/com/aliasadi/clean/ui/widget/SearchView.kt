@@ -31,7 +31,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchView(
     onQueryChange: (query: String) -> Unit,
