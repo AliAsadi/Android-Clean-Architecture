@@ -2,8 +2,8 @@ package com.aliasadi.clean.ui.moviedetails
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.SavedStateHandle
-import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.navigation.Page
+import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
@@ -11,7 +11,7 @@ import com.aliasadi.domain.usecase.CheckFavoriteStatus
 import com.aliasadi.domain.usecase.GetMovieDetails
 import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
-import com.aliasadi.domain.util.getResult
+import com.aliasadi.domain.util.asSuccessOrNull
 import com.aliasadi.domain.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -44,7 +44,7 @@ class MovieDetailsViewModel @Inject constructor(
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun onInitialState() = launchOnMainImmediate {
-        val isFavorite = async { checkFavoriteStatus(movieId).getResult({ favoriteResult -> favoriteResult.data }, { false }) }
+        val isFavorite = async { checkFavoriteStatus(movieId).asSuccessOrNull() ?: false }
         getMovieById(movieId).onSuccess {
             _uiState.value = MovieDetailsUiState(
                 title = it.title,

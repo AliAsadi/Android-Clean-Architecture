@@ -3,7 +3,8 @@ package com.aliasadi.data.repository.movie
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.aliasadi.domain.entities.MovieEntity
-import com.aliasadi.domain.util.getResult
+import com.aliasadi.domain.util.Result.Error
+import com.aliasadi.domain.util.Result.Success
 
 private const val STARTING_PAGE_INDEX = 1
 
@@ -18,15 +19,15 @@ class SearchMoviePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieEntity> {
         val page = params.key ?: STARTING_PAGE_INDEX
 
-        return remote.search(query, page, params.loadSize).getResult({
-            LoadResult.Page(
-                data = it.data.distinctBy { movie -> movie.id },
+        return when (val result = remote.search(query, page, params.loadSize)) {
+            is Success -> LoadResult.Page(
+                data = result.data.distinctBy { movie -> movie.id },
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
-                nextKey = if (it.data.isEmpty()) null else page + 1
+                nextKey = if (result.data.isEmpty()) null else page + 1
             )
-        }, {
-            LoadResult.Error(it.error)
-        })
+
+            is Error -> LoadResult.Error(result.error)
+        }
     }
 
     override fun getRefreshKey(state: PagingState<Int, MovieEntity>): Int? {
