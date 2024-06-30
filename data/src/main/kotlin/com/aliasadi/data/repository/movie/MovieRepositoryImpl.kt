@@ -6,17 +6,16 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.aliasadi.data.entities.toDomain
-import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
-import com.aliasadi.domain.util.getResult
+import com.aliasadi.domain.util.Result.Error
+import com.aliasadi.domain.util.Result.Success
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.*
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -58,11 +57,12 @@ class MovieRepositoryImpl(
         pagingSourceFactory = { SearchMoviePagingSource(query, remote) }
     ).flow
 
-    override suspend fun getMovie(movieId: Int): Result<MovieEntity> = local.getMovie(movieId).getResult({
-        it
-    }, {
-        remote.getMovie(movieId)
-    })
+    override suspend fun getMovie(movieId: Int): Result<MovieEntity> {
+        return when (val localResult = local.getMovie(movieId)) {
+            is Success -> localResult
+            is Error -> remote.getMovie(movieId)
+        }
+    }
 
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> = localFavorite.checkFavoriteStatus(movieId)
 
@@ -81,14 +81,23 @@ class MovieRepositoryImpl(
 
     override suspend fun removeMovieFromFavorite(movieId: Int) = localFavorite.removeMovieFromFavorite(movieId)
 
-    override suspend fun sync(): Boolean = local.getMovies().getResult({ movieIdsResult ->
-        remote.getMovies(movieIdsResult.data.map { it.id }).getResult({
-            local.saveMovies(it.data)
-            true
-        }, {
-            it.error is DataNotAvailableException
-        })
-    }, {
-        it.error is DataNotAvailableException
-    })
+    override suspend fun sync(): Boolean {
+        return when (val result = local.getMovies()) {
+            is Error -> false
+            is Success -> {
+                val movieIds = result.data.map { it.id }
+                return updateLocalWithRemoteMovies(movieIds)
+            }
+        }
+    }
+
+    private suspend fun updateLocalWithRemoteMovies(movieIds: List<Int>): Boolean {
+        return when (val remoteResult = remote.getMovies(movieIds)) {
+            is Error -> false
+            is Success -> {
+                local.saveMovies(remoteResult.data)
+                true
+            }
+        }
+    }
 }
