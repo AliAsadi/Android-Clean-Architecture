@@ -52,11 +52,10 @@ class DataModule {
     @Provides
     @Singleton
     fun provideMovieLocalDataSource(
-        executor: DiskExecutor,
         movieDao: MovieDao,
         movieRemoteKeyDao: MovieRemoteKeyDao,
     ): MovieDataSource.Local {
-        return MovieLocalDataSource(movieDao, movieRemoteKeyDao, executor)
+        return MovieLocalDataSource(movieDao, movieRemoteKeyDao)
     }
 
     @Provides

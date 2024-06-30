@@ -6,11 +6,14 @@ import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.db.movies.MovieDatabase
 import com.aliasadi.data.db.movies.MovieRemoteKeyDao
+import com.aliasadi.data.util.DiskExecutor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 import javax.inject.Singleton
 
 /**
@@ -22,8 +25,15 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideMovieDatabase(@ApplicationContext context: Context): MovieDatabase {
-        return Room.databaseBuilder(context, MovieDatabase::class.java, "movie.db").build()
+    fun provideMovieDatabase(
+        @ApplicationContext context: Context,
+        diskExecutor: DiskExecutor
+    ): MovieDatabase {
+        return Room
+            .databaseBuilder(context, MovieDatabase::class.java, "movie.db")
+            .setQueryExecutor(diskExecutor)
+            .setTransactionExecutor(diskExecutor)
+            .build()
     }
 
     @Provides
