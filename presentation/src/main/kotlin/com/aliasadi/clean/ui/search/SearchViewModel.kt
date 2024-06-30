@@ -62,8 +62,6 @@ class SearchViewModel @Inject constructor(
         savedStateHandle[KEY_SEARCH_QUERY] = query
     }
 
-    fun getQuery() = savedStateHandle.get<String>(KEY_SEARCH_QUERY) ?: ""
-
     fun onMovieClicked(movieId: Int) =
         _navigationState.tryEmit(SearchNavigationState.MovieDetails(movieId))
 
