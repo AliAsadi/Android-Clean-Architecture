@@ -65,6 +65,7 @@ fun FavoritesScreen(
             if (noDataAvailable) {
                 EmptyStateView(
                     modifier = Modifier.padding(16.dp),
+                    iconRes = R.drawable.bg_empty_favorite,
                     titleRes = R.string.no_favorite_movies_title,
                     subtitleRes = R.string.no_favorite_movies_subtitle
                 )
