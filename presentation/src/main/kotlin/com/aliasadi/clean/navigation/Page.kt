@@ -16,11 +16,7 @@ sealed class Page {
     data object Search : Page()
 
     @Serializable
-    data class MovieDetails(val movieId: Int) : Page() {
-        companion object {
-            const val KEY_MOVIE_ID = "movieId"
-        }
-    }
+    data class MovieDetails(val movieId: Int) : Page()
 }
 
 sealed class Graph {

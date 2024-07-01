@@ -2,6 +2,7 @@ package com.aliasadi.clean.ui.moviedetails
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.SavedStateHandle
+import androidx.navigation.toRoute
 import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.data.util.DispatchersProvider
@@ -36,7 +37,7 @@ class MovieDetailsViewModel @Inject constructor(
     private val _uiState: MutableStateFlow<MovieDetailsUiState> = MutableStateFlow(MovieDetailsUiState())
     val uiState = _uiState.asStateFlow()
 
-    private val movieId: Int = savedStateHandle.get<Int>(Page.MovieDetails.KEY_MOVIE_ID) ?: 0
+    private val movieId: Int = savedStateHandle.toRoute<Page.MovieDetails>().movieId
 
     init {
         onInitialState()
