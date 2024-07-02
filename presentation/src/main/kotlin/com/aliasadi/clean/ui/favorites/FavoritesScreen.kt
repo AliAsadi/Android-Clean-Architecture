@@ -18,6 +18,7 @@ import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.favorites.FavoritesNavigationState.MovieDetails
 import com.aliasadi.clean.ui.main.MainRouter
+import com.aliasadi.clean.ui.widget.EmptyStateIcon
 import com.aliasadi.clean.ui.widget.EmptyStateView
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
@@ -66,9 +67,9 @@ fun FavoritesScreen(
             if (noDataAvailable) {
                 EmptyStateView(
                     modifier = Modifier.padding(16.dp),
-                    iconRes = R.drawable.bg_empty_favorite,
-                    titleRes = R.string.no_favorite_movies_title,
-                    subtitleText = stringResource(id = R.string.no_favorite_movies_subtitle)
+                    icon = EmptyStateIcon(iconRes = R.drawable.bg_empty_favorite),
+                    title = stringResource(id = R.string.no_favorite_movies_title) ,
+                    subtitle = stringResource(id = R.string.no_favorite_movies_subtitle)
                 )
             }
         }

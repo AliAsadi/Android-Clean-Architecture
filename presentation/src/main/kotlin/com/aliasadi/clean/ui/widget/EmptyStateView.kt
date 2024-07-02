@@ -2,7 +2,6 @@ package com.aliasadi.clean.ui.widget
 
 import android.content.res.Configuration
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,11 +32,9 @@ import com.aliasadi.clean.util.preview.PreviewContainer
 @Composable
 fun EmptyStateView(
     modifier: Modifier = Modifier,
-    @DrawableRes iconRes: Int? = null,
-    @StringRes titleRes: Int? = null,
-    subtitleText: String? = null,
-    iconSize: Dp = 200.dp,
-    iconSpacing: Dp = 0.dp,
+    icon: EmptyStateIcon = EmptyStateIcon(),
+    title: String? = null,
+    subtitle: String? = null,
     titleTextSize: TextUnit = 22.sp,
     subtitleTextSize: TextUnit = 20.sp,
     verticalArrangement: Arrangement.Vertical = Arrangement.Center,
@@ -48,19 +45,19 @@ fun EmptyStateView(
         verticalArrangement = verticalArrangement,
         horizontalAlignment = horizontalAlignment
     ) {
-        iconRes?.let {
+        icon.iconRes?.let {
             Image(
-                modifier = Modifier.size(iconSize),
+                modifier = Modifier.size(icon.size),
                 painter = painterResource(id = it),
                 contentScale = ContentScale.Fit,
                 colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
                 contentDescription = null
             )
         }
-        Spacer(modifier = Modifier.padding(iconSpacing))
-        titleRes?.let {
+        Spacer(modifier = Modifier.padding(icon.spacing))
+        title?.let {
             Text(
-                text = stringResource(id = it),
+                text = it,
                 textAlign = TextAlign.Center,
                 fontSize = titleTextSize,
                 fontWeight = FontWeight.Bold
@@ -68,11 +65,19 @@ fun EmptyStateView(
         }
         Spacer(modifier = Modifier.padding(8.dp))
 
-        subtitleText?.let {
+        subtitle?.let {
             Subtitle(it, subtitleTextSize)
         }
 
     }
+}
+
+class EmptyStateIcon(
+    @DrawableRes val iconRes: Int? = null,
+    val size: Dp = 200.dp,
+    val spacing: Dp = 0.dp,
+) {
+
 }
 
 @Composable
@@ -92,9 +97,9 @@ private fun EmptyStateViewPreview() {
     PreviewContainer {
         Surface {
             EmptyStateView(
-                iconRes = R.drawable.bg_empty_favorite,
-                titleRes = R.string.no_favorite_movies_title,
-                subtitleText = stringResource(id = R.string.no_favorite_movies_subtitle),
+                icon = EmptyStateIcon(R.drawable.bg_empty_favorite),
+                title = stringResource(id = R.string.no_favorite_movies_title),
+                subtitle = stringResource(id = R.string.no_favorite_movies_subtitle),
             )
         }
     }

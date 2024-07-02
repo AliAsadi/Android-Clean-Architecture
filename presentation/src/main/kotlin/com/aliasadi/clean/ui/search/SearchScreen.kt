@@ -28,6 +28,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.navigation.Page
+import com.aliasadi.clean.ui.widget.EmptyStateIcon
 import com.aliasadi.clean.ui.widget.EmptyStateView
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
@@ -91,11 +92,13 @@ fun SearchScreen(
             Box(modifier = Modifier.padding(it)) {
                 if (showDefaultState) {
                     EmptyStateView(
-                        titleRes = R.string.first_time_search_title,
-                        iconRes = R.drawable.bg_empty_search,
-                        iconSize = 100.dp,
-                        iconSpacing = 12.dp,
-                        subtitleText = stringResource(id = R.string.first_time_search_subtitle),
+                        title = stringResource(id = R.string.first_time_search_title),
+                        icon = EmptyStateIcon(
+                            iconRes = R.drawable.bg_empty_search,
+                            size = 100.dp,
+                            spacing = 12.dp
+                        ),
+                        subtitle = stringResource(id = R.string.first_time_search_subtitle),
                         titleTextSize = 20.sp,
                         subtitleTextSize = 16.sp,
                         verticalArrangement = Arrangement.Top,
@@ -110,11 +113,13 @@ fun SearchScreen(
                     } else {
                         if (showNoMoviesFound) {
                             EmptyStateView(
-                                titleRes = R.string.no_search_results_title,
-                                iconRes = R.drawable.bg_empty_no_result,
-                                iconSize = 100.dp,
-                                iconSpacing = 12.dp,
-                                subtitleText = stringResource(id = R.string.no_search_results_subtitle, query),
+                                title = stringResource(id = R.string.no_search_results_title),
+                                icon = EmptyStateIcon(
+                                    iconRes = R.drawable.bg_empty_no_result,
+                                    size = 100.dp,
+                                    spacing = 12.dp
+                                ),
+                                subtitle = stringResource(id = R.string.no_search_results_subtitle, query),
                                 titleTextSize = 20.sp,
                                 subtitleTextSize = 16.sp,
                                 verticalArrangement = Arrangement.Top,
