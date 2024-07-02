@@ -35,7 +35,6 @@ fun EmptyStateView(
     modifier: Modifier = Modifier,
     @DrawableRes iconRes: Int? = null,
     @StringRes titleRes: Int? = null,
-    @StringRes subtitleRes: Int? = null,
     subtitleText: String? = null,
     iconSize: Dp = 200.dp,
     iconSpacing: Dp = 0.dp,
@@ -68,9 +67,6 @@ fun EmptyStateView(
             )
         }
         Spacer(modifier = Modifier.padding(8.dp))
-        subtitleRes?.let {
-            Subtitle(stringResource(id = it), subtitleTextSize)
-        }
 
         subtitleText?.let {
             Subtitle(it, subtitleTextSize)
@@ -98,7 +94,7 @@ private fun EmptyStateViewPreview() {
             EmptyStateView(
                 iconRes = R.drawable.bg_empty_favorite,
                 titleRes = R.string.no_favorite_movies_title,
-                subtitleRes = R.string.no_favorite_movies_subtitle,
+                subtitleText = stringResource(id = R.string.no_favorite_movies_subtitle),
             )
         }
     }
