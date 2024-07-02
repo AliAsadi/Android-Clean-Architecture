@@ -89,7 +89,19 @@ fun SearchScreen(
             }, onBackClick)
         }) {
             Box(modifier = Modifier.padding(it)) {
-                if (!showDefaultState) {
+                if (showDefaultState) {
+                    EmptyStateView(
+                        titleRes = R.string.first_time_search_title,
+                        iconRes = R.drawable.bg_empty_search,
+                        iconSize = 100.dp,
+                        iconSpacing = 12.dp,
+                        subtitleRes = R.string.first_time_search_subtitle,
+                        titleTextSize = 20.sp,
+                        subtitleTextSize = 16.sp,
+                        verticalArrangement = Arrangement.Top,
+                        modifier = Modifier.padding(top = 80.dp, start = 24.dp, end = 24.dp)
+                    )
+                } else {
                     if (isLoading) {
                         LoaderFullScreen(
                             alignment = Alignment.TopCenter,
