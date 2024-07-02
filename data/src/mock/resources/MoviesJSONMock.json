@@ -1,42 +1,1098 @@
 [
   {
-    "id": 0,
-    "title": "The Shawshank Redemption",
-    "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-    "image": "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
-    "category": "Drama",
-    "backgroundUrl": ""
+    "id": 897087,
+    "title": "Freelance",
+    "description": "An ex-special forces operative takes a job to provide security for a journalist as she interviews a dictator, but a military coup breaks out in the middle of the interview, they are forced to escape into the jungle where they must survive.",
+    "image": "https://image.tmdb.org/t/p/w342//7Bd4EUOqQDKZXA6Od5gkfzRNb0.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//zIYROrkHJPYB3VTiW1L9QVgaQO.jpg",
+    "category": "Action"
   },
   {
-    "id": 1,
+    "id": 479753,
+    "title": "Shockwave: Countdown to Disaster",
+    "description": "A stolen seismic weapon is activated in Yemen. A hostage freed there tries in vain to warn against its global effect. It starts seismic activity at the Californian fault line where her daughter and ex are monitoring it. Can they stop it?",
+    "image": "https://image.tmdb.org/t/p/w342//sBD608VF4TcFHmP7SuC0OcvZQ0b.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//mIpdOcss3oedSYB8juiSXg89uLL.jpg",
+    "category": "Action"
+  },
+  {
+    "id": 656156,
+    "title": "A Man of Reason",
+    "description": "After 10 years of incarceration on behalf of his employer, all Su-hyuk wants is a normal life - one he hopes will include his former girlfriend, Min-seo, and their daughter, In-bi. But once you've penetrated the upper echelons of the underworld, normal can prove hard to come by. Sometime in the past decade, meanwhile, Su-hyuk's employer has adopted an air of legitimacy. These days, the old gang steal and murder in the name of urban development. And they want the reluctant Su-hyuk on board.",
+    "image": "https://image.tmdb.org/t/p/w342//ePwZs1oOh4pg8UZP8DuVZZeIn89.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//jVFeUR259RcW57mzhqJogV3QnLa.jpg",
+    "category": "Action"
+  },
+  {
+    "id": 385687,
+    "title": "Fast X",
+    "description": "Over many missions and against impossible odds, Dom Toretto and his family have outsmarted, out-nerved and outdriven every foe in their path. Now, they confront the most lethal opponent they've ever faced: A terrifying threat emerging from the shadows of the past who's fueled by blood revenge, and who is determined to shatter this family and destroy everything—and everyone—that Dom loves, forever.",
+    "image": "https://image.tmdb.org/t/p/w342//fiVW06jE7z9YnO4trhaMEdclSiC.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//4XM8DUTQb3lhLemJC51Jx4a2EuA.jpg",
+    "category": "Action"
+  },
+  {
+    "id": 695721,
+    "title": "The Hunger Games: The Ballad of Songbirds & Snakes",
+    "description": "64 years before he becomes the tyrannical president of Panem, Coriolanus Snow sees a chance for a change in fortunes when he mentors Lucy Gray Baird, the female tribute from District 12.",
+    "image": "https://image.tmdb.org/t/p/w342//mBaXZ95R2OxueZhvQbcEWy2DqyO.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//8GnWDLn2AhnmkQ7hlQ9NJUYobSS.jpg",
+    "category": "Action"
+  },
+  {
+    "id": 951546,
+    "title": "Reign of Chaos",
+    "description": "When the world is gripped by a plague unleashed by the evil lord Chaos, and humans are turned into rabid creatures, mankind can only be saved by three young women, descendants of a Goddess, with the power to stop Chaos' evil.",
+    "image": "https://image.tmdb.org/t/p/w342//nTMmpvR9TyV631tpFr4FtYxG0FC.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//4MUfDtBqUFqotGF5RJOfNfoBTLo.jpg",
+    "category": "Action"
+  },
+  {
+    "id": 670292,
+    "title": "The Creator",
+    "description": "Amid a future war between the human race and the forces of artificial intelligence, a hardened ex-special forces agent grieving the disappearance of his wife, is recruited to hunt down and kill the Creator, the elusive architect of advanced AI who has developed a mysterious weapon with the power to end the war—and mankind itself.",
+    "image": "https://image.tmdb.org/t/p/w342//vBZ0qvaRxqEhZwl6LWmruJqWE8Z.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//kjQBrc00fB2RjHZB3PGR4w9ibpz.jpg",
+    "category": "Action"
+  },
+  {
+    "id": 299054,
+    "title": "Expend4bles",
+    "description": "Armed with every weapon they can get their hands on and the skills to use them, The Expendables are the world’s last line of defense and the team that gets called when all other options are off the table. But new team members with new styles and tactics are going to give “new blood” a whole new meaning.",
+    "image": "https://image.tmdb.org/t/p/w342//iwsMu0ehRPbtaSxqiaUDQB9qMWT.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//rMvPXy8PUjj1o8o1pzgQbdNCsvj.jpg",
+    "category": "Action"
+  },
+  {
+    "id": 575264,
+    "title": "Mission: Impossible - Dead Reckoning Part One",
+    "description": "Ethan Hunt and his IMF team embark on their most dangerous mission yet: To track down a terrifying new weapon that threatens all of humanity before it falls into the wrong hands. With control of the future and the world's fate at stake and dark forces from Ethan's past closing in, a deadly race around the globe begins. Confronted by a mysterious, all-powerful enemy, Ethan must consider that nothing can matter more than his mission—not even the lives of those he cares about most.",
+    "image": "https://image.tmdb.org/t/p/w342//NNxYkU70HPurnNCSiCjYAmacwm.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//628Dep6AxEtDxjZoGP78TsOxYbK.jpg",
+    "category": "Action"
+  },
+  {
+    "id": 662167,
+    "title": "Agent Jade Black",
+    "description": "A skilled young female agent is tasked with capturing a rogue former agent before she can unleash a biological weapon starting with the wealthy and powerful purveyors of the international sex trade.",
+    "image": "https://image.tmdb.org/t/p/w342//wGHaEtBz6AXqGVooaADB1tlyjBp.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//lPzOcS88GQ7PwspTNUY8q6ACFOh.jpg",
+    "category": "Action"
+  },
+  {
+    "id": 672,
+    "title": "Harry Potter and the Chamber of Secrets",
+    "description": "Cars fly, trees fight back, and a mysterious house-elf comes to warn Harry Potter at the start of his second year at Hogwarts. Adventure and danger await when bloody writing on a wall announces: The Chamber Of Secrets Has Been Opened. To save Hogwarts will require all of Harry, Ron and Hermione’s magical abilities and courage.",
+    "image": "https://image.tmdb.org/t/p/w342//sdEOH0992YZ0QSxgXNIGLq1ToUi.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//1stUIsjawROZxjiCMtqqXqgfZWC.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 980489,
+    "title": "Gran Turismo",
+    "description": "The ultimate wish-fulfillment tale of a teenage Gran Turismo player whose gaming skills won him a series of Nissan competitions to become an actual professional racecar driver.",
+    "image": "https://image.tmdb.org/t/p/w342//51tqzRtKMMZEYUpSYkrUE7v9ehm.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//r7DuyYJ0N3cD8bRKsR5Ygq2P7oa.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 335977,
+    "title": "Indiana Jones and the Dial of Destiny",
+    "description": "Finding himself in a new era, and approaching retirement, Indy wrestles with fitting into a world that seems to have outgrown him. But as the tentacles of an all-too-familiar evil return in the form of an old rival, Indy must don his hat and pick up his whip once more to make sure an ancient and powerful artifact doesn't fall into the wrong hands.",
+    "image": "https://image.tmdb.org/t/p/w342//Af4bXE63pVsb2FtbW8uYIyPBadD.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//35z8hWuzfFUZQaYog8E9LsXW3iI.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 315162,
+    "title": "Puss in Boots: The Last Wish",
+    "description": "Puss in Boots discovers that his passion for adventure has taken its toll: He has burned through eight of his nine lives, leaving him with only one life left. Puss sets out on an epic journey to find the mythical Last Wish and restore his nine lives.",
+    "image": "https://image.tmdb.org/t/p/w342//kuf6dutpsT0vSVehic3EZIqkOBt.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//faXT8V80JRhnArTAeYXz0Eutpv9.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 118,
+    "title": "Charlie and the Chocolate Factory",
+    "description": "A young boy wins a tour through the most magnificent chocolate factory in the world, led by the world's most unusual candy maker.",
+    "image": "https://image.tmdb.org/t/p/w342//wfGfxtBkhBzQfOZw4S8IQZgrH0a.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//bSvUW4JQ6g4QiKvwejcfcPRd4Ke.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 447277,
+    "title": "The Little Mermaid",
+    "description": "The youngest of King Triton’s daughters, and the most defiant, Ariel longs to find out more about the world beyond the sea, and while visiting the surface, falls for the dashing Prince Eric. With mermaids forbidden to interact with humans, Ariel makes a deal with the evil sea witch, Ursula, which gives her a chance to experience life on land, but ultimately places her life – and her father’s crown – in jeopardy.",
+    "image": "https://image.tmdb.org/t/p/w342//ym1dxyOk4jFcSl4Q2zmRrA5BEEN.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//7VEUOEfRzzrQfWddlIyLUKvh6Nf.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 299536,
+    "title": "Avengers: Infinity War",
+    "description": "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
+    "image": "https://image.tmdb.org/t/p/w342//7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//mDfJG3LC3Dqb67AZ52x3Z0jU0uB.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 671,
+    "title": "Harry Potter and the Philosopher's Stone",
+    "description": "Harry Potter has lived under the stairs at his aunt and uncle's house his whole life. But on his 11th birthday, he learns he's a powerful wizard—with a place waiting for him at the Hogwarts School of Witchcraft and Wizardry. As he learns to harness his newfound powers with the help of the school's kindly headmaster, Harry uncovers the truth about his parents' deaths—and about the villain who's to blame.",
+    "image": "https://image.tmdb.org/t/p/w342//wuMc08IPKEatf9rnMNXvIDxqP4W.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//hziiv14OpD73u9gAak4XDDfBKa2.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 120,
+    "title": "The Lord of the Rings: The Fellowship of the Ring",
+    "description": "Young hobbit Frodo Baggins, after inheriting a mysterious ring from his uncle Bilbo, must leave his home in order to keep it from falling into the hands of its evil creator. Along the way, a fellowship is formed to protect the ringbearer and make sure that the ring arrives at its final destination: Mt. Doom, the only place where it can be destroyed.",
+    "image": "https://image.tmdb.org/t/p/w342//6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//x2RS3uTcsJJ9IfjNPcgDmukoEcQ.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 674,
+    "title": "Harry Potter and the Goblet of Fire",
+    "description": "When Harry Potter's name emerges from the Goblet of Fire, he becomes a competitor in a grueling battle for glory among three wizarding schools—the Triwizard Tournament. But since Harry never submitted his name for the Tournament, who did? Now Harry must confront a deadly dragon, fierce water demons and an enchanted maze only to find himself in the cruel grasp of He Who Must Not Be Named.",
+    "image": "https://image.tmdb.org/t/p/w342//fECBtHlr0RB3foNHDiCBXeg9Bv9.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//5rrGVmRUuCKVbqUu41XIWTXJmNA.jpg",
+    "category": "Adventure"
+  },
+  {
+    "id": 901362,
+    "title": "Trolls Band Together",
+    "description": "When Branch's brother, Floyd, is kidnapped for his musical talents by a pair of nefarious pop-star villains, Branch and Poppy embark on a harrowing and emotional journey to reunite the other brothers and rescue Floyd from a fate even worse than pop-culture obscurity.",
+    "image": "https://image.tmdb.org/t/p/w342//sEaLO9s7CIN3fjz8R3Qksum44en.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//k1KrbaCMACQiq7EA0Yhw3bdzMv7.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 1075794,
+    "title": "Leo",
+    "description": "Jaded 74-year-old lizard Leo has been stuck in the same Florida classroom for decades with his terrarium-mate turtle. When he learns he only has one year left to live, he plans to escape to experience life on the outside but instead gets caught up in the problems of his anxious students — including an impossibly mean substitute teacher.",
+    "image": "https://image.tmdb.org/t/p/w342//pD6sL4vntUOXHmuvJPPZAgvyfd9.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//9PqD3wSIjntyJDBzMNuxuKHwpUD.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 502356,
+    "title": "The Super Mario Bros. Movie",
+    "description": "While working underground to fix a water main, Brooklyn plumbers—and brothers—Mario and Luigi are transported down a mysterious pipe and wander into a magical new world. But when the brothers are separated, Mario embarks on an epic quest to find Luigi.",
+    "image": "https://image.tmdb.org/t/p/w342//qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//9n2tJBplPbgR2ca05hS5CKXwP2c.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 1046032,
+    "title": "The Bad Guys: A Very Bad Holiday",
+    "description": "To keep their annual Holiday Heist-tacular afloat, Mr. Wolf and his crew of animal outlaws will have to restore the whole city's Christmas spirit — fast!",
+    "image": "https://image.tmdb.org/t/p/w342//atBDD05PbVDI2lm2OUy1KFQpzen.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//oqbcmZJJ1EWkOPiGjqABaUN18rI.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 976573,
+    "title": "Elemental",
+    "description": "In a city where fire, water, land and air residents live together, a fiery young woman and a go-with-the-flow guy will discover something elemental: how much they have in common.",
+    "image": "https://image.tmdb.org/t/p/w342//4Y1WNkd88JXmGfhtWR7dmDAo1T2.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//4fLZUr1e65hKPPVw0R3PmKFKxj1.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 569094,
+    "title": "Spider-Man: Across the Spider-Verse",
+    "description": "After reuniting with Gwen Stacy, Brooklyn’s full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters the Spider Society, a team of Spider-People charged with protecting the Multiverse’s very existence. But when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders and must set out on his own to save those he loves most.",
+    "image": "https://image.tmdb.org/t/p/w342//8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 360920,
+    "title": "The Grinch",
+    "description": "The Grinch hatches a scheme to ruin Christmas when the residents of Whoville plan their annual holiday celebration.",
+    "image": "https://image.tmdb.org/t/p/w342//1Bc9VNd9CIHIyJtPKFqSQzrXWru.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//5lWIYxYEqWi8j3ZloxXntw3ImBo.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 893723,
+    "title": "PAW Patrol: The Mighty Movie",
+    "description": "A magical meteor crash lands in Adventure City and gives the PAW Patrol pups superpowers, transforming them into The Mighty Pups.",
+    "image": "https://image.tmdb.org/t/p/w342//aTvePCU7exLepwg5hWySjwxojQK.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//zgQQF04u3OgNBJqClRNby1FPz9s.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 1022796,
+    "title": "Wish",
+    "description": "Asha, a sharp-witted idealist, makes a wish so powerful that it is answered by a cosmic force – a little ball of boundless energy called Star. Together, Asha and Star confront a most formidable foe - the ruler of Rosas, King Magnifico - to save her community and prove that when the will of one courageous human connects with the magic of the stars, wondrous things can happen.",
+    "image": "https://image.tmdb.org/t/p/w342//AcoVfiv1rrWOmAdpnAMnM56ki19.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//ehumsuIBbgAe1hg343oszCLrAfI.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 1022796,
+    "title": "Wish",
+    "description": "Asha, a sharp-witted idealist, makes a wish so powerful that it is answered by a cosmic force – a little ball of boundless energy called Star. Together, Asha and Star confront a most formidable foe - the ruler of Rosas, King Magnifico - to save her community and prove that when the will of one courageous human connects with the magic of the stars, wondrous things can happen.",
+    "image": "https://image.tmdb.org/t/p/w342//AcoVfiv1rrWOmAdpnAMnM56ki19.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//ehumsuIBbgAe1hg343oszCLrAfI.jpg",
+    "category": "Animation"
+  },
+  {
+    "id": 787699,
+    "title": "Wonka",
+    "description": "Willy Wonka – chock-full of ideas and determined to change the world one delectable bite at a time – is proof that the best things in life begin with a dream, and if you’re lucky enough to meet Willy Wonka, anything is possible.",
+    "image": "https://image.tmdb.org/t/p/w342//qhb1qOilapbapxWQn9jtRCMwXJF.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//yOm993lsJyPmBodlYjgpPwBjXP9.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 346698,
+    "title": "Barbie",
+    "description": "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.",
+    "image": "https://image.tmdb.org/t/p/w342//iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//ctMserH8g2SeOAnCw5gFjdQF8mo.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 1022964,
+    "title": "Candy Cane Lane",
+    "description": "A man, determined to win the neighborhood's annual Christmas decorating contest, makes a pact with an elf to help him win. However, the elf casts a spell bringing the twelve days of Christmas to life, bringing chaos to the small, unsuspecting town.",
+    "image": "https://image.tmdb.org/t/p/w342//2pYgOBtBaFxAELQGj6p86vuIhhG.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//sp6egj5NHHRGmCMdIoTNdbLwACR.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 81774,
+    "title": "Exploits of a Young Don Juan",
+    "description": "It's 1914. Sixteen-year-old Roger returns home to spend his summer vacation. His initial efforts are unsuccessful, but World War I breaks out and men are seen marching off to battle. Roger goes overboard when he is presented with several amorous opportunities.",
+    "image": "https://image.tmdb.org/t/p/w342//xvtRgQIRegLjsjaIkKQbh0hk3Qy.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//lzbrMjEnH34DzTfllRb6XxhlaZu.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 772,
+    "title": "Home Alone 2: Lost in New York",
+    "description": "Instead of flying to Florida with his folks, Kevin ends up alone in New York, where he gets a hotel room with his dad's credit card—despite problems from a clerk and meddling bellboy. But when Kevin runs into his old nemeses, the Wet Bandits, he's determined to foil their plans to rob a toy store on Christmas Eve.",
+    "image": "https://image.tmdb.org/t/p/w342//uuitWHpJwxD1wruFl2nZHIb4UGN.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//pnkcE3Q3fPNM9XzWEN1gJJRYYX4.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 798021,
+    "title": "Family Switch",
+    "description": "When the Walker family members switch bodies with each other during a rare planetary alignment, their hilarious journey to find their way back to normal will bring them closer together than they ever thought possible.",
+    "image": "https://image.tmdb.org/t/p/w342//fnRUCA0fjEb3kuIaTGogL7425IC.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//fc2pEZgr0ltmyzLl4cO9JInOg6l.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 956920,
+    "title": "There's Something in the Barn",
+    "description": "An American family fulfills their dream of moving back to their roots after inheriting a remote cabin in the mountains of Norway. But there's a surprise waiting for them.",
+    "image": "https://image.tmdb.org/t/p/w342//axrzMJR5VPWYNiW9ArENiMEPTjr.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//jBOyi3ibJbVa1imTCcddPUxTVAV.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 975533,
+    "title": "The Archies",
+    "description": "Set in 1960s India, Archie and the gang navigate romance, friendship and the future of Riverdale as developers threaten to destroy a beloved park.",
+    "image": "https://image.tmdb.org/t/p/w342//h2NIN5cuS3yRBnI7VDCtGiffX2r.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//8MDDAi8VnWKJdMmsxuJ1YL1wc21.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 884605,
+    "title": "No Hard Feelings",
+    "description": "On the brink of losing her childhood home, Maddie discovers an intriguing job listing: wealthy helicopter parents looking for someone to “date” their introverted 19-year-old son, Percy, before he leaves for college. To her surprise, Maddie soon discovers the awkward Percy is no sure thing.",
+    "image": "https://image.tmdb.org/t/p/w342//gD72DhJ7NbfxvtxGiAzLaa0xaoj.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//rRcNmiH55Tz0ugUsDUGmj8Bsa4V.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 594767,
+    "title": "Shazam! Fury of the Gods",
+    "description": "Billy Batson and his foster siblings, who transform into superheroes by saying \"Shazam!\", are forced to get back into action and fight the Daughters of Atlas, who they must stop from using a weapon that could destroy the world.",
+    "image": "https://image.tmdb.org/t/p/w342//A3ZbZsmsvNGdprRi2lKgGEeVLEH.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//zRQITMLvVi8z2Xz12Bi6wvbZE82.jpg",
+    "category": "Comedy"
+  },
+  {
+    "id": 466420,
+    "title": "Killers of the Flower Moon",
+    "description": "When oil is discovered in 1920s Oklahoma under Osage Nation land, the Osage people are murdered one by one—until the FBI steps in to unravel the mystery.",
+    "image": "https://image.tmdb.org/t/p/w342//dB6Krk806zeqd0YNp2ngQ9zXteH.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//1X7vow16X7CnCoexXh4H4F2yDJv.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 414906,
+    "title": "The Batman",
+    "description": "In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.",
+    "image": "https://image.tmdb.org/t/p/w342//74xTEgt7R36Fpooo50r9T25onhq.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//tRS6jvPM9qPrrnx2KRp3ew96Yot.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 958263,
+    "title": "Believer 2",
+    "description": "A determined detective continues his search for the truth behind Asia's largest drug organization and its elusive boss he has unfinished business with.",
+    "image": "https://image.tmdb.org/t/p/w342//g9aDZSqH5KmsHbMurhni5d2wq6q.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//jAW3L7N5ePEnIsBQP5vnmhw1qbl.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 1027073,
+    "title": "In the Land of Saints and Sinners",
+    "description": "In a remote Irish village, a damaged Finbar is forced to fight for redemption after a lifetime of sins, but what price is he willing to pay? In the land of saints and sinners, some sins can't be buried.",
+    "image": "https://image.tmdb.org/t/p/w342//443c0xNTLackGkFOKfbPClKMpIk.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//4kmNLwmVeT3xMciSRefE6SCi2hX.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 800158,
+    "title": "The Killer",
+    "description": "After a fateful near-miss, an assassin battles his employers, and himself, on an international manhunt he insists isn't personal.",
+    "image": "https://image.tmdb.org/t/p/w342//ipkcgvN7h3yZnbYowthloHLKsf4.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//mRmRE4RknbL7qKALWQDz64hWKPa.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 581528,
+    "title": "The Gangster, the Cop, the Devil",
+    "description": "After barely surviving a violent attack by an elusive serial killer, crime boss Jang Dong-su finds himself forming an unlikely partnership with local detective Jung Tae-seok to catch the sadistic killer simply known as K.",
+    "image": "https://image.tmdb.org/t/p/w342//oHlM4abRm6BzrRcz9Nup1uidw9H.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//fI6X3Hd8KvtAuOKVdmxckdNzrx.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 75780,
+    "title": "Jack Reacher",
+    "description": "When a gunman takes five lives with six shots, all evidence points to the suspect in custody. On interrogation, the suspect offers up a single note: \"Get Jack Reacher!\" So begins an extraordinary chase for the truth, pitting Jack Reacher against an unexpected enemy, with a skill for violence and a secret to keep.",
+    "image": "https://image.tmdb.org/t/p/w342//uQBbjrLVsUibWxNDGA4Czzo8lwz.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//5QEtCBM6aXHftr7sgFxxUUl9Ej8.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 75780,
+    "title": "Jack Reacher",
+    "description": "When a gunman takes five lives with six shots, all evidence points to the suspect in custody. On interrogation, the suspect offers up a single note: \"Get Jack Reacher!\" So begins an extraordinary chase for the truth, pitting Jack Reacher against an unexpected enemy, with a skill for violence and a secret to keep.",
+    "image": "https://image.tmdb.org/t/p/w342//uQBbjrLVsUibWxNDGA4Czzo8lwz.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//5QEtCBM6aXHftr7sgFxxUUl9Ej8.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 940143,
+    "title": "All Souls",
+    "description": "A young confidential informant is sent on a dangerous undercover operation. It's a no-holds-barred look at the vulnerable foot soldiers of the War on Drugs, young criminals who are pressured to work for the police.",
+    "image": "https://image.tmdb.org/t/p/w342//9QUZXrfokqrW6yJBYPgGD1cN0JO.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//7yhLN71VO1M889TvyC9mjUzXjFJ.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 106646,
+    "title": "The Wolf of Wall Street",
+    "description": "A New York stockbroker refuses to cooperate in a large securities fraud case involving corruption on Wall Street, corporate banking world and mob infiltration. Based on Jordan Belfort's autobiography.",
+    "image": "https://image.tmdb.org/t/p/w342//34m2tygAYBGqA9MXKhRDtzYd4MR.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//2P0toWq3feNvFAzf28j7vNc1IuZ.jpg",
+    "category": "Crime"
+  },
+  {
+    "id": 1192578,
+    "title": "Elijo creer",
+    "description": "",
+    "image": "https://image.tmdb.org/t/p/w342//tAX05FIcjnllogMa2r0FmamNhpU.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original/null",
+    "category": "Documentary"
+  },
+  {
+    "id": 1206029,
+    "title": "Muchachos, la película de la gente",
+    "description": "",
+    "image": "https://image.tmdb.org/t/p/w342//4lb7Lpwzu908fbph9enKN0axiYy.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original/null",
+    "category": "Documentary"
+  },
+  {
+    "id": 413393,
+    "title": "Pure Imagination: The Story of 'Willy Wonka & the Chocolate Factory'",
+    "description": "Retrospective documentary on the making of the cult classic \"Willy Wonka & the Chocolate Factory.\"",
+    "image": "https://image.tmdb.org/t/p/w342//nxzZeGmE456c5ujVrkV2B42mmD4.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//oWpE71ORKX5HUZjeS6fM0gOScQ6.jpg",
+    "category": "Documentary"
+  },
+  {
+    "id": 1031774,
+    "title": "Thriller 40",
+    "description": "Forty years after the release of Michael Jackson’s ‘Thriller,’ the best-selling album of all-time, director Nelson George takes fans back in time to the making of a pop masterpiece, featuring never-before-seen footage and candid interviews.",
+    "image": "https://image.tmdb.org/t/p/w342//72Svj5snzYha443bxgnxyp7cvOu.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//kkyn5vyMqkgCp944QeBumJ6aktP.jpg",
+    "category": "Documentary"
+  },
+  {
+    "id": 872585,
+    "title": "Oppenheimer",
+    "description": "The story of J. Robert Oppenheimer's role in the development of the atomic bomb during World War II.",
+    "image": "https://image.tmdb.org/t/p/w342//8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//fm6KqXpk3M2HVveHwCrBSSBaO0V.jpg",
+    "category": "Drama"
+  },
+  {
+    "id": 726209,
+    "title": "Leave the World Behind",
+    "description": "A family's getaway to a luxurious rental home takes an ominous turn when a cyberattack knocks out their devices — and two strangers appear at their door.",
+    "image": "https://image.tmdb.org/t/p/w342//29rhl1xopxA7JlGVVsf1UHfYPvN.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//z6OkT7XjzSrgstiTlld0jUvME9y.jpg",
+    "category": "Drama"
+  },
+  {
+    "id": 1010581,
+    "title": "My Fault",
+    "description": "Noah must leave her city, boyfriend, and friends to move into William Leister's mansion, the flashy and wealthy husband of her mother Rafaela. As a proud and independent 17 year old, Noah resists living in a mansion surrounded by luxury. However, it is there where she meets Nick, her new stepbrother, and the clash of their strong personalities becomes evident from the very beginning.",
+    "image": "https://image.tmdb.org/t/p/w342//w46Vw536HwNnEzOa7J24YH9DPRS.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//lntyt4OVDbcxA1l7LtwITbrD3FI.jpg",
+    "category": "Drama"
+  },
+  {
+    "id": 457232,
+    "title": "Lamborghini: The Man Behind the Legend",
+    "description": "Follow the launch of Lamborghini’s career as a manufacturer of tractors, a creator of military vehicles during World War II, and the designer of Lamborghini cars, which he launched in 1963 as the high-end sports car company Automobili Lamborghini.",
+    "image": "https://image.tmdb.org/t/p/w342//RKgnYLhCNGCUkrhiCRrs40rEHe.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//lUPz9zW0uf0bHfYsRRID8RtBHEU.jpg",
+    "category": "Drama"
+  },
+  {
+    "id": 1058694,
+    "title": "Radical",
+    "description": "In a Mexican border town plagued by neglect, corruption, and violence, a frustrated teacher tries a radical new method to break through his students’ apathy and unlock their curiosity, their potential… and maybe even their genius.",
+    "image": "https://image.tmdb.org/t/p/w342//eSatbygYZp8ooprBHZdb6GFZxGB.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//p9DKeXp6FPJtAQ1k13Z4zPWrCbN.jpg",
+    "category": "Drama"
+  },
+  {
+    "id": 960206,
+    "title": "Godland",
+    "description": "In the late 19th century, a young Danish priest travels to a remote part of Iceland to build a church and photograph its people. But the deeper he goes into the unforgiving landscape, the more he strays from his purpose, the mission and morality.",
+    "image": "https://image.tmdb.org/t/p/w342//s0cWPhzpKJ4kspaleMcOduHBFBw.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//sKBB1Fh9YMiLMsUUCPvdcbpVTfo.jpg",
+    "category": "Drama"
+  },
+  {
+    "id": 597,
+    "title": "Titanic",
+    "description": "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later. A young Rose boards the ship with her mother and fiancé. Meanwhile, Jack Dawson and Fabrizio De Rossi win third-class tickets aboard the ship. Rose tells the whole story from Titanic's departure through to its death—on its first and last voyage—on April 15, 1912.",
+    "image": "https://image.tmdb.org/t/p/w342//9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//rzdPqYx7Um4FUZeD8wpXqjAUcEm.jpg",
+    "category": "Drama"
+  },
+  {
+    "id": 839369,
+    "title": "May December",
+    "description": "Twenty years after their notorious tabloid romance gripped the nation, a married couple buckles under pressure when an actress arrives to do research for a film about their past.",
+    "image": "https://image.tmdb.org/t/p/w342//yibtHDMO70RueiEmtrcJeTiiHFo.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//97MOhHIgU6ZdLcB9DrAhx3WAqrU.jpg",
+    "category": "Drama"
+  },
+  {
+    "id": 915935,
+    "title": "Anatomy of a Fall",
+    "description": "A woman is suspected of her husband’s murder, and their blind son faces a moral dilemma as the sole witness.",
+    "image": "https://image.tmdb.org/t/p/w342//kQs6keheMwCxJxrzV83VUwFtHkB.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//kszooR7v1TLFM4pzx6IkKq2jDAN.jpg",
+    "category": "Drama"
+  },
+  {
+    "id": 238,
     "title": "The Godfather",
-    "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-    "image": "https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg",
-    "category": "Crime",
-    "backgroundUrl": ""
+    "description": "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.",
+    "image": "https://image.tmdb.org/t/p/w342//3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
+    "category": "Drama"
   },
   {
-    "id": 2,
-    "title": "The Dark Knight",
-    "description": "When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham.",
-    "image": "https://upload.wikimedia.org/wikipedia/en/8/8a/Dark_Knight.jpg",
-    "category": "Action",
-    "backgroundUrl": ""
+    "id": 8871,
+    "title": "How the Grinch Stole Christmas",
+    "description": "The Grinch decides to rob Whoville of Christmas - but a dash of kindness from little Cindy Lou Who and her family may be enough to melt his heart...",
+    "image": "https://image.tmdb.org/t/p/w342//52EpMoLTTbKAkM6rSrnNHV2mpLF.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//4uHyfIApZSRXSVEqSuk92PdN8Yx.jpg",
+    "category": "Family"
   },
   {
-    "id": 3,
-    "title": "Pulp Fiction",
-    "description": "The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
-    "image": "https://upload.wikimedia.org/wikipedia/en/8/82/Pulp_Fiction_cover.jpg",
-    "category": "Crime",
-    "backgroundUrl": ""
+    "id": 936059,
+    "title": "The Naughty Nine",
+    "description": "Fifth-grader Andy finds himself without a present from Santa on Christmas morning. Realizing he must have landed on the “naughty list” and feeling unfairly maligned, Andy pulls together a team of eight other naughty-listers to help him execute an elaborate heist on Santa’s Village at the North Pole to get the presents they feel they deserve.",
+    "image": "https://image.tmdb.org/t/p/w342//5JoTI5Nrh2U639WfwUk0Akum7fQ.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//gOJJjBB1aj6vqzuJLspERcwZuPQ.jpg",
+    "category": "Family"
   },
   {
-    "id": 4,
-    "title": "Schindler's List",
-    "description": "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
-    "image": "https://upload.wikimedia.org/wikipedia/en/3/38/Schindler%27s_List_movie.jpg",
-    "category": "Biography",
-    "backgroundUrl": ""
+    "id": 252,
+    "title": "Willy Wonka & the Chocolate Factory",
+    "description": "When eccentric candy man Willy Wonka promises a lifetime supply of sweets and a tour of his chocolate factory to five lucky kids, penniless Charlie Bucket seeks the golden ticket that will make him a winner.",
+    "image": "https://image.tmdb.org/t/p/w342//4yDIYI90akVOsaqk4ct2jlvjpYz.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//idfNNlVwjVkBQrM2eWpLZiDOTIc.jpg",
+    "category": "Family"
+  },
+  {
+    "id": 8587,
+    "title": "The Lion King",
+    "description": "A young lion prince is cast out of his pride by his cruel uncle, who claims he killed his father. While the uncle rules with an iron paw, the prince grows up beyond the Savannah, living by a philosophy: No worries for the rest of your days. But when his past comes to haunt him, the young prince must decide his fate: Will he remain an outcast or face his demons and become what he needs to be?",
+    "image": "https://image.tmdb.org/t/p/w342//sKCr78MXSLixwmZ8DyJLrpMsd15.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//wXsQvli6tWqja51pYxXNG1LFIGV.jpg",
+    "category": "Family"
+  },
+  {
+    "id": 330457,
+    "title": "Frozen II",
+    "description": "Elsa, Anna, Kristoff and Olaf head far into the forest to learn the truth about an ancient mystery of their kingdom.",
+    "image": "https://image.tmdb.org/t/p/w342//mINJaa34MtknCYl5AjtNJzWj8cD.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//xJWPZIYOEFIjZpBL7SVBGnzRYXp.jpg",
+    "category": "Family"
+  },
+  {
+    "id": 39345,
+    "title": "Casper Meets Wendy",
+    "description": "When a warlock threatens Wendy the Good Little Witch, she and her aunts hide out at a resort where Casper the Ghost is vacationing with his uncles. Although Casper and Wendy are told ghosts and witches don't get along, the two are kindred spirits! This spooky family-friendly adventure finds Casper and Wendy bridging the ghost-witch divide to battle the warlock who is intent on destroying Wendy.",
+    "image": "https://image.tmdb.org/t/p/w342//zYJWQvee9CN6nc9En2KUWewHGHr.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//uttOGgMYQJqwxL6OohWHFk6rpW7.jpg",
+    "category": "Family"
+  },
+  {
+    "id": 926946,
+    "title": "The School of Magical Animals 2",
+    "description": "Theater fun at the School of Magical Animals: The students want to perform a musical for the school's anniversary. Will the rehearsals end in chaos or will the class pull together? And what's up with the strange holes on the school grounds? With the help of the magical animals, the children learn what really matters: teamwork.",
+    "image": "https://image.tmdb.org/t/p/w342//tzOGGLfHJ5SI0QX8fUg1surA6s5.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//hGPa3WPxuyoVSexd962Sf3rh5Rt.jpg",
+    "category": "Family"
+  },
+  {
+    "id": 270946,
+    "title": "Penguins of Madagascar",
+    "description": "Skipper, Kowalski, Rico and Private join forces with undercover organization The North Wind to stop the villainous Dr. Octavius Brine from destroying the world as we know it.",
+    "image": "https://image.tmdb.org/t/p/w342//dXbpNrPDZDMEbujFoOxmMNQVMHa.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//msnknPOg9dx86b0YozXOFP8PgBI.jpg",
+    "category": "Family"
+  },
+  {
+    "id": 9279,
+    "title": "Jingle All the Way",
+    "description": "Howard Langston, a salesman for a mattress company, is constantly kept busy at his job, disappointing his son. After he misses his son's karate exposition, Howard vows to make it up to him by buying an action figure of his son's favorite television hero for Christmas. Unfortunately for Howard, it is Christmas Eve, and every store is sold out of Turbo Man. Now, Howard must travel all over town and compete with everybody else to find a Turbo Man action figure.",
+    "image": "https://image.tmdb.org/t/p/w342//lHLOUt0ZIQLC5asHdIQBoTUvaEp.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//czGJUDcFVk7vfTHmM5P85vMEwt0.jpg",
+    "category": "Family"
+  },
+  {
+    "id": 1116410,
+    "title": "R.A.D.A.R.: The Adventures of the Bionic Dog",
+    "description": "Gabe and Kylie hunt for lost pirate treasure, hoping to bring tourists to their sleepy Florida town — and save Gabe’s mom’s diner. When they find a precious sapphire, they’re helped by R.A.D.A.R., a clever dog who’s actually a robot! But the mad scientist who invented the treasure-hunting dog wants to steal him back — along with the town’s famous sapphire! Can Gabe and Kylie protect the dog, guard the jewel, and save the town?",
+    "image": "https://image.tmdb.org/t/p/w342//bS8yOrOZ8DMxW4DfrBJxvlAtkVx.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//gB2uxa7mAoWK5hRati0mmcjptG8.jpg",
+    "category": "Family"
+  },
+  {
+    "id": 566810,
+    "title": "The Dark Kingdom",
+    "description": "To save their Kingdom from an army of undead, a group of warriors must travel through the forbidden lands fighting the fearsome beasts that call The Dark Kingdom their home.",
+    "image": "https://image.tmdb.org/t/p/w342//o7StI2iR8yY1N67meSkNcXfojyD.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//jhpsTzbXEu5bkCPmBqxv7vUTjIT.jpg",
+    "category": "Fantasy"
+  },
+  {
+    "id": 786415,
+    "title": "Iké Boys",
+    "description": "Two Japan-obsessed teenagers in Oklahoma must discover their inner hero when a magical anime transforms them into its super-powered characters.",
+    "image": "https://image.tmdb.org/t/p/w342//wzAZnkTQZBGCxZTvZk5g5VzgKuR.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//uQ9ZK4mo6ZWbNjVOc95lSzKWHFx.jpg",
+    "category": "Fantasy"
+  },
+  {
+    "id": 616037,
+    "title": "Thor: Love and Thunder",
+    "description": "After his retirement is interrupted by Gorr the God Butcher, a galactic killer who seeks the extinction of the gods, Thor Odinson enlists the help of King Valkyrie, Korg, and ex-girlfriend Jane Foster, who now wields Mjolnir as the Mighty Thor. Together they embark upon a harrowing cosmic adventure to uncover the mystery of the God Butcher’s vengeance and stop him before it’s too late.",
+    "image": "https://image.tmdb.org/t/p/w342//pIkRyD18kl4FhoCNQuWxWu5cBLM.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//jsoz1HlxczSuTx0mDl2h0lxy36l.jpg",
+    "category": "Fantasy"
+  },
+  {
+    "id": 995906,
+    "title": "Galaxy Games",
+    "description": "A group of young adults are sent to a faraway planet to compete in the prestigious Sol Invictus games. When disaster strikes and the teams are stranded without equipment or communication, they must work together to survive long enough to be rescued.",
+    "image": "https://image.tmdb.org/t/p/w342//8aoIMYZUu8DRrJFkDvz13rehSFL.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original/null",
+    "category": "Fantasy"
+  },
+  {
+    "id": 12445,
+    "title": "Harry Potter and the Deathly Hallows: Part 2",
+    "description": "Harry, Ron and Hermione continue their quest to vanquish the evil Voldemort once and for all. Just as things begin to look hopeless for the young wizards, Harry discovers a trio of magical objects that endow him with powers to rival Voldemort's formidable skills.",
+    "image": "https://image.tmdb.org/t/p/w342//c54HpQmuwXjHq2C9wmoACjxoom3.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//n5A7brJCjejceZmHyujwUTVgQNC.jpg",
+    "category": "Fantasy"
+  },
+  {
+    "id": 8966,
+    "title": "Twilight",
+    "description": "When Bella Swan moves to a small town in the Pacific Northwest, she falls in love with Edward Cullen, a mysterious classmate who reveals himself to be a 108-year-old vampire. Despite Edward's repeated cautions, Bella can't stay away from him, a fatal move that endangers her own life.",
+    "image": "https://image.tmdb.org/t/p/w342//3Gkb6jm6962ADUPaCBqzz9CTbn9.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//mfFhgR9ILPWbYtvbdyAGUo6fbpT.jpg",
+    "category": "Fantasy"
+  },
+  {
+    "id": 8966,
+    "title": "Twilight",
+    "description": "When Bella Swan moves to a small town in the Pacific Northwest, she falls in love with Edward Cullen, a mysterious classmate who reveals himself to be a 108-year-old vampire. Despite Edward's repeated cautions, Bella can't stay away from him, a fatal move that endangers her own life.",
+    "image": "https://image.tmdb.org/t/p/w342//3Gkb6jm6962ADUPaCBqzz9CTbn9.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//mfFhgR9ILPWbYtvbdyAGUo6fbpT.jpg",
+    "category": "Fantasy"
+  },
+  {
+    "id": 453395,
+    "title": "Doctor Strange in the Multiverse of Madness",
+    "description": "Doctor Strange, with the help of mystical allies both old and new, traverses the mind-bending and dangerous alternate realities of the Multiverse to confront a mysterious new adversary.",
+    "image": "https://image.tmdb.org/t/p/w342//fwBl3J2aEXru6mrr9Xg8O99Iz2K.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//gUNRlH66yNDH3NQblYMIwgZXJ2u.jpg",
+    "category": "Fantasy"
+  },
+  {
+    "id": 4935,
+    "title": "Howl's Moving Castle",
+    "description": "Sophie, a young milliner, is turned into an elderly woman by a witch who enters her shop and curses her. She encounters a wizard named Howl and gets caught up in his resistance to fighting for the king.",
+    "image": "https://image.tmdb.org/t/p/w342//6pZgH10jhpToPcf0uvyTCPFhWpI.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//tjMiLkVfOmbx3kUtKSmkLimiw8x.jpg",
+    "category": "Fantasy"
+  },
+  {
+    "id": 9479,
+    "title": "The Nightmare Before Christmas",
+    "description": "Tired of scaring humans every October 31 with the same old bag of tricks, Jack Skellington, the spindly king of Halloween Town, kidnaps Santa Claus and plans to deliver shrunken heads and other ghoulish gifts to children on Christmas morning. But as Christmas approaches, Jack's rag-doll girlfriend, Sally, tries to foil his misguided plans.",
+    "image": "https://image.tmdb.org/t/p/w342//oQffRNjK8e19rF7xVYEN8ew0j7b.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//xWT5F1DNxciNLEMXRl49iq8zvN7.jpg",
+    "category": "Fantasy"
+  },
+  {
+    "id": 960481,
+    "title": "Princess Khutulun",
+    "description": "Princess Khotulun is the daughter of Haidu Khan of the Ugudei dynasty. The film tells the story of Princess Khotulun, the son of Kublai Khan, known in Western and Eastern history as a wrestling princess, and her struggle to reclaim her Golden Sutra.",
+    "image": "https://image.tmdb.org/t/p/w342//dhD4QNmZwfh88y4Dm5XsX7dWFVf.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//awWppR6CmJ6gqM6UjMz5DJ4zZaP.jpg",
+    "category": "History"
+  },
+  {
+    "id": 606870,
+    "title": "The Survivor",
+    "description": "Harry Haft is a boxer who fought fellow prisoners in the concentration camps to survive. Haunted by the memories and his guilt, he attempts to use high-profile fights against boxing legends like Rocky Marciano as a way to find his first love again.",
+    "image": "https://image.tmdb.org/t/p/w342//oZWJ20tGWZ5xO9CrTCVavmDRy7J.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//2X7BAu7x2oMB3cTMF38uJhGSqoB.jpg",
+    "category": "History"
+  },
+  {
+    "id": 507089,
+    "title": "Five Nights at Freddy's",
+    "description": "Recently fired and desperate for work, a troubled young man named Mike agrees to take a position as a night security guard at an abandoned theme restaurant: Freddy Fazbear's Pizzeria. But he soon discovers that nothing at Freddy's is what it seems.",
+    "image": "https://image.tmdb.org/t/p/w342//7BpNtNfxuocYEVREzVMO75hso1l.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//t5zCBSB5xMDKcDqe91qahCOUYVV.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 1019836,
+    "title": "Christmas Bloody Christmas",
+    "description": "It's Christmas Eve and Tori just wants to get drunk and party, but when a robotic Santa Claus at a nearby toy store goes haywire and begins a rampant killing spree through her small town, she's forced into a battle for survival.",
+    "image": "https://image.tmdb.org/t/p/w342//97PaQ7r4H3y0x9RTXusfedmzf86.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//evxXVJtomJJbAXcDxF6wsCJzVDe.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 287903,
+    "title": "Krampus",
+    "description": "When his dysfunctional family clashes over the holidays, young Max is disillusioned and turns his back on Christmas.  Little does he know, this lack of festive spirit has unleashed the wrath of Krampus: a demonic force of ancient evil intent on punishing non-believers.",
+    "image": "https://image.tmdb.org/t/p/w342//sAolMRD9rFSTU7tssfFuLEJJa7w.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//h3X1YZXNeklLNKRVOS6DHGRosog.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 950925,
+    "title": "Hunting Souls",
+    "description": "Hunting Souls is the story of an American couple who are dealing with the hardships of caring for their sick child. They discover that they are being hunted by a demon.",
+    "image": "https://image.tmdb.org/t/p/w342//rBuE76iVZObavtfWYJqvMdJMBnM.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//1UxeCdDveWRgcOBsHIezHmnwT4P.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 968051,
+    "title": "The Nun II",
+    "description": "In 1956 France, a priest is violently murdered, and Sister Irene begins to investigate. She once again comes face-to-face with a powerful evil.",
+    "image": "https://image.tmdb.org/t/p/w342//5gzzkR7y3hnY8AD1wXjCnVlHba5.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//gN79aDbZdaSJkFS1iVA17HplF2X.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 951491,
+    "title": "Saw X",
+    "description": "Between the events of 'Saw' and 'Saw II', a sick and desperate John Kramer travels to Mexico for a risky and experimental medical procedure in hopes of a miracle cure for his cancer, only to discover the entire operation is a scam to defraud the most vulnerable. Armed with a newfound purpose, the infamous serial killer returns to his work, turning the tables on the con artists in his signature visceral way through devious, deranged, and ingenious traps.",
+    "image": "https://image.tmdb.org/t/p/w342//aQPeznSu7XDTrrdCtT5eLiu52Yu.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//dZbLqRjjiiNCpTYzhzL2NMvz4J0.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 842169,
+    "title": "Girl Next",
+    "description": "A young woman is abducted by a strange group of human traffickers who use drug and trauma based mind control to turn women into \"Sofia\" dolls. Trapped in a waking nightmare she fights for a way to escape, to avoid becoming Girl Next.",
+    "image": "https://image.tmdb.org/t/p/w342//zx8bTpZRVPzjicmzwgWhRAEjD5I.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//vKgfx1uglYlSACBnKBhO9P478OO.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 983507,
+    "title": "Good Boy",
+    "description": "Christian - a millionaire heir, meets Sigrid - a young student, on a dating app. They hit it off quickly, but there's only one problem: Christian lives with Frank, a man who dresses up and constantly acts like a dog.",
+    "image": "https://image.tmdb.org/t/p/w342//9DPG1gxLwV2oyFdHq3SnISsWbse.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//AucuqDaUW4z1oT5XyL71qwRY2F6.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 1113278,
+    "title": "It's a Wonderful Knife",
+    "description": "Winnie's life is less than wonderful one year after saving her town from a psychotic killer on Christmas Eve. When she wishes she was never born, she finds herself magically transported to a nightmarish parallel universe. With the murderous maniac now back, she must team up with a misfit to identify the culprit and get back to her own reality.",
+    "image": "https://image.tmdb.org/t/p/w342//bnm5NntrQBcG3P7DbO00v2FmXm8.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//8RBwd37p2p48lUmZuWBLSkFLprd.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 807172,
+    "title": "The Exorcist: Believer",
+    "description": "When two girls disappear into the woods and return three days later with no memory of what happened to them, the father of one girl seeks out Chris MacNeil, who's been forever altered by what happened to her daughter fifty years ago.",
+    "image": "https://image.tmdb.org/t/p/w342//fFXkAlMH2iQrNknv4eq7LGTkcti.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//azD31DjpV3PJfjF3h72LVw2WCSD.jpg",
+    "category": "Horror"
+  },
+  {
+    "id": 858159,
+    "title": "Human Resources",
+    "description": "After starting a job at an eerie hardware store, an anxious young man uncovers a shocking mystery that leads to a fight against terrifying forces that lurk just behind the walls.",
+    "image": "https://image.tmdb.org/t/p/w342//8ckmwGbblq32xfoS8s35CPtoGgc.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//22akCPktgBMof1qOQPkthQjJlKl.jpg",
+    "category": "Mystery"
+  },
+  {
+    "id": 511082,
+    "title": "Black Butler: Book of Murder",
+    "description": "At the Queen’s request, Ciel and the demon butler Sebastian host an extravagant dinner party for the who’s who of the London underground. But an evening that begins with the promise of unmatched elegance quickly spirals into mayhem when their most distinguished guest is found murdered in his room. Now, trapped in the Phantomhive Manor by a dark and stormy night, Ciel and Sebastian must work together with their high-class guests, including the legendary author Sir Arthur Conan Doyle, to find the murderer in their midst before the blame falls on the host and his somewhat suspicious staff.",
+    "image": "https://image.tmdb.org/t/p/w342//7N8os3UNezyfyY8FowkLbSzHDqW.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//4GgsOFGZCXatHqIqqjpBW5NBpJu.jpg",
+    "category": "Mystery"
+  },
+  {
+    "id": 1100795,
+    "title": "Mr. Monk's Last Case: A Monk Movie",
+    "description": "Monk steps out of retirement as his stepdaughter's wedding turns tragic when her fiancé dies in a bungee jumping accident.",
+    "image": "https://image.tmdb.org/t/p/w342//gj74sUGsPMg5qDQooh8GTs4MvbP.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//u8E3qdHARWXoiN02r31aJd8Fk2X.jpg",
+    "category": "Mystery"
+  },
+  {
+    "id": 862552,
+    "title": "The Ritual Killer",
+    "description": "Unable to process the death of his daughter, Detective Boyd embarks on a hunt for a serial killer who murders according to a brutal tribal ritual: Muti. The only person who can help Boyd is Professor Mackles, an anthropologist who hides an unspeakable secret. The line between sanity and madness thins as Boyd goes deeper into the killer’s world.",
+    "image": "https://image.tmdb.org/t/p/w342//1VtHaELqLMovl8EueBWHDtihhzF.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//bQTfSXQrcVwXJ5TvNzbd3ioMnnM.jpg",
+    "category": "Mystery"
+  },
+  {
+    "id": 536437,
+    "title": "Hypnotic",
+    "description": "A detective becomes entangled in a mystery involving his missing daughter and a secret government program while investigating a string of reality-bending crimes.",
+    "image": "https://image.tmdb.org/t/p/w342//3IhGkkalwXguTlceGSl8XUJZOVI.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//8FhKnPpql374qyyHAkZDld93IUw.jpg",
+    "category": "Mystery"
+  },
+  {
+    "id": 820525,
+    "title": "After Everything",
+    "description": "Besieged by writer’s block and the crushing breakup with Tessa, Hardin travels to Portugal in search of a woman he wronged in the past – and to find himself. Hoping to win back Tessa, he realizes he needs to change his ways before he can make the ultimate commitment.",
+    "image": "https://image.tmdb.org/t/p/w342//uQxjZGU6rxSPSMeAJPJQlmfV3ys.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//jkKVLzLWjSvTnc84VzeljhSy6j8.jpg",
+    "category": "Romance"
+  },
+  {
+    "id": 537915,
+    "title": "After",
+    "description": "Tessa Young is a dedicated student, dutiful daughter and loyal girlfriend to her high school sweetheart. Entering her first semester of college, Tessa's guarded world opens up when she meets Hardin Scott, a mysterious and brooding rebel who makes her question all she thought she knew about herself -- and what she wants out of life.",
+    "image": "https://image.tmdb.org/t/p/w342//u3B2YKUjWABcxXZ6Nm9h10hLUbh.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//997ToEZvF2Obp9zNZbY5ELVnmrW.jpg",
+    "category": "Romance"
+  },
+  {
+    "id": 1176139,
+    "title": "Your Christmas or Mine 2",
+    "description": "They've swapped Christmas – again. Can Hayley and James' relationship survive another turbulent family Christmas or has their future together gone off-piste?!",
+    "image": "https://image.tmdb.org/t/p/w342//zswSOwzHmP90XXsbdcAIKhchOKL.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//1b2qmBIO91k7STcZP6Dx0Q5snU5.jpg",
+    "category": "Romance"
+  },
+  {
+    "id": 851644,
+    "title": "20th Century Girl",
+    "description": "Yeon-du asks her best friend Bora to collect all the information she can about Baek Hyun-jin while she is away in the U.S. for heart surgery. Bora decides to get close to Baek's best friend, Pung Woon-ho first. However, Bora's clumsy plan unfolds in an unexpected direction. In 1999, a year before the new century, Bora, who turns seventeen, falls into the fever of first love.",
+    "image": "https://image.tmdb.org/t/p/w342//od22ftNnyag0TTxcnJhlsu3aLoU.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//rl7Jw8PjhSIjArOlDNv0JQPL1ZV.jpg",
+    "category": "Romance"
+  },
+  {
+    "id": 372058,
+    "title": "Your Name.",
+    "description": "High schoolers Mitsuha and Taki are complete strangers living separate lives. But one night, they suddenly switch places. Mitsuha wakes up in Taki’s body, and he in hers. This bizarre occurrence continues to happen randomly, and the two must adjust their lives around each other.",
+    "image": "https://image.tmdb.org/t/p/w342//q719jXXEzOoYaps6babgKnONONX.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//dIWwZW7dJJtqC6CgWzYkNVKIUm8.jpg",
+    "category": "Romance"
+  },
+  {
+    "id": 10020,
+    "title": "Beauty and the Beast",
+    "description": "Follow the adventures of Belle, a bright young woman who finds herself in the castle of a prince who's been turned into a mysterious beast. With the help of the castle's enchanted staff, Belle soon learns the most important lesson of all -- that true beauty comes from within.",
+    "image": "https://image.tmdb.org/t/p/w342//hUJ0UvQ5tgE2Z9WpfuduVSdiCiU.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//g38W2qmTlpFog1TAnT86FOOLBFT.jpg",
+    "category": "Romance"
+  },
+  {
+    "id": 10198,
+    "title": "The Princess and the Frog",
+    "description": "A waitress, desperate to fulfill her dreams as a restaurant owner, is set on a journey to turn a frog prince back into a human being, but she has to face the same problem after she kisses him.",
+    "image": "https://image.tmdb.org/t/p/w342//yprv5PbnEksoVj2v6XEnDBg9joR.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//z62CBlBBBOoNUuuxZ1jMAcq5ARE.jpg",
+    "category": "Romance"
+  },
+  {
+    "id": 829557,
+    "title": "365 Days: This Day",
+    "description": "Laura and Massimo are back and hotter than ever. But the reunited couple's new beginning is complicated by Massimo’s family ties and a mysterious man who enters Laura’s life to win her heart and trust, at any cost.",
+    "image": "https://image.tmdb.org/t/p/w342//7qU0SOVcQ8BTJLodcAlulUAG16C.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//zBG5Mg29NH9xxpWMMG7BIvKwYhL.jpg",
+    "category": "Romance"
+  },
+  {
+    "id": 3933,
+    "title": "Corpse Bride",
+    "description": "Set in a 19th-century European village, this stop-motion animation feature follows the story of Victor, a young man whisked away to the underworld and wed to a mysterious corpse bride, while his real bride Victoria waits bereft in the land of the living.",
+    "image": "https://image.tmdb.org/t/p/w342//isb2Qow76GpqYmsSyfdMfsYAjts.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//v23fWgJUEt8EMmvn19btIacxP8E.jpg",
+    "category": "Romance"
+  },
+  {
+    "id": 854648,
+    "title": "Robot Apocalypse",
+    "description": "An expert hacker is targeted by a sentient AI after she realizes the threat it poses, and she must try to stay off its radar long enough to stop it.",
+    "image": "https://image.tmdb.org/t/p/w342//zpbgktIR7GkOS83PBAzLlzLSQ5W.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//ixhr0YVs0Du0fPIYQSYYOIf3j0R.jpg",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 1001835,
+    "title": "Wifelike",
+    "description": "A grieving detective in the near-future hunts down criminals who trade artificial humans on the black market. In the fight to end AI exploitation, an underground resistance attempts to infiltrate him by sabotaging the programming of the artificial human assigned as his companion to behave like his late wife. She begins to question her reality as memories of a past life begin to surface in a world where nothing is as it seems.",
+    "image": "https://image.tmdb.org/t/p/w342//tea2gDZPxw0wfKC2S2VRWHagtt4.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//3xvdNyZ9WsVJpyeGhm85fukeZz4.jpg",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 845844,
+    "title": "Extraction Point",
+    "description": "An alien visitor must race against time to reach his extraction point after his UFO is forced to crash down on Earth.",
+    "image": "https://image.tmdb.org/t/p/w342//1djkxHjE3Z2Wk30nrIYm3tj19DO.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original/null",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 609681,
+    "title": "The Marvels",
+    "description": "Carol Danvers, aka Captain Marvel, has reclaimed her identity from the tyrannical Kree and taken revenge on the Supreme Intelligence. But unintended consequences see Carol shouldering the burden of a destabilized universe. When her duties send her to an anomalous wormhole linked to a Kree revolutionary, her powers become entangled with that of Jersey City super-fan Kamala Khan, aka Ms. Marvel, and Carol’s estranged niece, now S.A.B.E.R. astronaut Captain Monica Rambeau. Together, this unlikely trio must team up and learn to work in concert to save the universe.",
+    "image": "https://image.tmdb.org/t/p/w342//Ag3D9qXjhJ2FUkrlJ0Cv1pgxqYQ.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//feSiISwgEpVzR1v3zv2n2AU4ANJ.jpg",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 940721,
+    "title": "Godzilla Minus One",
+    "description": "In postwar Japan, a new terror rises. Will the devastated people be able to survive... let alone fight back?",
+    "image": "https://image.tmdb.org/t/p/w342//hkxxMIGaiCTmrEArK7J56JTKUlB.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//bWIIWhnaoWx3FTVXv6GkYDv3djL.jpg",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 920258,
+    "title": "The Immortal Wars: Rebirth",
+    "description": "Rebirth takes place during the early brutal stages of Dominion Industries. In this story watch Olive and other deviants undergo a series of deadly experiments lead by Laurie Harvey and her team.",
+    "image": "https://image.tmdb.org/t/p/w342//sp0fISNTyzttKfE0PB4ObG5ZRzC.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//wurJckmxIzn2GrJcPDuNFFy1gWx.jpg",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 76600,
+    "title": "Avatar: The Way of Water",
+    "description": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+    "image": "https://image.tmdb.org/t/p/w342//t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//8rpDcsfLJypbO6vREc0547VKqEv.jpg",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 76600,
+    "title": "Avatar: The Way of Water",
+    "description": "Set more than a decade after the events of the first film, learn the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.",
+    "image": "https://image.tmdb.org/t/p/w342//t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//8rpDcsfLJypbO6vREc0547VKqEv.jpg",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 447365,
+    "title": "Guardians of the Galaxy Vol. 3",
+    "description": "Peter Quill, still reeling from the loss of Gamora, must rally his team around him to defend the universe along with protecting one of their own. A mission that, if not completed successfully, could quite possibly lead to the end of the Guardians as we know them.",
+    "image": "https://image.tmdb.org/t/p/w342//r2J02Z2OpNTctfOSN1Ydgii51I3.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//5YZbUmjbMa3ClvSW1Wj3D6XGolb.jpg",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 131631,
+    "title": "The Hunger Games: Mockingjay - Part 1",
+    "description": "Katniss Everdeen reluctantly becomes the symbol of a mass rebellion against the autocratic Capitol.",
+    "image": "https://image.tmdb.org/t/p/w342//4FAA18ZIja70d1Tu5hr5cj2q1sB.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//tFlSDoWQsAZ2qjICKzfP5Yw6zM5.jpg",
+    "category": "Science Fiction"
+  },
+  {
+    "id": 962367,
+    "title": "When Christmas Was Young",
+    "description": "The story follows a headstrong music manager in desperate need of a hit song for his last remaining client, who finds himself falling for a gifted singer-songwriter with abandoned dreams of making it big, as he attempts to secure the rights to a Christmas song she wrote years ago.",
+    "image": "https://image.tmdb.org/t/p/w342//6Fdku46UeJnny4xZK8E1sTVMBRe.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//6eY3V5Exj0kEriaS2aLNHssi0je.jpg",
+    "category": "TV Movie"
+  },
+  {
+    "id": 995206,
+    "title": "Hard Days",
+    "description": "After going to extremes to cover up an accident, a corrupt cop's life spirals out of control when he starts receiving threats from a mysterious witness.",
+    "image": "https://image.tmdb.org/t/p/w342//zZFqGmhJMUiTuEJSneIbI7N5sCw.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//eM3mtxc9OMFghS9K0uDc9DWzIrD.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 844416,
+    "title": "Rumble Through the Dark",
+    "description": "Set in the dark landscape of the Mississippi Delta, where a former bare-knuckle fighter must win one last fight to pay off his debts to the local mob boss and save his childhood home—the stakes nothing less than life or death.",
+    "image": "https://image.tmdb.org/t/p/w342//19UbYIT9WEQS5qSD3BREDxVXk8g.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//rb3QQ2TQfJoCpCZlfXBlBbzYy1D.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 1151534,
+    "title": "Nowhere",
+    "description": "A young pregnant woman named Mia escapes from a country at war by hiding in a maritime container aboard a cargo ship. After a violent storm, Mia gives birth to the child while lost at sea, where she must fight to survive.",
+    "image": "https://image.tmdb.org/t/p/w342//uldNFFKNXNvwss0MIZErMSFkBJZ.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//xvzxqKWltnj6qSiWBXRq6ZCdcrw.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 635910,
+    "title": "The Last Voyage of the Demeter",
+    "description": "The crew of the merchant ship Demeter attempts to survive the ocean voyage from Carpathia to London as they are stalked each night by a merciless presence onboard the ship.",
+    "image": "https://image.tmdb.org/t/p/w342//nrtbv6Cew7qC7k9GsYSf5uSmuKh.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//qEm4FrkGh7kGoEiBOyGYNielYVc.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 1052939,
+    "title": "The Boat",
+    "description": "The trip aboard a luxury yacht of three couples that will turn from an exciting experience to a terrible nightmare.",
+    "image": "https://image.tmdb.org/t/p/w342//zhWuEkivPOFhsbcpitA9RM01HRb.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//2UpBvMFiUD86b20Ds8VRqdNOgH1.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 156022,
+    "title": "The Equalizer",
+    "description": "McCall believes he has put his mysterious past behind him and dedicated himself to beginning a new, quiet life. But when he meets Teri, a young girl under the control of ultra-violent Russian gangsters, he can’t stand idly by – he has to help her. Armed with hidden skills that allow him to serve vengeance against anyone who would brutalize the helpless, McCall comes out of his self-imposed retirement and finds his desire for justice reawakened. If someone has a problem, if the odds are stacked against them, if they have nowhere else to turn, McCall will help. He is The Equalizer.",
+    "image": "https://image.tmdb.org/t/p/w342//9u4yW7yPA0BQ2pv9XwiNzItwvp8.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//wHytVsfAZsVDAcABd6iQGmE2j29.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 251387,
+    "title": "The Night Crew",
+    "description": "A group of hard up bounty hunters must survive the night in a desert motel against a horde of savage cartel killers. They soon realize that their fugitive, a mysterious Chinese woman, is much more than she lets on.",
+    "image": "https://image.tmdb.org/t/p/w342//kga0tqGli4DTcPXnngjRd1JpXye.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//r5fY5ElTmeEAoagS31QY7BmMA3i.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 937249,
+    "title": "57 Seconds",
+    "description": "When a tech blogger lands an interview with a tech guru and stops an attack on him, he finds a mysterious ring that takes him back 57 seconds into the past.",
+    "image": "https://image.tmdb.org/t/p/w342//dfS5qHWFuXyZQnwYREwb7N4qU5p.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//jP3FatCTHc460ZGW57q9ypTdBqu.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 419548,
+    "title": "Krampus: The Devil Returns",
+    "description": "Five years after the murder of his wife and disappearance of his daughter, former police officer Jeremy Duffin is brought back to help in the hunt for a yuletide monster that punishes children that have been \"naughty.\" As the monster becomes more erratic and unpredictable, Jeremy learns the truth about the disappearance of his daughter and the fate that has been bestowed upon him by an unlikely source. Can Jeremy finally end the nightmare Christmas monster that has terrorized this town for years?",
+    "image": "https://image.tmdb.org/t/p/w342//ePeedkZX2k38rmBURWV9WKowVlC.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//zuNCQqypZG8AVTpuCMKcAkZY9wh.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 978870,
+    "title": "Last Night of Amore",
+    "description": "On the night before his retirement, police lieutenant Franco Amore is called to investigate the death of a long-time partner of his in a diamond heist in which he was involved.",
+    "image": "https://image.tmdb.org/t/p/w342//dBp0REsZkZ1HK1PycwlLdBtYdsd.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//A1g8AvP3KpDyu0iyjS6roRxK77v.jpg",
+    "category": "Thriller"
+  },
+  {
+    "id": 1047925,
+    "title": "Come Out Fighting",
+    "description": "In WWII, a squad of U.S. African-American soldiers are sent on a rescue mission behind enemy lines to locate their lost commanding officer and a downed fighter pilot.",
+    "image": "https://image.tmdb.org/t/p/w342//sERwJxz0sqsbcUoTm66l9pI6HcH.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//iaMIylLoN7Y3CvrA0pg2ZFKjk26.jpg",
+    "category": "War"
+  },
+  {
+    "id": 228150,
+    "title": "Fury",
+    "description": "In the last months of World War II, as the Allies make their final push in the European theatre, a battle-hardened U.S. Army sergeant named 'Wardaddy' commands a Sherman tank called 'Fury' and its five-man crew on a deadly mission behind enemy lines. Outnumbered and outgunned, Wardaddy and his men face overwhelming odds in their heroic attempts to strike at the heart of Nazi Germany.",
+    "image": "https://image.tmdb.org/t/p/w342//pfte7wdMobMF4CVHuOxyu6oqeeA.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//kdbLf3aTQsEXqYlH9vA4fzmnSFz.jpg",
+    "category": "War"
+  },
+  {
+    "id": 882569,
+    "title": "Guy Ritchie's The Covenant",
+    "description": "During the war in Afghanistan, a local interpreter risks his own life to carry an injured sergeant across miles of grueling terrain.",
+    "image": "https://image.tmdb.org/t/p/w342//kVG8zFFYrpyYLoHChuEeOGAd6Ru.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//eTvN54pd83TrSEOz6wbsXEJktCV.jpg",
+    "category": "War"
+  },
+  {
+    "id": 940175,
+    "title": "A Tale of Two Guns",
+    "description": "In the lawless West, The Cowboys, a notorious brotherhood of killers and thieves, reigned over the land with brutal fists and fast guns. Fate had finally caught up with them and now the merciless gang has but a single surviving member. When a deputized gunslinger takes up the call to hunt down the last Cowboy, the chase is on and the bullets fly, and only one of these hardened men can survive.",
+    "image": "https://image.tmdb.org/t/p/w342//kT3Zy7kOQERHnpEHT1wMwXEpJsk.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//LfUXJQOhBa0cfQsGnYwuSUaHId.jpg",
+    "category": "Western"
+  },
+  {
+    "id": 709334,
+    "title": "No Name and Dynamite",
+    "description": "The line between the good guys and the bad guys blurs as ruthless bounty hunters No Name and Dynamite Davenport shoot their way through the Wild West, collecting rewards and making more enemies than friends. With the outlaw John Wilkes Booth on the run and gold hidden in the hills, justice must be served.",
+    "image": "https://image.tmdb.org/t/p/w342//7MVENxKbO925bTm6IUb4xtZ65NZ.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//9NDiFyiMYcQHFGYZIKtL6w3JoAl.jpg",
+    "category": "Western"
+  },
+  {
+    "id": 835767,
+    "title": "Gunfight at Rio Bravo",
+    "description": "When mysterious Russian gunslinger Ivan Turchin rides into a small Texas town, he runs afoul of a bloodthirsty outlaw gang known as The Hellhounds. Outmanned and outgunned, the town must put their trust in Turchin to protect them from annihilation at the hands of the bandits. The gunslinger finds allies in the form of Marshal Austin Carter and Sheriff Vernon Kelly, and together the three must make a desperate stand against impossible and violent odds.",
+    "image": "https://image.tmdb.org/t/p/w342//92hYmHw1XpMEF7yZUzjOzcO4zmC.jpg",
+    "backgroundUrl": "https://image.tmdb.org/t/p/original//x7x6NT1JcdqxK8GlAWFhm3mzHnV.jpg",
+    "category": "Western"
   }
 ]
