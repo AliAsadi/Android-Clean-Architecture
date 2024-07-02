@@ -111,7 +111,7 @@ fun SearchScreen(
                         if (showNoMoviesFound) {
                             EmptyStateView(
                                 titleRes = R.string.no_search_results_title,
-                                iconRes = R.drawable.bg_empty_search,
+                                iconRes = R.drawable.bg_empty_no_result,
                                 iconSize = 100.dp,
                                 iconSpacing = 12.dp,
                                 subtitleText = stringResource(id = R.string.no_search_results_subtitle, query),
