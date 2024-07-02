@@ -84,10 +84,13 @@ fun SearchScreen(
         if (errorMessage != null) Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
 
         Scaffold(topBar = {
-            SearchView({
-                query = it
-                onQueryChange(it)
-            }, onBackClick)
+            SearchView(
+                onQueryChange = {
+                    query = it
+                    onQueryChange(it)
+                },
+                onBackClick = onBackClick
+            )
         }) {
             Box(modifier = Modifier.padding(it)) {
                 if (showDefaultState) {

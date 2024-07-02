@@ -67,6 +67,7 @@ fun SearchView(
                 if (query.isNotEmpty()) {
                     IconButton(onClick = {
                         query = ""
+                        onQueryChange("")
                     }) {
                         Icon(imageVector = Icons.Default.Close, contentDescription = null)
                     }
