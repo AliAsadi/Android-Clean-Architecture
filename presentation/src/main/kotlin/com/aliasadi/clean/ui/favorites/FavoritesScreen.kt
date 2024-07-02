@@ -59,8 +59,6 @@ fun FavoritesScreen(
         val isLoading = favoriteUiState.isLoading
         val noDataAvailable = favoriteUiState.noDataAvailable
 
-        MovieList(movies = movies, onMovieClick = onMovieClick)
-
         if (isLoading) {
             LoaderFullScreen()
         } else {
@@ -71,6 +69,8 @@ fun FavoritesScreen(
                     title = stringResource(id = R.string.no_favorite_movies_title),
                     subtitle = stringResource(id = R.string.no_favorite_movies_subtitle)
                 )
+            } else {
+                MovieList(movies = movies, onMovieClick = onMovieClick)
             }
         }
     }
@@ -79,7 +79,7 @@ fun FavoritesScreen(
 @Preview(showSystemUi = true, name = "Light")
 @Preview(showSystemUi = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun FavoritesScreenPreview() {
+private fun FavoritesScreenPreview() {
     val movieItems: List<MovieListItem> = listOf(
         MovieListItem.Separator("Action"),
         MovieListItem.Movie(1, "image1.jpg", "Action"),
@@ -87,6 +87,18 @@ fun FavoritesScreenPreview() {
         MovieListItem.Separator("Drama"),
         MovieListItem.Movie(3, "image3.jpg", "Drama")
     )
+
+    PreviewContainer {
+        val movies = flowOf(PagingData.from(movieItems)).collectAsLazyPagingItems()
+        FavoritesScreen(FavoriteUiState(isLoading = false, noDataAvailable = false), movies) {}
+    }
+}
+
+@Preview(showSystemUi = true, name = "Light")
+@Preview(showSystemUi = true, name = "Dark", uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun FavoritesScreenNoDataPreview() {
+    val movieItems: List<MovieListItem> = listOf(MovieListItem.Movie(1, "image1.jpg", "Action"))
 
     PreviewContainer {
         val movies = flowOf(PagingData.from(movieItems)).collectAsLazyPagingItems()
