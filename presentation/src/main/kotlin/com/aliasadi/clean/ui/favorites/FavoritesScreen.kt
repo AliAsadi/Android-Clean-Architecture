@@ -68,7 +68,7 @@ fun FavoritesScreen(
                 EmptyStateView(
                     modifier = Modifier.padding(16.dp),
                     icon = EmptyStateIcon(iconRes = R.drawable.bg_empty_favorite),
-                    title = stringResource(id = R.string.no_favorite_movies_title) ,
+                    title = stringResource(id = R.string.no_favorite_movies_title),
                     subtitle = stringResource(id = R.string.no_favorite_movies_subtitle)
                 )
             }

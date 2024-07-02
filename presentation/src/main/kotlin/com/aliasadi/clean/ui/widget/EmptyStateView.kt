@@ -72,13 +72,11 @@ fun EmptyStateView(
     }
 }
 
-class EmptyStateIcon(
+data class EmptyStateIcon(
     @DrawableRes val iconRes: Int? = null,
     val size: Dp = 200.dp,
     val spacing: Dp = 0.dp,
-) {
-
-}
+)
 
 @Composable
 private fun Subtitle(text: String, subtitleTextSize: TextUnit) {
