@@ -8,9 +8,10 @@ A demo movie android app showcasing Clean Architecture, written in Kotlin and fe
 
 # Demo
 
-<img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-light.gif" width="30%" style="height: auto;">
-
-
+<div style="display: flex;">
+    <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-light.gif" width="30%" style="height: auto; margin-right: 10px;">
+    <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-dark.gif" width="30%" style="height: auto;">
+</div>
 
 # Features
 
