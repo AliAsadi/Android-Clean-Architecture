@@ -6,13 +6,6 @@ A demo movie android app showcasing Clean Architecture, written in Kotlin and fe
 
 ![image](https://github.com/AliAsadi/Android-Clean-Architecture/assets/20803775/afc6c445-8a0d-4cdc-a2de-0672be74c04a)
 
-# Demo
-
-<div style="display: flex;">
-    <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-light.gif" width="30%" style="height: auto; margin-right: 10px;">
-    <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-dark.gif" width="30%" style="height: auto;">
-</div>
-
 # Features
 
 1. **Offline-first**: The app can be accessed even without an internet connection.
@@ -60,6 +53,12 @@ This repository hosts the source code and documentation for the Movies Mock Serv
 Architecture by its nature is **dynamic** and **ever-evolving**, there are always several solutions to every problem, and what works best will depend on the specific requirements and constraints of your project.
 
 ![image](https://user-images.githubusercontent.com/20803775/214686254-9405504c-05d2-417e-9cf5-669a1a57e8a6.png)
+
+# Demo
+
+| Light                                                                                                        | Dark                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-light.gif" width="60%" style="height: auto; margin-right: 10px;"> | <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-dark.gif" width="60%" style="height: auto;"> |
 
 # Screenshots
 
