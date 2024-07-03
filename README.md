@@ -58,7 +58,7 @@ Architecture by its nature is **dynamic** and **ever-evolving**, there are alway
 
 | Light                                                                                                        | Dark                                                                                                        |
 | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-light.gif" width="80%" style="height: auto; margin-right: 10px;"> | <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-dark.gif" width="80%" style="height: auto;"> |
+| <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-light.gif" width="70%" style="height: auto; margin-right: 10px;"> | <img src="https://raw.githubusercontent.com/AliAsadi/Android-Clean-Architecture/master/screenshot/demo-dark.gif" width="70%" style="height: auto;"> |
 
 # Screenshots
 
