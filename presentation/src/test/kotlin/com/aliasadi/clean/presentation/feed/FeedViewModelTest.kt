@@ -34,7 +34,7 @@ class FeedViewModelTest : BaseTest() {
     private val getMoviesWithSeparators: GetMoviesWithSeparators = mock()
     private val networkMonitor: NetworkMonitor = mock()
 
-    private lateinit var viewModel: FeedViewModel
+    private lateinit var sut: FeedViewModel
 
     private val movies = listOf(MovieListItem.Movie(1, "", ""))
 
@@ -45,7 +45,7 @@ class FeedViewModelTest : BaseTest() {
         `when`(getMoviesWithSeparators.movies(pageSize = anyInt())).thenReturn(pagingData)
         `when`(networkMonitor.getInitialState()).thenReturn(NetworkMonitor.NetworkState.Available)
         `when`(networkMonitor.networkState).thenReturn(flowOf(NetworkMonitor.NetworkState.Available))
-        viewModel = FeedViewModel(
+        sut = FeedViewModel(
             getMoviesWithSeparators = getMoviesWithSeparators,
             networkMonitor = networkMonitor,
             dispatchers = coroutineRule.testDispatcherProvider
@@ -54,16 +54,16 @@ class FeedViewModelTest : BaseTest() {
 
     @Test
     fun `test showing loader when loading data`() = runTest {
-        viewModel.onLoadStateUpdate(mockLoadState(LoadState.Loading))
-        assertThat(viewModel.uiState.value.showLoading).isTrue()
+        sut.onLoadStateUpdate(mockLoadState(LoadState.Loading))
+        assertThat(sut.uiState.value.showLoading).isTrue()
     }
 
     @Test
     fun `test showing error message on loading failure`() = runTest {
         val errorMessage = "error"
-        viewModel.onLoadStateUpdate(mockLoadState(LoadState.Error(Throwable(errorMessage))))
+        sut.onLoadStateUpdate(mockLoadState(LoadState.Error(Throwable(errorMessage))))
 
-        viewModel.uiState.test {
+        sut.uiState.test {
             val emission: FeedUiState = awaitItem()
             assertThat(emission.showLoading).isFalse()
             assertThat(emission.errorMessage).isEqualTo(errorMessage)
@@ -72,10 +72,10 @@ class FeedViewModelTest : BaseTest() {
 
     @Test
     fun `test showing movies on loading success`() = runTest {
-        viewModel.onLoadStateUpdate(mockLoadState(LoadState.NotLoading(true)))
+        sut.onLoadStateUpdate(mockLoadState(LoadState.NotLoading(true)))
 
         // TODO - test movies flow
-        viewModel.uiState.test {
+        sut.uiState.test {
             val emission: FeedUiState = awaitItem()
             assertThat(emission.showLoading).isFalse()
             assertThat(emission.errorMessage).isNull()
@@ -87,7 +87,7 @@ class FeedViewModelTest : BaseTest() {
         val movieId = 1
 
         launch {
-            viewModel.navigationState.test {
+            sut.navigationState.test {
                 val emission = awaitItem()
                 assertThat(emission).isInstanceOf(FeedNavigationState.MovieDetails::class.java)
                 when (emission) {
@@ -96,7 +96,7 @@ class FeedViewModelTest : BaseTest() {
             }
         }
 
-        viewModel.onMovieClicked(movieId)
+        sut.onMovieClicked(movieId)
     }
 
     private fun mockLoadState(state: LoadState): CombinedLoadStates = CombinedLoadStates(
