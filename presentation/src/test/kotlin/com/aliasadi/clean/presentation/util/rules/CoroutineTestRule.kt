@@ -4,6 +4,7 @@ import com.aliasadi.data.util.DispatchersProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.test.*
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
@@ -27,14 +28,12 @@ class CoroutineTestRule : TestWatcher() {
     }
 
     val testDispatcherProvider = object : DispatchersProvider {
-        override fun getIO(): CoroutineDispatcher = testDispatcher
-        override fun getMain(): CoroutineDispatcher = testDispatcher
-        override fun getMainImmediate(): CoroutineDispatcher = testDispatcher
-        override fun getDefault(): CoroutineDispatcher = testDispatcher
+        override val main: MainCoroutineDispatcher = Dispatchers.Main
+        override val io: CoroutineDispatcher = testDispatcher
+        override val default: CoroutineDispatcher = testDispatcher
     }
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
 fun CoroutineTestRule.runTest(block: suspend TestScope.() -> Unit) = runTest(testDispatcher) {
     block()
 }
