@@ -18,17 +18,14 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
-import org.mockito.junit.MockitoJUnitRunner
 
 /**
  * Created by Ali Asadi on 16/05/2020
  **/
 
-@RunWith(MockitoJUnitRunner::class)
 class FeedViewModelTest : BaseTest() {
 
     private val getMoviesWithSeparators: GetMoviesWithSeparators = mock()
