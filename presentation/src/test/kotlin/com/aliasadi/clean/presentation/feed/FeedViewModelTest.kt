@@ -74,7 +74,6 @@ class FeedViewModelTest : BaseTest() {
     fun `test showing movies on loading success`() = runTest {
         sut.onLoadStateUpdate(mockLoadState(LoadState.NotLoading(true)))
 
-        // TODO - test movies flow
         sut.uiState.test {
             val emission: FeedUiState = awaitItem()
             assertThat(emission.showLoading).isFalse()
@@ -99,7 +98,11 @@ class FeedViewModelTest : BaseTest() {
         sut.onMovieClicked(movieId)
     }
 
-    private fun mockLoadState(state: LoadState): CombinedLoadStates = CombinedLoadStates(
-        state, state, state, LoadStates(state, state, state)
-    )
+    private fun mockLoadState(state: LoadState): CombinedLoadStates =
+        CombinedLoadStates(
+            refresh = state,
+            prepend = state,
+            append = state,
+            source = LoadStates(state, state, state)
+        )
 }
