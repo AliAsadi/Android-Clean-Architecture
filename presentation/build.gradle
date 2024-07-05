@@ -131,8 +131,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
 
     //Mockito
-    testImplementation 'org.mockito:mockito-core:5.0.0'
-    testImplementation "org.mockito:mockito-inline:5.0.0"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+    testImplementation 'org.mockito:mockito-inline:5.0.0'
+    testImplementation 'org.mockito:mockito-android:5.0.0'
 
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation 'junit:junit:4.13.2'

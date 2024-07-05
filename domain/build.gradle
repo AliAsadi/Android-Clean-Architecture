@@ -5,10 +5,6 @@ plugins {
 dependencies {
     implementation 'androidx.paging:paging-common-ktx:3.3.0'
 
-    //Mockito
-    testImplementation 'org.mockito:mockito-core:5.0.0'
-    testImplementation "org.mockito:mockito-inline:5.0.0"
-
     //Junit
     testImplementation 'junit:junit:4.13.2'
 }

@@ -20,7 +20,7 @@ import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
+import org.mockito.kotlin.whenever
 
 /**
  * Created by Ali Asadi on 16/05/2020
@@ -39,9 +39,10 @@ class FeedViewModelTest : BaseTest() {
 
     @Before
     fun setUp() {
-        `when`(getMoviesWithSeparators.movies(pageSize = anyInt())).thenReturn(pagingData)
-        `when`(networkMonitor.getInitialState()).thenReturn(NetworkMonitor.NetworkState.Available)
-        `when`(networkMonitor.networkState).thenReturn(flowOf(NetworkMonitor.NetworkState.Available))
+
+        whenever(getMoviesWithSeparators.movies(pageSize = anyInt())).thenReturn(pagingData)
+        whenever(networkMonitor.getInitialState()).thenReturn(NetworkMonitor.NetworkState.Available)
+        whenever(networkMonitor.networkState).thenReturn(flowOf(NetworkMonitor.NetworkState.Available))
         sut = FeedViewModel(
             getMoviesWithSeparators = getMoviesWithSeparators,
             networkMonitor = networkMonitor,

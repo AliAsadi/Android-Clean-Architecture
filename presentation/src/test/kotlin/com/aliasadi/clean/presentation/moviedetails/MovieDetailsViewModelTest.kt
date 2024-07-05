@@ -17,7 +17,7 @@ import com.aliasadi.domain.util.Result
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.`when`
+import org.mockito.kotlin.whenever
 
 /**
  * Created by Ali Asadi on 16/05/2020
@@ -38,7 +38,7 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     @Before
     fun setUp() {
-        `when`(savedStateHandle.toRoute<Page.MovieDetails>()).thenReturn(Page.MovieDetails(movieId))
+        whenever(savedStateHandle.toRoute<Page.MovieDetails>()).thenReturn(Page.MovieDetails(movieId))
 
         viewModel = MovieDetailsViewModel(
             getMovieDetails = getMovieDetails,
@@ -52,7 +52,7 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     @Test
     fun onInitialState_movieAvailable_showMovieDetails() = runTest {
-        `when`(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
+        whenever(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
 
         viewModel.onInitialState()
 
@@ -67,7 +67,7 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     @Test
     fun onInitialState_movieNotAvailable_doNothing() = runTest {
-        `when`(getMovieDetails(movieId)).thenReturn(Result.Error(mock()))
+        whenever(getMovieDetails(movieId)).thenReturn(Result.Error(mock()))
 
         viewModel.onInitialState()
 
