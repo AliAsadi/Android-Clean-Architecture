@@ -51,8 +51,7 @@ class MovieDetailsViewModel @Inject constructor(
         onInitialState()
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun onInitialState() = launchOnMainImmediate {
+    private fun onInitialState() = launchOnMainImmediate {
         val isFavorite = async { checkFavoriteStatus(movieId).asSuccessOrNull() ?: false }
         getMovieById(movieId).onSuccess {
             _uiState.value = MovieDetailsUiState(
