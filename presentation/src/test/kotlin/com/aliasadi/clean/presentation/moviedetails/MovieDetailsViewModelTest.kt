@@ -1,9 +1,6 @@
 package com.aliasadi.clean.presentation.moviedetails
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.toRoute
 import app.cash.turbine.test
-import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.presentation.base.BaseTest
 import com.aliasadi.clean.presentation.util.mock
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsUiState
@@ -26,40 +23,32 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     private var movieId: Int = 1413
 
-    private val movie = MovieEntity(movieId, "title", "desc", "image", "category", "")
+    private val movie = MovieEntity(movieId, "title", "desc", "image", "category", "backgroundUrl")
 
     private val getMovieDetails: GetMovieDetails = mock()
-    private var checkFavoriteStatus: CheckFavoriteStatus = mock()
+    private val checkFavoriteStatus: CheckFavoriteStatus = mock()
     private var addMovieToFavorite: AddMovieToFavorite = mock()
     private val removeMovieFromFavorite: RemoveMovieFromFavorite = mock()
-    private val savedStateHandle: SavedStateHandle = mock()
+    private val movieDetailsBundle: MovieDetailsViewModel.MovieDetailsBundle = mock()
 
-    private lateinit var viewModel: MovieDetailsViewModel
+    private lateinit var sut: MovieDetailsViewModel
 
     @Before
     fun setUp() {
-        whenever(savedStateHandle.toRoute<Page.MovieDetails>()).thenReturn(Page.MovieDetails(movieId))
-
-        viewModel = MovieDetailsViewModel(
-            getMovieDetails = getMovieDetails,
-            checkFavoriteStatus = checkFavoriteStatus,
-            removeMovieFromFavorite = removeMovieFromFavorite,
-            addMovieToFavorite = addMovieToFavorite,
-            savedStateHandle = savedStateHandle,
-            dispatchers = coroutineRule.testDispatcherProvider
-        )
+        whenever(movieDetailsBundle.movieId).thenReturn(movieId)
     }
 
     @Test
     fun onInitialState_movieAvailable_showMovieDetails() = runTest {
         whenever(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
+        whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(Result.Success(false))
 
-        viewModel.onInitialState()
+        createViewModel()
 
-        viewModel.uiState.test {
+        sut.uiState.test {
             val emission = awaitItem()
             assertThat(emission.description).isEqualTo(movie.description)
-            assertThat(emission.imageUrl).isEqualTo(movie.image)
+            assertThat(emission.imageUrl).isEqualTo(movie.backgroundUrl)
             assertThat(emission.title).isEqualTo(movie.title)
             assertThat(emission.isFavorite).isFalse()
         }
@@ -68,12 +57,23 @@ class MovieDetailsViewModelTest : BaseTest() {
     @Test
     fun onInitialState_movieNotAvailable_doNothing() = runTest {
         whenever(getMovieDetails(movieId)).thenReturn(Result.Error(mock()))
+        whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(Result.Success(false))
+        createViewModel()
 
-        viewModel.onInitialState()
-
-        viewModel.uiState.test {
+        sut.uiState.test {
             val emission = awaitItem()
             assertThat(emission).isEqualTo(MovieDetailsUiState())
         }
+    }
+
+    private fun createViewModel() {
+        sut = MovieDetailsViewModel(
+            getMovieDetails = getMovieDetails,
+            checkFavoriteStatus = checkFavoriteStatus,
+            removeMovieFromFavorite = removeMovieFromFavorite,
+            addMovieToFavorite = addMovieToFavorite,
+            dispatchers = coroutineRule.testDispatcherProvider,
+            movieDetailsBundle = movieDetailsBundle
+        )
     }
 }
