@@ -2,7 +2,6 @@ package com.aliasadi.clean.presentation.moviedetails
 
 import app.cash.turbine.test
 import com.aliasadi.clean.presentation.base.BaseTest
-import com.aliasadi.clean.presentation.util.mock
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsUiState
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.domain.entities.MovieEntity
@@ -13,6 +12,7 @@ import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import org.mockito.Mockito.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
 import org.mockito.kotlin.whenever
