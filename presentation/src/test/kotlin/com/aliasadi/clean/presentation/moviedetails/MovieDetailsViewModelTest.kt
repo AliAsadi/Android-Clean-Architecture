@@ -27,7 +27,7 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     private val getMovieDetails: GetMovieDetails = mock()
     private val checkFavoriteStatus: CheckFavoriteStatus = mock()
-    private var addMovieToFavorite: AddMovieToFavorite = mock()
+    private val addMovieToFavorite: AddMovieToFavorite = mock()
     private val removeMovieFromFavorite: RemoveMovieFromFavorite = mock()
     private val movieDetailsBundle: MovieDetailsViewModel.MovieDetailsBundle = mock()
 
