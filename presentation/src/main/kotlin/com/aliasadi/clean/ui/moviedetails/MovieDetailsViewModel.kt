@@ -1,8 +1,6 @@
 package com.aliasadi.clean.ui.moviedetails
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.base.BaseViewModel
@@ -20,7 +18,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
