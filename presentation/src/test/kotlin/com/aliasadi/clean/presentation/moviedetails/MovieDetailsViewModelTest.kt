@@ -13,15 +13,14 @@ import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.verifyNoInteractions
 import org.mockito.kotlin.whenever
 
 /**
  * Created by Ali Asadi on 16/05/2020
  **/
 class MovieDetailsViewModelTest : BaseTest() {
-
-    private val movieId = 1413
-    private val movie = MovieEntity(movieId, "title", "desc", "image", "category", "backgroundUrl")
 
     private val getMovieDetails: GetMovieDetails = mock()
     private val checkFavoriteStatus: CheckFavoriteStatus = mock()
@@ -33,6 +32,9 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     @Test
     fun `test ui state reflects movie details correctly`() = runTest {
+        val movieId = 1413
+        val movie = MovieEntity(movieId, "title", "desc", "image", "category", "backgroundUrl")
+
         createViewModel(
             movieId = movieId,
             movieDetailsResult = Result.Success(movie),
@@ -46,6 +48,9 @@ class MovieDetailsViewModelTest : BaseTest() {
             assertThat(emission.imageUrl).isEqualTo(movie.backgroundUrl)
             assertThat(emission.isFavorite).isFalse()
         }
+
+        verify(getMovieDetails).invoke(movieId)
+        verify(checkFavoriteStatus).invoke(movieId)
     }
 
     @Test
@@ -65,9 +70,10 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     @Test
     fun `test movie marked as favorite`() = runTest {
+        val movieId = 555
         createViewModel(
             movieId = movieId,
-            movieDetailsResult = Result.Success(movie),
+            movieDetailsResult = Result.Error(mock()),
             favoriteStatusResult = Result.Success(false)
         )
 
@@ -77,13 +83,17 @@ class MovieDetailsViewModelTest : BaseTest() {
             val emission = awaitItem()
             assertThat(emission.isFavorite).isTrue()
         }
+
+        verify(addMovieToFavorite).invoke(movieId)
+        verifyNoInteractions(removeMovieFromFavorite)
     }
 
     @Test
     fun `test movie removed from favorites`() = runTest {
+        val movieId = 555
         createViewModel(
             movieId = movieId,
-            movieDetailsResult = Result.Success(movie),
+            movieDetailsResult = Result.Error(mock()),
             favoriteStatusResult = Result.Success(true)
         )
         sut.onFavoriteClicked()
@@ -92,6 +102,9 @@ class MovieDetailsViewModelTest : BaseTest() {
             val emission = awaitItem()
             assertThat(emission.isFavorite).isFalse()
         }
+
+        verify(removeMovieFromFavorite).invoke(movieId)
+        verifyNoInteractions(addMovieToFavorite)
     }
 
     private suspend fun createViewModel(
