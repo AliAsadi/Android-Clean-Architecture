@@ -14,8 +14,10 @@ import com.aliasadi.clean.ui.search.SearchViewModel.Companion
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.SearchMovies
 import com.google.common.truth.Truth.assertThat
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.advanceTimeBy
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mockito.anyInt
@@ -46,6 +48,7 @@ class SearchViewModelTest : BaseTest() {
             val emission = awaitItem()
             assertThat(emission.showDefaultState).isTrue()
             assertThat(emission.showLoading).isFalse()
+            assertThat(emission.showNoMoviesFound).isFalse()
         }
     }
 
