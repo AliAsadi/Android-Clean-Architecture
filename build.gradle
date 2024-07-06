@@ -31,7 +31,7 @@ allprojects {
     apply from: "$rootDir/detekt.gradle"
 
     //Apply Kover plugin for all modules
-    apply plugin: 'org.jetbrains.kotlinx.kover'
+    apply from: "$rootDir/kover.gradle"
 }
 
 tasks.register('clean', Delete) {
@@ -40,4 +40,10 @@ tasks.register('clean', Delete) {
 
 tasks.register('detektTask', Exec) {
     commandLine './gradlew', 'detektMain'
+    description = "Runs detekt analysis on the main source set"
+}
+
+tasks.register("koverTask", Exec) {
+    commandLine './gradlew', 'presentation:koverHtmlReport'
+    description = "Runs kover and generates coverage reports"
 }
