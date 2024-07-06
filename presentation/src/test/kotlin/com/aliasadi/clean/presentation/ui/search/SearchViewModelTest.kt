@@ -18,12 +18,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
 import org.junit.Test
-import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.mock
-import org.mockito.kotlin.eq
-import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 class SearchViewModelTest : BaseTest() {
