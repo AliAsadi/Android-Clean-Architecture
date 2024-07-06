@@ -1,7 +1,7 @@
-package com.aliasadi.clean.presentation.moviedetails
+package com.aliasadi.clean.presentation.ui.moviedetails
 
 import app.cash.turbine.test
-import com.aliasadi.clean.presentation.base.BaseTest
+import com.aliasadi.clean.presentation.ui.base.BaseTest
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsUiState
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.domain.entities.MovieEntity

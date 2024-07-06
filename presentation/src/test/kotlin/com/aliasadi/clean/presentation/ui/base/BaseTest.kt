@@ -1,4 +1,4 @@
-package com.aliasadi.clean.presentation.base
+package com.aliasadi.clean.presentation.ui.base
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aliasadi.clean.presentation.util.rules.CoroutineTestRule

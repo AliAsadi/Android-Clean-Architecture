@@ -1,4 +1,4 @@
-package com.aliasadi.clean.presentation.feed
+package com.aliasadi.clean.presentation.ui.feed
 
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
@@ -6,7 +6,7 @@ import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.presentation.base.BaseTest
+import com.aliasadi.clean.presentation.ui.base.BaseTest
 import com.aliasadi.clean.ui.feed.FeedNavigationState
 import com.aliasadi.clean.ui.feed.FeedUiState
 import com.aliasadi.clean.ui.feed.FeedViewModel
