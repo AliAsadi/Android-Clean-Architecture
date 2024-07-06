@@ -14,6 +14,7 @@ import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
 import com.aliasadi.clean.util.NetworkMonitor
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import org.junit.Before
@@ -30,6 +31,7 @@ class FeedViewModelTest : BaseTest() {
 
     private val getMoviesWithSeparators: GetMoviesWithSeparators = mock()
     private val networkMonitor: NetworkMonitor = mock()
+    private val networkState = MutableStateFlow(NetworkMonitor.NetworkState.Available)
 
     private lateinit var sut: FeedViewModel
 
@@ -41,7 +43,7 @@ class FeedViewModelTest : BaseTest() {
     fun setUp() {
         whenever(getMoviesWithSeparators.movies(pageSize = anyInt())).thenReturn(pagingData)
         whenever(networkMonitor.getInitialState()).thenReturn(NetworkMonitor.NetworkState.Available)
-        whenever(networkMonitor.networkState).thenReturn(flowOf(NetworkMonitor.NetworkState.Available))
+        whenever(networkMonitor.networkState).thenReturn(networkState)
         sut = FeedViewModel(
             getMoviesWithSeparators = getMoviesWithSeparators,
             networkMonitor = networkMonitor,
@@ -93,6 +95,23 @@ class FeedViewModelTest : BaseTest() {
         }
 
         sut.onMovieClicked(movieId)
+    }
+
+    @Test
+    fun `test refreshing movies`() = runTest {
+        sut.refreshListState.test {
+            sut.onRefresh()
+            assertThat(awaitItem()).isEqualTo(Unit)
+        }
+    }
+
+    @Test
+    fun `test refreshing movies when network state is lost`() = runTest {
+        sut.refreshListState.test {
+            networkState.emit(NetworkMonitor.NetworkState.Lost)
+            networkState.emit(NetworkMonitor.NetworkState.Available)
+            assertThat(awaitItem()).isEqualTo(Unit)
+        }
     }
 
     private fun mockLoadState(state: LoadState): CombinedLoadStates =
