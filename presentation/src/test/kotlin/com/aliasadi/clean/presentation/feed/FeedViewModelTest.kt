@@ -39,7 +39,6 @@ class FeedViewModelTest : BaseTest() {
 
     @Before
     fun setUp() {
-
         whenever(getMoviesWithSeparators.movies(pageSize = anyInt())).thenReturn(pagingData)
         whenever(networkMonitor.getInitialState()).thenReturn(NetworkMonitor.NetworkState.Available)
         whenever(networkMonitor.networkState).thenReturn(flowOf(NetworkMonitor.NetworkState.Available))
