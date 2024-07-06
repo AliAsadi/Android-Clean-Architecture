@@ -8,6 +8,7 @@ import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.aliasadi.clean.presentation.ui.base.BaseTest
 import com.aliasadi.clean.ui.search.SearchNavigationState.MovieDetails
+import com.aliasadi.clean.ui.search.SearchUiState
 import com.aliasadi.clean.ui.search.SearchViewModel
 import com.aliasadi.clean.ui.search.SearchViewModel.Companion
 import com.aliasadi.domain.entities.MovieEntity
@@ -84,6 +85,35 @@ class SearchViewModelTest : BaseTest() {
         sut.uiState.test {
             val emission = awaitItem()
             assertThat(emission.errorMessage).isEqualTo(errorMessage)
+        }
+    }
+
+
+    @Test
+    fun `test search query updates`() = runTest {
+        val query = "Batman"
+        queryFlow.emit(query)
+
+        sut.movies.test {
+            val item = awaitItem()
+            assertThat(item).isNotNull()
+        }
+
+        sut.uiState.test {
+            val emission = awaitItem()
+            assertThat(emission.showDefaultState).isFalse()
+            assertThat(emission.showLoading).isTrue()
+        }
+    }
+
+    @Test
+    fun `test on empty query search`() = runTest {
+        val emptyQuery = ""
+        queryFlow.emit(emptyQuery)
+
+        sut.uiState.test {
+            val emission = awaitItem()
+            assertThat(emission).isEqualTo(SearchUiState())
         }
     }
 
