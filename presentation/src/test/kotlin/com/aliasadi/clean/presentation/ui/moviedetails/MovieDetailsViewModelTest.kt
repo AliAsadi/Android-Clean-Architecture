@@ -60,7 +60,7 @@ class MovieDetailsViewModelTest : BaseTest() {
         createViewModel(
             movieId = invalidMovieId,
             movieDetailsResult = Result.Error(mock()),
-            favoriteStatusResult = Result.Success(false)
+            favoriteStatusResult = Result.Error(mock())
         )
 
         sut.uiState.test {
