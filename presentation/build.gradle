@@ -57,6 +57,7 @@ android {
 }
 
 dependencies {
+    kover(project(":data"))
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":data")
 
