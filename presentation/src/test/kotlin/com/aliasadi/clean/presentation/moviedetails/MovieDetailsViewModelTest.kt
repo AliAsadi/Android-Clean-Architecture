@@ -12,7 +12,6 @@ import com.aliasadi.domain.usecase.GetMovieDetails
 import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.util.Result
 import com.google.common.truth.Truth.assertThat
-import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.whenever
 
@@ -21,8 +20,7 @@ import org.mockito.kotlin.whenever
  **/
 class MovieDetailsViewModelTest : BaseTest() {
 
-    private var movieId: Int = 1413
-
+    private val movieId = 1413
     private val movie = MovieEntity(movieId, "title", "desc", "image", "category", "backgroundUrl")
 
     private val getMovieDetails: GetMovieDetails = mock()
@@ -33,16 +31,13 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     private lateinit var sut: MovieDetailsViewModel
 
-    @Before
-    fun setUp() {
-        whenever(movieDetailsBundle.movieId).thenReturn(movieId)
-    }
-
     @Test
     fun `test ui state reflects movie details correctly`() = runTest {
-        whenever(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
-        whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(Result.Success(false))
-        createViewModel()
+        createViewModel(
+            movieId = movieId,
+            movieDetailsResult = Result.Success(movie),
+            favoriteStatusResult = Result.Success(false)
+        )
 
         sut.uiState.test {
             val emission = awaitItem()
@@ -56,11 +51,11 @@ class MovieDetailsViewModelTest : BaseTest() {
     @Test
     fun `test no change in UI when movie ID is invalid`() = runTest {
         val invalidMovieId = -1
-        whenever(movieDetailsBundle.movieId).thenReturn(invalidMovieId)
-        whenever(getMovieDetails(invalidMovieId)).thenReturn(Result.Error(mock()))
-        whenever(checkFavoriteStatus.invoke(invalidMovieId)).thenReturn(Result.Success(false))
-
-        createViewModel()
+        createViewModel(
+            movieId = invalidMovieId,
+            movieDetailsResult = Result.Error(mock()),
+            favoriteStatusResult = Result.Success(false)
+        )
 
         sut.uiState.test {
             val emission = awaitItem()
@@ -70,9 +65,11 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     @Test
     fun `test movie marked as favorite`() = runTest {
-        whenever(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
-        whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(Result.Success(false))
-        createViewModel()
+        createViewModel(
+            movieId = movieId,
+            movieDetailsResult = Result.Success(movie),
+            favoriteStatusResult = Result.Success(false)
+        )
 
         sut.onFavoriteClicked()
 
@@ -84,10 +81,11 @@ class MovieDetailsViewModelTest : BaseTest() {
 
     @Test
     fun `test movie removed from favorites`() = runTest {
-        whenever(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
-        whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(Result.Success(true))
-        createViewModel()
-
+        createViewModel(
+            movieId = movieId,
+            movieDetailsResult = Result.Success(movie),
+            favoriteStatusResult = Result.Success(true)
+        )
         sut.onFavoriteClicked()
 
         sut.uiState.test {
@@ -96,7 +94,16 @@ class MovieDetailsViewModelTest : BaseTest() {
         }
     }
 
-    private fun createViewModel() {
+    private suspend fun createViewModel(
+        movieId: Int,
+        movieDetailsResult: Result<MovieEntity>,
+        favoriteStatusResult: Result<Boolean>
+    ) {
+        whenever(movieDetailsBundle.movieId).thenReturn(movieId)
+        whenever(getMovieDetails(movieId)).thenReturn(movieDetailsResult)
+        whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(favoriteStatusResult)
+
+
         sut = MovieDetailsViewModel(
             getMovieDetails = getMovieDetails,
             checkFavoriteStatus = checkFavoriteStatus,
