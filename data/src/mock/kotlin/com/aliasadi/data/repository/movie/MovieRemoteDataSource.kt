@@ -3,7 +3,7 @@ package com.aliasadi.data.repository.movie
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.data.utils.JsonLoader
+import com.aliasadi.data.util.JsonLoader
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.delay

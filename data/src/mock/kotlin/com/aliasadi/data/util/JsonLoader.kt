@@ -1,4 +1,4 @@
-package com.aliasadi.data.utils
+package com.aliasadi.data.util
 
 import com.aliasadi.data.entities.MovieData
 import com.google.gson.GsonBuilder

@@ -23,7 +23,7 @@ def include = [
         "com.aliasadi.clean.ui.*ViewModel",
         "*usecase*",
         "com.aliasadi.data.*",
-        "com.aliasadi.domain.*",
+        "com.aliasadi.domain.usecase.*",
 ]
 
 kover {
