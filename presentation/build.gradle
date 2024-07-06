@@ -56,11 +56,14 @@ android {
     namespace 'com.aliasadi.clean'
 }
 
+
 dependencies {
-    kover(project(":data"))
-    kover(project(":domain"))
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":data")
+
+    // Kover Coverage (All Modules)
+    kover(project(":data"))
+    kover(project(":domain"))
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.21"
