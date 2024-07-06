@@ -103,7 +103,6 @@ class MovieDetailsViewModelTest : BaseTest() {
         whenever(getMovieDetails(movieId)).thenReturn(movieDetailsResult)
         whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(favoriteStatusResult)
 
-
         sut = MovieDetailsViewModel(
             getMovieDetails = getMovieDetails,
             checkFavoriteStatus = checkFavoriteStatus,
