@@ -18,9 +18,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.mock
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 class SearchViewModelTest : BaseTest() {
@@ -88,7 +91,6 @@ class SearchViewModelTest : BaseTest() {
         }
     }
 
-
     @Test
     fun `test search query updates`() = runTest {
         val query = "Batman"
@@ -115,6 +117,14 @@ class SearchViewModelTest : BaseTest() {
             val emission = awaitItem()
             assertThat(emission).isEqualTo(SearchUiState())
         }
+    }
+
+    @Test
+    fun `test that search query updated`() = runTest {
+        val query = "Batman"
+        whenever(savedStateHandle.get<String>(SearchViewModel.KEY_SEARCH_QUERY)).thenReturn(query)
+        sut.onSearch(query)
+        assertThat(savedStateHandle.get<String>(SearchViewModel.KEY_SEARCH_QUERY)).isEqualTo(query)
     }
 
     private fun mockLoadState(state: LoadState): CombinedLoadStates =
