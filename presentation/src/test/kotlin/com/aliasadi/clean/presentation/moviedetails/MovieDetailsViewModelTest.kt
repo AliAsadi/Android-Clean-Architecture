@@ -39,30 +39,60 @@ class MovieDetailsViewModelTest : BaseTest() {
     }
 
     @Test
-    fun onInitialState_movieAvailable_showMovieDetails() = runTest {
+    fun `test ui state reflects movie details correctly`() = runTest {
         whenever(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
         whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(Result.Success(false))
-
         createViewModel()
 
         sut.uiState.test {
             val emission = awaitItem()
+            assertThat(emission.title).isEqualTo(movie.title)
             assertThat(emission.description).isEqualTo(movie.description)
             assertThat(emission.imageUrl).isEqualTo(movie.backgroundUrl)
-            assertThat(emission.title).isEqualTo(movie.title)
             assertThat(emission.isFavorite).isFalse()
         }
     }
 
     @Test
-    fun onInitialState_movieNotAvailable_doNothing() = runTest {
-        whenever(getMovieDetails(movieId)).thenReturn(Result.Error(mock()))
-        whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(Result.Success(false))
+    fun `test no change in UI when movie ID is invalid`() = runTest {
+        val invalidMovieId = -1
+        whenever(movieDetailsBundle.movieId).thenReturn(invalidMovieId)
+        whenever(getMovieDetails(invalidMovieId)).thenReturn(Result.Error(mock()))
+        whenever(checkFavoriteStatus.invoke(invalidMovieId)).thenReturn(Result.Success(false))
+
         createViewModel()
 
         sut.uiState.test {
             val emission = awaitItem()
             assertThat(emission).isEqualTo(MovieDetailsUiState())
+        }
+    }
+
+    @Test
+    fun `test movie marked as favorite`() = runTest {
+        whenever(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
+        whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(Result.Success(false))
+        createViewModel()
+
+        sut.onFavoriteClicked()
+
+        sut.uiState.test {
+            val emission = awaitItem()
+            assertThat(emission.isFavorite).isTrue()
+        }
+    }
+
+    @Test
+    fun `test movie removed from favorites`() = runTest {
+        whenever(getMovieDetails(movieId)).thenReturn(Result.Success(movie))
+        whenever(checkFavoriteStatus.invoke(movieId)).thenReturn(Result.Success(true))
+        createViewModel()
+
+        sut.onFavoriteClicked()
+
+        sut.uiState.test {
+            val emission = awaitItem()
+            assertThat(emission.isFavorite).isFalse()
         }
     }
 
