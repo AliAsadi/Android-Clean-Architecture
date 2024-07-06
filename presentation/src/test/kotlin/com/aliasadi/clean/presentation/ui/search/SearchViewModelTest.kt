@@ -62,6 +62,18 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
+    fun `test showing data when they are available at the end of pagination`() = runTest {
+        val loadState = mockLoadState(LoadState.NotLoading(true))
+        sut.onLoadStateUpdate(loadState, 2)
+
+        sut.uiState.test {
+            val emission = awaitItem()
+            assertThat(emission.showNoMoviesFound).isFalse()
+            assertThat(emission.showLoading).isFalse()
+        }
+    }
+
+    @Test
     fun `test navigation to movie details`() = runTest {
         val movieId = 1
 
