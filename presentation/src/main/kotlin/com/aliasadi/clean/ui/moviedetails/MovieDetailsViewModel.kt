@@ -33,13 +33,7 @@ class MovieDetailsViewModel @Inject constructor(
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    class MovieDetailsBundle @Inject constructor(
-        savedStateHandle: SavedStateHandle
-    ) {
-        val movieId: Int = savedStateHandle.toRoute<Page.MovieDetails>().movieId
-    }
-
-    private val _uiState: MutableStateFlow<MovieDetailsUiState> = MutableStateFlow(MovieDetailsUiState())
+    private val _uiState: MutableStateFlow<MovieDetailsState> = MutableStateFlow(MovieDetailsState())
     val uiState = _uiState.asStateFlow()
 
     private val movieId: Int = movieDetailsBundle.movieId
@@ -51,7 +45,7 @@ class MovieDetailsViewModel @Inject constructor(
     private fun onInitialState() = launchOnMainImmediate {
         val isFavorite = async { checkFavoriteStatus(movieId).asSuccessOrNull() ?: false }
         getMovieById(movieId).onSuccess {
-            _uiState.value = MovieDetailsUiState(
+            _uiState.value = MovieDetailsState(
                 title = it.title,
                 description = it.description,
                 imageUrl = it.backgroundUrl,

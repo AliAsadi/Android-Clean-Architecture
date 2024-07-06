@@ -2,7 +2,8 @@ package com.aliasadi.clean.presentation.ui.moviedetails
 
 import app.cash.turbine.test
 import com.aliasadi.clean.presentation.ui.base.BaseTest
-import com.aliasadi.clean.ui.moviedetails.MovieDetailsUiState
+import com.aliasadi.clean.ui.moviedetails.MovieDetailsBundle
+import com.aliasadi.clean.ui.moviedetails.MovieDetailsState
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
@@ -26,7 +27,7 @@ class MovieDetailsViewModelTest : BaseTest() {
     private val checkFavoriteStatus: CheckFavoriteStatus = mock()
     private val addMovieToFavorite: AddMovieToFavorite = mock()
     private val removeMovieFromFavorite: RemoveMovieFromFavorite = mock()
-    private val movieDetailsBundle: MovieDetailsViewModel.MovieDetailsBundle = mock()
+    private val movieDetailsBundle: MovieDetailsBundle = mock()
 
     private lateinit var sut: MovieDetailsViewModel
 
@@ -64,7 +65,7 @@ class MovieDetailsViewModelTest : BaseTest() {
 
         sut.uiState.test {
             val emission = awaitItem()
-            assertThat(emission).isEqualTo(MovieDetailsUiState())
+            assertThat(emission).isEqualTo(MovieDetailsState())
         }
     }
 
