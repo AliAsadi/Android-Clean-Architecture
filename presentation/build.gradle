@@ -4,7 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
-    id ("org.jetbrains.kotlin.plugin.serialization") version '1.9.0'
+    id("org.jetbrains.kotlin.plugin.serialization") version '1.9.0'
 }
 
 android {
@@ -148,4 +148,25 @@ dependencies {
 // Allow references to generated code
 kapt {
     correctErrorTypes true
+}
+
+def exclude = [
+        // View
+        "com.aliasadi.clean.ui.widget.*",
+
+        // DI
+        "*Hilt_*", "*_Hilt*",
+        "*_Factory*", "*_*Factory", "*_GeneratedInjector", "*_HiltComponents*",
+        "dagger.hilt.internal.*",
+        "*_di_*",
+]
+kover {
+    reports {
+        // filters for all report types of all build variants
+        filters.excludes.androidGeneratedClasses()
+        filters.excludes.classes(
+                exclude
+        )
+
+    }
 }
