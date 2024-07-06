@@ -4,6 +4,7 @@ def exclude = [
         // Presentation
         "com.aliasadi.clean.ui.widget.*",
         "com.aliasadi.clean.ui.base.*",
+        "com.aliasadi.clean.ui.feed.usecase.*",
 
         // Data
         "com.aliasadi.data.exception.*",
