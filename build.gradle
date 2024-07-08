@@ -39,9 +39,3 @@ subprojects {
 tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
-
-
-tasks.register("koverTask", Exec) {
-    commandLine './gradlew', 'presentation:koverHtmlReport'
-    description = "Runs kover and generates coverage reports"
-}

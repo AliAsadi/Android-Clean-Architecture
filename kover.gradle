@@ -34,3 +34,8 @@ kover {
         filters.includes.classes(include)
     }
 }
+
+tasks.register("koverTask") {
+    dependsOn 'koverHtmlReport'
+    description = "Runs kover and generates coverage reports"
+}
