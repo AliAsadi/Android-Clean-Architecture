@@ -4,11 +4,9 @@ import app.cash.turbine.test
 import com.aliasadi.clean.presentation.ui.base.BaseTest
 import com.aliasadi.clean.ui.navigationbar.BottomNavigationBarItem
 import com.aliasadi.clean.ui.navigationbar.NavigationBarSharedViewModel
-import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
-import org.mockito.kotlin.verify
 
 class NavigationBarSharedViewModelTest : BaseTest() {
 
