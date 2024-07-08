@@ -121,7 +121,6 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
 
