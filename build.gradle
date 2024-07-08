@@ -26,15 +26,14 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
-
-    //Apply Kover plugin for all modules
-    apply from: "$rootDir/kover.gradle"
 }
 
 
 subprojects {
     //Apply Detekt plugin for all modules (presentation, data, domain)
     apply from: "$rootDir/detekt.gradle"
+    //Apply Kover plugin for all modules
+    apply from: "$rootDir/kover.gradle"
 }
 
 tasks.register('clean', Delete) {
