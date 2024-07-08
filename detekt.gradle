@@ -10,7 +10,7 @@ detekt {
     }
 }
 
-tasks.register('detektTask', Exec) {
+tasks.register('detektTask') {
     dependsOn 'detektMain', 'detektTest'
     description = "Runs detekt analysis on the main source set"
 }

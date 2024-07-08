@@ -8,8 +8,6 @@ import app.cash.turbine.test
 import com.aliasadi.clean.presentation.ui.base.BaseTest
 import com.aliasadi.clean.ui.favorites.FavoritesNavigationState.MovieDetails
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel
-import com.aliasadi.clean.ui.feed.FeedUiState
-import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.GetFavoriteMovies
 import com.google.common.truth.Truth.assertThat
@@ -92,7 +90,6 @@ class FavoritesViewModelTest : BaseTest() {
             assertThat(emission.noDataAvailable).isFalse()
         }
     }
-
 
     private fun mockLoadState(state: LoadState): CombinedLoadStates =
         CombinedLoadStates(

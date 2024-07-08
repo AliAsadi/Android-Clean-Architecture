@@ -72,8 +72,8 @@ class MovieRepositoryImpl(
                 localFavorite.addMovieToFavorite(movieId)
             }
             .onError {
-                remote.getMovie(movieId).onSuccess {
-                    local.saveMovies(listOf(it))
+                remote.getMovie(movieId).onSuccess { movie ->
+                    local.saveMovies(listOf(movie))
                     localFavorite.addMovieToFavorite(movieId)
                 }
             }
