@@ -1,8 +1,5 @@
 package com.aliasadi.clean.ui.moviedetails
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.toRoute
-import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
