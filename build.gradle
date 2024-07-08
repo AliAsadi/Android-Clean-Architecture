@@ -27,21 +27,20 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
 
-    //Apply Detekt plugin for all modules (presentation, data, domain)
-    apply from: "$rootDir/detekt.gradle"
-
     //Apply Kover plugin for all modules
     apply from: "$rootDir/kover.gradle"
+}
+
+
+subprojects {
+    //Apply Detekt plugin for all modules (presentation, data, domain)
+    apply from: "$rootDir/detekt.gradle"
 }
 
 tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
 
-tasks.register('detektTask', Exec) {
-    commandLine './gradlew', 'detektMain'
-    description = "Runs detekt analysis on the main source set"
-}
 
 tasks.register("koverTask", Exec) {
     commandLine './gradlew', 'presentation:koverHtmlReport'
