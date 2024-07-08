@@ -2,6 +2,8 @@ apply plugin: "io.gitlab.arturbosch.detekt"
 
 detekt {
     config = files("$rootDir/config/detekt/detekt.yml")
+    ignoredBuildTypes = ["release"]
+    parallel = true
 
     dependencies {
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt_version}")
