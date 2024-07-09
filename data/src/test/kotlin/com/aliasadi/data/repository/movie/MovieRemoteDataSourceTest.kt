@@ -5,7 +5,6 @@ import com.aliasadi.data.entities.MovieData
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.util.BaseTest
 import com.aliasadi.domain.util.Result
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
