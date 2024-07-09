@@ -1,5 +1,33 @@
 plugins {
-    id("kotlin")
+    id("com.android.library")
+    id("kotlin-android")
+}
+
+android {
+    compileSdk 34
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("prod") {
+            isDefault = true
+        }
+        create("mock")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    namespace = "com.aliasadi.domain"
 }
 
 dependencies {

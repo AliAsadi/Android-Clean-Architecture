@@ -36,6 +36,6 @@ kover {
 }
 
 tasks.register("koverTask") {
-    dependsOn 'koverHtmlReport'
+    dependsOn 'koverHtmlReportProdDebug'
     description = "Runs kover and generates coverage reports"
 }
