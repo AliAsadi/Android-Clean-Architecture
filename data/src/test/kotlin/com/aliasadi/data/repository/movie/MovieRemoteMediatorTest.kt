@@ -1,5 +1,6 @@
 package com.aliasadi.data.repository.movie
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingConfig
@@ -13,10 +14,15 @@ import com.aliasadi.data.mapper.toDbData
 import com.aliasadi.data.util.BaseTest
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.anyString
+import org.mockito.MockedStatic
+import org.mockito.Mockito
+import org.mockito.Mockito.*
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -28,11 +34,20 @@ class MovieRemoteMediatorTest : BaseTest() {
     private val local: MovieDataSource.Local = mock()
     private val remote: MovieDataSource.Remote = mock()
 
+    private lateinit var logMock: MockedStatic<Log>
     private lateinit var sut: MovieRemoteMediator
 
     @Before
     fun setUp() {
+        logMock = mockStatic(Log::class.java).apply {
+            `when`<Int> { Log.d(anyString(), anyString()) }.thenReturn(0)
+        }
         sut = MovieRemoteMediator(local, remote)
+    }
+
+    @After
+    fun tearDown() {
+        logMock.close()
     }
 
     @Test
