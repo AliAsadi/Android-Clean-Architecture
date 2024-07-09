@@ -1,4 +1,4 @@
-package com.aliasadi.data
+package com.aliasadi.data.repository.movie
 
 import androidx.paging.PagingSource
 import com.aliasadi.data.db.movies.MovieDao
@@ -8,7 +8,6 @@ import com.aliasadi.data.entities.MovieRemoteKeyDbData
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.mapper.toDbData
-import com.aliasadi.data.repository.movie.MovieLocalDataSource
 import com.aliasadi.data.util.BaseTest
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
