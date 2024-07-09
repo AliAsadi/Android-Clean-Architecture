@@ -1,0 +1,176 @@
+package com.aliasadi.data.repository.movie
+
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadType
+import androidx.paging.PagingConfig
+import androidx.paging.PagingState
+import androidx.paging.RemoteMediator
+import com.aliasadi.data.entities.MovieDbData
+import com.aliasadi.data.entities.MovieRemoteKeyDbData
+import com.aliasadi.data.entities.toDomain
+import com.aliasadi.data.exception.DataNotAvailableException
+import com.aliasadi.data.mapper.toDbData
+import com.aliasadi.data.util.BaseTest
+import com.aliasadi.domain.entities.MovieEntity
+import com.aliasadi.domain.util.Result
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Test
+import org.mockito.kotlin.any
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
+
+@OptIn(ExperimentalPagingApi::class)
+class MovieRemoteMediatorTest : BaseTest() {
+
+    private val local: MovieDataSource.Local = mock()
+    private val remote: MovieDataSource.Remote = mock()
+
+    private lateinit var sut: MovieRemoteMediator
+
+    @Before
+    fun setUp() {
+        sut = MovieRemoteMediator(local, remote)
+    }
+
+    @Test
+    fun `load refresh success when remote returns data`() = runTest {
+        val movieEntity = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        val movieDbData = movieEntity.toDbData()
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(listOf(movieEntity)))
+        whenever(local.clearMovies()).thenReturn(Unit)
+        whenever(local.clearRemoteKeys()).thenReturn(Unit)
+        whenever(local.saveMovies(any())).thenReturn(Unit)
+        whenever(local.saveRemoteKey(any())).thenReturn(Unit)
+
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(),
+            anchorPosition = null,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.REFRESH, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Success)
+        assertEquals(false, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+        verify(local).clearMovies()
+        verify(local).clearRemoteKeys()
+        verify(local).saveMovies(listOf(movieDbData.toDomain()))
+        verify(local).saveRemoteKey(any())
+    }
+
+    @Test
+    fun `load refresh error when remote returns error`() = runTest {
+        val error = DataNotAvailableException()
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.Error(error))
+
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(),
+            anchorPosition = null,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.REFRESH, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Error)
+        assertEquals(error, (result as RemoteMediator.MediatorResult.Error).throwable)
+    }
+
+    @Test
+    fun `load prepend should return endOfPaginationReached true`() = runTest {
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(),
+            anchorPosition = null,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.PREPEND, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Success)
+        assertEquals(true, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+    }
+
+    @Test
+    fun `load append success when remote returns data`() = runTest {
+        val movieEntity = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        val movieDbData = movieEntity.toDbData()
+        whenever(local.getLastRemoteKey()).thenReturn(MovieRemoteKeyDbData(1, null, 5))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(listOf(movieEntity)))
+        whenever(local.saveMovies(any())).thenReturn(Unit)
+        whenever(local.saveRemoteKey(any())).thenReturn(Unit)
+
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(),
+            anchorPosition = null,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.APPEND, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Success)
+        assertEquals(false, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+        verify(local).saveMovies(listOf(movieDbData.toDomain()))
+        verify(local).saveRemoteKey(any())
+    }
+
+    @Test
+    fun `load append error when remote returns error`() = runTest {
+        val error = DataNotAvailableException()
+        whenever(local.getLastRemoteKey()).thenReturn(MovieRemoteKeyDbData(1, null, 4))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.Error(error))
+
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(),
+            anchorPosition = null,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.APPEND, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Error)
+        assertEquals(error, (result as RemoteMediator.MediatorResult.Error).throwable)
+    }
+
+    @Test
+    fun `load append when there is remote key return end of page`() = runTest {
+        val error = DataNotAvailableException()
+        whenever(local.getLastRemoteKey()).thenReturn(null)
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.Error(error))
+
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(),
+            anchorPosition = null,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.APPEND, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Success)
+        assertEquals(true, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+    }
+
+    @Test
+    fun `load append endOfPaginationReached true when no more pages`() = runTest {
+        whenever(local.getLastRemoteKey()).thenReturn(MovieRemoteKeyDbData(1, null, null))
+
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(),
+            anchorPosition = null,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.APPEND, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Success)
+        assertEquals(true, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+    }
+}
