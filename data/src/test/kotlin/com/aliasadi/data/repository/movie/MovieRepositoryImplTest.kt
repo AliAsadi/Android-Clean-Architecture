@@ -4,7 +4,6 @@ import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.data.util.BaseTest
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -14,7 +13,6 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-@ExperimentalCoroutinesApi
 class MovieRepositoryImplTest : BaseTest() {
 
     private val remote: MovieDataSource.Remote = mock()
