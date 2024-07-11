@@ -1,13 +1,41 @@
 plugins {
-    id("kotlin")
+    id("com.android.library")
+    id("kotlin-android")
+}
+
+android {
+    compileSdk 34
+
+    defaultConfig {
+        minSdk 19
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions += "environment"
+
+    productFlavors {
+        create("prod") {
+            isDefault = true
+        }
+        create("mock")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    namespace = "com.aliasadi.domain"
 }
 
 dependencies {
     implementation 'androidx.paging:paging-common-ktx:3.3.0'
-
-    //Mockito
-    testImplementation 'org.mockito:mockito-core:5.0.0'
-    testImplementation "org.mockito:mockito-inline:5.0.0"
 
     //Junit
     testImplementation 'junit:junit:4.13.2'

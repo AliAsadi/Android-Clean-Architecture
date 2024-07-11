@@ -1,4 +1,4 @@
-package com.aliasadi.clean.presentation.util.rules
+package com.aliasadi.data.util.rules
 
 import com.aliasadi.data.util.DispatchersProvider
 import kotlinx.coroutines.CoroutineDispatcher

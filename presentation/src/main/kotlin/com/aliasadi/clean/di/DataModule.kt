@@ -11,7 +11,6 @@ import com.aliasadi.data.repository.movie.MovieRemoteMediator
 import com.aliasadi.data.repository.movie.MovieRepositoryImpl
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesLocalDataSource
-import com.aliasadi.data.util.DiskExecutor
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
@@ -70,10 +69,9 @@ class DataModule {
     @Provides
     @Singleton
     fun provideFavoriteMovieLocalDataSource(
-        executor: DiskExecutor,
         favoriteMovieDao: FavoriteMovieDao
     ): FavoriteMoviesDataSource.Local {
-        return FavoriteMoviesLocalDataSource(executor, favoriteMovieDao)
+        return FavoriteMoviesLocalDataSource(favoriteMovieDao)
     }
 
     @Provides

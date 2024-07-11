@@ -1,9 +1,5 @@
 package com.aliasadi.clean.ui.moviedetails
 
-import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.SavedStateHandle
-import androidx.navigation.toRoute
-import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.data.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
@@ -30,24 +26,23 @@ class MovieDetailsViewModel @Inject constructor(
     private val checkFavoriteStatus: CheckFavoriteStatus,
     private val addMovieToFavorite: AddMovieToFavorite,
     private val removeMovieFromFavorite: RemoveMovieFromFavorite,
-    savedStateHandle: SavedStateHandle,
+    movieDetailsBundle: MovieDetailsBundle,
     dispatchers: DispatchersProvider
 ) : BaseViewModel(dispatchers) {
 
-    private val _uiState: MutableStateFlow<MovieDetailsUiState> = MutableStateFlow(MovieDetailsUiState())
+    private val _uiState: MutableStateFlow<MovieDetailsState> = MutableStateFlow(MovieDetailsState())
     val uiState = _uiState.asStateFlow()
 
-    private val movieId: Int = savedStateHandle.toRoute<Page.MovieDetails>().movieId
+    private val movieId: Int = movieDetailsBundle.movieId
 
     init {
         onInitialState()
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun onInitialState() = launchOnMainImmediate {
+    private fun onInitialState() = launchOnMainImmediate {
         val isFavorite = async { checkFavoriteStatus(movieId).asSuccessOrNull() ?: false }
         getMovieById(movieId).onSuccess {
-            _uiState.value = MovieDetailsUiState(
+            _uiState.value = MovieDetailsState(
                 title = it.title,
                 description = it.description,
                 imageUrl = it.backgroundUrl,

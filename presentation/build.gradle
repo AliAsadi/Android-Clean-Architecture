@@ -4,7 +4,7 @@ plugins {
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
-    id ("org.jetbrains.kotlin.plugin.serialization") version '1.9.0'
+    id("org.jetbrains.kotlin.plugin.serialization") version '1.9.0'
 }
 
 android {
@@ -56,9 +56,14 @@ android {
     namespace 'com.aliasadi.clean'
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":data")
+
+    // Kover Coverage (All Modules)
+    kover(project(":data"))
+    kover(project(":domain"))
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.21"
@@ -116,7 +121,6 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3"
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
 
@@ -131,8 +135,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3"
 
     //Mockito
-    testImplementation 'org.mockito:mockito-core:5.0.0'
-    testImplementation "org.mockito:mockito-inline:5.0.0"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+    testImplementation 'org.mockito:mockito-inline:5.0.0'
+    testImplementation 'org.mockito:mockito-android:5.0.0'
 
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation 'junit:junit:4.13.2'
@@ -147,3 +152,4 @@ dependencies {
 kapt {
     correctErrorTypes true
 }
+

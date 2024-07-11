@@ -2,8 +2,15 @@ apply plugin: "io.gitlab.arturbosch.detekt"
 
 detekt {
     config = files("$rootDir/config/detekt/detekt.yml")
-
+    ignoredBuildTypes = ["release"]
+    ignoredFlavors = ["mock"]
+    parallel = true
     dependencies {
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt_version}")
     }
+}
+
+tasks.register('detektTask') {
+    dependsOn 'detektMain', 'detektTest'
+    description = "Runs detekt analysis on the main source set"
 }
