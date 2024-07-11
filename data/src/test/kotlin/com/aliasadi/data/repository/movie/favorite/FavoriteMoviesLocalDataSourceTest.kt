@@ -1,0 +1,99 @@
+package com.aliasadi.data.repository.movie.favorite
+
+import androidx.paging.PagingSource
+import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
+import com.aliasadi.data.entities.FavoriteMovieDbData
+import com.aliasadi.data.entities.MovieDbData
+import com.aliasadi.data.exception.DataNotAvailableException
+import com.aliasadi.data.util.BaseTest
+import com.aliasadi.domain.util.Result
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Test
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
+
+class FavoriteMoviesLocalDataSourceTest : BaseTest() {
+
+    private val favoriteMovieDao: FavoriteMovieDao = mock()
+
+    private lateinit var sut: FavoriteMoviesLocalDataSource
+
+    @Before
+    fun setUp() {
+        sut = FavoriteMoviesLocalDataSource(favoriteMovieDao)
+    }
+
+    @Test
+    fun `test favoriteMovies returns PagingSource`() {
+        val pagingSource: PagingSource<Int, MovieDbData> = mock()
+        whenever(favoriteMovieDao.favoriteMovies()).thenReturn(pagingSource)
+
+        val result = sut.favoriteMovies()
+
+        assertEquals(pagingSource, result)
+    }
+
+    @Test
+    fun `test addMovieToFavorite adds movie to favorites`() = runTest {
+        val movieId = 1
+
+        sut.addMovieToFavorite(movieId)
+
+        verify(favoriteMovieDao).add(FavoriteMovieDbData(movieId))
+    }
+
+    @Test
+    fun `test removeMovieFromFavorite removes movie from favorites`() = runTest {
+        val movieId = 1
+
+        sut.removeMovieFromFavorite(movieId)
+
+        verify(favoriteMovieDao).remove(movieId)
+    }
+
+    @Test
+    fun `test checkFavoriteStatus returns true when movie is favorite`() = runTest {
+        val movieId = 1
+        whenever(favoriteMovieDao.get(movieId)).thenReturn(FavoriteMovieDbData(movieId))
+
+        val result = sut.checkFavoriteStatus(movieId)
+
+        assertTrue(result is Result.Success)
+        assertEquals(true, (result as Result.Success).data)
+    }
+
+    @Test
+    fun `test checkFavoriteStatus returns false when movie is not favorite`() = runTest {
+        val movieId = 1
+        whenever(favoriteMovieDao.get(movieId)).thenReturn(null)
+
+        val result = sut.checkFavoriteStatus(movieId)
+
+        assertTrue(result is Result.Success)
+        assertEquals(false, (result as Result.Success).data)
+    }
+
+    @Test
+    fun `test getFavoriteMovieIds returns list of movie IDs when available`() = runTest {
+        val movieIds = listOf(FavoriteMovieDbData(1), FavoriteMovieDbData(2))
+        whenever(favoriteMovieDao.getAll()).thenReturn(movieIds)
+
+        val result = sut.getFavoriteMovieIds()
+
+        assertTrue(result is Result.Success)
+        assertEquals(listOf(1, 2), (result as Result.Success).data)
+    }
+
+    @Test
+    fun `test getFavoriteMovieIds returns error when no movie IDs available`() = runTest {
+        whenever(favoriteMovieDao.getAll()).thenReturn(emptyList())
+
+        val result = sut.getFavoriteMovieIds()
+
+        assertTrue(result is Result.Error)
+        assertTrue((result as Result.Error).error is DataNotAvailableException)
+    }
+}
