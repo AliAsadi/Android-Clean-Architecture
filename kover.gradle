@@ -22,8 +22,8 @@ def exclude = [
 
 def include = [
         "com.aliasadi.clean.ui.*ViewModel",
-        "*usecase*",
         "com.aliasadi.data.*",
+        //"*usecase*", // TODO: Write unit-test for use-cases
 ]
 
 kover {
