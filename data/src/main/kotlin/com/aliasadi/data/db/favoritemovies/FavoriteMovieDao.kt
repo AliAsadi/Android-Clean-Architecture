@@ -14,21 +14,18 @@ import com.aliasadi.data.entities.MovieDbData
 @Dao
 interface FavoriteMovieDao {
 
-    @Query("SELECT * FROM favorite_movies")
-    fun getAll(): List<FavoriteMovieDbData>
-
     @Query("SELECT * FROM movies where id in (SELECT movieId FROM favorite_movies)")
     fun favoriteMovies(): PagingSource<Int, MovieDbData>
 
+    @Query("SELECT * FROM favorite_movies")
+    suspend fun getAll(): List<FavoriteMovieDbData>
+
     @Query("SELECT * FROM favorite_movies where movieId=:movieId")
-    fun get(movieId: Int): FavoriteMovieDbData?
+    suspend fun get(movieId: Int): FavoriteMovieDbData?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(favoriteMovieDbData: FavoriteMovieDbData)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(favoriteMovieDbData: List<FavoriteMovieDbData>)
+    suspend fun add(favoriteMovieDbData: FavoriteMovieDbData)
 
     @Query("DELETE FROM favorite_movies WHERE movieId=:movieId")
-    fun remove(movieId: Int)
+    suspend fun remove(movieId: Int)
 }

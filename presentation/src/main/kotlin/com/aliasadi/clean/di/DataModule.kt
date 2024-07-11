@@ -70,10 +70,9 @@ class DataModule {
     @Provides
     @Singleton
     fun provideFavoriteMovieLocalDataSource(
-        executor: DiskExecutor,
         favoriteMovieDao: FavoriteMovieDao
     ): FavoriteMoviesDataSource.Local {
-        return FavoriteMoviesLocalDataSource(executor, favoriteMovieDao)
+        return FavoriteMoviesLocalDataSource(favoriteMovieDao)
     }
 
     @Provides
