@@ -128,7 +128,7 @@ The code style in this project was ensured using [Detekt](https://detekt.dev/).
 **Check command:**
 
 ```
-./gradlew detekt
+./gradlew detektTask
 ```
 
 ## License
