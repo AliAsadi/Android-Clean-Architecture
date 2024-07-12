@@ -59,7 +59,7 @@ android {
 
 dependencies {
     implementation project(":data")
-    testImplementation(project(":test-core"))
+    testImplementation testImplementation(project(':core-test',))
 
     // Kover Coverage (All Modules)
     kover(project(":data"))

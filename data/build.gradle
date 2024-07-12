@@ -45,7 +45,7 @@ android {
 
 dependencies {
     api project(":domain")
-    testImplementation(project(":test-core"))
+    testImplementation testImplementation(project(':core-test',))
 
     //Room
     implementation 'androidx.room:room-runtime:2.6.1'

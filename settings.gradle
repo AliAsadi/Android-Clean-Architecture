@@ -1,5 +1,5 @@
 include ':presentation'
 include ':domain'
 include ':data'
-include ':test-core'
+include ':core-test'
 include ':core'
