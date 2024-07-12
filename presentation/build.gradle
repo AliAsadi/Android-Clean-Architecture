@@ -1,10 +1,10 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.plugin.serialization") version '1.9.0'
+    id("kotlin-kapt")
 }
 
 android {
@@ -94,7 +94,7 @@ dependencies {
 
     //Hilt
     implementation "com.google.dagger:hilt-android:2.51.1"
-    kapt "com.google.dagger:hilt-compiler:2.51.1"
+    ksp "com.google.dagger:hilt-compiler:2.51.1"
     implementation 'androidx.hilt:hilt-work:1.2.0'
 
     //Coroutines
