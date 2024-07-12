@@ -1,7 +1,7 @@
 package com.aliasadi.data.repository.movie
 
+import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
-import com.aliasadi.data.util.BaseTest
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import org.junit.Assert.assertEquals

@@ -5,7 +5,7 @@ package com.aliasadi.clean.di.module
 import com.aliasadi.clean.di.DefaultDispatcher
 import com.aliasadi.clean.di.IoDispatcher
 import com.aliasadi.clean.di.MainDispatcher
-import com.aliasadi.data.util.DispatchersProvider
+import com.aliasadi.core.provider.DispatchersProvider
 import com.aliasadi.data.util.DispatchersProviderImpl
 import dagger.Module
 import dagger.Provides

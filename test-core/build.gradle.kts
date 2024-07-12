@@ -35,9 +35,18 @@ android {
         jvmTarget = "1.8"
     }
 
-    namespace = "com.aliasadi.coretest"
+    namespace = "com.aliasadi.core.test"
 }
 
 dependencies {
-
+    implementation(project(":core"))
+    // UnitTest
+    api("org.mockito.kotlin:mockito-kotlin:4.0.0")
+    api("org.mockito:mockito-inline:5.0.0")
+    api("org.mockito:mockito-android:5.0.0")
+    api("androidx.arch.core:core-testing:2.2.0")
+    api("junit:junit:4.13.2")
+    api("app.cash.turbine:turbine:0.12.1")
+    api("com.google.truth:truth:1.1.3")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
 }

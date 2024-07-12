@@ -1,11 +1,11 @@
 package com.aliasadi.data.repository.movie.favorite
 
 import androidx.paging.PagingSource
+import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.entities.FavoriteMovieDbData
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.data.util.BaseTest
 import com.aliasadi.domain.util.Result
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

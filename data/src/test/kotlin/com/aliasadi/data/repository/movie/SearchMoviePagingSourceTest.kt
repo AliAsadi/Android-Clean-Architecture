@@ -3,7 +3,7 @@ package com.aliasadi.data.repository.movie
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.aliasadi.data.util.BaseTest
+import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import org.junit.Assert.assertEquals

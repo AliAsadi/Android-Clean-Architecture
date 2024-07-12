@@ -1,6 +1,6 @@
-package com.aliasadi.data.util.rules
+package com.aliasadi.core.test.rules
 
-import com.aliasadi.data.util.DispatchersProvider
+import com.aliasadi.core.provider.DispatchersProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -11,7 +11,7 @@ import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.toMovieListItem
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.util.singleSharedFlow
-import com.aliasadi.data.util.DispatchersProvider
+import com.aliasadi.core.provider.DispatchersProvider
 import com.aliasadi.domain.usecase.SearchMovies
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

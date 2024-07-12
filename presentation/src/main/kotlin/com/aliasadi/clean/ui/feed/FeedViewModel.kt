@@ -12,7 +12,7 @@ import com.aliasadi.clean.util.NetworkMonitor
 import com.aliasadi.clean.util.NetworkMonitor.NetworkState
 import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Lost
 import com.aliasadi.clean.util.singleSharedFlow
-import com.aliasadi.data.util.DispatchersProvider
+import com.aliasadi.core.provider.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

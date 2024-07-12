@@ -6,12 +6,12 @@ import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.presentation.ui.base.BaseTest
 import com.aliasadi.clean.ui.feed.FeedNavigationState
 import com.aliasadi.clean.ui.feed.FeedUiState
 import com.aliasadi.clean.ui.feed.FeedViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
 import com.aliasadi.clean.util.NetworkMonitor
+import com.aliasadi.core.test.base.BaseTest
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

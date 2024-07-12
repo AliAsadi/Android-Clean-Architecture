@@ -4,7 +4,7 @@ import android.os.Handler
 import android.os.MessageQueue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aliasadi.data.util.DispatchersProvider
+import com.aliasadi.core.provider.DispatchersProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

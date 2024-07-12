@@ -1,9 +1,9 @@
 package com.aliasadi.data.repository.movie
 
+import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.MovieData
 import com.aliasadi.data.entities.toDomain
-import com.aliasadi.data.util.BaseTest
 import com.aliasadi.domain.util.Result
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

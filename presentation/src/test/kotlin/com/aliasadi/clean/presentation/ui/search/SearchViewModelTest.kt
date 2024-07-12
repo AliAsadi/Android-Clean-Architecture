@@ -6,11 +6,11 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import app.cash.turbine.test
-import com.aliasadi.clean.presentation.ui.base.BaseTest
 import com.aliasadi.clean.ui.search.SearchNavigationState.MovieDetails
 import com.aliasadi.clean.ui.search.SearchUiState
 import com.aliasadi.clean.ui.search.SearchViewModel
 import com.aliasadi.clean.ui.search.SearchViewModel.Companion
+import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.SearchMovies
 import com.google.common.truth.Truth.assertThat

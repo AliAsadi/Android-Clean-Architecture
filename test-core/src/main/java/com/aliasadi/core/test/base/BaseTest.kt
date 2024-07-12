@@ -1,8 +1,8 @@
-package com.aliasadi.data.util
+package com.aliasadi.core.test.base
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.aliasadi.data.util.rules.CoroutineTestRule
-import com.aliasadi.data.util.rules.runTest
+import com.aliasadi.core.test.rules.CoroutineTestRule
+import com.aliasadi.core.test.rules.runTest
 import kotlinx.coroutines.test.TestScope
 import org.junit.Rule
 
