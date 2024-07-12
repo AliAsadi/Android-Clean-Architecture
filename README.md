@@ -16,6 +16,23 @@ A demo movie android app showcasing Clean Architecture, written in Kotlin and fe
 6. **Favorites**: Users can add movies to a favorites list.
 7. **Pull to Refresh**: Allows users to refresh the content by pulling down on the screen.
 
+# Unit Test Coverage
+
+The app is unit-tested and uses Kover to generate detailed coverage reports.
+
+![image](https://github.com/user-attachments/assets/c62d1fee-f5fa-4fa9-b62f-e70e6fa8a977)
+
+To generate the coverage report, run:
+
+```
+./gradlew koverTask
+```
+
+This command covers all modules and both main and test sources. You can add this command to your CI pipelines to automatically generate coverage reports with each build. Kover also works well with products like CodeCov for continuous coverage monitoring.
+
+For more details, refer to the [Official Kover documentation](https://kotlin.github.io/kotlinx-kover/) and the [CodeCov documentation](https://docs.codecov.com/).
+
+
 ## Previous Versions
 * To explore the app's earlier **XML-based UI**, check out the [xml_based_app](https://github.com/AliAsadi/Android-Clean-Architecture/tree/xml_based_app
 ) branch.
