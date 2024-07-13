@@ -122,7 +122,7 @@ class MovieDetailsViewModelTest : BaseTest() {
             checkFavoriteStatus = checkFavoriteStatus,
             removeMovieFromFavorite = removeMovieFromFavorite,
             addMovieToFavorite = addMovieToFavorite,
-            dispatchers = coroutineRule.testDispatcherProvider,
+            dispatchers = testDispatcherProvider,
             movieDetailsBundle = movieDetailsBundle
         )
     }

@@ -29,7 +29,7 @@ class FavoritesViewModelTest : BaseTest() {
     @Before
     fun setUp() {
         whenever(getFavoriteMovies.invoke(anyInt())).thenReturn(moviesFlow)
-        sut = FavoritesViewModel(getFavoriteMovies, coroutineRule.testDispatcherProvider)
+        sut = FavoritesViewModel(getFavoriteMovies, testDispatcherProvider)
     }
 
     @Test

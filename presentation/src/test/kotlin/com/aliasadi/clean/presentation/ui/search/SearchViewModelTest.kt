@@ -37,7 +37,7 @@ class SearchViewModelTest : BaseTest() {
     fun setUp() {
         whenever(savedStateHandle.getStateFlow(Companion.KEY_SEARCH_QUERY, "")).thenReturn(queryFlow)
         whenever(searchMovies.invoke(anyString(), anyInt())).thenReturn(moviesFlow)
-        sut = SearchViewModel(searchMovies, savedStateHandle, coroutineRule.testDispatcherProvider)
+        sut = SearchViewModel(searchMovies, savedStateHandle, testDispatcherProvider)
     }
 
     @Test

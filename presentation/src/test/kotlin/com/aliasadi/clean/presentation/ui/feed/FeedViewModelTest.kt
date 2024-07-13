@@ -47,7 +47,7 @@ class FeedViewModelTest : BaseTest() {
         sut = FeedViewModel(
             getMoviesWithSeparators = getMoviesWithSeparators,
             networkMonitor = networkMonitor,
-            dispatchers = coroutineRule.testDispatcherProvider
+            dispatchers = testDispatcherProvider
         )
     }
 

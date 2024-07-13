@@ -14,7 +14,7 @@ class NavigationBarSharedViewModelTest : BaseTest() {
 
     @Before
     fun setup() {
-        sut = NavigationBarSharedViewModel(coroutineRule.testDispatcherProvider)
+        sut = NavigationBarSharedViewModel(testDispatcherProvider)
     }
 
     @Test
