@@ -32,7 +32,7 @@ class MovieDetailsViewModelTest : BaseTest() {
     private lateinit var sut: MovieDetailsViewModel
 
     @Test
-    fun `test ui state reflects movie details correctly`() = runTest {
+    fun `test ui state reflects movie details correctly`() = runUnconfinedTest {
         val movieId = 1413
         val movie = MovieEntity(movieId, "title", "desc", "image", "category", "backgroundUrl")
 
@@ -55,7 +55,7 @@ class MovieDetailsViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test no change in UI when movie ID is invalid`() = runTest {
+    fun `test no change in UI when movie ID is invalid`() = runUnconfinedTest {
         val invalidMovieId = -1
         createViewModel(
             movieId = invalidMovieId,
@@ -70,7 +70,7 @@ class MovieDetailsViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test movie marked as favorite`() = runTest {
+    fun `test movie marked as favorite`() = runUnconfinedTest {
         val movieId = 555
         createViewModel(
             movieId = movieId,
@@ -90,7 +90,7 @@ class MovieDetailsViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test movie removed from favorites`() = runTest {
+    fun `test movie removed from favorites`() = runUnconfinedTest {
         val movieId = 555
         createViewModel(
             movieId = movieId,

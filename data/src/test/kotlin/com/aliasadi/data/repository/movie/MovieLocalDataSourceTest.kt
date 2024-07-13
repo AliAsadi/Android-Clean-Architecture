@@ -43,7 +43,7 @@ class MovieLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovies returns success when movies are available`() = runTest {
+    fun `test getMovies returns success when movies are available`() = runUnconfinedTest {
         val movieDbData = MovieDbData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(movieDao.getMovies()).thenReturn(listOf(movieDbData))
 
@@ -55,7 +55,7 @@ class MovieLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovies returns error when no movies are available`() = runTest {
+    fun `test getMovies returns error when no movies are available`() = runUnconfinedTest {
         whenever(movieDao.getMovies()).thenReturn(emptyList())
 
         val result = sut.getMovies()
@@ -65,7 +65,7 @@ class MovieLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovie returns success when movie is found`() = runTest {
+    fun `test getMovie returns success when movie is found`() = runUnconfinedTest {
         val movieDbData = MovieDbData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(movieDao.getMovie(any())).thenReturn(movieDbData)
 
@@ -76,7 +76,7 @@ class MovieLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovie returns error when movie is not found`() = runTest {
+    fun `test getMovie returns error when movie is not found`() = runUnconfinedTest {
         whenever(movieDao.getMovie(any())).thenReturn(null)
 
         val result = sut.getMovie(1)
@@ -86,7 +86,7 @@ class MovieLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test saveMovies calls saveMovies on movieDao`() = runTest {
+    fun `test saveMovies calls saveMovies on movieDao`() = runUnconfinedTest {
         val movieEntities = listOf(MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl"))
         val movieDbData = movieEntities.map { it.toDbData() }
 
@@ -96,7 +96,7 @@ class MovieLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getLastRemoteKey returns correct remote key`() = runTest {
+    fun `test getLastRemoteKey returns correct remote key`() = runUnconfinedTest {
         val remoteKeyDbData = MovieRemoteKeyDbData(id = 1, prevPage = null, nextPage = 2)
         whenever(remoteKeyDao.getLastRemoteKey()).thenReturn(remoteKeyDbData)
 
@@ -106,7 +106,7 @@ class MovieLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test saveRemoteKey calls saveRemoteKey on remoteKeyDao`() = runTest {
+    fun `test saveRemoteKey calls saveRemoteKey on remoteKeyDao`() = runUnconfinedTest {
         val remoteKeyDbData = MovieRemoteKeyDbData(id = 1, prevPage = null, nextPage = 2)
 
         sut.saveRemoteKey(remoteKeyDbData)
@@ -115,14 +115,14 @@ class MovieLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test clearMovies calls clearMoviesExceptFavorites on movieDao`() = runTest {
+    fun `test clearMovies calls clearMoviesExceptFavorites on movieDao`() = runUnconfinedTest {
         sut.clearMovies()
 
         verify(movieDao).clearMoviesExceptFavorites()
     }
 
     @Test
-    fun `test clearRemoteKeys calls clearRemoteKeys on remoteKeyDao`() = runTest {
+    fun `test clearRemoteKeys calls clearRemoteKeys on remoteKeyDao`() = runUnconfinedTest {
         sut.clearRemoteKeys()
 
         verify(remoteKeyDao).clearRemoteKeys()

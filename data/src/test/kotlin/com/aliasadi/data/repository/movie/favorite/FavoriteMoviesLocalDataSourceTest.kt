@@ -37,7 +37,7 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test addMovieToFavorite adds movie to favorites`() = runTest {
+    fun `test addMovieToFavorite adds movie to favorites`() = runUnconfinedTest {
         val movieId = 1
 
         sut.addMovieToFavorite(movieId)
@@ -46,7 +46,7 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test removeMovieFromFavorite removes movie from favorites`() = runTest {
+    fun `test removeMovieFromFavorite removes movie from favorites`() = runUnconfinedTest {
         val movieId = 1
 
         sut.removeMovieFromFavorite(movieId)
@@ -55,7 +55,7 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test checkFavoriteStatus returns true when movie is favorite`() = runTest {
+    fun `test checkFavoriteStatus returns true when movie is favorite`() = runUnconfinedTest {
         val movieId = 1
         whenever(favoriteMovieDao.get(movieId)).thenReturn(FavoriteMovieDbData(movieId))
 
@@ -66,7 +66,7 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test checkFavoriteStatus returns false when movie is not favorite`() = runTest {
+    fun `test checkFavoriteStatus returns false when movie is not favorite`() = runUnconfinedTest {
         val movieId = 1
         whenever(favoriteMovieDao.get(movieId)).thenReturn(null)
 
@@ -77,7 +77,7 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getFavoriteMovieIds returns list of movie IDs when available`() = runTest {
+    fun `test getFavoriteMovieIds returns list of movie IDs when available`() = runUnconfinedTest {
         val movieIds = listOf(FavoriteMovieDbData(1), FavoriteMovieDbData(2))
         whenever(favoriteMovieDao.getAll()).thenReturn(movieIds)
 
@@ -88,7 +88,7 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getFavoriteMovieIds returns error when no movie IDs available`() = runTest {
+    fun `test getFavoriteMovieIds returns error when no movie IDs available`() = runUnconfinedTest {
         whenever(favoriteMovieDao.getAll()).thenReturn(emptyList())
 
         val result = sut.getFavoriteMovieIds()

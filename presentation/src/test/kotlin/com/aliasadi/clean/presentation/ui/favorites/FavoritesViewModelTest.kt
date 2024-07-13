@@ -33,7 +33,7 @@ class FavoritesViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test initial state is correct`() = runTest {
+    fun `test initial state is correct`() = runUnconfinedTest {
         sut.uiState.test {
             val emission = awaitItem()
             assertThat(emission.isLoading).isTrue()
@@ -42,7 +42,7 @@ class FavoritesViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test navigation to movie details`() = runTest {
+    fun `test navigation to movie details`() = runUnconfinedTest {
         val movieId = 1
 
         sut.navigationState.test {
@@ -56,7 +56,7 @@ class FavoritesViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test onLoadStateUpdate updates UI state correctly for loading state`() = runTest {
+    fun `test onLoadStateUpdate updates UI state correctly for loading state`() = runUnconfinedTest {
         val loadState = mockLoadState(LoadState.Loading)
         sut.onLoadStateUpdate(loadState, 1)
 
@@ -68,7 +68,7 @@ class FavoritesViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test onLoadStateUpdate updates UI state correctly for end of pagination with no data`() = runTest {
+    fun `test onLoadStateUpdate updates UI state correctly for end of pagination with no data`() = runUnconfinedTest {
         val loadState = mockLoadState(LoadState.NotLoading(true))
         sut.onLoadStateUpdate(loadState, 0)
 
@@ -80,7 +80,7 @@ class FavoritesViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test onLoadStateUpdate updates UI state correctly for end of pagination with data`() = runTest {
+    fun `test onLoadStateUpdate updates UI state correctly for end of pagination with data`() = runUnconfinedTest {
         val loadState = mockLoadState(LoadState.NotLoading(true))
         sut.onLoadStateUpdate(loadState, 2)
 

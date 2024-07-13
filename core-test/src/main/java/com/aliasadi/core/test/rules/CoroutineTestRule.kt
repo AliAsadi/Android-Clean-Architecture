@@ -33,7 +33,3 @@ class CoroutineTestRule : TestWatcher() {
         override val default: CoroutineDispatcher = testDispatcher
     }
 }
-
-fun CoroutineTestRule.runTest(block: suspend TestScope.() -> Unit) = runTest(testDispatcher) {
-    block()
-}

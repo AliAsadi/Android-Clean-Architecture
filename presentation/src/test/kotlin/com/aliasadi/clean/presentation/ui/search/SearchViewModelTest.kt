@@ -41,7 +41,7 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test initial state is correct`() = runTest {
+    fun `test initial state is correct`() = runUnconfinedTest {
         sut.uiState.test {
             val emission = awaitItem()
             assertThat(emission.showDefaultState).isTrue()
@@ -51,7 +51,7 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test no movies found state`() = runTest {
+    fun `test no movies found state`() = runUnconfinedTest {
         val loadState = mockLoadState(LoadState.NotLoading(true))
         sut.onLoadStateUpdate(loadState, 0)
 
@@ -63,7 +63,7 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test showing data when they are available at the end of pagination`() = runTest {
+    fun `test showing data when they are available at the end of pagination`() = runUnconfinedTest {
         val loadState = mockLoadState(LoadState.NotLoading(true))
         sut.onLoadStateUpdate(loadState, 2)
 
@@ -75,7 +75,7 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test navigation to movie details`() = runTest {
+    fun `test navigation to movie details`() = runUnconfinedTest {
         val movieId = 1
 
         sut.navigationState.test {
@@ -89,7 +89,7 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test error message shown on load state error`() = runTest {
+    fun `test error message shown on load state error`() = runUnconfinedTest {
         val errorMessage = "Network Error"
         val loadState = mockLoadState(LoadState.Error(Throwable(errorMessage)))
 
@@ -102,7 +102,7 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test search query updates`() = runTest {
+    fun `test search query updates`() = runUnconfinedTest {
         val query = "Batman"
         queryFlow.emit(query)
 
@@ -119,7 +119,7 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test on empty query search`() = runTest {
+    fun `test on empty query search`() = runUnconfinedTest {
         val emptyQuery = ""
         queryFlow.emit(emptyQuery)
 
@@ -130,7 +130,7 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test that search query updated`() = runTest {
+    fun `test that search query updated`() = runUnconfinedTest {
         val query = "Batman"
         whenever(savedStateHandle.get<String>(SearchViewModel.KEY_SEARCH_QUERY)).thenReturn(query)
         sut.onSearch(query)

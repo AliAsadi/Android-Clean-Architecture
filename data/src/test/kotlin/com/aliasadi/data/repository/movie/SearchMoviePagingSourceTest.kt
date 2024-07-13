@@ -26,7 +26,7 @@ class SearchMoviePagingSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test load returns page on success with distinct movies`() = runTest {
+    fun `test load returns page on success with distinct movies`() = runUnconfinedTest {
         val movieEntity1 = MovieEntity(1, "Title1", "Description1", "Image1", "Category1", "BackgroundUrl1")
         val movieEntity2 = MovieEntity(2, "Title2", "Description2", "Image2", "Category2", "BackgroundUrl2")
         val duplicateMovieEntity = MovieEntity(1, "Title1", "Description1", "Image1", "Category1", "BackgroundUrl1")
@@ -43,7 +43,7 @@ class SearchMoviePagingSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test load returns page on success with prevKey and nextKey`() = runTest {
+    fun `test load returns page on success with prevKey and nextKey`() = runUnconfinedTest {
         val movieEntity = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(remote.search(any(), any(), any())).thenReturn(Result.Success(listOf(movieEntity)))
 
@@ -58,7 +58,7 @@ class SearchMoviePagingSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test load returns page on success with end of pagination`() = runTest {
+    fun `test load returns page on success with end of pagination`() = runUnconfinedTest {
         whenever(remote.search(any(), any(), any())).thenReturn(Result.Success(emptyList()))
 
         val params = PagingSource.LoadParams.Append<Int>(key = 2, loadSize = 10, placeholdersEnabled = false)
@@ -72,7 +72,7 @@ class SearchMoviePagingSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test load returns error on failure`() = runTest {
+    fun `test load returns error on failure`() = runUnconfinedTest {
         val error = Exception("Network error")
         whenever(remote.search(any(), any(), any())).thenReturn(Result.Error(error))
 

@@ -2,8 +2,8 @@ package com.aliasadi.core.test.base
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.aliasadi.core.test.rules.CoroutineTestRule
-import com.aliasadi.core.test.rules.runTest
 import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 
 /**
@@ -17,5 +17,8 @@ open class BaseTest {
     @get:Rule
     var coroutineRule = CoroutineTestRule()
 
-    fun runTest(block: suspend TestScope.() -> Unit) = coroutineRule.runTest(block)
+    fun runUnconfinedTest(block: suspend TestScope.() -> Unit) = runTest(
+        context = coroutineRule.testDispatcher,
+        testBody = block
+    )
 }

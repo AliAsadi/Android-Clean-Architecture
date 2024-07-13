@@ -18,7 +18,7 @@ class NavigationBarSharedViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test on bottom item clicked`() = runTest {
+    fun `test on bottom item clicked`() = runUnconfinedTest {
         val favorite = BottomNavigationBarItem.MyFavorites
         sut.bottomItem.test {
             sut.onBottomItemClicked(favorite)

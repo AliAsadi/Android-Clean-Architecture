@@ -52,13 +52,13 @@ class FeedViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test showing loader when loading data`() = runTest {
+    fun `test showing loader when loading data`() = runUnconfinedTest {
         sut.onLoadStateUpdate(mockLoadState(LoadState.Loading))
         assertThat(sut.uiState.value.showLoading).isTrue()
     }
 
     @Test
-    fun `test showing error message on loading failure`() = runTest {
+    fun `test showing error message on loading failure`() = runUnconfinedTest {
         val errorMessage = "error"
         sut.onLoadStateUpdate(mockLoadState(LoadState.Error(Throwable(errorMessage))))
 
@@ -70,7 +70,7 @@ class FeedViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test showing movies on loading success`() = runTest {
+    fun `test showing movies on loading success`() = runUnconfinedTest {
         sut.onLoadStateUpdate(mockLoadState(LoadState.NotLoading(true)))
 
         sut.uiState.test {
@@ -81,7 +81,7 @@ class FeedViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `verify navigation to movie details when a movie is clicked`() = runTest {
+    fun `verify navigation to movie details when a movie is clicked`() = runUnconfinedTest {
         val movieId = 1
 
         launch {
@@ -98,7 +98,7 @@ class FeedViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test refreshing movies`() = runTest {
+    fun `test refreshing movies`() = runUnconfinedTest {
         sut.refreshListState.test {
             sut.onRefresh()
             assertThat(awaitItem()).isEqualTo(Unit)
@@ -106,7 +106,7 @@ class FeedViewModelTest : BaseTest() {
     }
 
     @Test
-    fun `test refreshing movies when network state is lost`() = runTest {
+    fun `test refreshing movies when network state is lost`() = runUnconfinedTest {
         sut.refreshListState.test {
             networkState.emit(NetworkMonitor.NetworkState.Lost)
             networkState.emit(NetworkMonitor.NetworkState.Available)

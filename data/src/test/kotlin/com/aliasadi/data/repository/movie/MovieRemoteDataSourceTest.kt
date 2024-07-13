@@ -25,7 +25,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovies returns success when API call is successful`() = runTest {
+    fun `test getMovies returns success when API call is successful`() = runUnconfinedTest {
         val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(movieApi.getMovies(any(), any())).thenReturn(listOf(movieData))
 
@@ -37,7 +37,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovies returns error when API call fails`() = runTest {
+    fun `test getMovies returns error when API call fails`() = runUnconfinedTest {
         whenever(movieApi.getMovies(any(), any())).thenThrow(RuntimeException("Network error"))
 
         val result = sut.getMovies(1, 10)
@@ -46,7 +46,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovies by IDs returns success when API call is successful`() = runTest {
+    fun `test getMovies by IDs returns success when API call is successful`() = runUnconfinedTest {
         val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(movieApi.getMovies(any<List<Int>>())).thenReturn(listOf(movieData))
 
@@ -58,7 +58,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovies by IDs returns error when API call fails`() = runTest {
+    fun `test getMovies by IDs returns error when API call fails`() = runUnconfinedTest {
         whenever(movieApi.getMovies(any<List<Int>>())).thenThrow(RuntimeException("Network error"))
 
         val result = sut.getMovies(listOf(1, 2, 3))
@@ -67,7 +67,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovie returns success when API call is successful`() = runTest {
+    fun `test getMovie returns success when API call is successful`() = runUnconfinedTest {
         val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(movieApi.getMovie(any())).thenReturn(movieData)
 
@@ -78,7 +78,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test getMovie returns error when API call fails`() = runTest {
+    fun `test getMovie returns error when API call fails`() = runUnconfinedTest {
         whenever(movieApi.getMovie(any())).thenThrow(RuntimeException("Network error"))
 
         val result = sut.getMovie(1)
@@ -87,7 +87,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test search returns success when API call is successful`() = runTest {
+    fun `test search returns success when API call is successful`() = runUnconfinedTest {
         val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(movieApi.search(any(), any(), any())).thenReturn(listOf(movieData))
 
@@ -99,7 +99,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
     }
 
     @Test
-    fun `test search returns error when API call fails`() = runTest {
+    fun `test search returns error when API call fails`() = runUnconfinedTest {
         whenever(movieApi.search(any(), any(), any())).thenThrow(RuntimeException("Network error"))
 
         val result = sut.search("query", 1, 10)
