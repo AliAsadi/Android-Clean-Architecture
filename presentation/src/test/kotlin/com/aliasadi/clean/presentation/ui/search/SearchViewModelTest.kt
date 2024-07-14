@@ -22,7 +22,6 @@ import org.junit.Test
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.mock
-import org.mockito.kotlin.validateMockitoUsage
 import org.mockito.kotlin.whenever
 
 class SearchViewModelTest : BaseTest() {
