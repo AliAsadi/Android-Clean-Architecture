@@ -39,7 +39,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core"))
     // UnitTest
     api("org.mockito.kotlin:mockito-kotlin:4.0.0")
     api("org.mockito:mockito-inline:5.0.0")

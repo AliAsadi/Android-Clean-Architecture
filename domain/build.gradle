@@ -35,7 +35,5 @@ android {
 }
 
 dependencies {
-    api(project(":core"))
     implementation 'androidx.paging:paging-common-ktx:3.3.0'
 }
-

@@ -1,6 +1,7 @@
 package com.aliasadi.clean.presentation.ui.navigationbar
 
 import app.cash.turbine.test
+import com.aliasadi.clean.presentation.util.getTestDispatcher
 import com.aliasadi.clean.ui.navigationbar.BottomNavigationBarItem
 import com.aliasadi.clean.ui.navigationbar.NavigationBarSharedViewModel
 import com.aliasadi.core.test.base.BaseTest
@@ -14,7 +15,9 @@ class NavigationBarSharedViewModelTest : BaseTest() {
 
     @Before
     fun setup() {
-        sut = NavigationBarSharedViewModel(testDispatcherProvider)
+        sut = NavigationBarSharedViewModel(
+            dispatchers =getTestDispatcher()
+        )
     }
 
     @Test

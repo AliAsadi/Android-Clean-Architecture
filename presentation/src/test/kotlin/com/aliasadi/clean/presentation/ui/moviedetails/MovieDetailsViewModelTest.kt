@@ -1,6 +1,7 @@
 package com.aliasadi.clean.presentation.ui.moviedetails
 
 import app.cash.turbine.test
+import com.aliasadi.clean.presentation.util.getTestDispatcher
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsBundle
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsState
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
@@ -122,7 +123,7 @@ class MovieDetailsViewModelTest : BaseTest() {
             checkFavoriteStatus = checkFavoriteStatus,
             removeMovieFromFavorite = removeMovieFromFavorite,
             addMovieToFavorite = addMovieToFavorite,
-            dispatchers = testDispatcherProvider,
+            dispatchers = getTestDispatcher(),
             movieDetailsBundle = movieDetailsBundle
         )
     }

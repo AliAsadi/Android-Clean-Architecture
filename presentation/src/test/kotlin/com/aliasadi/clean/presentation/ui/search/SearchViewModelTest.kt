@@ -6,6 +6,7 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import app.cash.turbine.test
+import com.aliasadi.clean.presentation.util.getTestDispatcher
 import com.aliasadi.clean.ui.search.SearchNavigationState.MovieDetails
 import com.aliasadi.clean.ui.search.SearchUiState
 import com.aliasadi.clean.ui.search.SearchViewModel
@@ -21,6 +22,7 @@ import org.junit.Test
 import org.mockito.Mockito.anyInt
 import org.mockito.Mockito.anyString
 import org.mockito.Mockito.mock
+import org.mockito.kotlin.validateMockitoUsage
 import org.mockito.kotlin.whenever
 
 class SearchViewModelTest : BaseTest() {
@@ -37,7 +39,11 @@ class SearchViewModelTest : BaseTest() {
     fun setUp() {
         whenever(savedStateHandle.getStateFlow(Companion.KEY_SEARCH_QUERY, "")).thenReturn(queryFlow)
         whenever(searchMovies.invoke(anyString(), anyInt())).thenReturn(moviesFlow)
-        sut = SearchViewModel(searchMovies, savedStateHandle, testDispatcherProvider)
+        sut = SearchViewModel(
+            searchMovies = searchMovies,
+            savedStateHandle = savedStateHandle,
+            dispatchers = getTestDispatcher()
+        )
     }
 
     @Test

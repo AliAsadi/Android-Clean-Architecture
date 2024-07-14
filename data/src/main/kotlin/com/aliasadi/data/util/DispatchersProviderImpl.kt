@@ -1,6 +1,6 @@
 package com.aliasadi.data.util
 
-import com.aliasadi.core.provider.DispatchersProvider
+import com.aliasadi.domain.util.DispatchersProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.MainCoroutineDispatcher
 

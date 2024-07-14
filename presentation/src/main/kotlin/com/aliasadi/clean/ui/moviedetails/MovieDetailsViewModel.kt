@@ -1,7 +1,7 @@
 package com.aliasadi.clean.ui.moviedetails
 
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.core.provider.DispatchersProvider
+import com.aliasadi.domain.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
