@@ -4,18 +4,24 @@ appcompat = "1.7.0"
 coilCompose = "2.5.0"
 composeBom = "2024.06.00"
 coreKtx = "1.13.1"
+coreTesting = "2.2.0"
 espressoCore = "3.6.1"
 gson = "2.10.1"
 hiltAndroid = "2.51.1"
 hiltNavigationCompose = "1.2.0"
 hiltWork = "1.2.0"
 junit = "1.2.1"
+junitVersion = "4.13.2"
 kotlinStdlibJdk7 = "1.9.21"
 kotlinxCoroutinesAndroid = "1.7.3"
+kotlinxCoroutinesTest = "1.7.3"
 kotlinxSerializationJson = "1.6.3"
 lifecycleExtensions = "2.2.0"
 lifecycleViewmodelCompose = "2.8.4"
 lifecycleViewmodelKtx = "2.8.4"
+mockitoAndroid = "5.0.0"
+mockitoInline = "5.0.0"
+mockitoKotlin = "4.0.0"
 navigationCompose = "2.8.0-beta06"
 okhttp = "5.0.0-alpha.2"
 pagingCommonKtx = "3.3.1"
@@ -25,6 +31,8 @@ retrofit2KotlinCoroutinesAdapter = "0.9.2"
 roomKtx = "2.6.1"
 roomPaging = "2.6.1"
 roomRuntime = "2.6.1"
+truth = "1.1.3"
+turbine = "0.12.1"
 workRuntimeKtx = "2.9.0"
 
 [libraries]
@@ -35,6 +43,7 @@ appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat"
 compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espressoCore" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
@@ -42,8 +51,10 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
 junit = { module = "androidx.test.ext:junit", version.ref = "junit" }
+junit-junit = { module = "junit:junit", version.ref = "junitVersion" }
 kotlin-stdlib-jdk7 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk7", version.ref = "kotlinStdlibJdk7" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "lifecycleExtensions" }
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
@@ -52,6 +63,9 @@ logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", ver
 compose-material = { module = "androidx.compose.material:material" }
 compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 compose-material3 = { module = "androidx.compose.material3:material3" }
+mockito-android = { module = "org.mockito:mockito-android", version.ref = "mockitoAndroid" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockitoInline" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 paging-common-ktx = { module = "androidx.paging:paging-common-ktx", version.ref = "pagingCommonKtx" }
@@ -69,6 +83,8 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 
 [plugins]

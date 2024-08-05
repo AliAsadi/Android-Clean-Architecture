@@ -40,12 +40,12 @@ android {
 
 dependencies {
     // UnitTest
-    api("org.mockito.kotlin:mockito-kotlin:4.0.0")
-    api("org.mockito:mockito-inline:5.0.0")
-    api("org.mockito:mockito-android:5.0.0")
-    api("androidx.arch.core:core-testing:2.2.0")
-    api("junit:junit:4.13.2")
-    api("app.cash.turbine:turbine:0.12.1")
-    api("com.google.truth:truth:1.1.3")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    api(libs.mockito.kotlin)
+    api(libs.mockito.inline)
+    api(libs.mockito.android)
+    api(libs.core.testing)
+    api(libs.junit.junit)
+    api(libs.turbine)
+    api(libs.truth)
+    api(libs.kotlinx.coroutines.test)
 }
