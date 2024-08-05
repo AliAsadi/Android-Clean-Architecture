@@ -9,7 +9,6 @@ android {
 
     defaultConfig {
         minSdk = 24
-        targetSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", "\"https://movies-mock-server.vercel.app/\"")
     }
