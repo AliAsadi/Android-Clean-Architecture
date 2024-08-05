@@ -14,10 +14,10 @@ buildscript {
 }
 
 plugins {
-    id("io.gitlab.arturbosch.detekt") version "1.22.0" apply false
-    id("com.google.dagger.hilt.android") version "2.51.1" apply false
-    id("com.google.devtools.ksp") version "1.9.22-1.0.17" apply false
-    id("org.jetbrains.kotlinx.kover") version "0.8.2" apply false
+    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.kover) apply false
 }
 
 allprojects {
