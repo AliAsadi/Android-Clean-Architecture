@@ -9,20 +9,13 @@ plugins {
     alias(libs.plugins.kover) apply false
 }
 
-allprojects {
+subprojects {
     repositories {
         google()
         mavenCentral()
     }
-}
-
-subprojects {
     // Apply Detekt plugin for all modules (presentation, data, domain)
     apply(from = "$rootDir/detekt.gradle")
     // Apply Kover plugin for all modules
     apply(from = "$rootDir/kover.gradle")
-}
-
-tasks.register<Delete>("clean") {
-    delete(rootProject.buildDir)
 }
