@@ -127,6 +127,4 @@ dependencies {
 
     // Serialization
     implementation(libs.kotlinx.serialization.json)
-
-    androidTestImplementation(libs.junit)
 }
