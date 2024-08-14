@@ -20,11 +20,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
     buildFeatures {
         buildConfig = true
     }
@@ -39,6 +34,10 @@ android {
     }
 
     namespace = "com.aliasadi.data"
+}
+
+kotlin {
+    jvmToolchain(21)
 }
 
 dependencies {
