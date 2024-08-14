@@ -41,6 +41,8 @@ ksp = "1.9.23-1.0.20"
 kover = "0.8.2"
 serializationGradlePlugin = "1.9.0"
 jdk = "21"
+compileSdk = "35"
+minSdk = "24"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
