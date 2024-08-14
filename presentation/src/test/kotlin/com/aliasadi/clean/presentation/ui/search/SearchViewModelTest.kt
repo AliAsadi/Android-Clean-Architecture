@@ -6,7 +6,6 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import app.cash.turbine.test
-import com.aliasadi.clean.presentation.util.getTestDispatcher
 import com.aliasadi.clean.ui.search.SearchNavigationState.MovieDetails
 import com.aliasadi.clean.ui.search.SearchUiState
 import com.aliasadi.clean.ui.search.SearchViewModel
@@ -41,7 +40,6 @@ class SearchViewModelTest : BaseTest() {
         sut = SearchViewModel(
             searchMovies = searchMovies,
             savedStateHandle = savedStateHandle,
-            dispatchers = getTestDispatcher()
         )
     }
 

@@ -1,7 +1,6 @@
 package com.aliasadi.clean.ui.moviedetails
 
 import com.aliasadi.clean.ui.base.BaseViewModel
-import com.aliasadi.domain.util.DispatchersProvider
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
@@ -27,8 +26,7 @@ class MovieDetailsViewModel @Inject constructor(
     private val addMovieToFavorite: AddMovieToFavorite,
     private val removeMovieFromFavorite: RemoveMovieFromFavorite,
     movieDetailsBundle: MovieDetailsBundle,
-    dispatchers: DispatchersProvider
-) : BaseViewModel(dispatchers) {
+) : BaseViewModel() {
 
     private val _uiState: MutableStateFlow<MovieDetailsState> = MutableStateFlow(MovieDetailsState())
     val uiState = _uiState.asStateFlow()
@@ -39,7 +37,7 @@ class MovieDetailsViewModel @Inject constructor(
         onInitialState()
     }
 
-    private fun onInitialState() = launchOnMainImmediate {
+    private fun onInitialState() = launch {
         val isFavorite = async { checkFavoriteStatus(movieId).asSuccessOrNull() ?: false }
         getMovieById(movieId).onSuccess {
             _uiState.value = MovieDetailsState(
@@ -51,7 +49,7 @@ class MovieDetailsViewModel @Inject constructor(
         }
     }
 
-    fun onFavoriteClicked() = launchOnMainImmediate {
+    fun onFavoriteClicked() = launch {
         checkFavoriteStatus(movieId).onSuccess { isFavorite ->
             if (isFavorite) removeMovieFromFavorite(movieId) else addMovieToFavorite(movieId)
             _uiState.update { it.copy(isFavorite = !isFavorite) }

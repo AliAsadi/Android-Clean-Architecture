@@ -5,7 +5,6 @@ import androidx.paging.LoadState
 import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import app.cash.turbine.test
-import com.aliasadi.clean.presentation.util.getTestDispatcher
 import com.aliasadi.clean.ui.favorites.FavoritesNavigationState.MovieDetails
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel
 import com.aliasadi.core.test.base.BaseTest
@@ -32,7 +31,6 @@ class FavoritesViewModelTest : BaseTest() {
         whenever(getFavoriteMovies.invoke(anyInt())).thenReturn(moviesFlow)
         sut = FavoritesViewModel(
             getFavoriteMovies = getFavoriteMovies,
-            dispatchers = getTestDispatcher()
         )
     }
 

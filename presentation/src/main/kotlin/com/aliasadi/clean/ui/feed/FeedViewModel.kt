@@ -12,7 +12,6 @@ import com.aliasadi.clean.util.NetworkMonitor
 import com.aliasadi.clean.util.NetworkMonitor.NetworkState
 import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Lost
 import com.aliasadi.clean.util.singleSharedFlow
-import com.aliasadi.domain.util.DispatchersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -31,8 +30,7 @@ import javax.inject.Inject
 class FeedViewModel @Inject constructor(
     getMoviesWithSeparators: GetMoviesWithSeparators,
     networkMonitor: NetworkMonitor,
-    dispatchers: DispatchersProvider
-) : BaseViewModel(dispatchers) {
+) : BaseViewModel() {
 
     val movies: Flow<PagingData<MovieListItem>> = getMoviesWithSeparators.movies(
         pageSize = 90
@@ -72,7 +70,7 @@ class FeedViewModel @Inject constructor(
         _uiState.update { it.copy(showLoading = showLoading, errorMessage = error) }
     }
 
-    fun onRefresh() = launchOnMainImmediate {
+    fun onRefresh() = launch {
         _refreshListState.emit(Unit)
     }
 }

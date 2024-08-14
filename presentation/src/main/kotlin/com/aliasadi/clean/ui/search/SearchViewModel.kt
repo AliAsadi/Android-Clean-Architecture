@@ -11,7 +11,6 @@ import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.mapper.toMovieListItem
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.util.singleSharedFlow
-import com.aliasadi.domain.util.DispatchersProvider
 import com.aliasadi.domain.usecase.SearchMovies
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -36,8 +35,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val searchMovies: SearchMovies,
     private val savedStateHandle: SavedStateHandle,
-    dispatchers: DispatchersProvider
-) : BaseViewModel(dispatchers) {
+) : BaseViewModel() {
 
     private val _uiState: MutableStateFlow<SearchUiState> = MutableStateFlow(SearchUiState())
     val uiState = _uiState.asStateFlow()

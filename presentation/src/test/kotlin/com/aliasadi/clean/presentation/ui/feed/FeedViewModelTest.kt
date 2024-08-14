@@ -6,7 +6,6 @@ import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import app.cash.turbine.test
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.presentation.util.getTestDispatcher
 import com.aliasadi.clean.ui.feed.FeedNavigationState
 import com.aliasadi.clean.ui.feed.FeedUiState
 import com.aliasadi.clean.ui.feed.FeedViewModel
@@ -48,7 +47,6 @@ class FeedViewModelTest : BaseTest() {
         sut = FeedViewModel(
             getMoviesWithSeparators = getMoviesWithSeparators,
             networkMonitor = networkMonitor,
-            dispatchers = getTestDispatcher()
         )
     }
 
