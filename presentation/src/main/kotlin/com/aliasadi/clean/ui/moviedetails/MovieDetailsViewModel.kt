@@ -1,6 +1,7 @@
 package com.aliasadi.clean.ui.moviedetails
 
 import com.aliasadi.clean.ui.base.BaseViewModel
+import com.aliasadi.clean.util.orFalse
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
@@ -38,7 +39,7 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     private fun onInitialState() = launch {
-        val isFavorite = async { checkFavoriteStatus(movieId).asSuccessOrNull() ?: false }
+        val isFavorite = async { checkFavoriteStatus(movieId).asSuccessOrNull().orFalse() }
         getMovieById(movieId).onSuccess {
             _uiState.value = MovieDetailsState(
                 title = it.title,
