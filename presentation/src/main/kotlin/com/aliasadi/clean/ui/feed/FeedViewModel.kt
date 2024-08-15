@@ -8,9 +8,7 @@ import androidx.paging.cachedIn
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
-import com.aliasadi.clean.util.NetworkMonitor
-import com.aliasadi.clean.util.NetworkMonitor.NetworkState
-import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Lost
+import com.aliasadi.data.util.NetworkMonitorImpl
 import com.aliasadi.clean.util.singleSharedFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -29,7 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FeedViewModel @Inject constructor(
     getMoviesWithSeparators: GetMoviesWithSeparators,
-    networkMonitor: NetworkMonitor,
+    val networkMonitor: NetworkMonitorImpl,
 ) : BaseViewModel() {
 
     val movies: Flow<PagingData<MovieListItem>> = getMoviesWithSeparators.movies(
@@ -45,15 +43,22 @@ class FeedViewModel @Inject constructor(
     private val _refreshListState: MutableSharedFlow<Unit> = singleSharedFlow()
     val refreshListState = _refreshListState.asSharedFlow()
 
-    private var networkState: NetworkState = networkMonitor.getInitialState()
+    private var isOnline: Boolean = networkMonitor.getInitialStatus()
 
     init {
-        networkMonitor.networkState.onEach { updatedNetworkState ->
-            if (networkState != updatedNetworkState && networkState == Lost) {
-                onRefresh()
-            }
-            networkState = updatedNetworkState
-        }.launchIn(viewModelScope)
+        observeNetworkStatus()
+    }
+
+    private fun observeNetworkStatus() {
+        networkMonitor.isOnline
+            .onEach { newStatus -> handleNetworkStatusChange(newStatus) }
+            .launchIn(viewModelScope)
+    }
+
+    private fun handleNetworkStatusChange(newStatus: Boolean) {
+        val shouldRefresh = isOnline != newStatus && !isOnline
+        if (shouldRefresh) onRefresh()
+        isOnline = newStatus
     }
 
     fun onMovieClicked(movieId: Int) =

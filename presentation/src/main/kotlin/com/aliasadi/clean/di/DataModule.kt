@@ -1,5 +1,6 @@
 package com.aliasadi.clean.di
 
+import android.content.Context
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.db.movies.MovieDao
@@ -11,6 +12,7 @@ import com.aliasadi.data.repository.movie.MovieRemoteMediator
 import com.aliasadi.data.repository.movie.MovieRepositoryImpl
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesLocalDataSource
+import com.aliasadi.data.util.NetworkMonitorImpl
 import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
@@ -18,9 +20,11 @@ import com.aliasadi.domain.usecase.GetFavoriteMovies
 import com.aliasadi.domain.usecase.GetMovieDetails
 import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
 import com.aliasadi.domain.usecase.SearchMovies
+import com.aliasadi.domain.util.NetworkMonitor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -103,4 +107,9 @@ class DataModule {
     fun provideRemoveMovieFromFavoriteUseCase(movieRepository: MovieRepository): RemoveMovieFromFavorite {
         return RemoveMovieFromFavorite(movieRepository)
     }
+
+    @Provides
+    fun provideNetworkMonitor(
+        @ApplicationContext context: Context
+    ): NetworkMonitor = NetworkMonitorImpl(context)
 }

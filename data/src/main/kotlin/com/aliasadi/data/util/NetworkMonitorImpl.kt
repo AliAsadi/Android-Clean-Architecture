@@ -1,12 +1,10 @@
-package com.aliasadi.clean.util
+package com.aliasadi.data.util
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.util.Log
-import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Available
-import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Lost
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.aliasadi.domain.util.NetworkMonitor
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -16,32 +14,26 @@ import kotlinx.coroutines.launch
 /**
  * @author by Ali Asadi on 05/02/2023
  */
-class NetworkMonitor(
-    @ApplicationContext context: Context
-) {
+class NetworkMonitorImpl(
+    appContext: Context
+) : NetworkMonitor {
 
-    enum class NetworkState {
-        Available, Lost;
+    private val connectivityManager = appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        fun isAvailable() = this == Available
-    }
+    override val isOnline: Flow<Boolean> = callbackFlow {
 
-    private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-    val networkState: Flow<NetworkState> = callbackFlow {
-
-        launch { send(getInitialState()) }
+        launch { send(getInitialStatus()) }
 
         val callback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                launch { send(Available) }
+                launch { send(true) }
                 Log.d("XXX", "NetworkMonitor: onAvailable() called")
             }
 
             override fun onLost(network: Network) {
                 super.onLost(network)
-                launch { send(Lost) }
+                launch { send(false) }
                 Log.d("XXX", "NetworkMonitor: onLost() called")
             }
         }
@@ -54,5 +46,5 @@ class NetworkMonitor(
         }
     }.distinctUntilChanged()
 
-    fun getInitialState(): NetworkState = if (connectivityManager.activeNetwork != null) Available else Lost
+    fun getInitialStatus(): Boolean = connectivityManager.activeNetwork != null
 }

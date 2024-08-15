@@ -10,7 +10,7 @@ import com.aliasadi.clean.ui.feed.FeedNavigationState
 import com.aliasadi.clean.ui.feed.FeedUiState
 import com.aliasadi.clean.ui.feed.FeedViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
-import com.aliasadi.clean.util.NetworkMonitor
+import com.aliasadi.data.util.NetworkMonitorImpl
 import com.aliasadi.core.test.base.BaseTest
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.flow.Flow
@@ -30,8 +30,8 @@ import org.mockito.kotlin.whenever
 class FeedViewModelTest : BaseTest() {
 
     private val getMoviesWithSeparators: GetMoviesWithSeparators = mock()
-    private val networkMonitor: NetworkMonitor = mock()
-    private val networkState = MutableStateFlow(NetworkMonitor.NetworkState.Available)
+    private val networkMonitor: NetworkMonitorImpl = mock()
+    private val isOnline = MutableStateFlow(true)
 
     private lateinit var sut: FeedViewModel
 
@@ -42,8 +42,8 @@ class FeedViewModelTest : BaseTest() {
     @Before
     fun setUp() {
         whenever(getMoviesWithSeparators.movies(pageSize = anyInt())).thenReturn(pagingData)
-        whenever(networkMonitor.getInitialState()).thenReturn(NetworkMonitor.NetworkState.Available)
-        whenever(networkMonitor.networkState).thenReturn(networkState)
+        whenever(networkMonitor.getInitialStatus()).thenReturn(true)
+        whenever(networkMonitor.isOnline).thenReturn(isOnline)
         sut = FeedViewModel(
             getMoviesWithSeparators = getMoviesWithSeparators,
             networkMonitor = networkMonitor,
@@ -107,8 +107,8 @@ class FeedViewModelTest : BaseTest() {
     @Test
     fun `test refreshing movies when network state is lost`() = runUnconfinedTest {
         sut.refreshListState.test {
-            networkState.emit(NetworkMonitor.NetworkState.Lost)
-            networkState.emit(NetworkMonitor.NetworkState.Available)
+            isOnline.emit(false)
+            isOnline.emit(true)
             assertThat(awaitItem()).isEqualTo(Unit)
         }
     }

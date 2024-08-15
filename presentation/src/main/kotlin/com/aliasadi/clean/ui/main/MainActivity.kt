@@ -14,8 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.di.AppSettingsSharedPreference
 import com.aliasadi.clean.ui.theme.AppTheme
 import com.aliasadi.clean.ui.widget.NoInternetConnectionBanner
-import com.aliasadi.clean.util.NetworkMonitor
-import com.aliasadi.clean.util.NetworkMonitor.NetworkState.Available
+import com.aliasadi.domain.util.NetworkMonitor
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -50,9 +49,9 @@ class MainActivity : ComponentActivity() {
 
             AppTheme(darkMode) {
                 Column {
-                    val networkState by networkMonitor.networkState.collectAsState(initial = Available)
+                    val isOnline by networkMonitor.isOnline.collectAsState(initial = true)
 
-                    if (!networkState.isAvailable()) {
+                    if (!isOnline) {
                         NoInternetConnectionBanner()
                     }
 

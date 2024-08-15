@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.work.WorkManager
 import com.aliasadi.clean.di.AppSettingsSharedPreference
-import com.aliasadi.clean.util.NetworkMonitor
+import com.aliasadi.data.util.NetworkMonitorImpl
 import com.aliasadi.data.util.DiskExecutor
 import dagger.Module
 import dagger.Provides
@@ -41,5 +41,5 @@ class AppModule {
     @Singleton
     fun provideNetworkMonitor(
         @ApplicationContext context: Context
-    ): NetworkMonitor = NetworkMonitor(context)
+    ): NetworkMonitorImpl = NetworkMonitorImpl(context)
 }
