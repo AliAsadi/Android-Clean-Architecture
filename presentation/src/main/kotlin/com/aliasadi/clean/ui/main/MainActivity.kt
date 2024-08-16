@@ -49,10 +49,12 @@ class MainActivity : ComponentActivity() {
 
             AppTheme(darkMode) {
                 Column {
-                    val isOnline by networkMonitor.isOnline.collectAsState(initial = true)
+                    val networkStatus by networkMonitor.networkState.collectAsState(null)
 
-                    if (!isOnline) {
-                        NoInternetConnectionBanner()
+                    networkStatus?.let {
+                        if (it.isOnline.not()) {
+                            NoInternetConnectionBanner()
+                        }
                     }
 
                     MainGraph(

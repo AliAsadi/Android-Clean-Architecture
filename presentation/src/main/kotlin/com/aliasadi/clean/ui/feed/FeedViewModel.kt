@@ -10,6 +10,7 @@ import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
 import com.aliasadi.data.util.NetworkMonitorImpl
 import com.aliasadi.clean.util.singleSharedFlow
+import com.aliasadi.domain.util.NetworkMonitor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -26,8 +27,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class FeedViewModel @Inject constructor(
+    val networkMonitor: NetworkMonitor,
     getMoviesWithSeparators: GetMoviesWithSeparators,
-    val networkMonitor: NetworkMonitorImpl,
 ) : BaseViewModel() {
 
     val movies: Flow<PagingData<MovieListItem>> = getMoviesWithSeparators.movies(
@@ -43,22 +44,14 @@ class FeedViewModel @Inject constructor(
     private val _refreshListState: MutableSharedFlow<Unit> = singleSharedFlow()
     val refreshListState = _refreshListState.asSharedFlow()
 
-    private var isOnline: Boolean = networkMonitor.getInitialStatus()
-
     init {
         observeNetworkStatus()
     }
 
     private fun observeNetworkStatus() {
-        networkMonitor.isOnline
-            .onEach { newStatus -> handleNetworkStatusChange(newStatus) }
+        networkMonitor.networkState
+            .onEach { if (it.shouldRefresh) onRefresh() }
             .launchIn(viewModelScope)
-    }
-
-    private fun handleNetworkStatusChange(newStatus: Boolean) {
-        val shouldRefresh = isOnline != newStatus && !isOnline
-        if (shouldRefresh) onRefresh()
-        isOnline = newStatus
     }
 
     fun onMovieClicked(movieId: Int) =
