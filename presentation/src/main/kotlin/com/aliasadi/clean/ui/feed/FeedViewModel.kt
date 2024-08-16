@@ -8,7 +8,6 @@ import androidx.paging.cachedIn
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.ui.base.BaseViewModel
 import com.aliasadi.clean.ui.feed.usecase.GetMoviesWithSeparators
-import com.aliasadi.data.util.NetworkMonitorImpl
 import com.aliasadi.clean.util.singleSharedFlow
 import com.aliasadi.domain.util.NetworkMonitor
 import dagger.hilt.android.lifecycle.HiltViewModel
