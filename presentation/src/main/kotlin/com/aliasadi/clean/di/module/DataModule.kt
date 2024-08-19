@@ -1,4 +1,4 @@
-package com.aliasadi.clean.di
+package com.aliasadi.clean.di.module
 
 import android.content.Context
 import com.aliasadi.data.api.MovieApi
