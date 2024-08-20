@@ -20,3 +20,10 @@ inline fun <T> Result<T>.onError(
 ): Result<T> = if (this is Error) also { block(error) } else this
 
 fun <T> Result<T>.asSuccessOrNull(): T? = (this as? Success)?.data
+
+inline fun <A, T> Result<T>.map(transform: (T) -> A): Result<A> {
+    return when (this) {
+        is Success -> Success(transform(data))
+        is Error -> Error(error)
+    }
+}

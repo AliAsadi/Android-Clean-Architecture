@@ -19,8 +19,8 @@ const val SYNC_WORK_MAX_ATTEMPTS = 3
 class SyncWork @AssistedInject constructor(
     @Assisted appContext: Context,
     @Assisted params: WorkerParameters,
-    val movieRepository: MovieRepository,
-    val dispatchers: DispatchersProvider,
+    private val movieRepository: MovieRepository,
+    private val dispatchers: DispatchersProvider,
 ) : CoroutineWorker(appContext, params) {
 
     override suspend fun doWork(): Result = withContext(dispatchers.io) {

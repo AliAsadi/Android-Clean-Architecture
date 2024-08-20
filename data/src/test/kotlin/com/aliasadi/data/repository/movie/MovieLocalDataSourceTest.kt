@@ -4,12 +4,12 @@ import androidx.paging.PagingSource
 import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.db.movies.MovieRemoteKeyDao
+import com.aliasadi.data.entities.MovieData
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.entities.MovieRemoteKeyDbData
+import com.aliasadi.data.entities.toDbData
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.data.mapper.toDbData
-import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
@@ -87,7 +87,7 @@ class MovieLocalDataSourceTest : BaseTest() {
 
     @Test
     fun `test saveMovies calls saveMovies on movieDao`() = runUnconfinedTest {
-        val movieEntities = listOf(MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl"))
+        val movieEntities = listOf(MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl"))
         val movieDbData = movieEntities.map { it.toDbData() }
 
         sut.saveMovies(movieEntities)

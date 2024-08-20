@@ -1,9 +1,12 @@
 package com.aliasadi.data.repository.movie
 
 import com.aliasadi.core.test.base.BaseTest
+import com.aliasadi.data.entities.MovieData
+import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
+import com.aliasadi.domain.util.asSuccessOrNull
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -40,14 +43,22 @@ class MovieRepositoryImplTest : BaseTest() {
 
     @Test
     fun `test getMovie returns movie from remote if not available locally`() = runUnconfinedTest {
-        val movieEntity = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        val movieData = MovieData(
+            id = 1,
+            description = "Title",
+            image = "Description",
+            backgroundUrl = "Image",
+            title = "Category",
+            category = "BackgroundUrl"
+        )
         whenever(local.getMovie(any())).thenReturn(Result.Error(Exception()))
-        whenever(remote.getMovie(any())).thenReturn(Result.Success(movieEntity))
+        whenever(remote.getMovie(any())).thenReturn(Result.Success(movieData))
 
         val result = sut.getMovie(1)
 
         assertTrue(result is Result.Success)
-        assertEquals(movieEntity, (result as Result.Success).data)
+
+        assertEquals(movieData.toDomain(), result.asSuccessOrNull())
     }
 
     @Test
@@ -72,15 +83,15 @@ class MovieRepositoryImplTest : BaseTest() {
 
     @Test
     fun `test addMovieToFavorite adds movie to favorites, error`() = runUnconfinedTest {
-        val movieEntity = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
 
         val exception = Exception()
         whenever(local.getMovie(any())).thenReturn(Result.Error(exception))
-        whenever(remote.getMovie(any())).thenReturn(Result.Success(movieEntity))
+        whenever(remote.getMovie(any())).thenReturn(Result.Success(movieData))
         sut.addMovieToFavorite(1)
 
         verify(remote).getMovie(1)
-        verify(local).saveMovies(listOf(movieEntity))
+        verify(local).saveMovies(listOf(movieData))
         verify(localFavorite).addMovieToFavorite(1)
     }
 
@@ -94,13 +105,14 @@ class MovieRepositoryImplTest : BaseTest() {
     @Test
     fun `test sync updates local with remote movies`() = runUnconfinedTest {
         val movieEntity = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(local.getMovies()).thenReturn(Result.Success(listOf(movieEntity)))
-        whenever(remote.getMovies(any<List<Int>>())).thenReturn(Result.Success(listOf(movieEntity)))
+        whenever(remote.getMovies(any<List<Int>>())).thenReturn(Result.Success(listOf(movieData)))
 
         val result = sut.sync()
 
         assertTrue(result)
-        verify(local).saveMovies(listOf(movieEntity))
+        verify(local).saveMovies(listOf(movieData))
     }
 
     @Test

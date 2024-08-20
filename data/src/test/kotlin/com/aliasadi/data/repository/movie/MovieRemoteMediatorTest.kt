@@ -7,12 +7,10 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.aliasadi.core.test.base.BaseTest
+import com.aliasadi.data.entities.MovieData
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.entities.MovieRemoteKeyDbData
-import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.data.mapper.toDbData
-import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -51,9 +49,8 @@ class MovieRemoteMediatorTest : BaseTest() {
 
     @Test
     fun `load refresh success when remote returns data`() = runUnconfinedTest {
-        val movieEntity = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
-        val movieDbData = movieEntity.toDbData()
-        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(listOf(movieEntity)))
+        val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(listOf(movieData)))
         whenever(local.clearMovies()).thenReturn(Unit)
         whenever(local.clearRemoteKeys()).thenReturn(Unit)
         whenever(local.saveMovies(any())).thenReturn(Unit)
@@ -72,7 +69,7 @@ class MovieRemoteMediatorTest : BaseTest() {
         assertEquals(false, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
         verify(local).clearMovies()
         verify(local).clearRemoteKeys()
-        verify(local).saveMovies(listOf(movieDbData.toDomain()))
+        verify(local).saveMovies(listOf(movieData))
         verify(local).saveRemoteKey(any())
     }
 
@@ -111,10 +108,9 @@ class MovieRemoteMediatorTest : BaseTest() {
 
     @Test
     fun `load append success when remote returns data`() = runUnconfinedTest {
-        val movieEntity = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
-        val movieDbData = movieEntity.toDbData()
+        val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(local.getLastRemoteKey()).thenReturn(MovieRemoteKeyDbData(1, null, 5))
-        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(listOf(movieEntity)))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(listOf(movieData)))
         whenever(local.saveMovies(any())).thenReturn(Unit)
         whenever(local.saveRemoteKey(any())).thenReturn(Unit)
 
@@ -129,7 +125,7 @@ class MovieRemoteMediatorTest : BaseTest() {
 
         assertTrue(result is RemoteMediator.MediatorResult.Success)
         assertEquals(false, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
-        verify(local).saveMovies(listOf(movieDbData.toDomain()))
+        verify(local).saveMovies(listOf(movieData))
         verify(local).saveRemoteKey(any())
     }
 

@@ -8,9 +8,8 @@ coreTesting = "2.2.0"
 androidAppGradlePlugin = "8.5.2"
 androidLibraryGradlePlugin = "8.5.2"
 gson = "2.10.1"
-hiltAndroid = "2.51.1"
-hiltNavigationCompose = "1.2.0"
-hiltWork = "1.2.0"
+hiltDagger = "2.51.1"
+hilt = "1.2.0"
 hiltGradlePlugin = "2.51.1"
 junit = "4.13.2"
 kotlinGradlePlugin = "1.9.23"
@@ -71,10 +70,12 @@ paging-common-ktx = { module = "androidx.paging:paging-common-ktx", version.ref 
 paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
 
 # Hilt
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
+hilt-dagger-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltDagger" }
+## Keep the Dagger and Hilt compiler in place; removing it could reintroduce the bug related to injecting SyncWork
+hilt-dagger-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltDagger" } # Don't remove
+hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" } # Don't remove
+hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt" }
+hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt" }
 
 # Room
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }

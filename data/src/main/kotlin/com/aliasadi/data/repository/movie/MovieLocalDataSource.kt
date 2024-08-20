@@ -3,11 +3,12 @@ package com.aliasadi.data.repository.movie
 import androidx.paging.PagingSource
 import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.db.movies.MovieRemoteKeyDao
+import com.aliasadi.data.entities.MovieData
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.entities.MovieRemoteKeyDbData
+import com.aliasadi.data.entities.toDbData
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.data.mapper.toDbData
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 
@@ -36,8 +37,8 @@ class MovieLocalDataSource(
         } ?: Result.Error(DataNotAvailableException())
     }
 
-    override suspend fun saveMovies(movieEntities: List<MovieEntity>) {
-        movieDao.saveMovies(movieEntities.map { it.toDbData() })
+    override suspend fun saveMovies(movies: List<MovieData>) {
+        movieDao.saveMovies(movies.map { it.toDbData() })
     }
 
     override suspend fun getLastRemoteKey(): MovieRemoteKeyDbData? {
