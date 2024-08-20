@@ -88,9 +88,10 @@ dependencies {
     ksp(libs.room.compiler)
 
     // Hilt
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
+    implementation(libs.hilt.dagger.android)
     implementation(libs.hilt.work)
+    ksp(libs.hilt.dagger.compiler)
+    ksp(libs.hilt.compiler)
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
