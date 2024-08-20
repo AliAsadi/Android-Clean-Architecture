@@ -12,6 +12,7 @@ import com.aliasadi.domain.repository.MovieRepository
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.Result.Error
 import com.aliasadi.domain.util.Result.Success
+import com.aliasadi.domain.util.map
 import com.aliasadi.domain.util.onError
 import com.aliasadi.domain.util.onSuccess
 import kotlinx.coroutines.flow.Flow
@@ -60,7 +61,7 @@ class MovieRepositoryImpl(
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> {
         return when (val localResult = local.getMovie(movieId)) {
             is Success -> localResult
-            is Error -> remote.getMovie(movieId)
+            is Error -> remote.getMovie(movieId).map { it.toDomain() }
         }
     }
 

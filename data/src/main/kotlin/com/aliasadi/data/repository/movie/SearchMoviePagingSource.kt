@@ -2,6 +2,7 @@ package com.aliasadi.data.repository.movie
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.aliasadi.data.entities.toDomain
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result.Error
 import com.aliasadi.domain.util.Result.Success
@@ -21,7 +22,7 @@ class SearchMoviePagingSource(
 
         return when (val result = remote.search(query, page, params.loadSize)) {
             is Success -> LoadResult.Page(
-                data = result.data.distinctBy { movie -> movie.id },
+                data = result.data.map { it.toDomain() }.distinctBy { movie -> movie.id },
                 prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
                 nextKey = if (result.data.isEmpty()) null else page + 1
             )

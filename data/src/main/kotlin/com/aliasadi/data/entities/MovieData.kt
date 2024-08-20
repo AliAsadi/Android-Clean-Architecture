@@ -23,3 +23,12 @@ fun MovieData.toDomain() = MovieEntity(
     title = title,
     category = category
 )
+
+fun MovieData.toDbData() = MovieDbData(
+    id = id,
+    image = image,
+    description = description,
+    title = title,
+    category = category,
+    backgroundUrl = backgroundUrl
+)
