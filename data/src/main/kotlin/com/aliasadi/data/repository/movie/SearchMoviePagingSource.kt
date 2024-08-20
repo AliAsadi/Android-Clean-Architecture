@@ -3,8 +3,6 @@ package com.aliasadi.data.repository.movie
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.aliasadi.data.entities.MovieData
-import com.aliasadi.data.entities.toDomain
-import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result.Error
 import com.aliasadi.domain.util.Result.Success
 

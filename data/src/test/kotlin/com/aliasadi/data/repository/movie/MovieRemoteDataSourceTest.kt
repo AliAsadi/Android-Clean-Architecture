@@ -3,7 +3,6 @@ package com.aliasadi.data.repository.movie
 import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.MovieData
-import com.aliasadi.data.entities.toDomain
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.asSuccessOrNull
 import org.junit.Assert.assertEquals
