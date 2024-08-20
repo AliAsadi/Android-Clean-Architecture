@@ -73,7 +73,7 @@ paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pag
 hilt-dagger-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltDagger" }
 ## Keep the Dagger and Hilt compiler in place; removing it could reintroduce the bug related to injecting SyncWork
 hilt-dagger-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltDagger" } # Don't remove
-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version = "hilt" } # Don't remove
+hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hilt" } # Don't remove
 hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hilt" }
 
