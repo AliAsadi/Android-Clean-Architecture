@@ -4,7 +4,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.aliasadi.core.test.base.BaseTest
-import com.aliasadi.domain.entities.MovieEntity
+import com.aliasadi.data.entities.MovieData
 import com.aliasadi.domain.util.Result
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -27,10 +27,18 @@ class SearchMoviePagingSourceTest : BaseTest() {
 
     @Test
     fun `test load returns page on success with distinct movies`() = runUnconfinedTest {
-        val movieEntity1 = MovieEntity(1, "Title1", "Description1", "Image1", "Category1", "BackgroundUrl1")
-        val movieEntity2 = MovieEntity(2, "Title2", "Description2", "Image2", "Category2", "BackgroundUrl2")
-        val duplicateMovieEntity = MovieEntity(1, "Title1", "Description1", "Image1", "Category1", "BackgroundUrl1")
-        whenever(remote.search(any(), any(), any())).thenReturn(Result.Success(listOf(movieEntity1, movieEntity2, duplicateMovieEntity)))
+        val movieEntity1 = MovieData(1, "Title1", "Description1", "Image1", "Category1", "BackgroundUrl1")
+        val movieEntity2 = MovieData(2, "Title2", "Description2", "Image2", "Category2", "BackgroundUrl2")
+        val duplicateMovieEntity = MovieData(1, "Title1", "Description1", "Image1", "Category1", "BackgroundUrl1")
+        whenever(remote.search(any(), any(), any())).thenReturn(
+            Result.Success(
+                listOf(
+                    movieEntity1,
+                    movieEntity2,
+                    duplicateMovieEntity
+                )
+            )
+        )
 
         val params = PagingSource.LoadParams.Refresh<Int>(key = null, loadSize = 10, placeholdersEnabled = false)
         val result = sut.load(params)
@@ -44,15 +52,15 @@ class SearchMoviePagingSourceTest : BaseTest() {
 
     @Test
     fun `test load returns page on success with prevKey and nextKey`() = runUnconfinedTest {
-        val movieEntity = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
-        whenever(remote.search(any(), any(), any())).thenReturn(Result.Success(listOf(movieEntity)))
+        val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        whenever(remote.search(any(), any(), any())).thenReturn(Result.Success(listOf(movieData)))
 
-        val params = PagingSource.LoadParams.Append<Int>(key = 2, loadSize = 10, placeholdersEnabled = false)
+        val params = PagingSource.LoadParams.Append(key = 2, loadSize = 10, placeholdersEnabled = false)
         val result = sut.load(params)
 
         assertTrue(result is PagingSource.LoadResult.Page)
         result as PagingSource.LoadResult.Page
-        assertEquals(listOf(movieEntity), result.data)
+        assertEquals(listOf(movieData), result.data)
         assertEquals(1, result.prevKey)
         assertEquals(3, result.nextKey)
     }
@@ -90,8 +98,8 @@ class SearchMoviePagingSourceTest : BaseTest() {
             pages = listOf(
                 PagingSource.LoadResult.Page(
                     data = listOf(
-                        MovieEntity(1, "Title1", "Description1", "Image1", "Category1", "BackgroundUrl1"),
-                        MovieEntity(2, "Title2", "Description2", "Image2", "Category2", "BackgroundUrl2")
+                        MovieData(1, "Title1", "Description1", "Image1", "Category1", "BackgroundUrl1"),
+                        MovieData(2, "Title2", "Description2", "Image2", "Category2", "BackgroundUrl2")
                     ),
                     prevKey = 1,
                     nextKey = 3
@@ -108,7 +116,7 @@ class SearchMoviePagingSourceTest : BaseTest() {
 
     @Test
     fun `test getRefreshKey returns null when no anchor`() {
-        val state = PagingState<Int, MovieEntity>(
+        val state = PagingState<Int, MovieData>(
             pages = listOf(),
             anchorPosition = null,
             config = PagingConfig(pageSize = 10),

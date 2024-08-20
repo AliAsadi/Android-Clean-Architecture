@@ -5,6 +5,7 @@ import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.MovieData
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.domain.util.Result
+import com.aliasadi.domain.util.asSuccessOrNull
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -26,14 +27,14 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
     @Test
     fun `test getMovies returns success when API call is successful`() = runUnconfinedTest {
-        val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
-        whenever(movieApi.getMovies(any(), any())).thenReturn(listOf(movieData))
+        val movieDataList = listOf(MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl"))
+        whenever(movieApi.getMovies(any(), any())).thenReturn(movieDataList)
 
         val result = sut.getMovies(1, 10)
 
         assertTrue(result is Result.Success)
-        assertEquals(1, (result as Result.Success).data.size)
-        assertEquals(movieData.toDomain(), result.data[0])
+        assertEquals(1, result.asSuccessOrNull()?.size)
+        assertEquals(movieDataList, result.asSuccessOrNull())
     }
 
     @Test
@@ -54,7 +55,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         assertTrue(result is Result.Success)
         assertEquals(1, (result as Result.Success).data.size)
-        assertEquals(movieData.toDomain(), result.data[0])
+        assertEquals(movieData, result.data[0])
     }
 
     @Test
@@ -74,7 +75,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
         val result = sut.getMovie(1)
 
         assertTrue(result is Result.Success)
-        assertEquals(movieData.toDomain(), (result as Result.Success).data)
+        assertEquals(movieData, (result as Result.Success).data)
     }
 
     @Test
@@ -95,7 +96,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         assertTrue(result is Result.Success)
         assertEquals(1, (result as Result.Success).data.size)
-        assertEquals(movieData.toDomain(), result.data[0])
+        assertEquals(movieData, result.data[0])
     }
 
     @Test

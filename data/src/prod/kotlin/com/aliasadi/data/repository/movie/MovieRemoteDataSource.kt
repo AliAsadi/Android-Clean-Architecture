@@ -2,9 +2,7 @@ package com.aliasadi.data.repository.movie
 
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.MovieData
-import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.util.safeApiCall
-import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 
 /**

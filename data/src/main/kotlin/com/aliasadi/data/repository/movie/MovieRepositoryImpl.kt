@@ -56,7 +56,9 @@ class MovieRepositoryImpl(
             enablePlaceholders = false
         ),
         pagingSourceFactory = { SearchMoviePagingSource(query, remote) }
-    ).flow
+    ).flow.map { pagingData ->
+        pagingData.map { it.toDomain() }
+    }
 
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> {
         return when (val localResult = local.getMovie(movieId)) {
