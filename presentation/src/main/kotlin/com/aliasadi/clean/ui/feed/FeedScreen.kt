@@ -22,10 +22,9 @@ import com.aliasadi.clean.ui.navigationbar.NavigationBarSharedViewModel
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
 import com.aliasadi.clean.ui.widget.PullToRefresh
+import com.aliasadi.clean.util.collectAsEffect
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 
 /**
  * @author by Ali Asadi on 18/04/2023
@@ -40,33 +39,26 @@ fun FeedPage(
 ) {
     val moviesPaging = viewModel.movies.collectAsLazyPagingItems()
     val uiState by viewModel.uiState.collectAsState()
-    val navigationState by viewModel.navigationState.collectAsState(null)
     val pullToRefreshState = rememberPullRefreshState(uiState.showLoading, { viewModel.onRefresh() })
+    val lazyGridState = rememberLazyGridState()
+
+    viewModel.navigationState.collectAsEffect { navigationState ->
+        when (navigationState) {
+            is MovieDetails -> mainRouter.navigateToMovieDetails(navigationState.movieId)
+        }
+    }
+    viewModel.refreshListState.collectAsEffect {
+        moviesPaging.refresh()
+    }
+
+    sharedViewModel.bottomItem.collectAsEffect {
+        if (it.page == Page.Feed) {
+            lazyGridState.animateScrollToItem(0)
+        }
+    }
 
     LaunchedEffect(key1 = moviesPaging.loadState) {
         viewModel.onLoadStateUpdate(moviesPaging.loadState)
-    }
-
-    LaunchedEffect(key1 = navigationState) {
-        when (val navState = navigationState) {
-            is MovieDetails -> mainRouter.navigateToMovieDetails(navState.movieId)
-            null -> Unit
-        }
-    }
-
-    LaunchedEffect(Unit) {
-        viewModel.refreshListState.collect {
-            moviesPaging.refresh()
-        }
-    }
-
-    val lazyGridState = rememberLazyGridState()
-    LaunchedEffect(key1 = Unit) {
-        sharedViewModel.bottomItem.onEach {
-            if (it.page == Page.Feed) {
-                lazyGridState.animateScrollToItem(0)
-            }
-        }.launchIn(this)
     }
 
     PullToRefresh(state = pullToRefreshState, refresh = uiState.showLoading) {

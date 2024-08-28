@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -22,6 +21,7 @@ import com.aliasadi.clean.ui.widget.EmptyStateIcon
 import com.aliasadi.clean.ui.widget.EmptyStateView
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
+import com.aliasadi.clean.util.collectAsEffect
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.flow.flowOf
 
@@ -32,13 +32,11 @@ fun FavoritesPage(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val movies = viewModel.movies.collectAsLazyPagingItems()
-    val navigationState by viewModel.navigationState.collectAsState(null)
     viewModel.onLoadStateUpdate(movies.loadState, movies.itemCount)
 
-    LaunchedEffect(key1 = navigationState) {
-        when (val navState = navigationState) {
-            is MovieDetails -> mainRouter.navigateToMovieDetails(navState.movieId)
-            else -> Unit
+    viewModel.navigationState.collectAsEffect { navigationState ->
+        when (navigationState) {
+            is MovieDetails -> mainRouter.navigateToMovieDetails(navigationState.movieId)
         }
     }
 
