@@ -1,8 +1,7 @@
 
 # Android Clean Architecture [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3e9bbcba7b3945f4b9ba0887b8639a00)](https://app.codacy.com/gh/AliAsadi/Android-Clean-Architecture?utm_source=github.com&utm_medium=referral&utm_content=AliAsadi/Android-Clean-Architecture&utm_campaign=Badge_Grade_Settings)
 
-A demo movie android app showcasing Clean Architecture, written in Kotlin and featuring Jetpack Compose for modern, declarative UIs. 💯🎞
-
+An Android movie app that simulates a real-world project environment, featuring Clean Architecture, Kotlin, and Jetpack Compose with Offline-first support. The project is continually updated to stay aligned with the latest technologies.
 
 ![image](https://github.com/AliAsadi/Android-Clean-Architecture/assets/20803775/afc6c445-8a0d-4cdc-a2de-0672be74c04a)
 
