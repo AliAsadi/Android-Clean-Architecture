@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +32,7 @@ import com.aliasadi.clean.ui.widget.EmptyStateView
 import com.aliasadi.clean.ui.widget.LoaderFullScreen
 import com.aliasadi.clean.ui.widget.MovieList
 import com.aliasadi.clean.ui.widget.SearchView
+import com.aliasadi.clean.util.collectAsEffect
 import com.aliasadi.clean.util.preview.PreviewContainer
 import kotlinx.coroutines.flow.flowOf
 
@@ -42,17 +42,14 @@ fun SearchPage(
     viewModel: SearchViewModel,
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val navigationState by viewModel.navigationState.collectAsState(null)
     val movies = viewModel.movies.collectAsLazyPagingItems()
     viewModel.onLoadStateUpdate(movies.loadState, movies.itemCount)
 
-    LaunchedEffect(key1 = navigationState) {
-        when (val navState = navigationState) {
+    viewModel.navigationState.collectAsEffect { navigationState ->
+        when (navigationState) {
             is SearchNavigationState.MovieDetails -> {
-                mainNavController.navigate(Page.MovieDetails(navState.movieId))
+                mainNavController.navigate(Page.MovieDetails(navigationState.movieId))
             }
-
-            else -> Unit
         }
     }
 
