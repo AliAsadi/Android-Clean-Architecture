@@ -60,7 +60,7 @@ Each variant has a distinct `MovieRemoteDataSource` implementation, ensuring tha
 ![image](https://github.com/AliAsadi/Android-Clean-Architecture/assets/20803775/10009f97-6f8c-47b0-81d6-e90870ce0b89)
 
 ## The Motivation behind the app
-This repository was created with the intention of sharing knowledge, stepping outside of my comfort zone, and using it to implement new challenges and ideas.
+This repository was created with the intention of sharing knowledge and using it to implement new challenges and ideas.
 
 ## Movies Mock Server API
 
