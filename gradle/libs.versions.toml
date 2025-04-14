@@ -2,7 +2,7 @@
 accompanistSystemuicontroller = "0.27.0"
 appcompat = "1.7.0"
 coilCompose = "2.7.0"
-composeBom = "2025.03.00"
+composeBom = "2025.04.00"
 coreKtx = "1.15.0"
 coreTesting = "2.2.0"
 androidAppGradlePlugin = "8.8.2"
