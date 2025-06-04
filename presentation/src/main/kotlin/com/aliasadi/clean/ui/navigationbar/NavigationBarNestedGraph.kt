@@ -9,6 +9,7 @@ import com.aliasadi.clean.ui.favorites.FavoritesPage
 import com.aliasadi.clean.ui.favorites.FavoritesViewModel
 import com.aliasadi.clean.ui.feed.FeedPage
 import com.aliasadi.clean.ui.feed.FeedViewModel
+import com.aliasadi.clean.ui.profile.ProfilePage
 import com.aliasadi.clean.ui.main.MainRouter
 import com.aliasadi.clean.util.composableHorizontalSlide
 import com.aliasadi.clean.util.sharedViewModel
@@ -39,6 +40,9 @@ fun NavigationBarNestedGraph(
                 mainRouter = MainRouter(mainNavController),
                 viewModel = viewModel,
             )
+        }
+        composableHorizontalSlide<Page.Profile> {
+            ProfilePage()
         }
     }
 }

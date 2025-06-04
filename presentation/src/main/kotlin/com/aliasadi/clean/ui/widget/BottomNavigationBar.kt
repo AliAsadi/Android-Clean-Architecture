@@ -44,6 +44,6 @@ fun BottomNavigationBar(
 @Composable
 private fun BottomNavigationBarViewPreview() {
     PreviewContainer {
-        BottomNavigationBar(listOf(Feed, MyFavorites), rememberNavController()) {}
+        BottomNavigationBar(listOf(Feed, MyFavorites, Profile), rememberNavController()) {}
     }
 }

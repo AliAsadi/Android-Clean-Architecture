@@ -3,6 +3,9 @@
     <string name="clean_architecture">Clean Architecture</string>
     <string name="feed">Feed</string>
     <string name="favorites">Favorites</string>
+    <string name="profile">Profile</string>
+    <string name="user_name">John Doe</string>
+    <string name="user_email">john@example.com</string>
     <string name="movie_details_placeholder_text">Click on a movie\n to view its details.</string>
     <string name="search">Search</string>
     <string name="no_search_results_title">No Results Found</string>

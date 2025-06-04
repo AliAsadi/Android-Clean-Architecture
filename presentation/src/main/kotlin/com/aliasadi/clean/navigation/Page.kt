@@ -13,6 +13,9 @@ sealed class Page {
     data object Favorites : Page()
 
     @Serializable
+    data object Profile : Page()
+
+    @Serializable
     data object Search : Page()
 
     @Serializable
