@@ -55,4 +55,13 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.retrofit2.kotlin.coroutines.adapter)
+
+    // Hilt
+    implementation(libs.hilt.dagger.android)
+    implementation(libs.hilt.work)
+    ksp(libs.hilt.dagger.compiler)
+    ksp(libs.hilt.compiler)
+
+    // WorkManager
+    implementation(libs.work.runtime.ktx)
 }

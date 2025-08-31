@@ -99,9 +99,6 @@ dependencies {
     // Paging
     implementation(libs.paging.compose)
 
-    // WorkManager
-    implementation(libs.work.runtime.ktx)
-
     // Compose
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
