@@ -5,7 +5,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.data.entities.MovieData
-import com.aliasadi.domain.util.Result
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -31,7 +30,7 @@ class SearchMoviePagingSourceTest : BaseTest() {
         val movieEntity2 = MovieData(2, "Title2", "Description2", "Image2", "Category2", "BackgroundUrl2")
         val duplicateMovieEntity = MovieData(1, "Title1", "Description1", "Image1", "Category1", "BackgroundUrl1")
         whenever(remote.search(any(), any(), any())).thenReturn(
-            Result.Success(
+            Result.success(
                 listOf(
                     movieEntity1,
                     movieEntity2,
@@ -53,7 +52,7 @@ class SearchMoviePagingSourceTest : BaseTest() {
     @Test
     fun `test load returns page on success with prevKey and nextKey`() = runUnconfinedTest {
         val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
-        whenever(remote.search(any(), any(), any())).thenReturn(Result.Success(listOf(movieData)))
+        whenever(remote.search(any(), any(), any())).thenReturn(Result.success(listOf(movieData)))
 
         val params = PagingSource.LoadParams.Append(key = 2, loadSize = 10, placeholdersEnabled = false)
         val result = sut.load(params)
@@ -67,7 +66,7 @@ class SearchMoviePagingSourceTest : BaseTest() {
 
     @Test
     fun `test load returns page on success with end of pagination`() = runUnconfinedTest {
-        whenever(remote.search(any(), any(), any())).thenReturn(Result.Success(emptyList()))
+        whenever(remote.search(any(), any(), any())).thenReturn(Result.success(emptyList()))
 
         val params = PagingSource.LoadParams.Append<Int>(key = 2, loadSize = 10, placeholdersEnabled = false)
         val result = sut.load(params)
@@ -82,7 +81,7 @@ class SearchMoviePagingSourceTest : BaseTest() {
     @Test
     fun `test load returns error on failure`() = runUnconfinedTest {
         val error = Exception("Network error")
-        whenever(remote.search(any(), any(), any())).thenReturn(Result.Error(error))
+        whenever(remote.search(any(), any(), any())).thenReturn(Result.failure(error))
 
         val params = PagingSource.LoadParams.Refresh<Int>(key = null, loadSize = 10, placeholdersEnabled = false)
         val result = sut.load(params)

@@ -7,7 +7,6 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.entities.MovieRemoteKeyDbData
-import com.aliasadi.domain.util.Result
 
 private const val MOVIE_STARTING_PAGE_INDEX = 1
 
@@ -32,32 +31,29 @@ class MovieRemoteMediator(
         // There was a lag in loading the first page; as a result, it jumps to the end of the pagination.
         if (state.isEmpty() && page == 2) return MediatorResult.Success(endOfPaginationReached = false)
 
-        when (val result = remote.getMovies(page, state.config.pageSize)) {
-            is Result.Success -> {
-                Log.d("XXX", "MovieRemoteMediator: get movies from remote")
-                if (loadType == LoadType.REFRESH) {
-                    local.clearMovies()
-                    local.clearRemoteKeys()
-                }
-
-                val movies = result.data
-
-                val endOfPaginationReached = movies.isEmpty()
-
-                val prevPage = if (page == MOVIE_STARTING_PAGE_INDEX) null else page - 1
-                val nextPage = if (endOfPaginationReached) null else page + 1
-
-                val key = MovieRemoteKeyDbData(prevPage = prevPage, nextPage = nextPage)
-
-                local.saveMovies(movies)
-                local.saveRemoteKey(key)
-
-                return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+        val result = remote.getMovies(page, state.config.pageSize)
+        return if (result.isSuccess) {
+            Log.d("XXX", "MovieRemoteMediator: get movies from remote")
+            if (loadType == LoadType.REFRESH) {
+                local.clearMovies()
+                local.clearRemoteKeys()
             }
 
-            is Result.Error -> {
-                return MediatorResult.Error(result.error)
-            }
+            val movies = result.getOrNull() ?: emptyList()
+
+            val endOfPaginationReached = movies.isEmpty()
+
+            val prevPage = if (page == MOVIE_STARTING_PAGE_INDEX) null else page - 1
+            val nextPage = if (endOfPaginationReached) null else page + 1
+
+            val key = MovieRemoteKeyDbData(prevPage = prevPage, nextPage = nextPage)
+
+            local.saveMovies(movies)
+            local.saveRemoteKey(key)
+
+            MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
+        } else {
+            MediatorResult.Error(result.exceptionOrNull() ?: RuntimeException("Unknown error"))
         }
     }
 }

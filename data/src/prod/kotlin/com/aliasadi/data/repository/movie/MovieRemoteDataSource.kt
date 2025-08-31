@@ -3,7 +3,6 @@ package com.aliasadi.data.repository.movie
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.MovieData
 import com.aliasadi.data.util.safeApiCall
-import com.aliasadi.domain.util.Result
 
 /**
  * Created by Ali Asadi on 13/05/2020

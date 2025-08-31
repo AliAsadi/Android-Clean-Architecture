@@ -3,8 +3,6 @@ package com.aliasadi.data.repository.movie
 import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.MovieData
-import com.aliasadi.domain.util.Result
-import com.aliasadi.domain.util.asSuccessOrNull
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -31,9 +29,9 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         val result = sut.getMovies(1, 10)
 
-        assertTrue(result is Result.Success)
-        assertEquals(1, result.asSuccessOrNull()?.size)
-        assertEquals(movieDataList, result.asSuccessOrNull())
+        assertTrue(result.isSuccess)
+        assertEquals(1, result.getOrNull()?.size)
+        assertEquals(movieDataList, result.getOrNull())
     }
 
     @Test
@@ -42,7 +40,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         val result = sut.getMovies(1, 10)
 
-        assertTrue(result is Result.Error)
+        assertTrue(result.isFailure)
     }
 
     @Test
@@ -52,9 +50,9 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         val result = sut.getMovies(listOf(1, 2, 3))
 
-        assertTrue(result is Result.Success)
-        assertEquals(1, (result as Result.Success).data.size)
-        assertEquals(movieData, result.data[0])
+        assertTrue(result.isSuccess)
+        assertEquals(1, result.getOrNull()?.size)
+        assertEquals(movieData, result.getOrNull()?.get(0))
     }
 
     @Test
@@ -63,7 +61,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         val result = sut.getMovies(listOf(1, 2, 3))
 
-        assertTrue(result is Result.Error)
+        assertTrue(result.isFailure)
     }
 
     @Test
@@ -73,8 +71,8 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         val result = sut.getMovie(1)
 
-        assertTrue(result is Result.Success)
-        assertEquals(movieData, (result as Result.Success).data)
+        assertTrue(result.isSuccess)
+        assertEquals(movieData, result.getOrNull())
     }
 
     @Test
@@ -83,7 +81,7 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         val result = sut.getMovie(1)
 
-        assertTrue(result is Result.Error)
+        assertTrue(result.isFailure)
     }
 
     @Test
@@ -93,9 +91,9 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         val result = sut.search("query", 1, 10)
 
-        assertTrue(result is Result.Success)
-        assertEquals(1, (result as Result.Success).data.size)
-        assertEquals(movieData, result.data[0])
+        assertTrue(result.isSuccess)
+        assertEquals(1, result.getOrNull()?.size)
+        assertEquals(movieData, result.getOrNull()?.get(0))
     }
 
     @Test
@@ -104,6 +102,6 @@ class MovieRemoteDataSourceTest : BaseTest() {
 
         val result = sut.search("query", 1, 10)
 
-        assertTrue(result is Result.Error)
+        assertTrue(result.isFailure)
     }
 }

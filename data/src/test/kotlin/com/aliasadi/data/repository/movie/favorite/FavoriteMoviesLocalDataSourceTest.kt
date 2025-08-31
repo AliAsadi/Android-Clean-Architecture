@@ -6,7 +6,6 @@ import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.entities.FavoriteMovieDbData
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.domain.util.Result
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -61,8 +60,8 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
 
         val result = sut.checkFavoriteStatus(movieId)
 
-        assertTrue(result is Result.Success)
-        assertEquals(true, (result as Result.Success).data)
+        assertTrue(result.isSuccess)
+        assertEquals(true, result.getOrNull())
     }
 
     @Test
@@ -72,8 +71,8 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
 
         val result = sut.checkFavoriteStatus(movieId)
 
-        assertTrue(result is Result.Success)
-        assertEquals(false, (result as Result.Success).data)
+        assertTrue(result.isSuccess)
+        assertEquals(false, result.getOrNull())
     }
 
     @Test
@@ -83,8 +82,8 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
 
         val result = sut.getFavoriteMovieIds()
 
-        assertTrue(result is Result.Success)
-        assertEquals(listOf(1, 2), (result as Result.Success).data)
+        assertTrue(result.isSuccess)
+        assertEquals(listOf(1, 2), result.getOrNull())
     }
 
     @Test
@@ -93,7 +92,7 @@ class FavoriteMoviesLocalDataSourceTest : BaseTest() {
 
         val result = sut.getFavoriteMovieIds()
 
-        assertTrue(result is Result.Error)
-        assertTrue((result as Result.Error).error is DataNotAvailableException)
+        assertTrue(result.isFailure)
+        assertTrue(result.exceptionOrNull() is DataNotAvailableException)
     }
 }

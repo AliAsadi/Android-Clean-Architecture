@@ -10,7 +10,6 @@ import com.aliasadi.data.entities.toDbData
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.domain.entities.MovieEntity
-import com.aliasadi.domain.util.Result
 
 /**
  * Created by Ali Asadi on 13/05/2020
@@ -25,16 +24,16 @@ class MovieLocalDataSource(
     override suspend fun getMovies(): Result<List<MovieEntity>> {
         val movies = movieDao.getMovies()
         return if (movies.isNotEmpty()) {
-            Result.Success(movies.map { it.toDomain() })
+            Result.success(movies.map { it.toDomain() })
         } else {
-            Result.Error(DataNotAvailableException())
+            Result.failure(DataNotAvailableException())
         }
     }
 
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> {
         return movieDao.getMovie(movieId)?.let {
-            Result.Success(it.toDomain())
-        } ?: Result.Error(DataNotAvailableException())
+            Result.success(it.toDomain())
+        } ?: Result.failure(DataNotAvailableException())
     }
 
     override suspend fun saveMovies(movies: List<MovieData>) {
