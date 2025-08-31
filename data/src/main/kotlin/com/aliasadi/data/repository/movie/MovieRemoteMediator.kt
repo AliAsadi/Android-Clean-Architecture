@@ -26,14 +26,14 @@ class MovieRemoteMediator(
             LoadType.APPEND -> local.getLastRemoteKey()?.nextPage ?: return MediatorResult.Success(endOfPaginationReached = true)
         }
 
-        Log.d("XXX", "MovieRemoteMediator: load() called with: loadType = $loadType, page: $page, stateLastItem = ${state.isEmpty()}")
+        Log.d(LOG_TAG, "MovieRemoteMediator: load() called with: loadType = $loadType, page: $page, stateLastItem = ${state.isEmpty()}")
 
         // There was a lag in loading the first page; as a result, it jumps to the end of the pagination.
         if (state.isEmpty() && page == 2) return MediatorResult.Success(endOfPaginationReached = false)
 
         val result = remote.getMovies(page, state.config.pageSize)
         return if (result.isSuccess) {
-            Log.d("XXX", "MovieRemoteMediator: get movies from remote")
+            Log.d(LOG_TAG, "MovieRemoteMediator: get movies from remote")
             if (loadType == LoadType.REFRESH) {
                 local.clearMovies()
                 local.clearRemoteKeys()
@@ -55,5 +55,9 @@ class MovieRemoteMediator(
         } else {
             MediatorResult.Error(result.exceptionOrNull() ?: RuntimeException("Unknown error"))
         }
+    }
+
+    companion object {
+        private const val LOG_TAG = "MovieRemoteMediator"
     }
 }
