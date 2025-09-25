@@ -38,7 +38,6 @@ android {
         compose = true
     }
 
-
     kotlinOptions {
         freeCompilerArgs += listOf("-Xjvm-default=all")
     }
