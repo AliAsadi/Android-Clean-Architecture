@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -37,9 +38,6 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.13"
-    }
 
     kotlinOptions {
         freeCompilerArgs += listOf("-Xjvm-default=all")

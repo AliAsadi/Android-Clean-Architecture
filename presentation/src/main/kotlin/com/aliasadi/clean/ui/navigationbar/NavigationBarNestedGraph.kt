@@ -1,7 +1,7 @@
 package com.aliasadi.clean.ui.navigationbar
 
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.aliasadi.clean.navigation.Page
