@@ -5,7 +5,6 @@ import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.entities.FavoriteMovieDbData
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.domain.util.Result
 
 /**
  * @author by Ali Asadi on 22/08/2022
@@ -25,15 +24,15 @@ class FavoriteMoviesLocalDataSource(
     }
 
     override suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean> {
-        return Result.Success(favoriteMovieDao.get(movieId) != null)
+        return Result.success(favoriteMovieDao.get(movieId) != null)
     }
 
     override suspend fun getFavoriteMovieIds(): Result<List<Int>> {
         val movieIds = favoriteMovieDao.getAll().map { it.movieId }
         return if (movieIds.isNotEmpty()) {
-            Result.Success(movieIds)
+            Result.success(movieIds)
         } else {
-            Result.Error(DataNotAvailableException())
+            Result.failure(DataNotAvailableException())
         }
     }
 }

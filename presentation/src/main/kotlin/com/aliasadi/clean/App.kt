@@ -11,7 +11,7 @@ import coil.disk.DiskCache
 import coil.memory.MemoryCache
 import coil.request.CachePolicy
 import coil.util.DebugLogger
-import com.aliasadi.clean.workers.SyncWork
+import com.aliasadi.data.workers.SyncWork
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 

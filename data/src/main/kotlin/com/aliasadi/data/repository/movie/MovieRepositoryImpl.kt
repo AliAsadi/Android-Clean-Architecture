@@ -9,12 +9,6 @@ import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.repository.MovieRepository
-import com.aliasadi.domain.util.Result
-import com.aliasadi.domain.util.Result.Error
-import com.aliasadi.domain.util.Result.Success
-import com.aliasadi.domain.util.map
-import com.aliasadi.domain.util.onError
-import com.aliasadi.domain.util.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -61,9 +55,11 @@ class MovieRepositoryImpl(
     }
 
     override suspend fun getMovie(movieId: Int): Result<MovieEntity> {
-        return when (val localResult = local.getMovie(movieId)) {
-            is Success -> localResult
-            is Error -> remote.getMovie(movieId).map { it.toDomain() }
+        val localResult = local.getMovie(movieId)
+        return if (localResult.isSuccess) {
+            localResult
+        } else {
+            remote.getMovie(movieId).map { it.toDomain() }
         }
     }
 
@@ -74,7 +70,7 @@ class MovieRepositoryImpl(
             .onSuccess {
                 localFavorite.addMovieToFavorite(movieId)
             }
-            .onError {
+            .onFailure {
                 remote.getMovie(movieId).onSuccess { movie ->
                     local.saveMovies(listOf(movie))
                     localFavorite.addMovieToFavorite(movieId)
@@ -85,22 +81,22 @@ class MovieRepositoryImpl(
     override suspend fun removeMovieFromFavorite(movieId: Int) = localFavorite.removeMovieFromFavorite(movieId)
 
     override suspend fun sync(): Boolean {
-        return when (val result = local.getMovies()) {
-            is Error -> false
-            is Success -> {
-                val movieIds = result.data.map { it.id }
-                return updateLocalWithRemoteMovies(movieIds)
-            }
+        val result = local.getMovies()
+        return if (result.isFailure) {
+            false
+        } else {
+            val movieIds = result.getOrNull()?.map { it.id } ?: emptyList()
+            updateLocalWithRemoteMovies(movieIds)
         }
     }
 
     private suspend fun updateLocalWithRemoteMovies(movieIds: List<Int>): Boolean {
-        return when (val remoteResult = remote.getMovies(movieIds)) {
-            is Error -> false
-            is Success -> {
-                local.saveMovies(remoteResult.data)
-                true
-            }
+        val remoteResult = remote.getMovies(movieIds)
+        return if (remoteResult.isFailure) {
+            false
+        } else {
+            local.saveMovies(remoteResult.getOrNull() ?: emptyList())
+            true
         }
     }
 }

@@ -11,7 +11,6 @@ import com.aliasadi.data.entities.MovieData
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.entities.MovieRemoteKeyDbData
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.domain.util.Result
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -24,6 +23,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import kotlin.Result
 
 @OptIn(ExperimentalPagingApi::class)
 class MovieRemoteMediatorTest : BaseTest() {
@@ -50,7 +50,7 @@ class MovieRemoteMediatorTest : BaseTest() {
     @Test
     fun `load refresh success when remote returns data`() = runUnconfinedTest {
         val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
-        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(listOf(movieData)))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.success(listOf(movieData)))
         whenever(local.clearMovies()).thenReturn(Unit)
         whenever(local.clearRemoteKeys()).thenReturn(Unit)
         whenever(local.saveMovies(any())).thenReturn(Unit)
@@ -76,7 +76,7 @@ class MovieRemoteMediatorTest : BaseTest() {
     @Test
     fun `load refresh error when remote returns error`() = runUnconfinedTest {
         val error = DataNotAvailableException()
-        whenever(remote.getMovies(any(), any())).thenReturn(Result.Error(error))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.failure(error))
 
         val pagingState = PagingState<Int, MovieDbData>(
             pages = listOf(),
@@ -110,7 +110,7 @@ class MovieRemoteMediatorTest : BaseTest() {
     fun `load append success when remote returns data`() = runUnconfinedTest {
         val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
         whenever(local.getLastRemoteKey()).thenReturn(MovieRemoteKeyDbData(1, null, 5))
-        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(listOf(movieData)))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.success(listOf(movieData)))
         whenever(local.saveMovies(any())).thenReturn(Unit)
         whenever(local.saveRemoteKey(any())).thenReturn(Unit)
 
@@ -133,7 +133,7 @@ class MovieRemoteMediatorTest : BaseTest() {
     fun `load append error when remote returns error`() = runUnconfinedTest {
         val error = DataNotAvailableException()
         whenever(local.getLastRemoteKey()).thenReturn(MovieRemoteKeyDbData(1, null, 4))
-        whenever(remote.getMovies(any(), any())).thenReturn(Result.Error(error))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.failure(error))
 
         val pagingState = PagingState<Int, MovieDbData>(
             pages = listOf(),
@@ -152,7 +152,7 @@ class MovieRemoteMediatorTest : BaseTest() {
     fun `load append when there is remote key return end of page`() = runUnconfinedTest {
         val error = DataNotAvailableException()
         whenever(local.getLastRemoteKey()).thenReturn(null)
-        whenever(remote.getMovies(any(), any())).thenReturn(Result.Error(error))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.failure(error))
 
         val pagingState = PagingState<Int, MovieDbData>(
             pages = listOf(),
