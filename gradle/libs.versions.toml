@@ -1,8 +1,8 @@
 [versions]
-accompanistSystemuicontroller = "0.27.0"
-appcompat = "1.7.0"
+accompanistSystemuicontroller = "0.36.0"
+appcompat = "1.7.1"
 coilCompose = "2.7.0"
-composeBom = "2025.04.00"
+composeBom = "2025.09.01"
 coreKtx = "1.16.0"
 coreTesting = "2.2.0"
 androidAppGradlePlugin = "8.13.0"
