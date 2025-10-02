@@ -3,8 +3,6 @@ package com.aliasadi.data.repository.movie
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.aliasadi.data.entities.MovieData
-import com.aliasadi.domain.util.Result.Error
-import com.aliasadi.domain.util.Result.Success
 
 private const val STARTING_PAGE_INDEX = 1
 
@@ -19,14 +17,17 @@ class SearchMoviePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieData> {
         val page = params.key ?: STARTING_PAGE_INDEX
 
-        return when (val result = remote.search(query, page, params.loadSize)) {
-            is Success -> LoadResult.Page(
-                data = result.data.distinctBy { movie -> movie.id },
-                prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
-                nextKey = if (result.data.isEmpty()) null else page + 1
-            )
+        val result = remote.search(query, page, params.loadSize)
 
-            is Error -> LoadResult.Error(result.error)
+        return if (result.isSuccess) {
+            val movies = result.getOrNull() ?: emptyList()
+            LoadResult.Page(
+                data = movies.distinctBy { movie -> movie.id },
+                prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1,
+                nextKey = if (movies.isEmpty()) null else page + 1
+            )
+        } else {
+            LoadResult.Error(result.exceptionOrNull() ?: RuntimeException("Unknown error"))
         }
     }
 

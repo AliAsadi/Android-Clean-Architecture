@@ -1,4 +1,4 @@
-package com.aliasadi.clean.workers
+package com.aliasadi.data.workers
 
 import android.content.Context
 import android.util.Log
@@ -25,21 +25,23 @@ class SyncWork @AssistedInject constructor(
 
     override suspend fun doWork(): Result = withContext(dispatchers.io) {
         return@withContext if (movieRepository.sync()) {
-            Log.d("XXX", "SyncWork: doWork() called -> success")
+            Log.d(LOG_TAG, "SyncWork: doWork() called -> success")
             Result.success()
         } else {
             val lastAttempt = runAttemptCount >= SYNC_WORK_MAX_ATTEMPTS
             if (lastAttempt) {
-                Log.d("XXX", "SyncWork: doWork() called -> failure")
+                Log.d(LOG_TAG, "SyncWork: doWork() called -> failure")
                 Result.failure()
             } else {
-                Log.d("XXX", "SyncWork: doWork() called -> retry")
+                Log.d(LOG_TAG, "SyncWork: doWork() called -> retry")
                 Result.retry()
             }
         }
     }
 
     companion object {
+        const val LOG_TAG = "SyncWork"
+
         fun getOneTimeWorkRequest() = OneTimeWorkRequestBuilder<SyncWork>()
             .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
             .build()

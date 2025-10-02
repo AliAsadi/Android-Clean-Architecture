@@ -2,7 +2,6 @@ package com.aliasadi.data.repository.movie.favorite
 
 import androidx.paging.PagingSource
 import com.aliasadi.data.entities.MovieDbData
-import com.aliasadi.domain.util.Result
 
 /**
  * @author by Ali Asadi on 22/08/2022

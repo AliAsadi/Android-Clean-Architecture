@@ -10,7 +10,6 @@ import com.aliasadi.data.entities.MovieRemoteKeyDbData
 import com.aliasadi.data.entities.toDbData
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
-import com.aliasadi.domain.util.Result
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Before
@@ -49,9 +48,9 @@ class MovieLocalDataSourceTest : BaseTest() {
 
         val result = sut.getMovies()
 
-        assertTrue(result is Result.Success)
-        assertEquals(1, (result as Result.Success).data.size)
-        assertEquals(movieDbData.toDomain(), result.data[0])
+        assertTrue(result.isSuccess)
+        assertEquals(1, result.getOrNull()?.size)
+        assertEquals(movieDbData.toDomain(), result.getOrNull()?.get(0))
     }
 
     @Test
@@ -60,8 +59,8 @@ class MovieLocalDataSourceTest : BaseTest() {
 
         val result = sut.getMovies()
 
-        assertTrue(result is Result.Error)
-        assertTrue((result as Result.Error).error is DataNotAvailableException)
+        assertTrue(result.isFailure)
+        assertTrue(result.exceptionOrNull() is DataNotAvailableException)
     }
 
     @Test
@@ -71,8 +70,8 @@ class MovieLocalDataSourceTest : BaseTest() {
 
         val result = sut.getMovie(1)
 
-        assertTrue(result is Result.Success)
-        assertEquals(movieDbData.toDomain(), (result as Result.Success).data)
+        assertTrue(result.isSuccess)
+        assertEquals(movieDbData.toDomain(), result.getOrNull())
     }
 
     @Test
@@ -81,8 +80,8 @@ class MovieLocalDataSourceTest : BaseTest() {
 
         val result = sut.getMovie(1)
 
-        assertTrue(result is Result.Error)
-        assertTrue((result as Result.Error).error is DataNotAvailableException)
+        assertTrue(result.isFailure)
+        assertTrue(result.exceptionOrNull() is DataNotAvailableException)
     }
 
     @Test

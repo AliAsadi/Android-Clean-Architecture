@@ -7,9 +7,6 @@ import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
 import com.aliasadi.domain.usecase.GetMovieDetails
 import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
-import com.aliasadi.domain.util.Result
-import com.aliasadi.domain.util.asSuccessOrNull
-import com.aliasadi.domain.util.onSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,7 +36,7 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     private fun onInitialState() = launch {
-        val isFavorite = async { checkFavoriteStatus(movieId).asSuccessOrNull().orFalse() }
+        val isFavorite = async { checkFavoriteStatus(movieId).getOrNull().orFalse() }
         getMovieById(movieId).onSuccess {
             _uiState.value = MovieDetailsState(
                 title = it.title,

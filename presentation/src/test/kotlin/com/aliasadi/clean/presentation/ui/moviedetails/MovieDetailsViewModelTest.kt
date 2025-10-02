@@ -10,7 +10,6 @@ import com.aliasadi.domain.usecase.AddMovieToFavorite
 import com.aliasadi.domain.usecase.CheckFavoriteStatus
 import com.aliasadi.domain.usecase.GetMovieDetails
 import com.aliasadi.domain.usecase.RemoveMovieFromFavorite
-import com.aliasadi.domain.util.Result
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.mockito.Mockito.mock
@@ -38,8 +37,8 @@ class MovieDetailsViewModelTest : BaseTest() {
 
         createViewModel(
             movieId = movieId,
-            movieDetailsResult = Result.Success(movie),
-            favoriteStatusResult = Result.Success(false)
+            movieDetailsResult = Result.success(movie),
+            favoriteStatusResult = Result.success(false)
         )
 
         sut.uiState.test {
@@ -59,8 +58,8 @@ class MovieDetailsViewModelTest : BaseTest() {
         val invalidMovieId = -1
         createViewModel(
             movieId = invalidMovieId,
-            movieDetailsResult = Result.Error(mock()),
-            favoriteStatusResult = Result.Error(mock())
+            movieDetailsResult = Result.failure(mock()),
+            favoriteStatusResult = Result.failure(mock())
         )
 
         sut.uiState.test {
@@ -74,8 +73,8 @@ class MovieDetailsViewModelTest : BaseTest() {
         val movieId = 555
         createViewModel(
             movieId = movieId,
-            movieDetailsResult = Result.Error(mock()),
-            favoriteStatusResult = Result.Success(false)
+            movieDetailsResult = Result.failure(mock()),
+            favoriteStatusResult = Result.success(false)
         )
 
         sut.onFavoriteClicked()
@@ -94,8 +93,8 @@ class MovieDetailsViewModelTest : BaseTest() {
         val movieId = 555
         createViewModel(
             movieId = movieId,
-            movieDetailsResult = Result.Error(mock()),
-            favoriteStatusResult = Result.Success(true)
+            movieDetailsResult = Result.failure(mock()),
+            favoriteStatusResult = Result.success(true)
         )
         sut.onFavoriteClicked()
 

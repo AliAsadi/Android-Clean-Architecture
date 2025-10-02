@@ -5,7 +5,7 @@ import com.aliasadi.data.entities.MovieData
 import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.entities.MovieRemoteKeyDbData
 import com.aliasadi.domain.entities.MovieEntity
-import com.aliasadi.domain.util.Result
+import kotlin.Result
 
 /**
  * Created by Ali Asadi on 13/05/2020
