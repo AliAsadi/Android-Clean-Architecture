@@ -1,0 +1,107 @@
+---
+description: High-level overview of the Android Clean Architecture project's purpose, architecture, and core features. This rule provides foundational context that is always available when working on the project.
+alwaysApply: true
+---
+# Android Clean Architecture: Overview
+
+## App Purpose
+
+This project is a reference implementation of an Android application built with **Clean Architecture**, **MVVM**, and **Jetpack Compose**. It serves as a robust template and guide for building scalable, testable, and maintainable Android apps. It demonstrates best practices in:
+
+- **Modularization**: Separation of concerns into Domain, Data, and Presentation layers.
+- **Modern UI**: Fully Declarative UI with Jetpack Compose.
+- **Offline-First**: Data persistence and offline capability using Room.
+- **Reactive Data Flow**: usage of Coroutines and Flow for asynchronous operations.
+- **Pagination**: Efficient list loading with Paging 3.
+
+## Technology Stack
+
+- **Language**: Kotlin
+- **UI Framework**: Jetpack Compose (Material Design)
+- **Architecture**: MVVM-Clean Architecture
+  - **MVVM** for the Presentation Layer
+  - **Clean Architecture** for layer separation (Domain, Data, Presentation)
+  - **Repository Pattern** for data access
+- **Dependency Injection**: Hilt
+- **Networking**: Retrofit + OkHttp
+- **Local Database**: Room
+- **Image Loading**: Coil
+- **Asynchronous**: Coroutines & Flow
+- **Pagination**: Paging 3
+- **Testing**: JUnit, Mockito (Core-Test module)
+
+## Architecture Overview
+
+The app follows **MVVM-Clean Architecture**, enforcing a strict unidirectional dependency flow: `Presentation -> Domain <- Data`.
+
+### Clean Architecture Layers
+
+1. **Domain Layer** (`domain/`)
+   - **Role**: The pure core of the application.
+   - **Components**: Entities, Use Cases, Repository Interfaces.
+   - **Dependencies**: None (Pure Kotlin).
+
+2. **Data Layer** (`data/`)
+   - **Role**: Handling data retrieval and persistence.
+   - **Components**: Repository Implementations, Data Sources (Remote/Local), Mappers, DTOs (`*Data`, `*DbData`), Retrofit Services, Room DAOs.
+   - **Dependencies**: Domain Layer.
+
+3. **Presentation Layer** (`presentation/`)
+   - **Role**: Rendering UI and handling user interaction.
+   - **Components**: Activities, Compose Screens, ViewModels, UI States, Hilt Modules.
+   - **Dependencies**: Domain Layer, Data Layer (via DI).
+
+### Key Design Patterns
+
+- **MVVM**: Separation of UI (Composable) from business logic (ViewModel) and state (`StateFlow`).
+- **Repository Pattern**: Abstraction of data sources; the single source of truth for the Domain.
+- **Dependency Injection**: Centralized dependency management using Hilt.
+- **Use Case Pattern**: Encapsulated reusable business logic (e.g., `SearchMovies`).
+- **Mapper Pattern**: Explicit conversion between layer-specific models (e.g., `MovieData` -> `MovieEntity` -> `MovieListItem`).
+
+For detailed architecture documentation, see:
+- [Project Structure](mdc:.cursor/rules/architecture/project-structure.mdc)
+- [Presentation Layer](mdc:.cursor/rules/architecture/presentation-layer-architecture.mdc)
+- [Data Layer](mdc:.cursor/rules/architecture/data-layer-architecture.mdc)
+
+## Core Features
+
+### 1. Movie Feed
+- **Paginated List**: Infinite scrolling of movies using Paging 3.
+- **Separators**: Logic to insert separators in the paging data stream.
+- **Offline Cache**: Caching network results in Room database.
+
+### 2. Movie Details
+- **Detailed View**: Displaying movie poster, title, description.
+- **Favorite Toggle**: Ability to mark movies as favorites locally.
+
+### 3. Search
+- **Real-time Search**: Searching movies via API.
+- **Pagination**: Paginated search results.
+
+### 4. Favorites
+- **Local Persistence**: Viewing favorited movies stored in the local database.
+
+## Important Conventions
+
+### Variable Naming
+- **Entities**:
+  - Domain: `MovieEntity`
+  - Network: `MovieData`
+  - Database: `MovieDbData`
+  - UI: `MovieListItem`
+
+### File Naming
+- **Screens**: `[Feature]Screen.kt`
+- **ViewModels**: `[Feature]ViewModel.kt`
+- **Use Cases**: `[Action][Subject].kt` (e.g., `SearchMovies`)
+- **Repositories**: `[Domain]Repository` (Interface), `[Domain]RepositoryImpl` (Implementation)
+
+### Navigation
+- **Destination**: Defined in `Page` sealed class.
+- **State**: `NavigationState` sealed class in ViewModel (e.g., `FeedNavigationState`).
+- **Event**: Exposed as `SharedFlow` from ViewModel to UI.
+
+### Data Access
+- **Flow**: `UI -> ViewModel -> UseCase -> Repository -> DataSource -> API/DB`
+- **Injection**: All dependencies injected via `@Inject` constructor or Hilt Modules.

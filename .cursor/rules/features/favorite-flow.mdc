@@ -1,0 +1,111 @@
+---
+description: Documentation for the Favorite Movies feature, including browsing favorites and toggling favorite status.
+globs:
+  - "**/ui/favorites/**/*.kt"
+  - "**/ui/moviedetails/**/*.kt"
+  - "**/domain/usecase/*Favorite*.kt"
+  - "**/data/db/favoritemovies/**/*.kt"
+alwaysApply: false
+---
+# Feature: Favorite Movies
+
+This feature allows users to view a list of their favorite movies and toggle the favorite status of individual movies.
+
+## User Flow
+
+1.  **View Favorites**: User navigates to the "My Favorites" tab in the bottom navigation.
+2.  **Toggle Favorite**:
+    *   From the Movie Details screen, the user taps the "Favorite" icon.
+    *   The icon state updates immediately (filled/empty).
+    *   The movie is added to or removed from the local database.
+
+## Architecture Components
+
+### 1. Domain Layer (`domain/`)
+
+**Use Cases**:
+*   `GetFavoriteMovies`: Retrieves a paginated list of favorite movies.
+*   `CheckFavoriteStatus`: Checks if a specific movie is in the favorites list.
+*   `AddMovieToFavorite`: Adds a movie ID to the favorites.
+*   `RemoveMovieFromFavorite`: Removes a movie ID from the favorites.
+
+**Repository Interface** (`MovieRepository`):
+```kotlin
+interface MovieRepository {
+    fun favoriteMovies(pageSize: Int): Flow<PagingData<MovieEntity>>
+    suspend fun checkFavoriteStatus(movieId: Int): Result<Boolean>
+    suspend fun addMovieToFavorite(movieId: Int)
+    suspend fun removeMovieFromFavorite(movieId: Int)
+    // ...
+}
+```
+
+### 2. Data Layer (`data/`)
+
+**Local Data Source** (`FavoriteMoviesDataSource`):
+*   Manages `FavoriteMovieDbData` (Entity: `favorite_movies` table).
+*   `FavoriteMovieDao`: Room DAO for database operations.
+*   `FavoriteMoviesLocalDataSource`: Implementation handling DB interactions.
+
+**Repository Implementation** (`MovieRepositoryImpl`):
+*   Coordinates between the local data source (favorites) and remote/local movie data.
+*   For `favoriteMovies()`, it typically returns a Pager backed by the Room DAO.
+
+### 3. Presentation Layer (`presentation/`)
+
+#### Favorites Screen (`ui/favorites/`)
+
+**Components**:
+*   `FavoritesScreen.kt`: Displays the list of movies or an empty state.
+*   `FavoritesViewModel.kt`:
+    *   Uses `GetFavoriteMovies` to fetch the stream.
+    *   Maps `MovieEntity` to `MovieListItem`.
+    *   Handles navigation to Movie Details.
+
+**State Management**:
+```kotlin
+data class FavoriteUiState(
+    val isLoading: Boolean = false,
+    val noDataAvailable: Boolean = false
+)
+```
+
+#### Movie Details Screen (`ui/moviedetails/`)
+
+**Components**:
+*   `MovieDetailsScreen.kt`: Shows the "Favorite" floating action button (FAB) or icon.
+*   `MovieDetailsViewModel.kt`:
+    *   On init: Calls `CheckFavoriteStatus` to set initial UI state.
+    *   On click: Calls `AddMovieToFavorite` or `RemoveMovieFromFavorite` based on current state.
+
+**State Management**:
+```kotlin
+data class MovieDetailsState(
+    // ...
+    val isFavorite: Boolean = false
+)
+```
+
+## Key Implementation Details
+
+*   **Pagination**: The favorites list uses Paging 3 to efficiently display large lists of favorites.
+*   **Optimistic Updates**: The UI (ViewModel) often updates the `isFavorite` state immediately while the async operation runs in the background.
+*   **Single Source of Truth**: The Room database (`favorite_movies` table) is the truth for favorite status.
+
+## Code Example: Toggling Favorite
+
+```kotlin
+// MovieDetailsViewModel.kt
+
+fun onFavoriteClicked() = launch {
+    checkFavoriteStatus(movieId).onSuccess { isFavorite ->
+        if (isFavorite) {
+            removeMovieFromFavorite(movieId)
+        } else {
+            addMovieToFavorite(movieId)
+        }
+        // Update UI immediately
+        _uiState.update { it.copy(isFavorite = !isFavorite) }
+    }
+}
+```
