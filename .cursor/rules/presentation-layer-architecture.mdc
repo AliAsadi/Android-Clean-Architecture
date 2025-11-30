@@ -1,0 +1,222 @@
+---
+description: Complete guide for Presentation Layer architecture including MVVM pattern, navigation, widgets, and dependency management
+alwaysApply: false
+---
+# Presentation Layer Architecture
+
+This document defines the architecture and patterns for the Presentation Layer in the Android Clean Architecture project, including MVVM implementation, navigation, state management, and UI components.
+
+For directory structure overview, see: [project-structure.mdc#presentation-layer]
+
+## Overview
+
+The Presentation Layer is responsible for:
+- **User Interface**: Jetpack Compose screens and reusable widgets.
+- **State Management**: ViewModels and UiState objects.
+- **Navigation**: Centralized navigation management.
+- **Dependency Injection**: Accessing Data Layer repositories via Hilt.
+- **UI Logic**: Presentation-specific business logic.
+
+## MVVM Pattern Implementation
+
+The Presentation Layer follows the MVVM (Model-View-ViewModel) architecture pattern for all screens.
+
+## File Structure
+
+Every screen must follow this exact structure in its feature package:
+
+```
+presentation/src/main/kotlin/com/aliasadi/clean/ui/[feature]/
+├── [Feature]Screen.kt      # Composable View
+├── [Feature]ViewModel.kt   # Business Logic
+└── [Feature]UiState.kt     # State Management
+```
+
+### Examples:
+- `feed/FeedScreen.kt`, `feed/FeedViewModel.kt`, `feed/FeedUiState.kt`
+- `moviedetails/MovieDetailsScreen.kt`, `moviedetails/MovieDetailsViewModel.kt`, `moviedetails/MovieDetailsState.kt`
+
+## 1. UI State Structure (`*UiState.kt` / `*State.kt`)
+
+### Purpose
+UI State files contain **ONLY** data structures that represent the current state of the UI. They must contain **NO business logic whatsoever**.
+
+### Rules
+- ✅ **MUST** be a `data class` (immutable).
+- ✅ **MUST** contain only properties that represent UI state.
+- ✅ **MUST** provide default values for all properties.
+- ❌ **MUST NOT** contain any functions or computed properties with logic.
+- ❌ **MUST NOT** contain business logic, validation, or data processing.
+- ❌ **MUST NOT** import business-related frameworks (only Android/Compose/Domain Entities if needed).
+
+### Structure Template
+```kotlin
+/**
+ * Created by Ali Asadi on [Date].
+ */
+data class [Feature]UiState(
+    val isLoading: Boolean = false,
+    val errorMessage: String? = null,
+    val data: List<SomeEntity> = emptyList()
+)
+
+sealed class [Feature]NavigationState {
+    data class SomeDestination(val id: Int) : [Feature]NavigationState()
+}
+```
+
+### Good Examples
+```kotlin
+data class FeedUiState(
+    val showLoading: Boolean = true,
+    val errorMessage: String? = null,
+)
+
+sealed class FeedNavigationState {
+    data class MovieDetails(val movieId: Int) : FeedNavigationState()
+}
+```
+
+## 2. ViewModel Structure (`*ViewModel.kt`)
+
+### Purpose
+ViewModels contain **ALL** business logic, data processing, validation, and state management. They act as the bridge between the UI and the data layer.
+
+### Rules
+- ✅ **MUST** be a `class` extending `BaseViewModel`.
+- ✅ **MUST** be annotated with `@HiltViewModel`.
+- ✅ **MUST** expose a `uiState` as `StateFlow`.
+- ✅ **MUST** expose a `navigationState` as `SharedFlow` (if navigation is needed).
+- ✅ **MUST** contain all business logic.
+- ✅ **SHOULD** use constructor injection for use cases or repositories.
+
+### Structure Template
+```kotlin
+/**
+ * Created by Ali Asadi on [Date].
+ */
+@HiltViewModel
+class [Feature]ViewModel @Inject constructor(
+    private val someUseCase: SomeUseCase,
+    private val dispatchers: DispatchersProvider
+) : BaseViewModel() {
+
+    private val _uiState: MutableStateFlow<[Feature]UiState> = MutableStateFlow([Feature]UiState())
+    val uiState = _uiState.asStateFlow()
+
+    private val _navigationState: MutableSharedFlow<[Feature]NavigationState> = singleSharedFlow()
+    val navigationState = _navigationState.asSharedFlow()
+
+    fun onEvent() {
+        // Handle UI event
+    }
+    
+    private fun loadData() = launchOnMainImmediate {
+        _uiState.update { it.copy(isLoading = true) }
+        // ...
+    }
+}
+```
+
+### Method Naming Conventions
+- User actions: `on[Action]()` (e.g., `onMovieClicked()`, `onRefresh()`).
+
+## 3. Screen Structure (`*Screen.kt`)
+
+### Purpose
+Screens contain **ONLY** Jetpack Compose UI code. They delegate all logic to the ViewModel.
+
+### Rules
+- ✅ **MUST** be a `@Composable` function.
+- ✅ **MUST** accept the ViewModel as a parameter (usually utilizing `hiltViewModel()`).
+- ✅ **MUST** collect `uiState` using `collectAsStateWithLifecycle()`.
+- ✅ **MUST** collect `navigationState` using `LaunchedEffect`.
+- ❌ **MUST NOT** contain business logic.
+
+### Structure Template
+```kotlin
+/**
+ * Created by Ali Asadi on [Date].
+ */
+@Composable
+fun [Feature]Screen(
+    viewModel: [Feature]ViewModel = hiltViewModel(),
+    navigator: Navigator
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.navigationState.collect { state ->
+             when (state) {
+                 is [Feature]NavigationState.SomeDestination -> navigator.navigate(...)
+             }
+        }
+    }
+
+    [Feature]Content(
+        uiState = uiState,
+        onEvent = viewModel::onEvent
+    )
+}
+
+@Composable
+private fun [Feature]Content(
+    uiState: [Feature]UiState,
+    onEvent: () -> Unit
+) {
+    // UI Layout
+}
+```
+
+## 4. Dependency Management
+
+### Accessing Repositories and Use Cases
+
+ViewModels access dependencies through Hilt constructor injection:
+
+```kotlin
+@HiltViewModel
+class FeedViewModel @Inject constructor(
+    val networkMonitor: NetworkMonitor,
+    getMoviesWithSeparators: GetMoviesWithSeparators,
+) : BaseViewModel()
+```
+
+## 5. State Management Patterns
+
+### Loading States
+```kotlin
+// In UiState
+val isLoading: Boolean = false
+
+// In ViewModel
+_uiState.update { it.copy(isLoading = true) }
+```
+
+### One-Shot Events (Navigation/Toasts)
+Use `SharedFlow` for events that should be handled once.
+```kotlin
+private val _navigationState: MutableSharedFlow<FeedNavigationState> = singleSharedFlow()
+```
+
+## 6. File Headers
+
+All files must include proper headers:
+
+```kotlin
+/**
+ * Created by Ali Asadi on [Date].
+ */
+```
+
+**Important Notes:**
+- Always use "Ali Asadi" as the author name.
+- Include the current date (DD/MM/YYYY) when creating files.
+
+## 7. Common Mistakes to Avoid
+
+❌ **Don't put logic in UI State**
+❌ **Don't expose MutableStateFlow to the UI**
+❌ **Don't perform navigation logic directly in the Composable (delegate to ViewModel/NavigationState)**
+
+This architecture ensures clean separation of concerns, testability, and maintainability across all screens.
