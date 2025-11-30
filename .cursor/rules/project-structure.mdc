@@ -1,0 +1,239 @@
+---
+description: Complete directory structure and architecture guide for the Android Clean Architecture project
+globs: **/*
+alwaysApply: true
+---
+# Android Clean Architecture Project Structure
+
+This document outlines the complete directory structure and architecture of the Android Clean Architecture project, built with **Jetpack Compose** following **MVVM-Clean Architecture** principles.
+
+## Project Root Structure
+
+```
+Android-Clean-Architecture/
+├── build.gradle.kts                # Root build configuration
+├── settings.gradle                 # Module inclusion settings
+├── gradle.properties               # Project-wide properties
+├── core-test/                      # Shared test utilities module
+├── data/                           # Data layer module
+├── domain/                         # Domain layer module
+└── presentation/                   # Presentation layer module (App module)
+```
+
+## Main Application Structure
+
+### Architecture Layers
+
+#### 1. Domain Layer (`domain/`)
+
+Contains business logic, entities, use cases, and repository interfaces. It is a pure Kotlin module with no Android dependencies.
+
+```
+domain/src/main/java/com/aliasadi/domain/
+├── entities/                       # Business entities
+│   └── MovieEntity.kt
+├── repository/                     # Repository interfaces
+│   └── MovieRepository.kt
+├── usecase/                        # Business use cases
+│   ├── GetMovieDetails.kt
+│   ├── SearchMovies.kt
+│   └── ...
+└── util/                           # Domain utilities
+    ├── DispatchersProvider.kt
+    ├── NetworkMonitor.kt
+    └── Result.kt
+```
+
+#### 2. Data Layer (`data/`)
+
+Handles data persistence, repositories implementation, and external data sources (API/DB).
+
+```
+data/src/main/kotlin/com/aliasadi/data/
+├── api/                            # Remote data sources (Retrofit)
+│   └── MovieApi.kt
+├── db/                             # Local database (Room)
+│   ├── movies/                     # Movie related DB components
+│   │   ├── MovieDao.kt
+│   │   └── MovieDatabase.kt
+│   └── favoritemovies/
+│       └── FavoriteMovieDao.kt
+├── entities/                       # Data transfer objects (DTOs) & DB Entities
+│   ├── MovieData.kt
+│   └── MovieDbData.kt
+├── mapper/                         # Mappers (Data <-> Domain)
+│   └── MovieDataMapper.kt
+├── repository/                     # Repository implementations
+│   ├── MovieRepositoryImpl.kt
+│   ├── MovieDataSource.kt
+│   └── MovieLocalDataSource.kt
+└── util/                           # Data utilities
+    ├── DiskExecutor.kt
+    └── SafeApiCall.kt
+```
+
+#### 3. Presentation Layer (`presentation/`)
+
+Contains UI logic, ViewModels, and dependency injection setup. Uses Jetpack Compose.
+
+```
+presentation/src/main/kotlin/com/aliasadi/clean/
+├── di/                             # Dependency Injection (Hilt)
+│   ├── module/
+│   │   ├── AppModule.kt
+│   │   ├── DataModule.kt
+│   │   └── NetworkModule.kt
+│   └── ...
+├── entities/                       # UI-specific models
+│   └── MovieListItem.kt
+├── mapper/                         # Mappers (Domain <-> UI)
+│   └── MovieEntityMapper.kt
+├── navigation/                     # Navigation configurations
+│   └── Page.kt
+├── ui/                             # UI Screens & Components
+│   ├── base/
+│   │   └── BaseViewModel.kt
+│   ├── feed/                       # Feed Feature
+│   │   ├── FeedScreen.kt           # Composable View
+│   │   ├── FeedViewModel.kt        # ViewModel
+│   │   ├── FeedStates.kt           # UI & Navigation States
+│   │   └── usecase/                # UI-specific use cases
+│   ├── moviedetails/               # Movie Details Feature
+│   │   ├── MovieDetailsScreen.kt
+│   │   ├── MovieDetailsViewModel.kt
+│   │   └── MovieDetailsState.kt
+│   ├── favorites/                  # Favorites Feature
+│   ├── search/                     # Search Feature
+│   ├── main/                       # Main Activity & Graph
+│   │   ├── MainActivity.kt
+│   │   └── MainGraph.kt
+│   └── widget/                     # Reusable UI Components
+│       ├── Loader.kt
+│       ├── MovieList.kt
+│       ├── SearchView.kt
+│       └── ...
+├── util/                           # UI Extensions & Utils
+│   ├── ComposeExtensions.kt
+│   └── FlowExtensions.kt
+└── workers/                        # Background Workers
+    └── SyncWork.kt
+```
+
+### 4. Core Test (`core-test/`)
+
+Shared testing utilities.
+
+```
+core-test/src/main/java/com/aliasadi/core/test/
+├── base/
+│   └── BaseTest.kt
+└── rules/
+    └── MainCoroutineRule.kt
+```
+
+## Architecture Patterns
+
+### MVVM-Clean Architecture
+
+The app implements **MVVM-Clean Architecture**, separating concerns into three independent layers:
+
+#### Clean Architecture (Layers)
+
+- **Domain Layer** (`domain/`)
+  - **Purpose**: Core business logic, independent of frameworks.
+  - **Contains**: Entities, Use Cases, Repository Interfaces.
+  - **Dependencies**: None.
+
+- **Data Layer** (`data/`)
+  - **Purpose**: Data management (Network/DB).
+  - **Contains**: Repository Implementations, API/DB definitions, DTOs.
+  - **Dependencies**: Domain Layer.
+
+- **Presentation Layer** (`presentation/`)
+  - **Purpose**: UI and user interaction.
+  - **Contains**: Screens, ViewModels, DI, UI Models.
+  - **Dependencies**: Domain Layer, Data Layer (via DI).
+
+#### MVVM Pattern (Presentation Layer)
+
+- **Model**: Domain Entities (`MovieEntity`) or UI Models (`MovieListItem`).
+- **View**: Jetpack Compose Screens (`FeedScreen`).
+- **ViewModel**: Manages UI state and business logic (`FeedViewModel`).
+  - Exposes `uiState` (StateFlow) for the View to observe.
+  - Exposes `navigationState` (SharedFlow) for one-off events.
+
+#### Repository Pattern
+
+- Interfaces defined in Domain (`MovieRepository`).
+- Implementations in Data (`MovieRepositoryImpl`).
+- ViewModels communicate only with Repositories (via Use Cases or directly if simple).
+
+#### Dependency Injection
+
+- Uses **Hilt** for dependency injection.
+- Modules defined in `presentation/di/`.
+- `@HiltViewModel` for ViewModels.
+- `@Inject` for constructor injection.
+
+## Key Dependencies
+
+- **Jetpack Compose**: UI Toolkit.
+- **Hilt**: Dependency Injection.
+- **Coroutines & Flow**: Asynchronous programming.
+- **Retrofit**: Networking.
+- **Room**: Local Database.
+- **Paging 3**: Pagination.
+- **Coil/Glide**: Image Loading (Check implementation).
+
+## File Naming Conventions
+
+1.  **Screens**: `[Feature]Screen.kt`
+2.  **ViewModels**: `[Feature]ViewModel.kt`
+3.  **UI States**: `[Feature]UiState.kt` or `[Feature]State.kt`
+4.  **Navigation States**: `[Feature]NavigationState.kt`
+5.  **Use Cases**: `[Action]UseCase.kt` (e.g., `GetMovieDetails.kt`) or `[Verb][Subject].kt`
+6.  **Repositories**: `[Domain]Repository.kt` (Interface)
+7.  **Repository Impl**: `[Domain]RepositoryImpl.kt` (Implementation)
+8.  **Data Sources**: `[Domain][Type]DataSource.kt` (e.g., `MovieLocalDataSource.kt`)
+9.  **Entities**:
+    - **Domain Layer**: MUST end with `Entity` (e.g., `MovieEntity.kt`).
+    - **Data Layer**: MUST end with `Data` or `DbData` (e.g., `MovieData.kt`, `MovieDbData.kt`).
+    - **Presentation Layer**: No strict suffix, but often uses `ListItem` or `UiModel` (e.g., `MovieListItem.kt`).
+
+## Development Guidelines
+
+### File Headers and Author Attribution
+
+All new files created in the project **MUST** include proper file headers with the following format:
+
+```kotlin
+/**
+ * Created by Ali Asadi on [Date].
+ */
+```
+
+**Important Notes:**
+- Always use "Ali Asadi" as the author name.
+- Include the current date (DD/MM/YYYY) when creating files.
+
+### Screen Development
+
+1.  Create feature package under `presentation/src/main/kotlin/com/aliasadi/clean/ui/`.
+2.  Implement MVVM pattern:
+    - `*Screen.kt`: Composable UI.
+    - `*ViewModel.kt`: Extends `BaseViewModel`, annotated with `@HiltViewModel`.
+    - `*State.kt` / `*UiState.kt`: Data class for UI state, Sealed class for Navigation/Events.
+
+### State Management
+
+- Use `MutableStateFlow` for UI state (loading, data, error).
+- Use `MutableSharedFlow` for one-shot events (navigation, toast).
+- Expose as immutable `StateFlow` and `SharedFlow`.
+
+```kotlin
+private val _uiState = MutableStateFlow(FeedUiState())
+val uiState = _uiState.asStateFlow()
+
+private val _navigationState = MutableSharedFlow<FeedNavigationState>(replay = 0)
+val navigationState = _navigationState.asSharedFlow()
+```
