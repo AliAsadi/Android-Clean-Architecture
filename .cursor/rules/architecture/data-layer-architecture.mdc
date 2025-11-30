@@ -1,0 +1,252 @@
+---
+description: Complete guide for Data Layer architecture including repositories, data sources, protocols, and dependency injection
+alwaysApply: false
+---
+# Data Layer Architecture
+
+This document defines the architecture and patterns for the Data Layer in the Android Clean Architecture project.
+
+## Overview
+
+The Data Layer follows Clean Architecture principles with:
+- **Repository Pattern**: Single source of truth for data access.
+- **Repository Implementation**: Implements the repository interfaces defined in the Domain layer.
+- **Data Sources**: Abstraction for different data origins (Remote/Local).
+- **Dependency Injection**: Managed via Hilt.
+- **Separation of Concerns**: Clear distinction between API, Database, and Repository logic.
+
+## Directory Structure
+
+For the complete project structure, see: [project-structure.mdc#data-layer](mdc:.cursor/rules/project-structure.mdc)
+
+The Data Layer is organized with the following key components:
+
+```
+data/src/main/kotlin/com/aliasadi/data/
+├── api/                            # Remote data sources (Retrofit Interfaces)
+├── db/                             # Local database (Room DAOs and Database)
+├── entities/                       # Data transfer objects (DTOs) & DB Entities
+├── mapper/                         # Mappers (Data <-> Domain)
+├── repository/                     # Repository implementations & Data Sources
+│   ├── [domain]/                   # Domain specific implementations
+│   │   ├── [Domain]DataSource.kt   # Data source interface
+│   │   ├── [Domain]LocalDataSource.kt
+│   │   └── [Domain]RepositoryImpl.kt
+└── util/                           # Utilities (DiskExecutor, etc.)
+```
+
+## 1. Data Entities (`*Data.kt` / `*DbData.kt`)
+
+### Purpose
+Data entities represent the structure of data as it comes from the network (API) or database. They are distinct from Domain Entities.
+
+### Rules
+- ✅ **MUST** represent the raw data structure.
+- ✅ **MUST** be a `data class`.
+- ✅ **Network Entities**: Usually suffixed with `Data` (e.g., `MovieData`). Use `@SerializedName` for JSON mapping.
+- ✅ **Database Entities**: Usually suffixed with `DbData` (e.g., `MovieDbData`). Use `@Entity` for Room.
+
+### Example
+```kotlin
+data class MovieData(
+    @SerializedName("id") val id: Int,
+    @SerializedName("original_title") val title: String,
+    // ...
+)
+
+@Entity(tableName = "movies")
+data class MovieDbData(
+    @PrimaryKey val id: Int,
+    val title: String,
+    // ...
+)
+```
+
+## 2. Data Sources
+
+### Remote Data Source (API)
+Defined as Retrofit interfaces in `data/api/`.
+
+```kotlin
+interface MovieApi {
+    @GET("search/movie")
+    suspend fun search(@Query("query") query: String): MovieApiResult<List<MovieData>>
+}
+```
+
+### Local Data Source (DB)
+Defined as Room DAOs in `data/db/`.
+
+```kotlin
+@Dao
+interface MovieDao {
+    @Query("SELECT * FROM movies")
+    fun getMovies(): PagingSource<Int, MovieDbData>
+    
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAll(movies: List<MovieDbData>)
+}
+```
+
+### Data Source Abstraction (Optional but Recommended)
+For complex logic, create a DataSource class in `data/repository/[domain]/` to abstract the DAO or API calls.
+
+```kotlin
+interface MovieLocalDataSource {
+    fun movies(): PagingSource<Int, MovieDbData>
+    suspend fun insertMovies(movies: List<MovieDbData>)
+}
+
+class MovieLocalDataSourceImpl @Inject constructor(
+    private val movieDao: MovieDao,
+    private val diskExecutor: DiskExecutor
+) : MovieLocalDataSource {
+    // Implementation
+}
+```
+
+## 3. Repositories (`*RepositoryImpl.kt`)
+
+### Purpose
+Repositories implement the interface defined in the Domain layer. They coordinate data from Local and Remote sources and map data to Domain entities.
+
+### Rules
+- ✅ **MUST** implement the Domain Repository interface.
+- ✅ **MUST** accept Data Sources or DAOs/APIs via constructor injection.
+- ✅ **MUST** map Data/Db entities to Domain entities before returning.
+- ✅ **MUST** use `suspend` functions or `Flow` for async operations.
+- ✅ **SHOULD** handle data caching strategies (e.g., RemoteMediator for Paging).
+
+### Implementation Template
+
+```kotlin
+/**
+ * Created by Ali Asadi on [Date].
+ */
+class MovieRepositoryImpl @Inject constructor(
+    private val remote: MovieApi,
+    private val local: MovieLocalDataSource,
+    private val mapper: MovieDataMapper
+) : MovieRepository {
+
+    override fun getMovies(): Flow<PagingData<MovieEntity>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            remoteMediator = MovieRemoteMediator(remote, local),
+            pagingSourceFactory = { local.movies() }
+        ).flow.map { pagingData ->
+            pagingData.map { mapper.mapToDomain(it) }
+        }
+    }
+
+    override suspend fun search(query: String): Result<List<MovieEntity>> {
+        return try {
+            val result = remote.search(query)
+            // ... logic to map and return Result.Success
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+}
+```
+
+## 4. Dependency Injection (Hilt)
+
+### Module Structure
+DI Modules are located in `presentation/src/main/kotlin/com/aliasadi/clean/di/module/`.
+*Note: While Hilt modules are physically in the `presentation` module (or a separate `app` module in some setups), they wire up the Data layer dependencies.*
+
+### DataModule
+Provides Repositories and Data Sources.
+
+```kotlin
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class DataModule {
+    
+    @Binds
+    @Singleton
+    abstract fun bindMovieRepository(
+        movieRepositoryImpl: MovieRepositoryImpl
+    ): MovieRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindMovieLocalDataSource(
+        movieLocalDataSourceImpl: MovieLocalDataSourceImpl
+    ): MovieLocalDataSource
+}
+```
+
+### NetworkModule
+Provides Retrofit, OkHttp, and API services.
+
+```kotlin
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+    @Provides
+    @Singleton
+    fun provideMovieApi(retrofit: Retrofit): MovieApi {
+        return retrofit.create(MovieApi::class.java)
+    }
+}
+```
+
+### DatabaseModule
+Provides Room Database and DAOs.
+
+```kotlin
+@Module
+@InstallIn(SingletonComponent::class)
+object DatabaseModule {
+    @Provides
+    @Singleton
+    fun provideMovieDatabase(@ApplicationContext context: Context): MovieDatabase {
+        return Room.databaseBuilder(context, MovieDatabase::class.java, "movie.db").build()
+    }
+
+    @Provides
+    fun provideMovieDao(db: MovieDatabase): MovieDao = db.movieDao()
+}
+```
+
+## 5. Mappers (`mapper/`)
+
+### Purpose
+Convert between Data/Db entities and Domain entities to ensure separation of layers.
+
+### Rules
+- ✅ **MUST** be placed in `data/mapper/`.
+- ✅ **SHOULD** be extension functions or dedicated Mapper classes.
+
+### Example
+```kotlin
+class MovieDataMapper @Inject constructor() {
+    fun mapToDomain(data: MovieDbData): MovieEntity {
+        return MovieEntity(
+            id = data.id,
+            title = data.title,
+            imageUrl = data.imageUrl
+        )
+    }
+}
+```
+
+## 6. File Headers
+
+All files must include proper headers:
+
+```kotlin
+/**
+ * Created by Ali Asadi on [Date].
+ */
+```
+
+## Summary
+
+This architecture ensures:
+- ✅ **Independence**: Domain layer knows nothing about Data layer.
+- ✅ **Single Source of Truth**: Repositories manage data flow.
+- ✅ **Testability**: Dependencies can be easily mocked.
+- ✅ **Scalability**: New data sources can be added without affecting the UI.
