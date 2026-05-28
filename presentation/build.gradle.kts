@@ -38,10 +38,6 @@ android {
         compose = true
     }
 
-    kotlinOptions {
-        freeCompilerArgs += listOf("-Xjvm-default=all")
-    }
-
     namespace = "com.aliasadi.clean"
 }
 
@@ -57,16 +53,12 @@ dependencies {
     kover(project(":data"))
     kover(project(":domain"))
 
-    // Kotlin
-    implementation(libs.kotlin.stdlib.jdk7)
-
     // AndroidX
     implementation(libs.appcompat)
     implementation(libs.lifecycle.viewmodel.ktx)
 
     // Extensions
     implementation(libs.core.ktx)
-    implementation(libs.lifecycle.extensions)
 
     // okHttp
     implementation(libs.okhttp)
@@ -78,7 +70,6 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation(libs.retrofit2.kotlin.coroutines.adapter)
 
     // Room
     implementation(libs.room.runtime)

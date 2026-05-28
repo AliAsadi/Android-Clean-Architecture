@@ -2,7 +2,6 @@ package com.aliasadi.clean.di.module
 
 import com.aliasadi.data.BuildConfig
 import com.aliasadi.data.api.MovieApi
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +23,6 @@ class NetworkModule {
     @Provides
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .baseUrl(BuildConfig.BASE_URL)
