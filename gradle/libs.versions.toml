@@ -104,7 +104,6 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidAppGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidLibraryGradlePlugin" }
-kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinGradlePlugin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltGradlePlugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
