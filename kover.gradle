@@ -6,6 +6,10 @@ def exclude = [
         "com.aliasadi.clean.ui.base.*",
         "com.aliasadi.clean.ui.feed.usecase.*",
 
+        // Compiler-generated lambda classes (e.g. pagingData.map transformations)
+        "*ViewModel\$*",
+        "*RepositoryImpl\$*",
+
         // Data
         "com.aliasadi.data.exception.*",
         "com.aliasadi.data.mapper.*",
