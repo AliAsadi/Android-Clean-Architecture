@@ -3,6 +3,7 @@ package com.aliasadi.clean.ui.widget
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.TextSelectionColors
@@ -44,7 +45,7 @@ fun SearchView(
         focusRequester.requestFocus()
     }
 
-    Column {
+    Column(modifier = Modifier.statusBarsPadding()) {
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
