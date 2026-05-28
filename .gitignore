@@ -1,4 +1,4 @@
-*.iml
+fi*.iml
 .gradle
 /local.properties
 /.idea/workspace.xml
@@ -8,3 +8,4 @@
 /captures
 .externalNativeBuild
 .idea/
+kotlin-compiler-*
