@@ -1,13 +1,11 @@
 package com.aliasadi.clean.di.module
 
 import android.content.Context
-import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.db.favoritemovies.FavoriteMovieDao
 import com.aliasadi.data.db.movies.MovieDao
 import com.aliasadi.data.db.movies.MovieRemoteKeyDao
 import com.aliasadi.data.repository.movie.MovieDataSource
 import com.aliasadi.data.repository.movie.MovieLocalDataSource
-import com.aliasadi.data.repository.movie.MovieRemoteDataSource
 import com.aliasadi.data.repository.movie.MovieRemoteMediator
 import com.aliasadi.data.repository.movie.MovieRepositoryImpl
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
@@ -44,12 +42,6 @@ class DataModule {
         favoriteLocal: FavoriteMoviesDataSource.Local,
     ): MovieRepository {
         return MovieRepositoryImpl(movieRemote, movieLocal, movieRemoteMediator, favoriteLocal)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMovieRemoveDataSource(movieApi: MovieApi): MovieDataSource.Remote {
-        return MovieRemoteDataSource(movieApi)
     }
 
     @Provides

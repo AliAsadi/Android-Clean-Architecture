@@ -1,21 +1,15 @@
 package com.aliasadi.data.repository.movie
 
-import com.aliasadi.data.api.MovieApi
 import com.aliasadi.data.entities.MovieData
-import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.exception.DataNotAvailableException
 import com.aliasadi.data.util.JsonLoader
-import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import kotlinx.coroutines.delay
 
 /**
  * Created by Ali Asadi on 24/05/2024
  */
-@Suppress("UnusedPrivateMember")
-class MovieRemoteDataSource(
-    private val movieApi: MovieApi
-) : MovieDataSource.Remote {
+class MockMovieRemoteDataSource : MovieDataSource.Remote {
 
     companion object {
         const val DEFAULT_API_DELAY = 500L
