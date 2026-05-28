@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingConfig
+import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import com.aliasadi.core.test.base.BaseTest
@@ -182,5 +183,71 @@ class MovieRemoteMediatorTest : BaseTest() {
 
         assertTrue(result is RemoteMediator.MediatorResult.Success)
         assertEquals(true, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+    }
+
+    @Test
+    fun `load append returns early when state is empty and page is 2`() = runUnconfinedTest {
+        whenever(local.getLastRemoteKey()).thenReturn(MovieRemoteKeyDbData(1, null, 2))
+
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(),
+            anchorPosition = null,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.APPEND, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Success)
+        assertEquals(false, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+    }
+
+    @Test
+    fun `load append endOfPaginationReached when remote returns empty list`() = runUnconfinedTest {
+        whenever(local.getLastRemoteKey()).thenReturn(MovieRemoteKeyDbData(1, null, 3))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(emptyList()))
+        whenever(local.saveMovies(any())).thenReturn(Unit)
+        whenever(local.saveRemoteKey(any())).thenReturn(Unit)
+
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(),
+            anchorPosition = null,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.APPEND, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Success)
+        assertEquals(true, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+    }
+
+    @Test
+    fun `load append skips early return when state is not empty`() = runUnconfinedTest {
+        val movieDbData = MovieDbData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        whenever(local.getLastRemoteKey()).thenReturn(MovieRemoteKeyDbData(1, null, 2))
+        whenever(remote.getMovies(any(), any())).thenReturn(Result.Success(listOf(movieData)))
+        whenever(local.saveMovies(any())).thenReturn(Unit)
+        whenever(local.saveRemoteKey(any())).thenReturn(Unit)
+
+        val pagingState = PagingState<Int, MovieDbData>(
+            pages = listOf(
+                PagingSource.LoadResult.Page(
+                    data = listOf(movieDbData),
+                    prevKey = null,
+                    nextKey = 2
+                )
+            ),
+            anchorPosition = 0,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.load(LoadType.APPEND, pagingState)
+
+        assertTrue(result is RemoteMediator.MediatorResult.Success)
+        assertEquals(false, (result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+        verify(local).saveMovies(listOf(movieData))
     }
 }

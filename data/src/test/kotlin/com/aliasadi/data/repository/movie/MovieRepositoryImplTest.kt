@@ -1,12 +1,19 @@
 package com.aliasadi.data.repository.movie
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
+import androidx.paging.RemoteMediator
+import androidx.paging.testing.asSnapshot
 import com.aliasadi.core.test.base.BaseTest
 import com.aliasadi.data.entities.MovieData
+import com.aliasadi.data.entities.MovieDbData
 import com.aliasadi.data.entities.toDomain
 import com.aliasadi.data.repository.movie.favorite.FavoriteMoviesDataSource
 import com.aliasadi.domain.entities.MovieEntity
 import com.aliasadi.domain.util.Result
 import com.aliasadi.domain.util.asSuccessOrNull
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -16,6 +23,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
+@OptIn(ExperimentalPagingApi::class)
 class MovieRepositoryImplTest : BaseTest() {
 
     private val remote: MovieDataSource.Remote = mock()
@@ -26,7 +34,10 @@ class MovieRepositoryImplTest : BaseTest() {
     private lateinit var sut: MovieRepositoryImpl
 
     @Before
-    fun setUp() {
+    fun setUp() = runBlocking {
+        whenever(remoteMediator.load(any(), any())).thenReturn(
+            RemoteMediator.MediatorResult.Success(endOfPaginationReached = true)
+        )
         sut = MovieRepositoryImpl(remote, local, remoteMediator, localFavorite)
     }
 
@@ -133,5 +144,50 @@ class MovieRepositoryImplTest : BaseTest() {
         val result = sut.sync()
 
         assertTrue(!result)
+    }
+
+    @Test
+    fun `test movies returns paging data from local source`() = runUnconfinedTest {
+        val movieDbData = MovieDbData(1, "Description", "Image", "BackgroundUrl", "Title", "Category")
+        val fakePagingSource = FakePagingSource(listOf(movieDbData))
+        whenever(local.movies()).thenReturn(fakePagingSource)
+
+        val items = sut.movies(10).asSnapshot()
+
+        assertEquals(1, items.size)
+        assertEquals(movieDbData.toDomain(), items[0])
+    }
+
+    @Test
+    fun `test favoriteMovies returns paging data from local favorite source`() = runUnconfinedTest {
+        val movieDbData = MovieDbData(1, "Description", "Image", "BackgroundUrl", "Title", "Category")
+        val fakePagingSource = FakePagingSource(listOf(movieDbData))
+        whenever(localFavorite.favoriteMovies()).thenReturn(fakePagingSource)
+
+        val items = sut.favoriteMovies(10).asSnapshot()
+
+        assertEquals(1, items.size)
+        assertEquals(movieDbData.toDomain(), items[0])
+    }
+
+    @Test
+    fun `test search returns paging data from remote source`() = runUnconfinedTest {
+        val movieData = MovieData(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        whenever(remote.search(any(), any(), any()))
+            .thenReturn(Result.Success(listOf(movieData)))
+            .thenReturn(Result.Success(emptyList()))
+
+        val items = sut.search("Title", 10).asSnapshot()
+
+        assertEquals(1, items.size)
+        assertEquals(movieData.toDomain(), items[0])
+    }
+
+    private class FakePagingSource(private val data: List<MovieDbData>) : PagingSource<Int, MovieDbData>() {
+        override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDbData> {
+            return LoadResult.Page(data = data, prevKey = null, nextKey = null)
+        }
+
+        override fun getRefreshKey(state: PagingState<Int, MovieDbData>): Int? = null
     }
 }

@@ -44,6 +44,19 @@ class FavoritesViewModelTest : BaseTest() {
     }
 
     @Test
+    fun `test movies flow emits paging data`() = runUnconfinedTest {
+        val movie = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        whenever(getFavoriteMovies.invoke(anyInt())).thenReturn(flowOf(PagingData.from(listOf(movie))))
+        val vm = FavoritesViewModel(getFavoriteMovies)
+
+        vm.movies.test {
+            val pagingData = awaitItem()
+            assertThat(pagingData).isNotNull()
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
     fun `test navigation to movie details`() = runUnconfinedTest {
         val movieId = 1
 

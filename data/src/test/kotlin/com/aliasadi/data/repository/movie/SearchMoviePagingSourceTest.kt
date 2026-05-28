@@ -126,4 +126,23 @@ class SearchMoviePagingSourceTest : BaseTest() {
         val result = sut.getRefreshKey(state)
         assertEquals(null, result)
     }
+
+    @Test
+    fun `test getRefreshKey returns null when closestPageToPosition is null`() {
+        val state = PagingState<Int, MovieData>(
+            pages = listOf(
+                PagingSource.LoadResult.Page(
+                    data = emptyList(),
+                    prevKey = null,
+                    nextKey = 2
+                )
+            ),
+            anchorPosition = 0,
+            config = PagingConfig(pageSize = 10),
+            leadingPlaceholderCount = 0
+        )
+
+        val result = sut.getRefreshKey(state)
+        assertNull(result)
+    }
 }

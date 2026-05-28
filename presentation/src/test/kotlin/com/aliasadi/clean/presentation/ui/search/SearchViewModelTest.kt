@@ -122,6 +122,20 @@ class SearchViewModelTest : BaseTest() {
     }
 
     @Test
+    fun `test movies flow emits paging data on search`() = runUnconfinedTest {
+        val movie = MovieEntity(1, "Title", "Description", "Image", "Category", "BackgroundUrl")
+        whenever(searchMovies.invoke(anyString(), anyInt())).thenReturn(flowOf(PagingData.from(listOf(movie))))
+        val vm = SearchViewModel(searchMovies, savedStateHandle)
+        queryFlow.emit("Batman")
+
+        vm.movies.test {
+            val pagingData = awaitItem()
+            assertThat(pagingData).isNotNull()
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
     fun `test on empty query search`() = runUnconfinedTest {
         val emptyQuery = ""
         queryFlow.emit(emptyQuery)
@@ -129,6 +143,17 @@ class SearchViewModelTest : BaseTest() {
         sut.uiState.test {
             val emission = awaitItem()
             assertThat(emission).isEqualTo(SearchUiState())
+        }
+    }
+
+    @Test
+    fun `test movies flow filters empty queries`() = runUnconfinedTest {
+        sut.movies.test {
+            // Initial "" from StateFlow is filtered out by filter { it.isNotEmpty() }
+            queryFlow.emit("Batman")
+            val item = awaitItem()
+            assertThat(item).isNotNull()
+            cancelAndIgnoreRemainingEvents()
         }
     }
 

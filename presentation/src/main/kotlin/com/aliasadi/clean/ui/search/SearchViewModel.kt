@@ -42,7 +42,7 @@ class SearchViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     var movies: Flow<PagingData<MovieListItem>> = savedStateHandle.getStateFlow(KEY_SEARCH_QUERY, "")
-        .debounce(if (_uiState.value.showDefaultState) 0 else 500)
+        .debounce { query -> if (query.isEmpty()) 0L else DEBOUNCE_DURATION_MS }
         .onEach { query ->
             _uiState.value = if (query.isNotEmpty()) SearchUiState(showDefaultState = false, showLoading = true) else SearchUiState()
         }
@@ -83,5 +83,6 @@ class SearchViewModel @Inject constructor(
 
     companion object {
         const val KEY_SEARCH_QUERY = "search_query"
+        private const val DEBOUNCE_DURATION_MS = 500L
     }
 }
