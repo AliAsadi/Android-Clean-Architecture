@@ -25,7 +25,6 @@ In addition, the project:
 # Unit Test Coverage
 
 The app is unit-tested and uses Kover to generate detailed coverage reports.
-<img width="1509" height="351" alt="image" src="" />
 
 ![image](https://github.com/user-attachments/assets/97ae79af-c615-4832-83a5-ee42c0b3ccc7)
 
