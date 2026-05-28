@@ -37,7 +37,7 @@ serializationGradlePlugin = "2.3.21"
 composeCompilerGradlePlugin = "2.3.21"
 jdk = "21"
 compileSdk = "37"
-minSdk = "24"
+minSdk = "26"
 
 [libraries]
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
