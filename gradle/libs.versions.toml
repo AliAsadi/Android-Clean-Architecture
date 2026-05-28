@@ -22,12 +22,12 @@ mockitoInline = "5.2.0"
 mockitoKotlin = "6.0.0"
 navigationCompose = "2.9.5"
 okhttp = "5.1.0"
-pagingCommonKtx = "3.3.6"
-pagingCompose = "3.3.6"
+pagingCommonKtx = "3.5.0"
+pagingCompose = "3.5.0"
 retrofit = "3.0.0"
-roomKtx = "2.8.1"
-roomPaging = "2.8.1"
-roomRuntime = "2.8.1"
+roomKtx = "2.8.4"
+roomPaging = "2.8.4"
+roomRuntime = "2.8.4"
 truth = "1.4.5"
 turbine = "1.2.1"
 workRuntimeKtx = "2.10.5"
@@ -61,6 +61,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 # Paging
 paging-common-ktx = { module = "androidx.paging:paging-common-ktx", version.ref = "pagingCommonKtx" }
 paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
+paging-testing = { module = "androidx.paging:paging-testing", version.ref = "pagingCommonKtx" }
 
 # Hilt
 hilt-dagger-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltDagger" }
