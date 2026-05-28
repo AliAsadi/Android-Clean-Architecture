@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -64,24 +65,26 @@ class MainActivity : ComponentActivity() {
             }
 
             AppTheme(darkMode) {
-                Column(modifier = Modifier.statusBarsPadding()) {
-                    val networkStatus by networkMonitor.networkState.collectAsState(null)
+                Surface {
+                    Column(modifier = Modifier.statusBarsPadding()) {
+                        val networkStatus by networkMonitor.networkState.collectAsState(null)
 
-                    networkStatus?.let {
-                        if (it.isOnline.not()) {
-                            NoInternetConnectionBanner()
+                        networkStatus?.let {
+                            if (it.isOnline.not()) {
+                                NoInternetConnectionBanner()
+                            }
                         }
+
+                        MainGraph(
+                            mainNavController = navController,
+                            darkMode = darkMode,
+                            onThemeUpdated = {
+                                val updated = !darkMode
+                                enableDarkMode(updated)
+                                darkMode = updated
+                            }
+                        )
                     }
-
-                    MainGraph(
-                        mainNavController = navController,
-                        darkMode = darkMode,
-                        onThemeUpdated = {
-                            val updated = !darkMode
-                            enableDarkMode(updated)
-                            darkMode = updated
-                        }
-                    )
                 }
             }
         }
