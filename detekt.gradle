@@ -6,11 +6,12 @@ detekt {
     ignoredFlavors = ["mock"]
     parallel = true
     dependencies {
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
     }
 }
 
 tasks.register('detektTask') {
-    dependsOn 'detektMain', 'detektTest'
-    description = "Runs detekt analysis on the main source set"
+    description = "Runs detekt analysis on the main and test source sets"
+    // TODO: Upgrade to detekt 2.x stable when released (2.0.0-alpha.3 has AGP 9 support but formatting plugin isn't published yet)
+    dependsOn 'detekt'
 }
