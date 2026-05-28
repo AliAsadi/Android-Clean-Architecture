@@ -1,7 +1,6 @@
 package com.aliasadi.clean.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -39,21 +38,13 @@ private val lightColors = lightColorScheme(
     surface = Color.White
 )
 
-lateinit var colors: ColorScheme
-
 @Composable
 fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    colors = if (darkTheme) {
-        darkColors
-    } else {
-        lightColors
-    }
-
     MaterialTheme(
-        colorScheme = colors,
+        colorScheme = if (darkTheme) darkColors else lightColors,
         content = content
     )
 }

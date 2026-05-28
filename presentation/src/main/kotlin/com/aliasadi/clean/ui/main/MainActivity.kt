@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 
     private fun isDarkModeEnabled() = appSettings.getBoolean(DARK_MODE, false)
 
-    private fun enableDarkMode(enable: Boolean) = appSettings.edit().putBoolean(DARK_MODE, enable).commit()
+    private fun enableDarkMode(enable: Boolean) = appSettings.edit().putBoolean(DARK_MODE, enable).apply()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
                     statusBarStyle = if (darkMode) {
                         SystemBarStyle.dark(android.graphics.Color.BLACK)
                     } else {
-                        SystemBarStyle.light(android.graphics.Color.WHITE, android.graphics.Color.WHITE)
+                        SystemBarStyle.light(android.graphics.Color.TRANSPARENT, android.graphics.Color.BLACK)
                     }
                 )
             }

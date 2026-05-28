@@ -42,7 +42,6 @@ import coil.request.ImageRequest
 import coil.size.Scale
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
-import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.ImageSize
 import com.aliasadi.clean.util.preview.PreviewContainer
 import com.aliasadi.clean.util.toPX
@@ -57,7 +56,7 @@ fun MovieList(
 ) {
     val imageSize = ImageSize.getImageFixedSize()
     LazyVerticalGrid(
-        modifier = Modifier.background(colors.background),
+        modifier = Modifier.background(MaterialTheme.colorScheme.background),
         columns = GridCells.Fixed(config.gridSpanSize),
         state = lazyGridState
     ) {

@@ -13,6 +13,7 @@ import androidx.compose.material.icons.outlined.DarkMode
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -23,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,7 +44,7 @@ fun TopBar(
                     text = title,
                     fontSize = fontSize,
                     fontFamily = fontFamily,
-                    color = colors.primaryContainer,
+                    color = MaterialTheme.colorScheme.primaryContainer,
                     fontWeight = fontWeight
                 )
             },

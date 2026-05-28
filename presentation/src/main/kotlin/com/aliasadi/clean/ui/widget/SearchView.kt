@@ -11,6 +11,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -28,7 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import com.aliasadi.clean.ui.theme.colors
 import com.aliasadi.clean.util.preview.PreviewContainer
 
 @Composable
@@ -78,10 +78,10 @@ fun SearchView(
             singleLine = true,
             maxLines = 1,
             colors = TextFieldDefaults.colors(
-                cursorColor = colors.onPrimary,
+                cursorColor = MaterialTheme.colorScheme.onPrimary,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                selectionColors = TextSelectionColors(colors.onPrimary, colors.primaryContainer),
+                selectionColors = TextSelectionColors(MaterialTheme.colorScheme.onPrimary, MaterialTheme.colorScheme.primaryContainer),
             )
 
         )
