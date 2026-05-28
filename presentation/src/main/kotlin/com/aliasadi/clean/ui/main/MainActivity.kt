@@ -7,12 +7,14 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.aliasadi.clean.di.AppSettingsSharedPreference
 import com.aliasadi.clean.ui.theme.AppTheme
@@ -62,7 +64,7 @@ class MainActivity : ComponentActivity() {
             }
 
             AppTheme(darkMode) {
-                Column {
+                Column(modifier = Modifier.statusBarsPadding()) {
                     val networkStatus by networkMonitor.networkState.collectAsState(null)
 
                     networkStatus?.let {
