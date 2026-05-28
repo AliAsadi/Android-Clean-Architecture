@@ -13,6 +13,9 @@ def exclude = [
         "com.aliasadi.data.db.*",
         "com.aliasadi.data.util.*",
 
+        // Mocks
+        "*Mock*",
+
         // DI
         "*Hilt_*", "*_Hilt*",
         "*_Factory*", "*_*Factory", "*_GeneratedInjector", "*_HiltComponents*",
