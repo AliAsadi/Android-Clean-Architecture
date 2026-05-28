@@ -3,8 +3,11 @@ package com.aliasadi.clean.ui.main
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -41,11 +44,22 @@ class MainActivity : ComponentActivity() {
     private fun enableDarkMode(enable: Boolean) = appSettings.edit().putBoolean(DARK_MODE, enable).commit()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
         setContent {
             val navController = rememberNavController()
             var darkMode by remember { mutableStateOf(isDarkModeEnabled()) }
+
+            LaunchedEffect(darkMode) {
+                enableEdgeToEdge(
+                    statusBarStyle = if (darkMode) {
+                        SystemBarStyle.dark(android.graphics.Color.BLACK)
+                    } else {
+                        SystemBarStyle.light(android.graphics.Color.WHITE, android.graphics.Color.WHITE)
+                    }
+                )
+            }
 
             AppTheme(darkMode) {
                 Column {

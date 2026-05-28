@@ -104,7 +104,6 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation(libs.compose.ui.test.manifest)
     implementation(libs.lifecycle.viewmodel.compose)
-    implementation(libs.accompanist.systemuicontroller)
 
     // Coil
     implementation(libs.coil.compose)

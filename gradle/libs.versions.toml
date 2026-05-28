@@ -1,5 +1,4 @@
 [versions]
-accompanistSystemuicontroller = "0.36.0"
 appcompat = "1.7.1"
 coilCompose = "2.7.0"
 composeBom = "2025.09.01"
@@ -42,7 +41,6 @@ compileSdk = "36"
 minSdk = "24"
 
 [libraries]
-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 compose-animation = { module = "androidx.compose.animation:animation" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }

@@ -7,7 +7,6 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 /**
  * @author by Ali Asadi on 16/04/2023
@@ -47,15 +46,11 @@ fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val systemUiController = rememberSystemUiController()
-
     colors = if (darkTheme) {
         darkColors
     } else {
         lightColors
     }
-
-    systemUiController.setStatusBarColor(color = colors.primary)
 
     MaterialTheme(
         colorScheme = colors,
