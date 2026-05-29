@@ -29,7 +29,6 @@ class DatabaseModule {
     ): MovieDatabase {
         return Room
             .databaseBuilder(context, MovieDatabase::class.java, "movie.db")
-            .setQueryExecutor(diskExecutor)
             .setTransactionExecutor(diskExecutor)
             .build()
     }
