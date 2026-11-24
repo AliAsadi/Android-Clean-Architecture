@@ -1,17 +1,26 @@
-apply plugin: "io.gitlab.arturbosch.detekt"
+apply plugin: "dev.detekt"
+
+def libs = rootProject.extensions.getByType(VersionCatalogsExtension).named("libs")
 
 detekt {
-    config = files("$rootDir/config/detekt/detekt.yml")
+    config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
     ignoredBuildTypes = ["release"]
     ignoredFlavors = ["mock"]
     parallel = true
-    dependencies {
-        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.8")
-    }
+}
+
+dependencies {
+    detektPlugins(libs.findLibrary("detekt-rules-ktlint-wrapper").get())
+}
+
+// Detekt 2 runs rules that need type resolution only in the variant tasks, so `detekt` (and `check`) delegate to them.
+tasks.named("detekt") {
+    setSource(files())
+    dependsOn("detektMain", "detektTest")
 }
 
 tasks.register('detektTask') {
     description = "Runs detekt analysis on the main and test source sets"
-    // TODO: Upgrade to detekt 2.x stable when released (2.0.0-alpha.3 has AGP 9 support but formatting plugin isn't published yet)
-    dependsOn 'detekt'
+    // TODO: Move to a stable detekt 2.x release once one is published.
+    dependsOn 'detektMain', 'detektTest'
 }

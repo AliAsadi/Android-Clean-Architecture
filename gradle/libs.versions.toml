@@ -30,7 +30,7 @@ roomRuntime = "2.8.5"
 truth = "1.4.5"
 turbine = "1.2.1"
 workRuntimeKtx = "2.12.0"
-detekt = "1.23.8"
+detekt = "2.0.0-alpha.6"
 ksp = "2.3.14"
 kover = "0.9.11"
 kotlin = "2.4.21"
@@ -92,6 +92,9 @@ compose-material-icons-extended = { module = "androidx.compose.material:material
 compose-material3 = { module = "androidx.compose.material3:material3" }
 navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
+# Detekt
+detekt-rules-ktlint-wrapper = { module = "dev.detekt:detekt-rules-ktlint-wrapper", version.ref = "detekt" }
+
 # UniTest
 junit-junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
@@ -106,7 +109,7 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 android-application = { id = "com.android.application", version.ref = "androidAppGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidLibraryGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+detekt = { id = "dev.detekt", version.ref = "detekt" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hiltGradlePlugin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }

@@ -5,6 +5,6 @@ data class FeedUiState(
     val errorMessage: String? = null,
 )
 
-sealed class FeedNavigationState {
-    data class MovieDetails(val movieId: Int) : FeedNavigationState()
+sealed interface FeedNavigationState {
+    data class MovieDetails(val movieId: Int) : FeedNavigationState
 }

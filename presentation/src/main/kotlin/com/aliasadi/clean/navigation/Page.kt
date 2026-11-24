@@ -2,26 +2,26 @@ package com.aliasadi.clean.navigation
 
 import kotlinx.serialization.Serializable
 
-sealed class Page {
+sealed interface Page {
     @Serializable
-    data object NavigationBar : Page()
+    data object NavigationBar : Page
 
     @Serializable
-    data object Feed : Page()
+    data object Feed : Page
 
     @Serializable
-    data object Favorites : Page()
+    data object Favorites : Page
 
     @Serializable
-    data object Search : Page()
+    data object Search : Page
 
     @Serializable
-    data class MovieDetails(val movieId: Int) : Page()
+    data class MovieDetails(val movieId: Int) : Page
 }
 
-sealed class Graph {
+sealed interface Graph {
     @Serializable
-    data object Main : Graph()
+    data object Main : Graph
 }
 
 fun Page.route(): String? {

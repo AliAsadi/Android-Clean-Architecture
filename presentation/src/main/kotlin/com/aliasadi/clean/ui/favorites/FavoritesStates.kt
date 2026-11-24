@@ -5,6 +5,6 @@ data class FavoriteUiState(
     val noDataAvailable: Boolean = false
 )
 
-sealed class FavoritesNavigationState {
-    data class MovieDetails(val movieId: Int) : FavoritesNavigationState()
+sealed interface FavoritesNavigationState {
+    data class MovieDetails(val movieId: Int) : FavoritesNavigationState
 }
