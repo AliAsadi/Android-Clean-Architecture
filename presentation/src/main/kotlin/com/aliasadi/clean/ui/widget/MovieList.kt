@@ -37,9 +37,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import coil.compose.SubcomposeAsyncImage
-import coil.request.ImageRequest
-import coil.size.Scale
+import coil3.compose.SubcomposeAsyncImage
+import coil3.request.ImageRequest
+import coil3.size.Scale
 import com.aliasadi.clean.R
 import com.aliasadi.clean.entities.MovieListItem
 import com.aliasadi.clean.util.ImageSize

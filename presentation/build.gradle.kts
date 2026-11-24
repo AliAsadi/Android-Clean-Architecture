@@ -8,6 +8,7 @@ plugins {
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdkMinor = libs.versions.compileSdkMinor.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
@@ -106,6 +107,8 @@ dependencies {
 
     // Coil
     implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.network.cache.control)
 
     // Navigation
     implementation(libs.navigation.compose)
